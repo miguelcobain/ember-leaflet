@@ -1,10 +1,20 @@
 import Ember from 'ember';
-import layout from '../templates/components/leaflet-map';
+import BaseLayer from './base-layer';
 
-export default Ember.Component.extend({
-  layout: layout,
+export default BaseLayer.extend({
 
+  center: Ember.computed.collect('lat', 'lng'),
+
+  //override because the base map needs to be rendered
+  //before everything else and not on afterRender
   didInsertElement() {
-    L.map(this.element);
+    this._layer = this.createLayer();
+  },
+
+  createLayer() {
+    return this.L.map(this.element, {
+      center: this.get('center'),
+      zoom: this.get('zoom')
+    });
   }
 });
