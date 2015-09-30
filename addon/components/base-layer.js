@@ -11,9 +11,7 @@ export default Ember.Component.extend({
 
   didInsertElement() {
     Ember.run.scheduleOnce('afterRender', this, function() {
-      if (!this._layer) {
-        this._layer = this.createLayer();
-      }
+      this._layer = this.createLayer();
       if (this.get('containerLayer')) {
         this.get('containerLayer')._layer.addLayer(this._layer);
       }
