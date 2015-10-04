@@ -3,7 +3,12 @@
 {{#leaflet-map lat=51.505 lng=-0.09 zoom=13}}
   {{tile-layer url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"}}
 
-  {{marker-layer lat=51.505 lng=-0.09}}
+  {{#if showMarkers}}
+    {{marker-layer lat=51.505 lng=lng1 isDraggable=true}}
+  {{/if}}
   {{!--{{marker-layer latLng=latLng2}}
   {{marker-layer latLng=latLng3}}--}}
 {{/leaflet-map}}
+
+<p>Show markers {{input type="checkbox" checked=showMarkers}}</p>
+{{input value=lng1}}

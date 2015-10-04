@@ -1,42 +1,33 @@
 import Ember from 'ember';
 import BaseLayer from './base-layer';
+import DraggabilityMixin from 'ember-leaflet/mixins/draggability';
 
-export default BaseLayer.extend({
+export default BaseLayer.extend(DraggabilityMixin, {
   tagName: '',
 
-  location: Ember.computed.collect('lat', 'lng'),
+  leafletEvents: ['click', 'dblclick', 'mousedown', 'mouseover', 'mouseout',
+    'contextmenu', 'dragstart', 'drag', 'dragend', 'move', 'remove',
+    'popupopen', 'popupclose'],
 
-  createLayer() {
-    return this.L.marker(this.get('location'));
-  },
+  leafletProperties: [
+    'icon', 'zIndexOffset', 'opacity', 'latLng'
+  ],
 
-  _updateLayerOnLocationChange: Ember.observer('location', function() {
-    console.log('updating location from ' + this.toString() + '...');
-    let location = this.get('location');
-    this._layer.setLatLng(location);
-  })
-
-  /*latLng: Ember.computed({
-    get(key) {
-      console.log('getting ' + key + ' from ' + this.toString() + '...');
-      let getterName = 'get' + Ember.String.classify(key);
-      Ember.assert(
-        this.constructor + ' must have a ' + getterName + ' getter function.',
-        !!this._layer && !!this._layer[getterName]);
-      let value = this._layer[getterName].call(this._layer);
-      return value;
+  latLng: Ember.computed('lat', 'lng', {
+    get() {
+      let [lat, lng] = [this.get('lat'), this.get('lng')];
+      return this.L.latLng(lat, lng);
     },
     set(key, value) {
-      console.log('setting ' + key + ' from ' + this.toString() + '...');
-      if (!this._layer) {
-        this._layer = this.createLayer();
-      }
-      let setterName = 'set' + Ember.String.classify(key);
-      Ember.assert(
-        this.constructor + ' must have a ' + setterName + ' setter function.',
-        !!this._layer && !!this._layer[setterName]);
-      this._layer[setterName].call(this._layer, value);
+      this.setProperties({
+        lat: value.lat,
+        lng: value.lng
+      });
       return value;
     }
-  })*/
+  }),
+
+  createLayer() {
+    return this.L.marker(this.get('latLng'));
+  }
 });
