@@ -4,11 +4,17 @@
   {{tile-layer url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"}}
 
   {{#if showMarkers}}
-    {{marker-layer lat=51.505 lng=lng1 isDraggable=true}}
+    {{#each model as |marker|}}
+      {{#marker-layer lat=marker.lat lng=marker.lng draggable=true}}
+        {{marker.name}}
+      {{/marker-layer}}
+    {{/each}}
   {{/if}}
-  {{!--{{marker-layer latLng=latLng2}}
-  {{marker-layer latLng=latLng3}}--}}
 {{/leaflet-map}}
 
 <p>Show markers {{input type="checkbox" checked=showMarkers}}</p>
-{{input value=lng1}}
+<ul>
+{{#each model as |marker|}}
+  <li>{{marker.name}} - {{input value=marker.lat}} {{input value=marker.lng}}</li>
+{{/each}}
+</ul>

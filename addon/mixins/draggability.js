@@ -2,16 +2,17 @@ import Ember from 'ember';
 
 export default Ember.Mixin.create({
   isDragging: false,
-  isDraggable: true,
 
   dragstart() {
+    if (this.get('onDragStart')) { this.get('onDragStart')(); }
     this.set('isDragging', true);
   },
 
   dragend() {
-    this.setProperties({
+    if (this.get('onDragEnd')) { this.get('onDragEnd')(this._layer.getLatLng()) }
+    /*this.setProperties({
       location: this._layer.getLatLng(),
       isDragging: false
-    });
+    });*/
   }
 });

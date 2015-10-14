@@ -2,6 +2,7 @@ import Ember from 'ember';
 import BaseLayer from './base-layer';
 
 export default BaseLayer.extend({
+  tagName: 'div',
 
   // Events this map can respond to.
   leafletEvents: [
