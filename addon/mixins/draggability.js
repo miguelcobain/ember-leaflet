@@ -9,7 +9,7 @@ export default Ember.Mixin.create({
   },
 
   dragend() {
-    if (this.get('onDragEnd')) { this.get('onDragEnd')(this._layer.getLatLng()) }
+    if (this.get('onDragEnd')) { this.get('onDragEnd')(this._layer.getLatLng()); }
     /*this.setProperties({
       location: this._layer.getLatLng(),
       isDragging: false

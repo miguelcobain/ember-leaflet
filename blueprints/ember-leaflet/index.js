@@ -1,5 +1,5 @@
 module.exports = {
-  description: 'add leaflet bower package'
+  description: 'add leaflet bower package',
 
   // locals: function(options) {
   //   // Return custom template variables here.

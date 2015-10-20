@@ -4,6 +4,10 @@ import BaseLayer from './base-layer';
 export default BaseLayer.extend({
   tagName: 'div',
 
+  leafletOptions: [
+    'center', 'zoom', 'animate'
+  ],
+
   // Events this map can respond to.
   leafletEvents: [
     'click', 'dblclick', 'mousedown', 'mouseup', 'mouseover', 'mouseout',
@@ -16,7 +20,7 @@ export default BaseLayer.extend({
   ],
 
   leafletProperties: [
-    'zoom'
+    'zoom', 'center'
   ],
 
   center: Ember.computed('lat', 'lng', {
@@ -42,10 +46,7 @@ export default BaseLayer.extend({
   },
 
   createLayer() {
-    return this.L.map(this.element, {
-      center: this.get('center'),
-      zoom: this.get('zoom')
-    });
+    return this.L.map(this.element, this.get('options'));
   },
 
   /**
