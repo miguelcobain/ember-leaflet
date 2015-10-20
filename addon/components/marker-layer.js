@@ -23,7 +23,7 @@ export default BaseLayer.extend(DraggabilityMixin, PopupMixin, {
   ],
 
   leafletProperties: [
-    'icon', 'zIndexOffset', 'opacity', 'location:latLng'
+    'icon', 'zIndexOffset', 'opacity', 'location:setLatLng'
   ],
 
   location: Ember.computed('lat', 'lng', {

@@ -69,50 +69,63 @@ test('lat/lng and zoom are set on map', function(assert) {
   assert.equal(component._layer.getZoom(), 4);
 });
 
-test('center and zoom changes propagate to the map', function(assert) {
+test('zoom changes propagate to the map', function(assert) {
   var component = this.subject({
     center: locations.nyc,
-    zoom: 4,
-    inertia: false
+    zoom: 4
+  });
+  this.render();
+
+  //pre-conditions
+  assert.equal(component._layer.getZoom(), 4);
+
+  run(function() {
+    component.setProperties({
+      zoom: 10
+    });
+  });
+
+  assert.equal(component._layer.getZoom(), 10);
+});
+
+test('center changes propagate to the map', function(assert) {
+  assert.expect(2);
+
+  var component = this.subject({
+    center: locations.nyc,
+    zoom: 18
   });
   this.render();
 
   //pre-conditions
   assert.locationsEqual(component._layer.getCenter(), locations.nyc);
-  assert.equal(component._layer.getZoom(), 4);
 
   run(function() {
     component.setProperties({
-      center: locations.chicago,
-      zoom: 4
+      center: locations.chicago
     });
   });
 
   assert.locationsEqual(component._layer.getCenter(), locations.chicago);
-  assert.equal(component._layer.getZoom(), 4);
 });
 
 test('lat/lng and zoom changes propagate to the map', function(assert) {
   var component = this.subject({
     lat: locations.nyc.lat,
     lng: locations.nyc.lng,
-    zoom: 4,
-    inertia: false
+    zoom: 18
   });
   this.render();
 
   //pre-conditions
   assert.locationsEqual(component._layer.getCenter(), locations.nyc);
-  assert.equal(component._layer.getZoom(), 4);
 
   run(function() {
     component.setProperties({
       lat: locations.chicago.lat,
-      lng: locations.chicago.lng,
-      zoom: 4
+      lng: locations.chicago.lng
     });
   });
 
   assert.locationsEqual(component._layer.getCenter(), locations.chicago);
-  assert.equal(component._layer.getZoom(), 4);
 });

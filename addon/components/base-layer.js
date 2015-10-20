@@ -1,8 +1,9 @@
 import Ember from 'ember';
-import ContainerLayer from './leaflet-map';
+import ContainerLayer from 'ember-leaflet/components/leaflet-map';
+import ActionCallerMixin from 'ember-leaflet/mixins/action-caller';
 /* global L */
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(ActionCallerMixin, {
   tagName: '',
   L,
 
@@ -67,23 +68,27 @@ export default Ember.Component.extend({
   _addEventListeners() {
     this._eventHandlers = {};
     this.get('leafletEvents').forEach(function(eventName) {
-      if(typeof this[eventName] === 'function') {
-        // create an event handler that runs the function inside an event loop.
-        this._eventHandlers[eventName] = function(e) {
+
+      let actionName = 'on' + Ember.String.classify(eventName);
+      // create an event handler that runs the function inside an event loop.
+      this._eventHandlers[eventName] = function(e) {
+        //try to invoke/send an action for this event
+        this.tryToInvokeAction(actionName, e);
+        //allow classes to add custom logic on events as well
+        if(typeof this[eventName] === 'function') {
           Ember.run(this, this[eventName], e);
-        };
-        this._layer.addEventListener(eventName, this._eventHandlers[eventName], this);
-      }
+        }
+      };
+
+      this._layer.addEventListener(eventName, this._eventHandlers[eventName], this);
     }, this);
   },
 
   _removeEventListeners() {
     this.get('leafletEvents').forEach(function(eventName) {
-      if(typeof this[eventName] === 'function') {
-        this._layer.removeEventListener(eventName,
-          this._eventHandlers[eventName], this);
-        delete this._eventHandlers[eventName];
-      }
+      this._layer.removeEventListener(eventName,
+        this._eventHandlers[eventName], this);
+      delete this._eventHandlers[eventName];
     }, this);
   },
 
@@ -98,9 +103,9 @@ export default Ember.Component.extend({
 
       this._observers[property] = function() {
         let value = this.get(property);
-        let setterName = 'set' + Ember.String.classify(leafletProperty);
-        Ember.assert(this.constructor + ' must have a ' + setterName + ' function.', !!this._layer[setterName]);
-        this._layer[setterName].call(this._layer, value);
+        //let setterName = 'set' + Ember.String.classify(leafletProperty);
+        Ember.assert(this.constructor + ' must have a ' + leafletProperty + ' function.', !!this._layer[leafletProperty]);
+        this._layer[leafletProperty].call(this._layer, value);
       };
 
       this.addObserver(property, this, this._observers[property]);

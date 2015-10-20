@@ -20,7 +20,7 @@ export default BaseLayer.extend({
   ],
 
   leafletProperties: [
-    'zoom', 'center'
+    'zoom:setZoom', 'center:panTo'
   ],
 
   center: Ember.computed('lat', 'lng', {
@@ -50,7 +50,7 @@ export default BaseLayer.extend({
   },
 
   /**
-   * Leaflet events. Used to sync properties with emberland.
+   * Leaflet events.
    */
   zoomstart() {
     this.set('isZooming', true);
@@ -65,17 +65,5 @@ export default BaseLayer.extend({
         this._layer.setZoom(this._queuedZoom); }
       this._queuedZoom = null;
     }
-  },
-
-  movestart() {
-    this.set('isMoving', true);
-  },
-
-  moveend() {
-    this.set('isMoving', false);
-  },
-
-  move() {
-    this.set('center', this._layer.getCenter());
   }
 });
