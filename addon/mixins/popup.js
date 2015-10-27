@@ -11,11 +11,12 @@ export default Ember.Mixin.create({
     this.openPopup(e);
   },
 
-  openPopup(e) {
-    let latLng = this._layer.getCenter ? this._layer.getCenter() : this._layer.getLatLng();
+  openPopup() {
+    /*let latLng = this._layer.getCenter ? this._layer.getCenter() : this._layer.getLatLng();
     this._popup
       .setLatLng((e && e.latlng) || latLng)
-      .openOn(this._layer._map);
+      .openOn(this._layer._map);*/
+    this._layer.openPopup();
     this.set('popupOpen', true);
   },
 
@@ -31,5 +32,11 @@ export default Ember.Mixin.create({
       this._destroyPopupContent();
       oldOnRemove.call(this._popup, map);
     };
+    this._layer.bindPopup(this._popup);
+  },
+
+  willDestroyLayer() {
+    // closing popup will call _destroyPopupContent
+    this._layer._map.closePopup();
   }
 });

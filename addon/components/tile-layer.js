@@ -17,11 +17,16 @@ export default BaseLayer.extend({
     'loading', 'load', 'tileloadstart', 'tileload', 'tileunload'
   ],
 
+  leafletProperties: [
+    'url', 'zIndex', 'opacity'
+  ],
+
   createLayer() {
     return this.L.tileLayer(...this.get('requiredOptions'), this.get('options'));
   },
 
   isLoading: false,
+
   loading() {
     this.set('isLoading', true);
   },

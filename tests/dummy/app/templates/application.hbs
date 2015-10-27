@@ -1,20 +1,36 @@
 <h2 id="title">Ember Leaflet</h2>
 
-{{#leaflet-map lat=51.505 lng=-0.09 zoom=13}}
-  {{tile-layer url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"}}
+{{#if showMap}}
 
-  {{#if showMarkers}}
-    {{#each model as |marker|}}
-      {{#marker-layer lat=marker.lat lng=marker.lng draggable=true}}
-        {{marker.name}}
-      {{/marker-layer}}
-    {{/each}}
-  {{/if}}
-{{/leaflet-map}}
+  {{#leaflet-map lat=51.505 lng=-0.09 zoom=13}}
+    {{tile-layer url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"}}
 
-<p>Show markers {{input type="checkbox" checked=showMarkers}}</p>
+    {{#if showRestaurants}}
+      {{#each restaurants as |r|}}
+        {{#marker-layer}}
+          {{r.name}}
+        {{/marker-layer}}
+      {{/each}}
+    {{/if}}
+
+    {{#if showTheaters}}
+      {{#each theaters as |t|}}
+        {{#marker-layer lat=t.lat lng=t.lng}}
+          {{t.name}}
+        {{/marker-layer}}
+      {{/each}}
+    {{/if}}
+
+  {{/leaflet-map}}
+
+{{/if}}
+{{!--<p>Show markers {{input type="checkbox" checked=showMarkers}}</p>
 <ul>
 {{#each model as |marker|}}
   <li>{{marker.name}} - {{input value=marker.lat}} {{input value=marker.lng}}</li>
 {{/each}}
-</ul>
+</ul>--}}
+
+<p><label>Show map {{input type="checkbox" checked=showMap}}</label></p>
+<p><label>Show restaurants {{input type="checkbox" checked=showRestaurants}}</label></p>
+<p><label>Show theaters {{input type="checkbox" checked=showTheaters}}</label></p>

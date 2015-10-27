@@ -1,7 +1,7 @@
-import Ember from 'ember';
-import BaseLayer from './base-layer';
+import ContainerLayer from 'ember-leaflet/components/container-layer';
+import toLatLng from 'ember-leaflet/macros/to-lat-lng';
 
-export default BaseLayer.extend({
+export default ContainerLayer.extend({
   tagName: 'div',
 
   leafletOptions: [
@@ -23,27 +23,32 @@ export default BaseLayer.extend({
     'zoom:setZoom', 'center:panTo'
   ],
 
-  center: Ember.computed('lat', 'lng', {
-    get() {
-      let [lat, lng] = [this.get('lat'), this.get('lng')];
-      return this.L.latLng(lat, lng);
-    },
-    set(key, value) {
-      this.setProperties({
-        lat: value.lat,
-        lng: value.lng
-      });
-      return value;
-    }
-  }),
+  center: toLatLng(),
 
-  //override because the base map needs to be rendered
-  //before everything else and not on afterRender
+  // Since no parent container layer is controling the rendering flow,
+  // we need to implement render hooks and call `layerSetup` and `layerTeardown` ourselves.
+  //
+  // This is the only case where it happens, because this is a real DOM element,
+  // and its rendering flow reverts back to Ember way.
+  containerLayer: null,
+
   didInsertElement() {
-    this._layer = this.createLayer();
-    this._addObservers();
-    this._addEventListeners();
+    this._super(...arguments);
+    this.layerSetup();
+    this.get('_childLayers').invoke('layerSetup');
   },
+
+  willDestroyElement() {
+    this._super(...arguments);
+    this.get('_childLayers').invoke('layerTeardown');
+    this.get('_childLayers').clear();
+    this.layerTeardown();
+  },
+
+  // By default all layers try to register in a container layer.
+  // It is not the case of the map itself as it is the topmost container.
+  registerWithParent() { },
+  unregisterWithParent() { },
 
   createLayer() {
     return this.L.map(this.element, this.get('options'));

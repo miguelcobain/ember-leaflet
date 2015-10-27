@@ -1,18 +1,22 @@
 import Ember from 'ember';
+const { observer } = Ember;
 
 export default Ember.Mixin.create({
   isDragging: false,
 
+  draggableDidChange: observer('draggable', function() {
+    if (this.get('draggable')) {
+      this._layer.dragging.enable();
+    } else {
+      this._layer.dragging.disable();
+    }
+  }),
+
   dragstart() {
-    if (this.get('onDragStart')) { this.get('onDragStart')(); }
     this.set('isDragging', true);
   },
 
   dragend() {
-    if (this.get('onDragEnd')) { this.get('onDragEnd')(this._layer.getLatLng()); }
-    /*this.setProperties({
-      location: this._layer.getLatLng(),
-      isDragging: false
-    });*/
+    this.set('isDragging', false);
   }
 });

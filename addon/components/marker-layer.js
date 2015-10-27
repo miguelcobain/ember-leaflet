@@ -1,8 +1,8 @@
-import Ember from 'ember';
-import BaseLayer from './base-layer';
+import BaseLayer from 'ember-leaflet/components/base-layer';
 import DraggabilityMixin from 'ember-leaflet/mixins/draggability';
 import PopupMixin from 'ember-leaflet/mixins/popup';
 import layout from '../templates/components/marker-layer';
+import toLatLng from 'ember-leaflet/macros/to-lat-lng';
 
 export default BaseLayer.extend(DraggabilityMixin, PopupMixin, {
   layout,
@@ -26,19 +26,7 @@ export default BaseLayer.extend(DraggabilityMixin, PopupMixin, {
     'icon', 'zIndexOffset', 'opacity', 'location:setLatLng'
   ],
 
-  location: Ember.computed('lat', 'lng', {
-    get() {
-      let [lat, lng] = [this.get('lat'), this.get('lng')];
-      return this.L.latLng(lat, lng);
-    },
-    set(key, value) {
-      this.setProperties({
-        lat: value.lat,
-        lng: value.lng
-      });
-      return value;
-    }
-  }),
+  location: toLatLng(),
 
   createLayer() {
     return this.L.marker(...this.get('requiredOptions'), this.get('options'));

@@ -1,20 +1,76 @@
 import Ember from 'ember';
-import ContainerLayer from 'ember-leaflet/components/leaflet-map';
+import ContainerLayer from 'ember-leaflet/components/container-layer';
 import ActionCallerMixin from 'ember-leaflet/mixins/action-caller';
+const { assert, computed, Component } = Ember;
 /* global L */
 
-export default Ember.Component.extend(ActionCallerMixin, {
+export default Component.extend(ActionCallerMixin, {
   tagName: '',
   L,
 
   concatenatedProperties: ['leafletOptions', 'leafletRequiredOptions', 'leafletEvents'],
 
-  containerLayer: Ember.computed(function() {
+  didInsertElement() {
+    this._super(...arguments);
+    this.registerWithParent();
+  },
+
+  willDestroyElement() {
+    this._super(...arguments);
+    this.unregisterWithParent();
+  },
+
+  containerLayer: computed(function() {
     return this.nearestOfType(ContainerLayer);
   }).readOnly(),
 
+  registerWithParent() {
+    let container = this.get('containerLayer');
+    assert(`Tried to use ${this} outside the context of a container layer.`, container);
+    container.registerChild(this);
+  },
+
+  unregisterWithParent() {
+    let container = this.get('containerLayer');
+    if (container) {
+      container.unregisterChild(this);
+    }
+  },
+
+  createLayer: Ember.K,
+  didCreateLayer: Ember.K,
+  willDestroyLayer: Ember.K,
+
+  /*
+   * Method called by parent when the layer needs to setup
+   */
+  layerSetup() {
+    Ember.Logger.info(`Creating ${this}.`);
+    this._layer = this.createLayer();
+    this.didCreateLayer();
+    this._addObservers();
+    this._addEventListeners();
+    if (this.get('containerLayer')) {
+      this.get('containerLayer')._layer.addLayer(this._layer);
+    }
+  },
+
+  /*
+   * Method called by parent when the layer needs to teardown
+   */
+  layerTeardown() {
+    Ember.Logger.info(`Destroying ${this}.`);
+    this.willDestroyLayer();
+    this._removeEventListeners();
+    this._removeObservers();
+    if (this.get('containerLayer')) {
+      this.get('containerLayer')._layer.removeLayer(this._layer);
+    }
+    this._layer = null;
+  },
+
   leafletOptions: [],
-  options: Ember.computed(function() {
+  options: computed(function() {
     let leafletOptions = this.get('leafletOptions');
     let options = {};
     leafletOptions.forEach(optionName => {
@@ -26,42 +82,15 @@ export default Ember.Component.extend(ActionCallerMixin, {
   }),
 
   leafletRequiredOptions: [],
-  requiredOptions: Ember.computed(function() {
+  requiredOptions: computed(function() {
     let leafletRequiredOptions = this.get('leafletRequiredOptions');
     let options = [];
     leafletRequiredOptions.forEach(optionName => {
-      if(this.get(optionName)) {
-        options.push(this.get(optionName));
-      }
+      assert(`\`${optionName}\` is a required option but its value was \`${this.get(optionName)}\``, this.get(optionName));
+      options.push(this.get(optionName));
     });
     return options;
   }),
-
-  createLayer: Ember.K,
-  didCreateLayer: Ember.K,
-  destroyLayer: Ember.K,
-
-  didInsertElement() {
-    Ember.run.scheduleOnce('afterRender', this, function() {
-      this._layer = this.createLayer();
-      this.didCreateLayer();
-      this._addObservers();
-      this._addEventListeners();
-      if (this.get('containerLayer')) {
-        this.get('containerLayer')._layer.addLayer(this._layer);
-      }
-    });
-  },
-
-  willDestroyElement() {
-    this._removeEventListeners();
-    this._removeObservers();
-    this.destroyLayer();
-    if (this.get('containerLayer')) {
-      this.get('containerLayer')._layer.removeLayer(this._layer);
-    }
-    this._layer = null;
-  },
 
   leafletEvents: [],
 
@@ -99,12 +128,11 @@ export default Ember.Component.extend(ActionCallerMixin, {
     this.get('leafletProperties').forEach(function(propExp) {
 
       let [property, leafletProperty] = propExp.split(':');
-      leafletProperty = leafletProperty ? leafletProperty : property;
+      if (!leafletProperty) { leafletProperty = 'set' + Ember.String.classify(property); }
 
       this._observers[property] = function() {
         let value = this.get(property);
-        //let setterName = 'set' + Ember.String.classify(leafletProperty);
-        Ember.assert(this.constructor + ' must have a ' + leafletProperty + ' function.', !!this._layer[leafletProperty]);
+        assert(this.constructor + ' must have a ' + leafletProperty + ' function.', !!this._layer[leafletProperty]);
         this._layer[leafletProperty].call(this._layer, value);
       };
 
