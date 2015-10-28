@@ -7,9 +7,17 @@
 
     {{#if showRestaurants}}
       {{#each restaurants as |r|}}
-        {{#marker-layer}}
-          {{r.name}}
+        {{#marker-layer lat=r.lat lng=r.lng draggable=true}}
+          <b>{{r.name}}</b><br>
+          {{r.description}}
         {{/marker-layer}}
+      {{/each}}
+
+      {{#each restaurants as |r|}}
+        {{#circle-layer lat=r.lat lng=r.lng radius=500}}
+          <b>{{r.name}}</b><br>
+          {{r.description}}
+        {{/circle-layer}}
       {{/each}}
     {{/if}}
 

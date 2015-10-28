@@ -1,42 +1,43 @@
 import Ember from 'ember';
+import layout from '../templates/popup';
+const { computed, run } = Ember;
 
 export default Ember.Mixin.create({
+  layout,
   popupOpen: false,
 
   _wormholeDestination: Ember.computed(function() {
-    return 'popup-' + this.elementId;
+    return `popup-${this.elementId}`;
   }),
 
-  click(e) {
-    this.openPopup(e);
-  },
+  setHasBlock: computed(function() {
+    this.set('hasBlock', true);
+  }),
 
-  openPopup() {
-    /*let latLng = this._layer.getCenter ? this._layer.getCenter() : this._layer.getLatLng();
-    this._popup
-      .setLatLng((e && e.latlng) || latLng)
-      .openOn(this._layer._map);*/
-    this._layer.openPopup();
+  popupopen() {
+    //add id to popup div. wormwhole will render there.
+    this._popup._contentNode.id = this.get('_wormholeDestination');
     this.set('popupOpen', true);
+    //run update method to correctly position the map
+    run.next(() => this._popup.update());
   },
 
-  _destroyPopupContent() {
+  popupclose() {
     this.set('popupOpen', false);
   },
 
   didCreateLayer() {
-    this._popup = this.L.popup({}, this._layer);
-    this._popup.setContent('<div id="' + this.get('_wormholeDestination') + '"></div>');
-    const oldOnRemove = this._popup.onRemove;
-    this._popup.onRemove = map => {
-      this._destroyPopupContent();
-      oldOnRemove.call(this._popup, map);
-    };
-    this._layer.bindPopup(this._popup);
+    if (this.get('hasBlock')) {
+      this._popup = this.L.popup({}, this._layer);
+      this._layer.bindPopup(this._popup);
+    }
   },
 
   willDestroyLayer() {
-    // closing popup will call _destroyPopupContent
-    this._layer._map.closePopup();
+    if (this.get('hasBlock')) {
+      // closing popup will call _destroyPopupContent
+      this._layer._map.closePopup();
+      delete this._popup;
+    }
   }
 });

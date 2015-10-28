@@ -37,7 +37,10 @@ export default Component.extend(ActionCallerMixin, {
     }
   },
 
-  createLayer: Ember.K,
+  createLayer() {
+    assert('BaseLayer\'s `createLayer` should be overriden.');
+  },
+
   didCreateLayer: Ember.K,
   willDestroyLayer: Ember.K,
 
