@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import ContainerLayer from 'ember-leaflet/components/container-layer';
+import ParentLayer from 'ember-leaflet/components/parent-layer';
 import ActionCallerMixin from 'ember-leaflet/mixins/action-caller';
 const { assert, computed, Component } = Ember;
 /* global L */
@@ -20,18 +20,18 @@ export default Component.extend(ActionCallerMixin, {
     this.unregisterWithParent();
   },
 
-  containerLayer: computed(function() {
-    return this.nearestOfType(ContainerLayer);
+  ParentLayer: computed(function() {
+    return this.nearestOfType(ParentLayer);
   }).readOnly(),
 
   registerWithParent() {
-    let container = this.get('containerLayer');
+    let container = this.get('ParentLayer');
     assert(`Tried to use ${this} outside the context of a container layer.`, container);
     container.registerChild(this);
   },
 
   unregisterWithParent() {
-    let container = this.get('containerLayer');
+    let container = this.get('ParentLayer');
     if (container) {
       container.unregisterChild(this);
     }
@@ -53,8 +53,8 @@ export default Component.extend(ActionCallerMixin, {
     this.didCreateLayer();
     this._addObservers();
     this._addEventListeners();
-    if (this.get('containerLayer')) {
-      this.get('containerLayer')._layer.addLayer(this._layer);
+    if (this.get('ParentLayer')) {
+      this.get('ParentLayer')._layer.addLayer(this._layer);
     }
   },
 
@@ -66,8 +66,8 @@ export default Component.extend(ActionCallerMixin, {
     this.willDestroyLayer();
     this._removeEventListeners();
     this._removeObservers();
-    if (this.get('containerLayer')) {
-      this.get('containerLayer')._layer.removeLayer(this._layer);
+    if (this.get('ParentLayer')) {
+      this.get('ParentLayer')._layer.removeLayer(this._layer);
     }
     this._layer = null;
   },

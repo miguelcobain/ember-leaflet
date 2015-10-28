@@ -1,7 +1,6 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import { assertionInjector, assertionCleanup } from '../../assertions';
-import LeafletMapComponent from 'ember-leaflet/components/leaflet-map';
 import MarkerLayerComponent from 'ember-leaflet/components/marker-layer';
 /* global L */
 
@@ -17,18 +16,12 @@ let locations = {
 //Needed to silence leaflet autodetection error
 L.Icon.Default.imagePath = 'some-path';
 
-let mapComponent, marker;
+let marker;
 
 moduleForComponent('marker-layer', 'Integration | Component | marker layer', {
   integration: true,
   beforeEach() {
     assertionInjector();
-    this.register('component:leaflet-map', LeafletMapComponent.extend({
-      init() {
-        this._super(...arguments);
-        mapComponent = this;
-      }
-    }));
 
     this.register('component:marker-layer', MarkerLayerComponent.extend({
       init() {

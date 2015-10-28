@@ -1,11 +1,24 @@
-import ContainerLayer from 'ember-leaflet/components/container-layer';
+import ParentLayer from 'ember-leaflet/components/parent-layer';
 import toLatLng from 'ember-leaflet/macros/to-lat-lng';
 
-export default ContainerLayer.extend({
+export default ParentLayer.extend({
   tagName: 'div',
 
   leafletOptions: [
-    'center', 'zoom', 'animate'
+    // Map state options
+    'center', 'zoom', 'minZoom', 'maxZoom', 'maxBounds', 'crs',
+    // Interaction options
+    'dragging', 'touchZoom', 'scrollWheelZoom', 'doubleClickZoom', 'boxZoom',
+    'tap', 'tapTolerance', 'trackResize', 'worldCopyJump', 'closePopupOnClick',
+    'bounceAtZoomLimits',
+    // Keyboard navigation options
+    'keyboard', 'keyboardPanOffset', 'keyboardZoomOffset',
+    // Panning Inertia Options
+    'inertia', 'inertiaDeceleration', 'inertiaMaxSpeed', 'inertiaThreshold',
+    // Control options
+    'zoomControl', 'attributionControl',
+    // Animation options
+    'fadeAnimation', 'zoomAnimation', 'zoomAnimationThreshold', 'markerZoomAnimation'
   ],
 
   // Events this map can respond to.
@@ -30,7 +43,7 @@ export default ContainerLayer.extend({
   //
   // This is the only case where it happens, because this is a real DOM element,
   // and its rendering flow reverts back to Ember way.
-  containerLayer: null,
+  ParentLayer: null,
 
   didInsertElement() {
     this._super(...arguments);

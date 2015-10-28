@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import BaseLayer from './base-layer';
+import BaseLayer from 'ember-leaflet/components/base-layer';
 const { A } = Ember;
 
 export default BaseLayer.extend({

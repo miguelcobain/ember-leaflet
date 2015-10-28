@@ -1,6 +1,5 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import LeafletMapComponent from 'ember-leaflet/components/leaflet-map';
 import TileLayerComponent from 'ember-leaflet/components/tile-layer';
 /* global L */
 
@@ -13,18 +12,11 @@ let locations = {
   newdelhi: L.latLng(28.635308, 77.22496)
 };
 
-let mapComponent, tile;
+let tile;
 
 moduleForComponent('tile-layer', 'Integration | Component | tile layer', {
   integration: true,
   beforeEach() {
-    this.register('component:leaflet-map', LeafletMapComponent.extend({
-      init() {
-        this._super(...arguments);
-        mapComponent = this;
-      }
-    }));
-
     this.register('component:tile-layer', TileLayerComponent.extend({
       init() {
         this._super(...arguments);
