@@ -1,8 +1,9 @@
 import Ember from 'ember';
 import BaseLayer from 'ember-leaflet/components/base-layer';
+import ParentMixin from 'ember-leaflet/mixins/parent';
 const { A } = Ember;
 
-export default BaseLayer.extend({
+export default BaseLayer.extend(ParentMixin, {
 
   _childLayers: null,
 

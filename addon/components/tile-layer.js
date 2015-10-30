@@ -1,4 +1,4 @@
-import BaseLayer from './base-layer';
+import BaseLayer from 'ember-leaflet/components/base-layer';
 
 export default BaseLayer.extend({
 

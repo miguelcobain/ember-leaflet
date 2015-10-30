@@ -2,16 +2,7 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import { assertionInjector, assertionCleanup } from '../../assertions';
 import CircleLayerComponent from 'ember-leaflet/components/circle-layer';
-/* global L */
-
-let locations = {
-  nyc: L.latLng(40.713282, -74.006978),
-  sf: L.latLng(37.77493, -122.419415),
-  chicago: L.latLng(41.878114, -87.629798),
-  paris: L.latLng(48.856614, 2.352222),
-  london: L.latLng(51.511214, -0.119824),
-  newdelhi: L.latLng(28.635308, 77.22496)
-};
+import locations from '../../helpers/locations';
 
 let circle;
 
@@ -48,10 +39,10 @@ test('update circle layer using leafletProperties', function(assert) {
   assert.locationsEqual(circle._layer.getLatLng(), locations.nyc);
   assert.equal(circle._layer.getRadius(), 25);
 
-  this.set('circleCenter', locations.chicago);
+  this.set('circleCenter', locations.london);
   this.set('radius', 14);
 
-  assert.locationsEqual(circle._layer.getLatLng(), locations.chicago);
+  assert.locationsEqual(circle._layer.getLatLng(), locations.london);
   assert.equal(circle._layer.getRadius(), 14);
 });
 
@@ -59,7 +50,8 @@ test('lat/lng changes propagate to the circle layer', function(assert) {
 
   this.setProperties({
     lat: locations.nyc.lat,
-    lng: locations.nyc.lng
+    lng: locations.nyc.lng,
+    radius: 25
   });
 
   this.render(hbs`
@@ -71,9 +63,9 @@ test('lat/lng changes propagate to the circle layer', function(assert) {
   assert.locationsEqual(circle._layer.getLatLng(), locations.nyc);
 
   this.setProperties({
-    lat: locations.chicago.lat,
-    lng: locations.chicago.lng
+    lat: locations.london.lat,
+    lng: locations.london.lng
   });
 
-  assert.locationsEqual(circle._layer.getLatLng(), locations.chicago);
+  assert.locationsEqual(circle._layer.getLatLng(), locations.london);
 });

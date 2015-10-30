@@ -1,7 +1,7 @@
-import ParentLayer from 'ember-leaflet/components/parent-layer';
+import ContainerLayer from 'ember-leaflet/components/container-layer';
 import toLatLng from 'ember-leaflet/macros/to-lat-lng';
 
-export default ParentLayer.extend({
+export default ContainerLayer.extend({
   tagName: 'div',
 
   leafletOptions: [
@@ -43,7 +43,7 @@ export default ParentLayer.extend({
   //
   // This is the only case where it happens, because this is a real DOM element,
   // and its rendering flow reverts back to Ember way.
-  ParentLayer: null,
+  ContainerLayer: null,
 
   didInsertElement() {
     this._super(...arguments);
