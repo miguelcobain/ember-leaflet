@@ -5,6 +5,10 @@
   {{#leaflet-map lat=51.505 lng=-0.09 zoom=13}}
     {{tile-layer url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"}}
 
+    {{#polygon-layer locations=dangerZone color="red"}}
+      <h3>Danger zone</h3>
+    {{/polygon-layer}}
+
     {{#if showRestaurants}}
       {{#each restaurants as |r|}}
         {{#marker-layer lat=r.lat lng=r.lng draggable=true}}

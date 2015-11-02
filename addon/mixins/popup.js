@@ -15,6 +15,7 @@ export default Ember.Mixin.create({
   }),
 
   popupopen() {
+    Ember.Logger.info(`Creating popup on ${this}.`);
     //add id to popup div. wormwhole will render there.
     this._popup._contentNode.id = this.get('_wormholeDestination');
     this.set('popupOpen', true);
@@ -23,6 +24,7 @@ export default Ember.Mixin.create({
   },
 
   popupclose() {
+    Ember.Logger.info(`Destroying popup on ${this}.`);
     this.set('popupOpen', false);
   },
 

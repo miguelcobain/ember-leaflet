@@ -132,9 +132,10 @@ export default Component.extend(ActionCallerMixin, {
 
       let [property, leafletProperty] = propExp.split(':');
       if (!leafletProperty) { leafletProperty = 'set' + Ember.String.classify(property); }
+      let objectProperty = property.replace(/\.\[]/, ''); //allow usage of .[] to observe array changes
 
       this._observers[property] = function() {
-        let value = this.get(property);
+        let value = this.get(objectProperty);
         assert(this.constructor + ' must have a ' + leafletProperty + ' function.', !!this._layer[leafletProperty]);
         this._layer[leafletProperty].call(this._layer, value);
       };
