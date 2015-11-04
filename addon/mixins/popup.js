@@ -1,12 +1,12 @@
 import Ember from 'ember';
 import layout from '../templates/popup';
-const { computed, run } = Ember;
+const { computed, run, Mixin } = Ember;
 
-export default Ember.Mixin.create({
+export default Mixin.create({
   layout,
   popupOpen: false,
 
-  _wormholeDestination: Ember.computed(function() {
+  _wormholeDestination: computed(function() {
     return `popup-${this.elementId}`;
   }),
 
