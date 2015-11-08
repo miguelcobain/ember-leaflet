@@ -1,48 +1,26 @@
-<h2 id="title">Ember Leaflet</h2>
+<header class="main-header">
+  <nav class="main-header-nav">
+    <div class="main-header-nav-links">
+      {{#link-to "docs" class="main-header-nav-link"}}Docs{{/link-to}}
+      <a href="https://github.com/miguelcobain/ember-leaflet" class="main-header-nav-link">Github</a>
+    </div>
+    <div class="main-header-logo">
+      {{#link-to "application"}}
+        <img src="http://www.ember-power-select.com/ember_logo-de904f51685adfff3e7ead5bbebaf9a6.png" alt="ember">
+      {{/link-to}}
+    </div>
+  </nav>
+</header>
 
-{{#if showMap}}
+<div class="main-content">
+  {{outlet}}
+</div>
 
-  {{#leaflet-map lat=51.505 lng=-0.09 zoom=13}}
-    {{tile-layer url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"}}
-
-    {{#polygon-layer locations=dangerZone color="red"}}
-      <h3>Danger zone</h3>
-    {{/polygon-layer}}
-
-    {{#if showRestaurants}}
-      {{#each restaurants as |r|}}
-        {{#marker-layer lat=r.lat lng=r.lng draggable=true}}
-          <b>{{r.name}}</b><br>
-          {{r.description}}
-        {{/marker-layer}}
-      {{/each}}
-
-      {{#each restaurants as |r|}}
-        {{#circle-layer lat=r.lat lng=r.lng radius=500}}
-          <b>{{r.name}}</b><br>
-          {{r.description}}
-        {{/circle-layer}}
-      {{/each}}
-    {{/if}}
-
-    {{#if showTheaters}}
-      {{#each theaters as |t|}}
-        {{#marker-layer lat=t.lat lng=t.lng}}
-          {{t.name}}
-        {{/marker-layer}}
-      {{/each}}
-    {{/if}}
-
-  {{/leaflet-map}}
-
-{{/if}}
-{{!--<p>Show markers {{input type="checkbox" checked=showMarkers}}</p>
-<ul>
-{{#each model as |marker|}}
-  <li>{{marker.name}} - {{input value=marker.lat}} {{input value=marker.lng}}</li>
-{{/each}}
-</ul>--}}
-
-<p><label>Show map {{input type="checkbox" checked=showMap}}</label></p>
-<p><label>Show restaurants {{input type="checkbox" checked=showRestaurants}}</label></p>
-<p><label>Show theaters {{input type="checkbox" checked=showTheaters}}</label></p>
+<footer class="main-footer">
+  <div class="main-footer-content">
+    Project and site maintained by <a href="http://twitter.com/miguelcobain">Miguel Andrade</a>
+    <div class="icons-attributions">
+      <small>Map tiles by <a href="http://cartodb.com/attributions#basemaps">CartoDB</a>, under <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank">CC BY 3.0</a>. Data by <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>, under ODbL.</small>
+    </div>
+  </div>
+</footer>

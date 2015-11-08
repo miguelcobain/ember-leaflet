@@ -77,7 +77,7 @@ export default Component.extend(ActionCallerMixin, {
     let leafletOptions = this.get('leafletOptions');
     let options = {};
     leafletOptions.forEach(optionName => {
-      if(this.get(optionName)) {
+      if (this.get(optionName) !== undefined) {
         options[optionName] = this.get(optionName);
       }
     });
