@@ -3,7 +3,10 @@ var EmberApp = require('ember-cli/lib/broccoli/ember-addon');
 
 module.exports = function(defaults) {
   var app = new EmberApp(defaults, {
-    // Add options here
+    'ember-prism': {
+      'theme': 'none',
+      'components': ['scss', 'javascript', 'handlebars', 'bash']
+    }
   });
 
   /*

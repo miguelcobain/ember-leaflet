@@ -43,7 +43,7 @@
 }
 .selling-point {
   display: flex;
-  padding: 2rem 0.5rem;
+  padding: 2rem 1.5rem;
   flex: 1;
   flex-direction: column;
 }
@@ -66,7 +66,7 @@
 }
 .selling-point-text {
   color: $gray;
-  display: flex;
+  display: inline;
   flex-direction: column;
   justify-content: center;
   text-align: justify;

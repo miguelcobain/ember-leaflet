@@ -2,11 +2,14 @@
 @import "variables";
 @import "base";
 @import "utilities";
+@import "prism-theme";
 
 @import "header";
 @import "footer";
+@import "side-nav";
 
 @import "index";
+@import "docs";
 
 body  > .ember-view {
   display: flex;

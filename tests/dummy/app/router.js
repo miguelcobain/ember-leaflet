@@ -6,7 +6,11 @@ var Router = Ember.Router.extend({
 });
 
 Router.map(function() {
-  this.route('docs');
+  this.route('docs', function() {
+    // GETTING STARTED
+    // index.hbs is "Overview"
+    this.route('installation');
+  });
 });
 
 export default Router;
