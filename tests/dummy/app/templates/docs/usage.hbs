@@ -1,0 +1,31 @@
+<h1 class="doc-page-title">Usage</h1>
+
+<p>
+  Think of your map as a set of layers inside a container. Your main container will
+  be the component<code>\{{leaflet-map}}</code>. This component creates the map container
+  where your tiles, vectors and markers will be added to. Let's see how it looks:
+</p>
+
+{{#code-sample as |component|}}
+  {{#code-block language="handlebars" class=(concat "code-sample-snippet " (if (eq component.activeTab 'template') 'active'))}}
+\{{#leaflet-map lat=45.519743 lng=-122.680522 zoom=10}}
+  \{{!-- Specify child layer components here --}}
+\{{/leaflet-map}}{{/code-block}}
+  {{#code-block language="javascript" class=(concat "code-sample-snippet " (if (eq component.activeTab 'javascript') 'active'))}}
+{{/code-block}}
+  <div class="code-sample-snippet result {{if (eq component.activeTab 'result') 'active'}}">
+    {{#leaflet-map lat=45.519743 lng=-122.680522 zoom=10}}
+      {{!-- Specify child layer components here --}}
+    {{/leaflet-map}}
+  </div>
+{{/code-sample}}
+
+<p>
+  Ok, we have a leaflet default container, but it's empty. That is expected since we
+  never specified any child layers, right?
+</p>
+
+<div class="doc-page-nav">
+  {{#link-to 'docs.installation' class="doc-page-nav-link-prev"}}&lt; Installation{{/link-to}}
+  {{#link-to 'docs.index' class="doc-page-nav-link-next"}}Usage &gt;{{/link-to}}
+</div>

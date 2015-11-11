@@ -10,6 +10,10 @@ Router.map(function() {
     // GETTING STARTED
     // index.hbs is "Overview"
     this.route('installation');
+    this.route('usage');
+
+    // COMPONENTS
+    this.route('leaflet-map');
   });
 });
 

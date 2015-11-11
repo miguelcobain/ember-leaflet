@@ -28,10 +28,11 @@ pre[class*="language-"] {
 
 /* Code blocks */
 pre[class*="language-"] {
+	font-size: 0.8rem;
 	position: relative;
 	margin: .5em 0;
 	border-left: 10px solid $brand-color;
-	background-color: #fdfdfd;
+	background-color: #f9f9f9;
 	background-size: 3em 3em;
 	background-origin: content-box;
 	overflow: visible;
