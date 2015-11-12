@@ -1,0 +1,77 @@
+<h1 class="doc-page-title">They're just templates!</h1>
+
+<p>
+  That's right. You still get to use all of our templates power. We can render
+  layers, just like we can render anything else. Let's check out some ways to use
+  <code>\{{#if}}</code> and <code>\{{#each}}</code>.
+</p>
+
+{{#code-sample as |component|}}
+  {{#code-block language="handlebars" class=(concat "code-sample-snippet " (if (eq component.activeTab "template") "active"))}}
+&lt;p&gt;Latitude: &lt;code&gt;\{{lat}}&lt;/code&gt; / Longitude: &lt;code&gt;\{{lng}}&lt;/code&gt;&lt;/p&gt;
+\{{#leaflet-map lat=lat lng=lng zoom=zoom onMoveend=(action "updateCenter")}}
+  \{{tile-layer url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
+\{{/leaflet-map}}{{/code-block}}
+  {{#code-block language="javascript" class=(concat "code-sample-snippet " (if (eq component.activeTab "javascript") "active"))}}
+export default Ember.Controller.extend({
+  lat: 45.519743,
+  lng: -122.680522,
+  zoom: 14,
+
+  restaurants: [
+    {
+      name: 'Sinju Restaurant',
+      rating: 4,
+      lat: 45.528531,
+      lng: -122.681682,
+    },
+    {
+      name: 'Burgerville',
+      rating: 3.8,
+      lat: 45.530970,
+      lng: -122.661968
+    },
+    {
+      name: 'Le Pigeon',
+      rating: 4.5,
+      lat: 45.522752,
+      lng: -122.657979
+    },
+  ]
+});{{/code-block}}
+  <div class="code-sample-snippet result {{if (eq component.activeTab "result") "active"}}">
+    <p><label>{{input type="checkbox" checked=nightMode}} Night mode</label></p>
+    {{#leaflet-map lat=lat lng=lng zoom=zoom}}
+
+      {{#if nightMode}}
+        {{tile-layer url="http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png"}}
+      {{else}}
+        {{tile-layer url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
+      {{/if}}
+
+      {{#each restaurants as |r|}}
+        {{#marker-layer lat=r.lat lng=r.lng}}
+          <h3>{{r.name}}</h3>
+          Rating: {{r.rating}}/5
+        {{/marker-layer}}
+      {{/each}}
+
+    {{/leaflet-map}}
+  </div>
+{{/code-sample}}
+
+<p>
+  Here we used the action <code>onMoveend</code> that triggers when the map stops to move.
+  In this action we update our controller variables which are bound the the inputs. Notice how
+  when you change the inputs, the map changes its state! This gives us the flexibility to
+  do whatever we need when the user interacts with the map.
+</p>
+
+<p>
+  Currently, <strong>all actions get the leaflet raw event passed in</strong>.
+</p>
+
+<div class="doc-page-nav">
+  {{#link-to "docs.adding-layers" class="doc-page-nav-link-prev"}}&lt; Adding layers{{/link-to}}
+  {{#link-to "docs.adding-layers" class="doc-page-nav-link-next"}}Adding layers &gt;{{/link-to}}
+</div>

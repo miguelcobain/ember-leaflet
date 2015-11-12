@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import ParentMixin from 'ember-leaflet/mixins/parent';
 import ActionCallerMixin from 'ember-leaflet/mixins/action-caller';
-const { assert, computed, Component } = Ember;
+const { assert, computed, Component, run } = Ember;
 /* global L */
 
 export default Component.extend(ActionCallerMixin, {
@@ -104,12 +104,14 @@ export default Component.extend(ActionCallerMixin, {
       let actionName = 'on' + Ember.String.classify(eventName);
       // create an event handler that runs the function inside an event loop.
       this._eventHandlers[eventName] = function(e) {
-        //try to invoke/send an action for this event
-        this.tryToInvokeAction(actionName, e);
-        //allow classes to add custom logic on events as well
-        if(typeof this[eventName] === 'function') {
-          Ember.run(this, this[eventName], e);
-        }
+        run.schedule('actions', this, function() {
+          //try to invoke/send an action for this event
+          this.tryToInvokeAction(actionName, e);
+          //allow classes to add custom logic on events as well
+          if(typeof this[eventName] === 'function') {
+            Ember.run(this, this[eventName], e);
+          }
+        });
       };
 
       this._layer.addEventListener(eventName, this._eventHandlers[eventName], this);

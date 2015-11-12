@@ -11,6 +11,9 @@ Router.map(function() {
     // index.hbs is "Overview"
     this.route('installation');
     this.route('usage');
+    this.route('adding-layers');
+    this.route('actions');
+    this.route('templates');
 
     // COMPONENTS
     this.route('leaflet-map');
