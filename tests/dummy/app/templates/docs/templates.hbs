@@ -8,14 +8,39 @@
 
 {{#code-sample as |component|}}
   {{#code-block language="handlebars" class=(concat "code-sample-snippet " (if (eq component.activeTab "template") "active"))}}
-&lt;p&gt;Latitude: &lt;code&gt;\{{lat}}&lt;/code&gt; / Longitude: &lt;code&gt;\{{lng}}&lt;/code&gt;&lt;/p&gt;
-\{{#leaflet-map lat=lat lng=lng zoom=zoom onMoveend=(action "updateCenter")}}
-  \{{tile-layer url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
-\{{/leaflet-map}}{{/code-block}}
+&lt;p&gt;&lt;label&gt;\{{input type="checkbox" checked=nightMode}} Night mode&lt;/label&gt;&lt;/p&gt;
+
+\{{#leaflet-map lat=lat lng=lng zoom=zoom}}
+
+  \{{#if nightMode}}
+    \{{tile-layer url="http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png"}}
+  \{{else}}
+    \{{tile-layer url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
+  \{{/if}}
+
+  \{{#each restaurants as |r|}}
+    \{{#marker-layer lat=r.lat lng=r.lng draggable=true onDragend=(action "updateLocation" r)}}
+      &lt;h3&gt;\{{r.name}}&lt;/h3&gt;
+      Rating: \{{r.rating}}/5
+    \{{/marker-layer}}
+  \{{/each}}
+
+\{{/leaflet-map}}
+
+&lt;h3&gt;Portland Restaurants&lt;/h3&gt;
+&lt;ul&gt;
+  \{{#each restaurants as |r|}}
+    &lt;li&gt;
+      &lt;strong&gt;\{{r.name}}&lt;/strong&gt;&lt;br&gt;
+      Lat: \{{input value=r.lat}}
+      Lng: \{{input value=r.lng}}
+    &lt;/li&gt;
+  \{{/each}}
+&lt;/ul&gt;{{/code-block}}
   {{#code-block language="javascript" class=(concat "code-sample-snippet " (if (eq component.activeTab "javascript") "active"))}}
 export default Ember.Controller.extend({
-  lat: 45.519743,
-  lng: -122.680522,
+  lat: 45.528178,
+  lng: -122.670059,
   zoom: 14,
 
   restaurants: [
@@ -23,7 +48,7 @@ export default Ember.Controller.extend({
       name: 'Sinju Restaurant',
       rating: 4,
       lat: 45.528531,
-      lng: -122.681682,
+      lng: -122.681682
     },
     {
       name: 'Burgerville',
@@ -37,7 +62,18 @@ export default Ember.Controller.extend({
       lat: 45.522752,
       lng: -122.657979
     },
-  ]
+  ],
+
+  actions: {
+    updateLocation(r, e) {
+      let location = e.target.getLatLng();
+      Ember.setProperties(r, {
+        lat: location.lat,
+        lng: location.lng
+      });
+    }
+  }
+
 });{{/code-block}}
   <div class="code-sample-snippet result {{if (eq component.activeTab "result") "active"}}">
     <p><label>{{input type="checkbox" checked=nightMode}} Night mode</label></p>
@@ -50,25 +86,31 @@ export default Ember.Controller.extend({
       {{/if}}
 
       {{#each restaurants as |r|}}
-        {{#marker-layer lat=r.lat lng=r.lng}}
-          <h3>{{r.name}}</h3>
+        {{#marker-layer lat=r.lat lng=r.lng draggable=true onDragend=(action "updateLocation" r)}}
+          <h3>{{input value=r.name}}</h3>
           Rating: {{r.rating}}/5
         {{/marker-layer}}
       {{/each}}
 
     {{/leaflet-map}}
+
+    <h3>Portland Restaurants</h3>
+    <ul>
+      {{#each restaurants as |r|}}
+        <li>
+          <strong>{{r.name}}</strong><br>
+          Lat: {{input value=r.lat}}
+          Lng: {{input value=r.lng}}
+        </li>
+      {{/each}}
+    </ul>
   </div>
 {{/code-sample}}
 
 <p>
-  Here we used the action <code>onMoveend</code> that triggers when the map stops to move.
-  In this action we update our controller variables which are bound the the inputs. Notice how
-  when you change the inputs, the map changes its state! This gives us the flexibility to
-  do whatever we need when the user interacts with the map.
-</p>
-
-<p>
-  Currently, <strong>all actions get the leaflet raw event passed in</strong>.
+  Ok, I was going to explain, but I think you can figure this yourself. After all,
+  this is just regular handlebars and Ember. Loops, conditionals, actions,
+  bindings, components. "You'll feel at home", that's what was promised.
 </p>
 
 <div class="doc-page-nav">

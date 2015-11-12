@@ -34,6 +34,10 @@ body  > .ember-view {
 }
 
 .leaflet-popup {
+  input {
+    font-weight: bold;
+    font-size: 14px;
+  }
   h1, h2, h3, h4 {
     margin: 0;
   }

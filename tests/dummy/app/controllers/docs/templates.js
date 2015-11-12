@@ -10,7 +10,7 @@ export default Ember.Controller.extend({
       name: 'Sinju Restaurant',
       rating: 4,
       lat: 45.528531,
-      lng: -122.681682,
+      lng: -122.681682
     },
     {
       name: 'Burgerville',
@@ -24,6 +24,16 @@ export default Ember.Controller.extend({
       lat: 45.522752,
       lng: -122.657979
     },
-  ]
+  ],
+
+  actions: {
+    updateLocation(r, e) {
+      let location = e.target.getLatLng();
+      Ember.setProperties(r, {
+        lat: location.lat,
+        lng: location.lng
+      });
+    }
+  }
 
 });
