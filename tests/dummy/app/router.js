@@ -16,7 +16,7 @@ Router.map(function() {
     this.route('templates');
 
     // COMPONENTS
-    this.route('leaflet-map');
+    this.route('component', {path: ':component_name'});
   });
 });
 

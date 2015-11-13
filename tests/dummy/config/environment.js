@@ -20,7 +20,8 @@ module.exports = function(environment) {
   };
 
   ENV.contentSecurityPolicy = {
-    'img-src': "'self' http://*.osm.org",
+    'img-src': "'self' http://*.basemaps.cartocdn.com",
+    'font-src': "'self' fonts.gstatic.com",
   };
 
   if (environment === 'development') {

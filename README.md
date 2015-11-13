@@ -1,12 +1,20 @@
 # Ember-leaflet [![Build Status](https://travis-ci.org/miguelcobain/ember-leaflet.svg)](https://travis-ci.org/miguelcobain/ember-leaflet)
 
-This README outlines the details of collaborating on this Ember addon.
+Ember-Leaflet aims to make working with Leaflet layers in your Ember app as easy, declarative and composable as templates make working with DOM.
 
 ## Installation
 
-* `git clone` this repository
-* `npm install`
-* `bower install`
+Ember Leaflet works in Ember 1.13.9+ or 2.0+ with no deprecations.
+
+To install it run:
+```
+ember install ember-leaflet
+```
+
+## Usage
+
+Documentation and examples are hosted at [www.ember-leaflet.com](http://www.ember-leaflet.com).
+Please file any issues if you see that something can be improved.
 
 ## Running
 

@@ -9,20 +9,10 @@
     {{#link-to "docs.templates" class="side-nav-link"}}They're just templates!{{/link-to}}
 
     <header class="side-nav-header">Components</header>
-    {{#link-to "docs.leaflet-map" class="side-nav-link"}}leaflet-map{{/link-to}}
-    {{!--{{#link-to "docs.how-to-use-it" class="side-nav-link"}}How to use it{{/link-to}}
-    {{#link-to "docs.action-handling" class="side-nav-link"}}Action handling{{/link-to}}
-    {{#link-to "docs.groups" class="side-nav-link"}}Groups{{/link-to}}
-    {{#link-to "docs.multiple-selection" class="side-nav-link"}}Multiple selection{{/link-to}}
+    {{#each componentList as |c|}}
+      {{#link-to "docs.component" c class="side-nav-link"}}{{c}}{{/link-to}}
+    {{/each}}
 
-    <header class="side-nav-header">Basic customization</header>
-    {{#link-to "docs.the-trigger" class="side-nav-link"}}The trigger{{/link-to}}
-    {{#link-to "docs.the-list" class="side-nav-link"}}The list{{/link-to}}
-    {{#link-to "docs.the-search" class="side-nav-link"}}The search{{/link-to}}
-    {{#link-to "docs.styles" class="side-nav-link"}}Styles{{/link-to}}
-
-    <header class="side-nav-header">Advanced customization</header>
-    {{#link-to "docs.asynchronous-search" class="side-nav-link"}}Asynchronous search{{/link-to}}--}}
   </nav>
   <section class="doc-page">
     {{!--{{#power-select selected=currentSection options=groupedSections onchange=(action "visit") searchField="text" searchEnabled=false class="section-selector" as |option|}}

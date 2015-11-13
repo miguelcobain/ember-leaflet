@@ -3,6 +3,9 @@ var EmberApp = require('ember-cli/lib/broccoli/ember-addon');
 
 module.exports = function(defaults) {
   var app = new EmberApp(defaults, {
+    fingerprint: {
+      exclude: ['assets/images'],
+    },
     'ember-prism': {
       'theme': 'none',
       'components': ['scss', 'javascript', 'handlebars', 'bash']
