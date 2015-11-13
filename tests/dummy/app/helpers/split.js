@@ -1,6 +1,7 @@
+/* jshint ignore:start */
 import Ember from 'ember';
 
 export default Ember.Helper.helper(function([arg1 = '', index = 0, separator = ':']) {
-  let subStr = arg1.split(separator);
-  return subStr[index];
+  return arg1.split(separator)
 });
+/* jshint ignore:end */
