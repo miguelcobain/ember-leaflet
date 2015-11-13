@@ -1,4 +1,4 @@
-# Ember-leaflet
+# Ember-leaflet [![Build Status](https://travis-ci.org/miguelcobain/ember-leaflet.svg)](https://travis-ci.org/miguelcobain/ember-leaflet)
 
 This README outlines the details of collaborating on this Ember addon.
 
