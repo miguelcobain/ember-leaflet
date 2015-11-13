@@ -44,7 +44,10 @@ test('popup works', function(assert) {
 
   assert.equal(marker._popup._map, null, 'popup not added until opened');
 
-  marker._layer.fire('click', { latlng: locations.nyc });
+  Ember.run(() => {
+    marker._layer.fire('click', { latlng: locations.nyc });
+  });
+
   assert.ok(!!marker._popup._map, 'marker added to map');
   assert.equal(Ember.$(marker._popup._contentNode).text().trim(), 'Popup content', 'popup content set');
 });
