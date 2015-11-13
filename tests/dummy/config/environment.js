@@ -22,6 +22,7 @@ module.exports = function(environment) {
   ENV.contentSecurityPolicy = {
     'img-src': "'self' http://*.basemaps.cartocdn.com",
     'font-src': "'self' fonts.gstatic.com",
+    'style-src': "'self' fonts.googleapis.com"
   };
 
   if (environment === 'development') {
