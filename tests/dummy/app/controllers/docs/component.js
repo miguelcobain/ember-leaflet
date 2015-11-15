@@ -11,6 +11,8 @@ export default Ember.Controller.extend({
       id = 'map';
     } else if (componentName === 'tile-layer') {
       id = 'tilelayer';
+    } else if (componentName === 'path-layer') {
+      id = 'path';
     } else if (componentName.endsWith('-layer')) {
       [id] = componentName.split('-');
     }
@@ -36,12 +38,12 @@ export default Ember.Controller.extend({
 
   _subtractSuperClassProps(propName) {
     let component = this.get('component');
-    let props = Ember.A(component.get(propName));
+    let props = component.get(propName) ? Ember.A(component.get(propName).slice(0)) : Ember.A();
     let clazz = component.constructor.superclass.superclass;
 
     //subtract superclass properties
     while (clazz !== Ember.Component) {
-      let classProps = clazz.prototype[propName];
+      let classProps = clazz.prototype[propName] || [];
       props.removeObjects(classProps);
       clazz = clazz.superclass;
     }
@@ -74,6 +76,10 @@ export default Ember.Controller.extend({
 
   leafletEvents: Ember.computed('component', function() {
     return this._subtractSuperClassProps('leafletEvents');
+  }),
+
+  leafletStyleProperties: Ember.computed('component', function() {
+    return this._subtractSuperClassProps('leafletStyleProperties');
   })
 
 });
