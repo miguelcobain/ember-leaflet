@@ -25,6 +25,10 @@
     \{{/marker-layer}}
   \{{/each}}
 
+  \{{#polygon-layer locations=dangerZone color="red"}}
+    DANGER ZONE
+  \{{/polygon-layer}}
+
 \{{/leaflet-map}}
 
 &lt;h3&gt;Portland Restaurants&lt;/h3&gt;
@@ -92,7 +96,9 @@ export default Ember.Controller.extend({
         {{/marker-layer}}
       {{/each}}
 
-      {{polygon-layer locations=dangerZone color="red"}}
+      {{#polygon-layer locations=dangerZone color="red"}}
+        DANGER ZONE
+      {{/polygon-layer}}
 
     {{/leaflet-map}}
 
