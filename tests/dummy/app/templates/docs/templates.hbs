@@ -92,6 +92,8 @@ export default Ember.Controller.extend({
         {{/marker-layer}}
       {{/each}}
 
+      {{polygon-layer locations=dangerZone color="red"}}
+
     {{/leaflet-map}}
 
     <h3>Portland Restaurants</h3>
@@ -108,9 +110,15 @@ export default Ember.Controller.extend({
 {{/code-sample}}
 
 <p>
+  Try to drag the markers, edit restaurant names and switch "Night mode". Confirm
+  that the data flows normally. All of this is done through normal Ember usage.
+</p>
+
+<p>
   Ok, I was going to explain, but I think you can figure this yourself. After all,
   this is just regular handlebars and Ember. Loops, conditionals, actions,
-  bindings, components. "You'll feel at home", that's what was promised.
+  bindings, computed properties, components. "You'll feel at home", that's what
+  was promised. Delivered.
 </p>
 
 <div class="doc-page-nav">
