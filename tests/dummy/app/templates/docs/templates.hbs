@@ -47,7 +47,7 @@ export default Ember.Controller.extend({
   lng: -122.670059,
   zoom: 14,
 
-  restaurants: [
+  restaurants: Ember.A([
     {
       name: 'Sinju Restaurant',
       rating: 4,
@@ -66,7 +66,11 @@ export default Ember.Controller.extend({
       lat: 45.522752,
       lng: -122.657979
     },
-  ],
+  ]),
+
+  dangerZone: Ember.computed('restaurants.@each.lat', function() {
+    return this.get('restaurants').map(r => ({lat: r.lat, lng: r.lng}));
+  }),
 
   actions: {
     updateLocation(r, e) {
