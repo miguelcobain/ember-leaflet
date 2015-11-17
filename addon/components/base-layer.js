@@ -1,10 +1,10 @@
 import Ember from 'ember';
 import ParentMixin from 'ember-leaflet/mixins/parent';
-import ActionCallerMixin from 'ember-leaflet/mixins/action-caller';
+import { InvokeActionMixin } from 'ember-invoke-action';
 const { assert, computed, Component, run } = Ember;
 /* global L */
 
-export default Component.extend(ActionCallerMixin, {
+export default Component.extend(InvokeActionMixin, {
   tagName: '',
   L,
 
@@ -106,7 +106,7 @@ export default Component.extend(ActionCallerMixin, {
       this._eventHandlers[eventName] = function(e) {
         run.schedule('actions', this, function() {
           //try to invoke/send an action for this event
-          this.tryToInvokeAction(actionName, e);
+          this.invokeAction(actionName, e);
           //allow classes to add custom logic on events as well
           if(typeof this[eventName] === 'function') {
             Ember.run(this, this[eventName], e);
