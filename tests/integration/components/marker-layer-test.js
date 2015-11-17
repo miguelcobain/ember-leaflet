@@ -1,6 +1,7 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import { assertionInjector, assertionCleanup } from '../../assertions';
+import hasEmberVersion from 'ember-test-helpers/has-ember-version';
 import MarkerLayerComponent from 'ember-leaflet/components/marker-layer';
 import locations from '../../helpers/locations';
 /* globals L */
@@ -108,3 +109,19 @@ test('marker updates dragging', function(assert) {
 
    assert.equal(marker._layer.dragging.enabled(), false, 'marker dragging disabled');
 });
+
+if (hasEmberVersion(2,3)) {
+  // do stuff in Ember 2.3+
+  test('marker works as contextual component', function(assert) {
+
+    this.set('markerCenter', locations.nyc);
+
+    this.render(hbs`
+      {{#leaflet-map zoom=zoom center=center as |layers|}}
+        {{layers.marker location=markerCenter}}
+      {{/leaflet-map}}
+    `);
+
+     assert.ok(marker._layer, 'marker was created');
+  });
+}

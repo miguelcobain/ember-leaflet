@@ -22,7 +22,7 @@ export default Component.extend(InvokeActionMixin, {
 
   containerLayer: computed(function() {
     return this.nearestOfType(ParentMixin);
-  }).readOnly(),
+  }),
 
   registerWithParent() {
     let container = this.get('containerLayer');
@@ -95,11 +95,13 @@ export default Component.extend(InvokeActionMixin, {
     return options;
   }),
 
-  leafletEvents: [],
-  usedLeafletEvents: computed.filter('leafletEvents', function(eventName) {
-    let methodName = '_' + eventName;
-    let actionName = 'on' + Ember.String.classify(eventName);
-    return this.get(methodName) !== undefined || this.get(actionName) !== undefined;
+  leafletEvents: Ember.A(),
+  usedLeafletEvents: computed('leafletEvents', function() {
+    return this.get('leafletEvents').filter(eventName => {
+      let methodName = '_' + eventName;
+      let actionName = 'on' + Ember.String.classify(eventName);
+      return this.get(methodName) !== undefined || this.get(actionName) !== undefined;
+    });
   }),
 
   _addEventListeners() {

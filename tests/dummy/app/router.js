@@ -14,6 +14,7 @@ Router.map(function() {
     this.route('adding-layers');
     this.route('actions');
     this.route('templates');
+    this.route('contextual-components');
 
     // COMPONENTS
     this.route('component', {path: ':component_name'});

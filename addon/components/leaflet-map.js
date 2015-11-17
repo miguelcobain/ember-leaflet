@@ -1,8 +1,10 @@
 import ContainerLayer from 'ember-leaflet/components/container-layer';
 import toLatLng from 'ember-leaflet/macros/to-lat-lng';
+import layout from '../templates/leaflet-map';
 
 export default ContainerLayer.extend({
   tagName: 'div',
+  layout,
 
   leafletOptions: [
     // Map state options

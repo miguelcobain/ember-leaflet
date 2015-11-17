@@ -96,15 +96,12 @@ abbr[title] {
 }
 
 /* Code */
-/*code,
-pre {
+code:not([class*="language-"]) {
   font-family: Menlo, Monaco, "Courier New", monospace;
-}
-code {
   color: $code-text-color;
   padding: 0.2em 0;
   margin: 0;
-  font-size: 75%;
+  font-size: 80%;
   background-color: rgba(0,0,0,0.04);
   border-radius: 3px;
 
@@ -114,29 +111,6 @@ code {
     content: "\00a0";
   }
 }
-pre {
-  display: block;
-  margin-top: 0;
-  margin-bottom: 1rem;
-  font-size: .8rem;
-  line-height: 1.4;
-  white-space: pre;
-  word-break: break-all;
-  word-wrap: normal;
-  background-color: #f9f9f9;
-  overflow-x: auto;
-}
-pre code {
-  padding: 0;
-  font-size: 100%;
-  color: inherit;
-  background-color: transparent;
-
-  &::before,
-  &::after {
-    content: '';
-  }
-}*/
 
 /* Tables */
 table {
