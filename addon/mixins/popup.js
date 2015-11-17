@@ -14,7 +14,7 @@ export default Mixin.create({
     this.set('hasBlock', true);
   }),
 
-  popupopen() {
+  _popupopen() {
     Ember.Logger.info(`Creating popup on ${this}.`);
     //add id to popup div. wormwhole will render there.
     this._popup._contentNode.id = this.get('_wormholeDestination');
@@ -23,7 +23,7 @@ export default Mixin.create({
     run.next(() => this._popup.update());
   },
 
-  popupclose() {
+  _popupclose() {
     Ember.Logger.info(`Destroying popup on ${this}.`);
     this.set('popupOpen', false);
   },

@@ -96,20 +96,26 @@ export default Component.extend(InvokeActionMixin, {
   }),
 
   leafletEvents: [],
+  usedLeafletEvents: computed.filter('leafletEvents', function(eventName) {
+    let methodName = '_' + eventName;
+    let actionName = 'on' + Ember.String.classify(eventName);
+    return this.get(methodName) !== undefined || this.get(actionName) !== undefined;
+  }),
 
   _addEventListeners() {
     this._eventHandlers = {};
-    this.get('leafletEvents').forEach(function(eventName) {
+    this.get('usedLeafletEvents').forEach(function(eventName) {
 
       let actionName = 'on' + Ember.String.classify(eventName);
+      let methodName = '_' + eventName;
       // create an event handler that runs the function inside an event loop.
       this._eventHandlers[eventName] = function(e) {
         run.schedule('actions', this, function() {
           //try to invoke/send an action for this event
           this.invokeAction(actionName, e);
           //allow classes to add custom logic on events as well
-          if(typeof this[eventName] === 'function') {
-            Ember.run(this, this[eventName], e);
+          if(typeof this[methodName] === 'function') {
+            Ember.run(this, this[methodName], e);
           }
         });
       };
@@ -119,7 +125,7 @@ export default Component.extend(InvokeActionMixin, {
   },
 
   _removeEventListeners() {
-    this.get('leafletEvents').forEach(function(eventName) {
+    this.get('usedLeafletEvents').forEach(function(eventName) {
       this._layer.removeEventListener(eventName,
         this._eventHandlers[eventName], this);
       delete this._eventHandlers[eventName];
