@@ -10,6 +10,11 @@ export default Mixin.create({
     return `popup-${this.elementId}`;
   }),
 
+  /*
+   * Evil hack by @rwjblue.
+   * `hasBlock` isn't available in js land.
+   * More info: https://github.com/miguelcobain/rfcs/blob/js-has-block/text/0000-js-has-block.md#alternatives
+   */
   setHasBlock: computed(function() {
     this.set('hasBlock', true);
   }),
