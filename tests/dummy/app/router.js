@@ -10,7 +10,7 @@ Router.map(function() {
     // GETTING STARTED
     // index.hbs is "Overview"
     this.route('installation');
-    this.route('usage');
+    this.route('container');
     this.route('adding-layers');
     this.route('actions');
     this.route('templates');
