@@ -26,7 +26,7 @@ export default Ember.Controller.extend({
     },
   ]),
 
-  dangerZone: Ember.computed('restaurants.@each.lat', function() {
+  dangerZone: Ember.computed('restaurants.@each.lat', 'restaurants.@each.lng', function() {
     return this.get('restaurants').map(r => ({lat: r.lat, lng: r.lng}));
   }),
 

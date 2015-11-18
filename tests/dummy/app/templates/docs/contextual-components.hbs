@@ -2,12 +2,12 @@
 
 <p>
   Contextual components <a href="http://emberjs.com/blog/2015/11/16/ember-2-2-released.html#toc_contextual-components">landed in Ember 2.3.0-beta.1</a>,
-  and they make ember-leaflet especially joyful to use. This feature allows
-  components to <code>\{{yield</code> other components to its blocks.
+  and they make ember-leaflet especially joyful to use. This feature allows a
+  component to <code>\{{yield</code> other components to its blocks.
 </p>
 
 <p>
-  <code>\{{#leaflet-map as |layers|}}</code> yields the following components:
+  So, <code>\{{#leaflet-map as |layers|}}</code> yields the following components to its block:
   <ul>
     <li><code>\{{layers.tile</code> equivalent to <code>\{{tile-layer</code></li>
     <li><code>\{{layers.marker</code> equivalent to <code>\{{marker-layer</code></li>
@@ -102,7 +102,7 @@ export default Ember.Controller.extend({
     },
   ]),
 
-  dangerZone: Ember.computed('restaurants.@each.lat', function() {
+  dangerZone: Ember.computed('restaurants.@each.lat', 'restaurants.@each.lng', function() {
     return this.get('restaurants').map(r => ({lat: r.lat, lng: r.lng}));
   }),
 
