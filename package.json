@@ -11,6 +11,7 @@
     "start": "ember server",
     "test": "ember try:testall"
   },
+  "homepage": "http://www.ember-leaflet.com/",
   "repository": "https://github.com/miguelcobain/ember-leaflet.git",
   "engines": {
     "node": ">= 0.10.0"
@@ -46,6 +47,7 @@
   "keywords": [
     "ember-addon",
     "leaflet",
+    "ember",
     "ember-leaflet",
     "mapping",
     "maps"
@@ -57,6 +59,7 @@
     "ember-wormhole": "^0.3.4"
   },
   "ember-addon": {
-    "configPath": "tests/dummy/config"
+    "configPath": "tests/dummy/config",
+    "demoURL": "http://www.ember-leaflet.com/"
   }
 }
