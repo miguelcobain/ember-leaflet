@@ -10,6 +10,7 @@ L.Icon.Default.imagePath = 'some-path';
 
 let markersInitCount = 0;
 let createLayersCount = 0;
+let destroyLayersCount = 0;
 
 moduleForComponent('marker-layer', 'Integration | Component | marker layer', {
   integration: true,
@@ -21,9 +22,13 @@ moduleForComponent('marker-layer', 'Integration | Component | marker layer', {
         this._super(...arguments);
         markersInitCount++;
       },
-      createLayer() {
+      layerSetup() {
+        this._super(...arguments);
         createLayersCount++;
-        return this._super(...arguments);
+      },
+      layerTeardown() {
+        this._super(...arguments);
+        destroyLayersCount++;
       }
     }));
 
@@ -60,6 +65,7 @@ test('layers works within each', function(assert) {
   //pre-conditions
   assert.equal(markersInitCount, 4);
   assert.equal(createLayersCount, 4);
+  assert.equal(destroyLayersCount, 0);
 
   this.set('markers', [
     restaurant1,
@@ -72,4 +78,5 @@ test('layers works within each', function(assert) {
   //great for performance
   assert.equal(markersInitCount, 5);
   assert.equal(createLayersCount, 5);
+  assert.equal(destroyLayersCount, 1); //and only one was destroyed
 });
