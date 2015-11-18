@@ -38,7 +38,6 @@
     "ember-disable-prototype-extensions": "^1.0.0",
     "ember-disable-proxy-controllers": "^1.0.1",
     "ember-export-application-global": "^1.0.4",
-    "ember-invoke-action": "1.2.0",
     "ember-pagefront": "0.8.2",
     "ember-prism": "0.0.6",
     "ember-truth-helpers": "1.2.0",
@@ -56,7 +55,8 @@
     "ember-cli-babel": "^5.1.5",
     "ember-cli-htmlbars": "0.7.9",
     "ember-cli-version-checker": "^1.1.4",
-    "ember-wormhole": "^0.3.4"
+    "ember-wormhole": "^0.3.4",
+    "ember-invoke-action": "1.2.0"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config",
