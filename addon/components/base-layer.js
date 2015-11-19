@@ -50,12 +50,12 @@ export default Component.extend(InvokeActionMixin, {
   layerSetup() {
     Ember.Logger.info(`Creating ${this}.`);
     this._layer = this.createLayer();
-    this.didCreateLayer();
     this._addObservers();
     this._addEventListeners();
     if (this.get('containerLayer')) {
       this.get('containerLayer')._layer.addLayer(this._layer);
     }
+    this.didCreateLayer();
   },
 
   /*

@@ -19,7 +19,7 @@ moduleForComponent('leaflet-map', 'Integration | Component | leaflet map', {
     }));
 
     this.set('center', locations.nyc);
-    this.set('zoom', 13);
+    this.set('zoom', 12);
   },
   afterEach() {
     assertionCleanup();
@@ -30,7 +30,7 @@ test('update map layer using leafletProperties (zoom and center)', function(asse
   this.render(hbs`{{leaflet-map zoom=zoom center=center}}`);
 
   assert.locationsEqual(map._layer.getCenter(), locations.nyc);
-  assert.equal(map._layer.getZoom(), 13);
+  assert.equal(map._layer.getZoom(), 12);
 
   this.set('center', locations.chicago);
   this.set('zoom', 14);
@@ -59,7 +59,7 @@ test('lat/lng changes propagate to the map', function(assert) {
 });
 
 test('map sends actions for events', function(assert) {
-  assert.expect(2);
+  assert.expect(5);
 
   this.set('moveAction', () => {
     assert.ok(true, 'onMovestart fired');
@@ -70,8 +70,36 @@ test('map sends actions for events', function(assert) {
   });
 
   this.render(hbs`{{leaflet-map zoom=zoom center=center
-    onMovestart=(action moveAction) onZoomchanged=(action zoomAction)}}`);
+    onMovestart=(action moveAction) onZoomstart=(action zoomAction)}}`);
 
-  this.set('center', locations.paris);
-  this.set('zoom', 14);
+  // This runs 5 actions because:
+  // 1. initial movestart
+  // 2. initial zoomstart
+  // 3. second movestart because of a center change
+  // 4. second zoomstart because of a zoom change
+  // 5. third movestart because of a zoom change (a zoom also sightly moves the map)
+
+  this.setProperties({
+    center: locations.paris,
+    zoom: 14
+  });
+});
+
+// Some kinds of events required us to delay
+// `setView` after binding the observers.
+// This test ensures those kind of events still run
+test('map sends actions for events load and initial viewreset', function(assert) {
+  assert.expect(2);
+
+  this.set('loadAction', () => {
+    assert.ok(true, 'onLoad fired');
+  });
+
+  this.set('viewResetAction', () => {
+    assert.ok(true, 'onViewreset fired');
+  });
+
+  this.render(hbs`{{leaflet-map zoom=zoom center=center
+    onLoad=(action loadAction) onViewreset=(action viewResetAction)}}`);
+
 });

@@ -66,6 +66,17 @@ export default ContainerLayer.extend({
   unregisterWithParent() { },
 
   createLayer() {
-    return this.L.map(this.element, this.get('options'));
+    let options = this.get('options');
+
+    // Don't set center and zoom right now.
+    // Let base layer bind the events first
+    delete options.center;
+    delete options.zoom;
+    return this.L.map(this.element, options);
+  },
+
+  didCreateLayer() {
+    //after base layer bound the events, we can now set the map's view
+    this._layer.setView(this.get('center'), this.get('zoom'), {reset: true});
   }
 });
