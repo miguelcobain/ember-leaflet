@@ -43,7 +43,7 @@ export default Mixin.create({
   willDestroyLayer() {
     if (this.get('hasBlock')) {
       // closing popup will call _destroyPopupContent
-      this._layer._map.closePopup();
+      this._layer.closePopup();
       delete this._popup;
     }
   }

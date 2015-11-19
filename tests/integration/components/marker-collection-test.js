@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import { assertionInjector, assertionCleanup } from '../../assertions';
@@ -8,11 +9,9 @@ import locations from '../../helpers/locations';
 //Needed to silence leaflet autodetection error
 L.Icon.Default.imagePath = 'some-path';
 
-let markersInitCount = 0;
-let createLayersCount = 0;
-let destroyLayersCount = 0;
+let markersInitCount, createLayersCount, destroyLayersCount, markers;
 
-moduleForComponent('marker-layer', 'Integration | Component | marker layer', {
+moduleForComponent('marker-layer', 'Integration | Component | marker layer collection', {
   integration: true,
   beforeEach() {
     assertionInjector();
@@ -21,6 +20,7 @@ moduleForComponent('marker-layer', 'Integration | Component | marker layer', {
       init() {
         this._super(...arguments);
         markersInitCount++;
+        markers.push(this);
       },
       layerSetup() {
         this._super(...arguments);
@@ -31,6 +31,11 @@ moduleForComponent('marker-layer', 'Integration | Component | marker layer', {
         destroyLayersCount++;
       }
     }));
+
+    markersInitCount = 0;
+    createLayersCount = 0;
+    destroyLayersCount = 0;
+    markers = [];
 
     this.set('center', locations.nyc);
     this.set('zoom', 13);
@@ -79,4 +84,50 @@ test('layers works within each', function(assert) {
   assert.equal(markersInitCount, 5);
   assert.equal(createLayersCount, 5);
   assert.equal(destroyLayersCount, 1); //and only one was destroyed
+});
+
+test('popup remains open when another layer is destroyed', function(assert) {
+  this.set('markers', [
+    restaurant1,
+    restaurant2,
+    restaurant3,
+    restaurant4
+  ]);
+
+  this.render(hbs`
+    {{#leaflet-map zoom=zoom center=center}}
+      {{#each markers as |m|}}
+        {{#marker-layer location=m.location}}
+          Popup content
+        {{/marker-layer}}
+      {{/each}}
+    {{/leaflet-map}}
+  `);
+
+  //pre-conditions
+  assert.equal(markersInitCount, 4);
+  assert.equal(createLayersCount, 4);
+  assert.equal(destroyLayersCount, 0);
+
+  assert.equal(markers[2]._popup._map, null, 'popup not added until opened');
+
+  Ember.run(() => {
+    markers[2]._layer.fire('click', { latlng: locations.nyc });
+  });
+
+  assert.ok(!!markers[2]._popup._map, 'marker added to map');
+  assert.equal(Ember.$(markers[2]._popup._contentNode).text().trim(), 'Popup content', 'popup content set');
+
+  this.set('markers', [
+    restaurant1,
+    restaurant2,
+    restaurant3
+  ]);
+
+  assert.equal(markersInitCount, 4);
+  assert.equal(createLayersCount, 4);
+  assert.equal(destroyLayersCount, 1);
+
+  assert.ok(!!markers[2]._popup._map, 'marker added to map');
+  assert.equal(Ember.$(markers[2]._popup._contentNode).text().trim(), 'Popup content', 'popup content set');
 });
