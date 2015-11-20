@@ -48,7 +48,6 @@ export default Component.extend(InvokeActionMixin, {
    * Method called by parent when the layer needs to setup
    */
   layerSetup() {
-    Ember.Logger.info(`Creating ${this}.`);
     this._layer = this.createLayer();
     this._addObservers();
     this._addEventListeners();
@@ -62,7 +61,6 @@ export default Component.extend(InvokeActionMixin, {
    * Method called by parent when the layer needs to teardown
    */
   layerTeardown() {
-    Ember.Logger.info(`Destroying ${this}.`);
     this.willDestroyLayer();
     this._removeEventListeners();
     this._removeObservers();
