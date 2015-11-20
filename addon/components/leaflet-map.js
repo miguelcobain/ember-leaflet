@@ -1,6 +1,8 @@
+import Ember from 'ember';
 import ContainerLayer from 'ember-leaflet/components/container-layer';
 import toLatLng from 'ember-leaflet/macros/to-lat-lng';
 import layout from '../templates/leaflet-map';
+const { assert } = Ember;
 
 export default ContainerLayer.extend({
   tagName: 'div',
@@ -35,7 +37,7 @@ export default ContainerLayer.extend({
   ],
 
   leafletProperties: [
-    'zoom:setZoom', 'center:panTo'
+    'zoom:setZoom', 'center:panTo', 'maxBounds:setMaxBounds', 'bounds:fitBounds'
   ],
 
   center: toLatLng(),
@@ -77,6 +79,15 @@ export default ContainerLayer.extend({
 
   didCreateLayer() {
     //after base layer bound the events, we can now set the map's view
-    this._layer.setView(this.get('center'), this.get('zoom'), {reset: true});
+    assert('You must provide either valid `bounds` or a `center` (or `lat`/`lng`) and a `zoom` value.',
+      (this.get('bounds') && (!this.get('center') && !this.get('zoom'))) ||
+      (!this.get('bounds') && (this.get('center') && this.get('zoom')))
+    );
+    if (this.get('bounds')) {
+      this._layer.fitBounds(this.get('bounds'), {reset: true});
+    } else {
+
+      this._layer.setView(this.get('center'), this.get('zoom'), {reset: true});
+    }
   }
 });

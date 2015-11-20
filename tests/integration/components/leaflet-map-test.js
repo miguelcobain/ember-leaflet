@@ -58,6 +58,18 @@ test('lat/lng changes propagate to the map', function(assert) {
   assert.locationsEqual(map._layer.getCenter(), locations.chicago);
 });
 
+test('update map layer using leafletProperties (bounds)', function(assert) {
+  this.set('bounds', [locations.nyc, locations.chicago]);
+
+  this.render(hbs`{{leaflet-map bounds=bounds}}`);
+
+  assert.boundsContain(map._layer.getBounds(), [locations.nyc, locations.chicago]);
+
+  this.set('bounds', [locations.nyc, locations.sf]);
+
+  assert.boundsContain(map._layer.getBounds(), [locations.nyc, locations.sf]);
+});
+
 test('map sends actions for events', function(assert) {
   assert.expect(5);
 
@@ -102,4 +114,28 @@ test('map sends actions for events load and initial viewreset', function(assert)
   this.render(hbs`{{leaflet-map zoom=zoom center=center
     onLoad=(action loadAction) onViewreset=(action viewResetAction)}}`);
 
+});
+
+test('map throws if bounds, center and zoom are provided', function(assert) {
+  assert.expect(1);
+
+  assert.throws(() => {
+    this.render(hbs`{{leaflet-map zoom=zoom center=center bounds=2}}`);
+  }, 'You must provide either valid `bounds` or a `center` (or `lat`/`lng`) and a `zoom` value.');
+});
+
+test('map throws if only center is provided', function(assert) {
+  assert.expect(1);
+
+  assert.throws(() => {
+    this.render(hbs`{{leaflet-map center=center}}`);
+  }, 'You must provide either valid `bounds` or a `center` (or `lat`/`lng`) and a `zoom` value.');
+});
+
+test('map throws if only zoom is provided', function(assert) {
+  assert.expect(1);
+
+  assert.throws(() => {
+    this.render(hbs`{{leaflet-map zoom=zoom}}`);
+  }, 'You must provide either valid `bounds` or a `center` (or `lat`/`lng`) and a `zoom` value.');
 });
