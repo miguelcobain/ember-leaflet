@@ -19,6 +19,9 @@ Router.map(function() {
     // COMPONENTS
     this.route('component', {path: ':component_name'});
   });
+
+  this.route('addons');
+  
 });
 
 export default Router;
