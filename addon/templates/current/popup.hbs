@@ -1,6 +1,2 @@
 {{#if hasBlock}}{{setHasBlock}}{{/if}}
-{{#if popupOpen}}
-  {{#ember-wormhole to=_wormholeDestination}}
-    {{yield}}
-  {{/ember-wormhole}}
-{{/if}}
+{{yield}}

@@ -1,14 +1,14 @@
 import Ember from 'ember';
 import layout from '../templates/popup';
-const { computed, run, Mixin } = Ember;
+const { computed, observer, Mixin } = Ember;
 
 export default Mixin.create({
+
+  // we need "tagfull" here to have `this.element`
+  tagName: 'div',
+
   layout,
   popupOpen: false,
-
-  _wormholeDestination: computed(function() {
-    return `popup-${this.elementId}`;
-  }),
 
   /*
    * Evil hack by @rwjblue.
@@ -19,29 +19,53 @@ export default Mixin.create({
     this.set('hasBlock', true);
   }),
 
-  _popupopen() {
-    //add id to popup div. wormwhole will render there.
-    this._popup._contentNode.id = this.get('_wormholeDestination');
-    this.set('popupOpen', true);
-    //run update method to correctly position the map
-    run.next(() => this._popup.update());
+  // creates a document fragment that will hold the DOM
+  destinationElement: computed(function() {
+    return document.createElement('div');
+  }),
+
+  willInsertElement() {
+    this._super(...arguments);
+    this._firstNode = this.element.firstChild;
+    this._lastNode = this.element.lastChild;
+    this.appendToDestination();
   },
 
-  _popupclose() {
-    this.set('popupOpen', false);
+  appendToDestination() {
+    let destinationElement = this.get('destinationElement');
+    this.appendRange(destinationElement, this._firstNode, this._lastNode);
   },
+
+  appendRange: function(destinationElement, firstNode, lastNode) {
+    while(firstNode) {
+      destinationElement.insertBefore(firstNode, null);
+      firstNode = firstNode !== lastNode ? lastNode.parentNode.firstChild : null;
+    }
+  },
+
+  popupOpenDidChange: observer('popupOpen', function() {
+    if (this.get('popupOpen')) {
+      this._layer.openPopup();
+    } else {
+      this._layer.closePopup();
+    }
+  }),
 
   didCreateLayer() {
+    this._super(...arguments);
     if (this.get('hasBlock')) {
       this._popup = this.L.popup({}, this._layer);
+      this._popup.setContent(this.get('destinationElement'));
       this._layer.bindPopup(this._popup);
+
+      this.popupOpenDidChange();
     }
   },
 
   willDestroyLayer() {
+    this._super(...arguments);
     if (this.get('hasBlock')) {
-      // closing popup will call _destroyPopupContent
-      this._layer.closePopup();
+      this._layer.unbindPopup();
       delete this._popup;
     }
   }

@@ -66,7 +66,7 @@ export default Ember.Controller.extend({
   <div class="code-sample-snippet result {{if (eq component.activeTab "result") "active"}}">
     {{#leaflet-map lat=lat lng=lng zoom=zoom}}
       {{tile-layer url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
-      {{#marker-layer location=emberConfLocation}}
+      {{#marker-layer location=emberConfLocation popupOpen=true}}
         <h3>The Oregon Convention Center</h3>
         777 NE Martin Luther King Jr Blvd<br>
         Portland, OR 97232
