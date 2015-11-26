@@ -4,6 +4,7 @@ import hbs from 'htmlbars-inline-precompile';
 import { assertionInjector, assertionCleanup } from '../../assertions';
 import MarkerLayerComponent from 'ember-leaflet/components/marker-layer';
 import locations from '../../helpers/locations';
+const { computed } = Ember;
 /* globals L */
 
 //Needed to silence leaflet autodetection error
@@ -50,4 +51,29 @@ test('popup works', function(assert) {
 
   assert.ok(!!marker._popup._map, 'marker added to map');
   assert.equal(Ember.$(marker._popup._contentNode).text().trim(), 'Popup content', 'popup content set');
+});
+
+test('popup content isn\'t rendered until it is opened', function(assert) {
+  var didNotRun = true;
+
+  this.set('markerCenter', locations.nyc);
+  this.set('computedProperty', computed(function() {
+    didNotRun = false;
+  }));
+
+  this.render(hbs`
+    {{#leaflet-map zoom=zoom center=center}}
+      {{#marker-layer location=markerCenter}}
+        {{computedProperty}}
+      {{/marker-layer}}
+    {{/leaflet-map}}
+  `);
+
+  assert.equal(marker._popup._map, null, 'popup not added until opened');
+
+  Ember.run(() => {
+    marker._layer.fire('click', { latlng: locations.nyc });
+  });
+
+  assert.ok(didNotRun, 'computed property did not run');
 });
