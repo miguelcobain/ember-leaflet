@@ -26,9 +26,9 @@ export default Mixin.create({
 
   popupOpenDidChange: observer('popupOpen', function() {
     if (this.get('popupOpen')) {
-      this._layer.openPopup();
+      if (!this._popup._isOpen) { this._layer.openPopup(); }
     } else {
-      this._layer.closePopup();
+      if (this._popup._isOpen) { this._layer.closePopup(); }
     }
   }),
 

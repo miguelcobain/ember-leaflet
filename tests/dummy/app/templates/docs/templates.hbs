@@ -19,7 +19,7 @@
   \{{/if}}
 
   \{{#each restaurants as |r|}}
-    \{{#marker-layer lat=r.lat lng=r.lng draggable=true onDragend=(action "updateLocation" r)}}
+    \{{#marker-layer lat=r.lat lng=r.lng draggable=true popupOpen=(readonly r.isOpen) onDragend=(action "updateLocation" r)}}
       &lt;h3&gt;\{{r.name}}&lt;/h3&gt;
       Rating: \{{r.rating}}/5
     \{{/marker-layer}}
@@ -38,6 +38,7 @@
       &lt;strong&gt;\{{r.name}}&lt;/strong&gt;&lt;br&gt;
       Lat: \{{input value=r.lat}}
       Lng: \{{input value=r.lng}}
+      &lt;label&gt;\{{input type="checkbox" checked=r.isOpen}} Popup open?&lt;/label&gt;
     &lt;/li&gt;
   \{{/each}}
 &lt;/ul&gt;{{/code-block}}
@@ -94,7 +95,7 @@ export default Ember.Controller.extend({
       {{/if}}
 
       {{#each restaurants as |r|}}
-        {{#marker-layer lat=r.lat lng=r.lng draggable=true onDragend=(action "updateLocation" r)}}
+        {{#marker-layer lat=r.lat lng=r.lng draggable=true popupOpen=(readonly r.isOpen) onDragend=(action "updateLocation" r)}}
           <h3>{{input value=r.name}}</h3>
           Rating: {{r.rating}}/5
         {{/marker-layer}}
@@ -113,6 +114,7 @@ export default Ember.Controller.extend({
           <strong>{{r.name}}</strong><br>
           Lat: {{input value=r.lat}}
           Lng: {{input value=r.lng}}
+          <label>{{input type="checkbox" checked=r.isOpen}} Popup open?</label>
         </li>
       {{/each}}
     </ul>
