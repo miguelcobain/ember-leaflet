@@ -54,7 +54,6 @@
     "ember-cli-babel": "^5.1.5",
     "ember-cli-htmlbars": "^1.0.1",
     "ember-cli-version-checker": "^1.1.4",
-    "ember-wormhole": "^0.3.4",
     "ember-invoke-action": "1.2.0",
     "broccoli-merge-trees": "^1.0.0"
   },
