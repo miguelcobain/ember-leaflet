@@ -1,41 +1,14 @@
 import Ember from 'ember';
-import ParentMixin from 'ember-leaflet/mixins/parent';
+import ChildMixin from 'ember-leaflet/mixins/child';
 import { InvokeActionMixin } from 'ember-invoke-action';
 const { assert, computed, Component, run } = Ember;
 /* global L */
 
-export default Component.extend(InvokeActionMixin, {
+export default Component.extend(ChildMixin, InvokeActionMixin, {
   tagName: '',
   L,
 
   concatenatedProperties: ['leafletOptions', 'leafletRequiredOptions', 'leafletEvents', 'leafletProperties'],
-
-  didInsertElement() {
-    this._super(...arguments);
-    this.registerWithParent();
-  },
-
-  willDestroyElement() {
-    this._super(...arguments);
-    this.unregisterWithParent();
-  },
-
-  containerLayer: computed(function() {
-    return this.nearestOfType(ParentMixin);
-  }),
-
-  registerWithParent() {
-    let container = this.get('containerLayer');
-    assert(`Tried to use ${this} outside the context of a container layer.`, container);
-    container.registerChild(this);
-  },
-
-  unregisterWithParent() {
-    let container = this.get('containerLayer');
-    if (container) {
-      container.unregisterChild(this);
-    }
-  },
 
   createLayer() {
     assert('BaseLayer\'s `createLayer` should be overriden.');

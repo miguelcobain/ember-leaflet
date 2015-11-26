@@ -1,10 +1,11 @@
 import Ember from 'ember';
-import ContainerLayer from 'ember-leaflet/components/container-layer';
+import BaseLayer from 'ember-leaflet/components/base-layer';
+import ContainerMixin from 'ember-leaflet/mixins/container';
 import toLatLng from 'ember-leaflet/macros/to-lat-lng';
 import layout from '../templates/leaflet-map';
 const { assert } = Ember;
 
-export default ContainerLayer.extend({
+export default BaseLayer.extend(ContainerMixin, {
   tagName: 'div',
   layout,
 

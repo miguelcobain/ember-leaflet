@@ -1,10 +1,7 @@
 import Ember from 'ember';
-import BaseLayer from 'ember-leaflet/components/base-layer';
-import ParentMixin from 'ember-leaflet/mixins/parent';
 const { A } = Ember;
 
-export default BaseLayer.extend(ParentMixin, {
-
+export default Ember.Mixin.create({
   _childLayers: null,
 
   init() {
@@ -29,5 +26,4 @@ export default BaseLayer.extend(ParentMixin, {
       childLayer.layerTeardown();
     }
   }
-
 });
