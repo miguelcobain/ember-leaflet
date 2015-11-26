@@ -1,10 +1,10 @@
 import Ember from 'ember';
 import layout from '../templates/popup';
-const { computed, observer, Mixin } = Ember;
+const { computed, observer, Mixin, run: { schedule } } = Ember;
 
 export default Mixin.create({
 
-  // we need "tagfull" here to have `this.element`
+  // we need a "tagfull" here to have `this.element`
   tagName: 'div',
 
   layout,
@@ -24,6 +24,14 @@ export default Mixin.create({
     return document.createElement('div');
   }),
 
+  popupOpenDidChange: observer('popupOpen', function() {
+    if (this.get('popupOpen')) {
+      this._layer.openPopup();
+    } else {
+      this._layer.closePopup();
+    }
+  }),
+
   willInsertElement() {
     this._super(...arguments);
     this._firstNode = this.element.firstChild;
@@ -36,20 +44,12 @@ export default Mixin.create({
     this.appendRange(destinationElement, this._firstNode, this._lastNode);
   },
 
-  appendRange: function(destinationElement, firstNode, lastNode) {
+  appendRange(destinationElement, firstNode, lastNode) {
     while(firstNode) {
       destinationElement.insertBefore(firstNode, null);
       firstNode = firstNode !== lastNode ? lastNode.parentNode.firstChild : null;
     }
   },
-
-  popupOpenDidChange: observer('popupOpen', function() {
-    if (this.get('popupOpen')) {
-      this._layer.openPopup();
-    } else {
-      this._layer.closePopup();
-    }
-  }),
 
   didCreateLayer() {
     this._super(...arguments);
@@ -58,8 +58,26 @@ export default Mixin.create({
       this._popup.setContent(this.get('destinationElement'));
       this._layer.bindPopup(this._popup);
 
+      this._hijackPopup();
+
       this.popupOpenDidChange();
     }
+  },
+
+  _hijackPopup() {
+    let oldOnAdd = this._popup.onAdd;
+    this._popup.onAdd = (map) => {
+      this.set('popupOpen', true);
+      schedule('render', () => {
+        oldOnAdd.call(this._popup, map);
+      });
+    };
+
+    let oldOnRemove = this._popup.onRemove;
+    this._popup.onRemove = (map) => {
+      oldOnRemove.call(this._popup, map);
+      this.set('popupOpen', false);
+    };
   },
 
   willDestroyLayer() {
@@ -67,6 +85,8 @@ export default Mixin.create({
     if (this.get('hasBlock')) {
       this._layer.unbindPopup();
       delete this._popup;
+      delete this._firstNode;
+      delete this._lastNode;
     }
   }
 });

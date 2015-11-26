@@ -49,16 +49,16 @@ test('popup works', function(assert) {
     marker._layer.fire('click', { latlng: locations.nyc });
   });
 
-  assert.ok(!!marker._popup._map, 'marker added to map');
+  assert.ok(!!marker._popup._map, 'popup opened');
   assert.equal(Ember.$(marker._popup._contentNode).text().trim(), 'Popup content', 'popup content set');
 });
 
-test('popup content isn\'t rendered until it is opened', function(assert) {
-  var didNotRun = true;
+test('popup content isn\'t rendered until it is opened (lazy popups)', function(assert) {
+  var didRun = false;
 
   this.set('markerCenter', locations.nyc);
   this.set('computedProperty', computed(function() {
-    didNotRun = false;
+    didRun = true;
   }));
 
   this.render(hbs`
@@ -71,9 +71,44 @@ test('popup content isn\'t rendered until it is opened', function(assert) {
 
   assert.equal(marker._popup._map, null, 'popup not added until opened');
 
+  assert.ok(!didRun, 'computed property did not run');
+
   Ember.run(() => {
     marker._layer.fire('click', { latlng: locations.nyc });
   });
 
-  assert.ok(didNotRun, 'computed property did not run');
+  assert.ok(!!marker._popup._map, 'popup opened');
+  assert.ok(didRun, 'computed property did run');
+
+});
+
+test('popup opens based on popupOpen', function(assert) {
+
+  this.set('markerCenter', locations.nyc);
+  this.set('popupOpen', true);
+
+  this.render(hbs`
+    {{#leaflet-map zoom=zoom center=center}}
+      {{#marker-layer location=markerCenter popupOpen=popupOpen}}
+        Popup content
+      {{/marker-layer}}
+    {{/leaflet-map}}
+  `);
+
+  assert.ok(!!marker._popup._map, 'popup starts open');
+  assert.equal(Ember.$(marker._popup._contentNode).text().trim(), 'Popup content', 'popup content set');
+
+  Ember.run(() => {
+    this.set('popupOpen', false);
+  });
+
+  assert.equal(marker._popup._map, null, 'popup closed');
+
+  Ember.run(() => {
+    this.set('popupOpen', true);
+  });
+
+  assert.ok(!!marker._popup._map, 'popup opens again');
+  assert.equal(Ember.$(marker._popup._contentNode).text().trim(), 'Popup content', 'popup content set');
+
 });
