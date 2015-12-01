@@ -10,7 +10,7 @@ const { computed } = Ember;
 //Needed to silence leaflet autodetection error
 L.Icon.Default.imagePath = 'some-path';
 
-let marker;
+let marker, layer;
 
 moduleForComponent('marker-layer', 'Integration | Component | popup mixin', {
   integration: true,
@@ -21,6 +21,11 @@ moduleForComponent('marker-layer', 'Integration | Component | popup mixin', {
       init() {
         this._super(...arguments);
         marker = this;
+      },
+      createLayer() {
+        let leafletLayer = this._super(...arguments);
+        layer = leafletLayer;
+        return leafletLayer;
       }
     }));
 
@@ -110,5 +115,30 @@ test('popup opens based on popupOpen', function(assert) {
 
   assert.ok(!!marker._popup._map, 'popup opens again');
   assert.equal(Ember.$(marker._popup._contentNode).text().trim(), 'Popup content', 'popup content set');
+
+});
+
+test('popup closes when layer is destroyed', function(assert) {
+
+  this.set('markerCenter', locations.nyc);
+  this.set('isVisible', true);
+
+  this.render(hbs`
+    {{#leaflet-map zoom=zoom center=center}}
+      {{#if isVisible}}
+        {{#marker-layer location=markerCenter popupOpen=true}}
+          Popup content
+        {{/marker-layer}}
+      {{/if}}
+    {{/leaflet-map}}
+  `);
+
+  let map = layer._map;
+  assert.ok(!!map._popup, 'popup starts open');
+  assert.equal(Ember.$(map._popup._contentNode).text().trim(), 'Popup content', 'popup content set');
+
+  this.set('isVisible', false);
+
+  assert.equal(map._popup, null, 'popup closed');
 
 });
