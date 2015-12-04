@@ -12,6 +12,10 @@ module.exports = {
 
    app.import(app.bowerDirectory + '/leaflet/dist/leaflet.css');
 
+   app.import(app.bowerDirectory + '/leaflet.markercluster/dist/leaflet.markercluster-src.js');
+   app.import(app.bowerDirectory + '/leaflet.markercluster/dist/MarkerCluster.css');
+   app.import(app.bowerDirectory + '/leaflet.markercluster/dist/MarkerCluster.Default.css');
+
    var imagesDestDir = '/assets/images';
    app.import(app.bowerDirectory + '/leaflet/dist/images/layers-2x.png', { destDir: imagesDestDir });
    app.import(app.bowerDirectory + '/leaflet/dist/images/layers.png', { destDir: imagesDestDir });
