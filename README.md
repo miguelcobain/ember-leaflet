@@ -18,6 +18,24 @@ Please file any issues if you see that something can be improved.
 
 If you're looking for the previous ember-leaflet version, you can use [this repo](https://github.com/gabesmed/ember-leaflet).
 
+#### Production Builds
+In your <code>ember-cli-build.js</code> add the following snippet:
+```
+var app = new EmberApp(defaults, {
+    // Add options here
+    fingerprint: {
+      exclude: [
+        'images/layers-2x.png',
+        'images/layers.png',
+        'images/marker-icon-2x.png',
+        'images/marker-icon.png',
+        'images/marker-shadow.png'
+      ]
+    }
+  });
+```
+Ember-Cli does fingerprinting (appending an md5 checksum to the end of every file) for production builds by default (http://ember-cli.com/user-guide/#fingerprinting-and-cdn-urls). Exclude the assets you need so that your production build produces them correctly.
+
 ## Overview
 
 Web apps frequently need to display geographic data, especially if it has a direct relationship with the real world. That isn't new, and has been done previously in all kinds of formats, particularly with raster and vector data.
