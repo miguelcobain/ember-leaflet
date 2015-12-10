@@ -12,6 +12,27 @@
   You're ready to map!
 </p>
 
+<p>
+  <strong>Note:</strong> For production builds, update ember-cli's fingerprinting exclusions for the assets included in ember-leaflet.
+  See <a href="http://ember-cli.com/user-guide/#fingerprinting-and-cdn-urls">here</a> for more details.
+</p>
+
+{{#code-block}}
+  //ember-cli-build.js
+  var app = new EmberApp(defaults, {
+    // Add options here
+    fingerprint: {
+      exclude: [
+        'images/layers-2x.png',
+        'images/layers.png',
+        'images/marker-icon-2x.png',
+        'images/marker-icon.png',
+        'images/marker-shadow.png'
+      ]
+    }
+  });
+{{/code-block}}
+
 <div class="doc-page-nav">
   {{#link-to 'docs.index' class="doc-page-nav-link-prev"}}&lt; Overview{{/link-to}}
   {{#link-to 'docs.container' class="doc-page-nav-link-next"}}The container &gt;{{/link-to}}
