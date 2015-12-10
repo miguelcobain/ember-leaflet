@@ -17,21 +17,20 @@
   See <a href="http://ember-cli.com/user-guide/#fingerprinting-and-cdn-urls">here</a> for more details.
 </p>
 
-{{#code-block}}
-  //ember-cli-build.js
-  var app = new EmberApp(defaults, {
-    // Add options here
-    fingerprint: {
-      exclude: [
-        'images/layers-2x.png',
-        'images/layers.png',
-        'images/marker-icon-2x.png',
-        'images/marker-icon.png',
-        'images/marker-shadow.png'
-      ]
-    }
-  });
-{{/code-block}}
+{{#code-block language="js"}}
+//ember-cli-build.js
+var app = new EmberApp(defaults, {
+  // Add options here
+  fingerprint: {
+    exclude: [
+      'images/layers-2x.png',
+      'images/layers.png',
+      'images/marker-icon-2x.png',
+      'images/marker-icon.png',
+      'images/marker-shadow.png'
+    ]
+  }
+});{{/code-block}}
 
 <div class="doc-page-nav">
   {{#link-to 'docs.index' class="doc-page-nav-link-prev"}}&lt; Overview{{/link-to}}
