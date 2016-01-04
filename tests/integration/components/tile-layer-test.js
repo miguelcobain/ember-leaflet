@@ -24,16 +24,18 @@ test('create and update tile layer using leafletProperties', function(assert) {
   this.set('tileUrl', 'http://{s}.tile.osm.org/{z}/{x}/{y}.png');
   this.set('zIndex', 13);
   this.set('opacity', 0.2);
+  this.set('subdomains', ['123']);
 
   this.render(hbs`
     {{#leaflet-map zoom=zoom center=center}}
-      {{tile-layer url=tileUrl opacity=opacity zIndex=zIndex}}
+      {{tile-layer url=tileUrl opacity=opacity zIndex=zIndex subdomains=subdomains}}
     {{/leaflet-map}}
   `);
 
   assert.equal(tile._layer._url, 'http://{s}.tile.osm.org/{z}/{x}/{y}.png');
   assert.equal(tile._layer.options.opacity, 0.2);
   assert.equal(tile._layer.options.zIndex, 13);
+  assert.deepEqual(tile._layer.options.subdomains, ['123']);
 
   this.set('tileUrl', 'http://a.tiles.mapbox.com/v3/examples.map-zr0njcqy/{z}/{x}/{y}.png');
   this.set('zIndex', 2);
