@@ -139,3 +139,9 @@ test('map throws if only zoom is provided', function(assert) {
     this.render(hbs`{{leaflet-map zoom=zoom}}`);
   }, 'You must provide either valid `bounds` or a `center` (or `lat`/`lng`) and a `zoom` value.');
 });
+
+test('setting zoom to 0 should not throw', function(assert) {
+  this.render(hbs`{{leaflet-map zoom=0 center=center}}`);
+
+  assert.equal(map._layer.getZoom(), 0, 'zoom 0 is set');
+});
