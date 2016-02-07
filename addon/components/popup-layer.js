@@ -115,7 +115,7 @@ export default BaseLayer.extend({
     //...this function, which does nothing but call your action.
     this._layer.onRemove = () => {
       if (this.get('closePopup')) {
-        this.invokeAction('closePopup');
+        Ember.run(() => this.invokeAction('closePopup'));
       }
     };
   },

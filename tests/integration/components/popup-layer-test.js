@@ -37,6 +37,7 @@ test('it fires the close event', function(assert) {
   //that:
 
   let closeButtonDOMElement = this.$('.leaflet-popup-close-button')[0];
+
   closeButtonDOMElement.click();
   assert.equal(this.$('.leaflet-popup').length, 0);
   assert.equal(this.get('popupOpen'), false);
