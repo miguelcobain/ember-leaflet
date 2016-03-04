@@ -20,8 +20,8 @@ If you're looking for the previous ember-leaflet version, you can use [this repo
 
 #### Production Builds
 In your <code>ember-cli-build.js</code> add the following snippet:
-```
-var app = new EmberApp(defaults, {
+```js
+  var app = new EmberApp(defaults, {
     // Add options here
     fingerprint: {
       exclude: [
