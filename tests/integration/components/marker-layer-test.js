@@ -125,3 +125,61 @@ if (hasEmberVersion(2,3)) {
      assert.ok(marker._layer, 'marker was created');
   });
 }
+
+test('using icons from icon helper works', function(assert) {
+
+  this.set('markerCenter', locations.nyc);
+  this.set('currentIconUrl', 'custom-url.png');
+  this.set('currentSize', 12);
+
+  this.render(hbs`
+    {{#leaflet-map zoom=zoom center=center}}
+      {{marker-layer
+        location=markerCenter
+        icon=(icon
+          iconUrl=currentIconUrl
+          iconSize=(point currentSize currentSize)
+        )}}
+    {{/leaflet-map}}
+  `);
+
+  assert.equal(marker._layer.options.icon.options.iconUrl, 'custom-url.png');
+  assert.equal(marker._layer.options.icon.options.iconSize.x, 12);
+  assert.equal(marker._layer.options.icon.options.iconSize.y, 12);
+
+  // Let's make sure an icon recomputes with a bound param changes
+  this.set('currentIconUrl', 'another-custom-url.png');
+  this.set('currentSize', 21);
+  assert.equal(marker._layer.options.icon.options.iconUrl, 'another-custom-url.png');
+  assert.equal(marker._layer.options.icon.options.iconSize.x, 21);
+  assert.equal(marker._layer.options.icon.options.iconSize.y, 21);
+});
+
+test('using icons from div-icon helper works', function(assert) {
+
+  this.set('markerCenter', locations.nyc);
+  this.set('iconContent', '<h1>First title!</h1>');
+  this.set('currentSize', 12);
+
+  this.render(hbs`
+    {{#leaflet-map zoom=zoom center=center}}
+      {{marker-layer
+        location=markerCenter
+        icon=(div-icon
+          html=iconContent
+          iconSize=(point currentSize currentSize)
+        )}}
+    {{/leaflet-map}}
+  `);
+
+  assert.equal(marker._layer.options.icon.options.html, '<h1>First title!</h1>');
+  assert.equal(marker._layer.options.icon.options.iconSize.x, 12);
+  assert.equal(marker._layer.options.icon.options.iconSize.y, 12);
+
+  // Let's make sure an icon recomputes with a bound param changes
+  this.set('iconContent', '<h1>Second title!</h1>');
+  this.set('currentSize', 21);
+  assert.equal(marker._layer.options.icon.options.html, '<h1>Second title!</h1>');
+  assert.equal(marker._layer.options.icon.options.iconSize.x, 21);
+  assert.equal(marker._layer.options.icon.options.iconSize.y, 21);
+});
