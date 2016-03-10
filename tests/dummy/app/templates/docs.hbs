@@ -14,6 +14,11 @@
       {{#link-to "docs.component" c class="side-nav-link"}}{{c}}{{/link-to}}
     {{/each}}
 
+    <header class="side-nav-header">Helpers</header>
+    {{#each helperList as |h|}}
+      {{#link-to "docs.helper" h class="side-nav-link"}}{{h}}{{/link-to}}
+    {{/each}}
+
   </nav>
   <section class="doc-page">
     {{!--{{#power-select selected=currentSection options=groupedSections onchange=(action "visit") searchField="text" searchEnabled=false class="section-selector" as |option|}}

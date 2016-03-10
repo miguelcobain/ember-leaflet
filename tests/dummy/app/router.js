@@ -18,10 +18,12 @@ Router.map(function() {
 
     // COMPONENTS
     this.route('component', {path: ':component_name'});
+
+    // HELPERS
+    this.route('helper', {path: 'helpers/:helper_name'});
   });
 
   this.route('addons');
-  
 });
 
 export default Router;

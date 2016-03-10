@@ -13,6 +13,18 @@ export default Ember.Controller.extend({
     }
 
     return componentList;
+  }),
+
+  helperList: Ember.computed(function() {
+    let helperList = [];
+
+    for (var key in requirejs.entries) {
+      if (key.indexOf('ember-leaflet/helpers/') !== -1 && key.indexOf('jshint') === -1) {
+        helperList.push(key.split('/').pop());
+      }
+    }
+
+    return helperList;
   })
 
 });
