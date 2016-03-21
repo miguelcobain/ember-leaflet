@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import BaseLayer from 'ember-leaflet/components/base-layer';
 import PathLayer from 'ember-leaflet/components/path-layer';
-import PopupMixin from 'ember-leaflet/mixins/popup';
 /* global L */
 
 /**
@@ -12,7 +11,7 @@ import PopupMixin from 'ember-leaflet/mixins/popup';
  *   - geoJSON: the GeoJSON object to render
  *   - all standard leaflet options for L.geoJson
  */
-export default BaseLayer.extend(PopupMixin, {
+export default BaseLayer.extend({
   leafletOptions: [
     'stroke', 'color', 'weight', 'opacity', 'fill', 'fillColor',
     'fillOpacity', 'fillRule', 'dashArray', 'lineCap', 'lineJoin',
