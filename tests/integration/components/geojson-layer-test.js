@@ -9,6 +9,12 @@ import sampleGeoJSON from '../../helpers/sample-geojson';
 //Needed to silence leaflet autodetection error
 L.Icon.Default.imagePath = 'some-path';
 
+
+const emptyGeoJSON = {
+  type: 'FeatureCollection',
+  features: []
+};
+
 let geoJSONLayer;
 
 moduleForComponent('geojson-layer', 'Integration | Component | geojson layer', {
@@ -55,4 +61,26 @@ test('render geoJSON as SVG and Markers', function(assert) {
 
   assert.strictEqual(markers.length, 1);
   assert.locationsEqual(markers[0].getLatLng(), locations.chicago);
+});
+
+test('re-render SVG and markers after geoJSON changes', function(assert) {
+  //we know this works, as per the above test...
+  this.render(hbs`
+    {{#leaflet-map zoom=zoom center=center}}
+      {{geojson-layer geoJSON=sampleGeoJSON}}
+    {{/leaflet-map}}
+  `);
+
+  //...now let's force a re-render, clearing all the geoJSON from the map
+
+  //NOTE that it's not enough to push new data into the geoJSON hash -- we must
+  //replace it entirely.
+  this.set('sampleGeoJSON', emptyGeoJSON);
+
+  const polygonPath = this.$('path');
+  assert.strictEqual(polygonPath.length, 0);
+
+  const markers = geoJSONLayer._layer.getLayers().filter(
+    (layer) => layer instanceof L.Marker);
+  assert.strictEqual(markers.length, 0);
 });
