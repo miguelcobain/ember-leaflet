@@ -6,10 +6,6 @@ import locations from '../../helpers/locations';
 import sampleGeoJSON from '../../helpers/sample-geojson';
 /* globals L */
 
-//Needed to silence leaflet autodetection error
-L.Icon.Default.imagePath = 'some-path';
-
-
 const emptyGeoJSON = {
   type: 'FeatureCollection',
   features: []
@@ -73,8 +69,8 @@ test('re-render SVG and markers after geoJSON changes', function(assert) {
 
   //...now let's force a re-render, clearing all the geoJSON from the map
 
-  //NOTE that it's not enough to push new data into the geoJSON hash -- we must
-  //replace it entirely.
+  //NOTE that it's not enough to modify the geoJSON hash -- we must replace it
+  //entirely.
   this.set('sampleGeoJSON', emptyGeoJSON);
 
   const polygonPath = this.$('path');

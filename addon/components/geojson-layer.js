@@ -25,19 +25,33 @@ export default BaseLayer.extend({
   ],
 
   geoJSON: null,
-  pushDataToLeaflet: Ember.observer('geoJSON', function() {
-    const geoJSON = this.get('geoJSON');
-    if (!this._layer || !geoJSON) {
+  _lastPushedToLeaflet: null,
+
+  didReceiveAttrs() {
+    const currentGeoJSON = this.get('geoJSON');
+    if (currentGeoJSON !== this.get('_lastPushedToLeaflet')) {
+      this.pushDataToLeaflet(currentGeoJSON);
+    }
+  },
+
+  pushDataToLeaflet(geoJSON) {
+    if (!this._layer) {
       return;
     }
+
+    this.set('_lastPushedToLeaflet', geoJSON);
 
     //recall that GeoJSON layers are actually layer groups -- we have to clear
     //their contents first...
     this._layer.clearLayers();
 
+    if (!geoJSON) {
+      //(can't add new data if we don't have anything to add)
+      return;
+    }
     //...then add new data to recreate the child layers in an updated form
-    this._layer.addData(this.get('geoJSON'));
-  }),
+    this._layer.addData(geoJSON);
+  },
 
   createLayer() {
     return L.geoJson(null, this.get('options'));
@@ -45,6 +59,6 @@ export default BaseLayer.extend({
 
   didCreateLayer() {
     this._super(...arguments);
-    this.pushDataToLeaflet();
+    this.pushDataToLeaflet(this.get('geoJSON'));
   }
 });
