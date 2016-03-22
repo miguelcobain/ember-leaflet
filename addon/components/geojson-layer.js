@@ -26,13 +26,9 @@ export default BaseLayer.extend({
     'contextmenu', 'add', 'remove', 'popupopen', 'popupclose'
   ],
 
-  geoJSON: null,
-  _lastPushedToLeaflet: null,
-
-  didUpdateAttrs() {
-    const currentGeoJSON = this.get('geoJSON');
-    if (currentGeoJSON !== this.get('_lastPushedToLeaflet')) {
-      this.pushDataToLeaflet(currentGeoJSON);
+  didUpdateAttrs({ newAttrs }) {
+    if (newAttrs.geoJSON) {
+      this.pushDataToLeaflet(newAttrs.geoJSON.value);
     }
   },
 
@@ -41,18 +37,14 @@ export default BaseLayer.extend({
       return;
     }
 
-    this.set('_lastPushedToLeaflet', geoJSON);
-
     //recall that GeoJSON layers are actually layer groups -- we have to clear
     //their contents first...
     this._layer.clearLayers();
 
-    if (!geoJSON) {
-      //(can't add new data if we don't have anything to add)
-      return;
+    if (geoJSON) {
+      //...then add new data to recreate the child layers in an updated form
+      this._layer.addData(geoJSON);
     }
-    //...then add new data to recreate the child layers in an updated form
-    this._layer.addData(geoJSON);
   },
 
   createLayer() {
