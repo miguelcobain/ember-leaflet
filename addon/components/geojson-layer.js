@@ -29,7 +29,7 @@ export default BaseLayer.extend({
   geoJSON: null,
   _lastPushedToLeaflet: null,
 
-  didReceiveAttrs() {
+  didUpdateAttrs() {
     const currentGeoJSON = this.get('geoJSON');
     if (currentGeoJSON !== this.get('_lastPushedToLeaflet')) {
       this.pushDataToLeaflet(currentGeoJSON);
