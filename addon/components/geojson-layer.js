@@ -12,6 +12,8 @@ import PathLayer from 'ember-leaflet/components/path-layer';
  *   - all standard leaflet options for L.geoJson
  */
 export default BaseLayer.extend({
+  leafletRequiredOptions: ['geoJSON'],
+
   leafletOptions: [
     'stroke', 'color', 'weight', 'opacity', 'fill', 'fillColor',
     'fillOpacity', 'fillRule', 'dashArray', 'lineCap', 'lineJoin',
@@ -54,11 +56,6 @@ export default BaseLayer.extend({
   },
 
   createLayer() {
-    return L.geoJson(null, this.get('options'));
-  },
-
-  didCreateLayer() {
-    this._super(...arguments);
-    this.pushDataToLeaflet(this.get('geoJSON'));
+    return L.geoJson(...this.get('requiredOptions'), this.get('options'));
   }
 });
