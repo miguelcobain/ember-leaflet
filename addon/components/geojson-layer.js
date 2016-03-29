@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import BaseLayer from 'ember-leaflet/components/base-layer';
-import PathLayer from 'ember-leaflet/components/path-layer';
+import StyleMixin from 'ember-leaflet/mixins/style';
 /* global L */
 
 /**
@@ -11,7 +11,7 @@ import PathLayer from 'ember-leaflet/components/path-layer';
  *   - geoJSON: the GeoJSON object to render
  *   - all standard leaflet options for L.geoJson
  */
-export default BaseLayer.extend({
+export default BaseLayer.extend(StyleMixin, {
   leafletRequiredOptions: ['geoJSON'],
 
   leafletOptions: [
