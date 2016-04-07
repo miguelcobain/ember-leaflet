@@ -77,7 +77,7 @@ export default Component.extend(ChildMixin, InvokeActionMixin, {
 
   _addEventListeners() {
     this._eventHandlers = {};
-    this.get('usedLeafletEvents').forEach(function(eventName) {
+    this.get('usedLeafletEvents').forEach(eventName => {
 
       let actionName = 'on' + Ember.String.classify(eventName);
       let methodName = '_' + eventName;
@@ -94,22 +94,24 @@ export default Component.extend(ChildMixin, InvokeActionMixin, {
       };
 
       this._layer.addEventListener(eventName, this._eventHandlers[eventName], this);
-    }, this);
+    });
   },
 
   _removeEventListeners() {
-    this.get('usedLeafletEvents').forEach(function(eventName) {
-      this._layer.removeEventListener(eventName,
-        this._eventHandlers[eventName], this);
-      delete this._eventHandlers[eventName];
-    }, this);
+    if (this._eventHandlers) {
+      this.get('usedLeafletEvents').forEach(eventName => {
+        this._layer.removeEventListener(eventName,
+          this._eventHandlers[eventName], this);
+        delete this._eventHandlers[eventName];
+      });
+    }
   },
 
   leafletProperties: [],
 
   _addObservers() {
     this._observers = {};
-    this.get('leafletProperties').forEach(function(propExp) {
+    this.get('leafletProperties').forEach(propExp => {
 
       let [property, leafletProperty] = propExp.split(':');
       if (!leafletProperty) { leafletProperty = 'set' + Ember.String.classify(property); }
@@ -122,17 +124,19 @@ export default Component.extend(ChildMixin, InvokeActionMixin, {
       };
 
       this.addObserver(property, this, this._observers[property]);
-    }, this);
+    });
   },
 
   _removeObservers() {
-    this.get('leafletProperties').forEach(function(propExp) {
+    if (this._observers) {
+      this.get('leafletProperties').forEach(propExp => {
 
-      let [property] = propExp.split(':');
+        let [property] = propExp.split(':');
 
-      this.removeObserver(property, this, this._observers[property]);
-      delete this._observers[property];
-    }, this);
+        this.removeObserver(property, this, this._observers[property]);
+        delete this._observers[property];
+      });
+    }
   }
 
 });
