@@ -1,4 +1,4 @@
-import Ember from 'ember';
+// import Ember from 'ember';
 import BaseLayer from 'ember-leaflet/components/base-layer';
 import StyleMixin from 'ember-leaflet/mixins/style';
 /* global L */
