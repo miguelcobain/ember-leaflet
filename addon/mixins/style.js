@@ -1,5 +1,5 @@
 import Ember from 'ember';
-const { Mixin, computed, assert } = Ember;
+// const { Mixin, computed, assert } = Ember;
 
 export default Ember.Mixin.create({
 
