@@ -9,8 +9,8 @@ export default function(latKey = 'lat', lngKey = 'lng') {
     },
     set(key, value) {
       this.setProperties({
-        [latKey]: value.lat,
-        [lngKey]: value.lng
+        [latKey]: value ? value.lat : value,
+        [lngKey]: value ? value.lng : value
       });
       return value;
     }
