@@ -38,7 +38,7 @@ export default BaseLayer.extend(ContainerMixin, {
   ],
 
   leafletProperties: [
-    'zoom:setZoom', 'center:panTo', 'maxBounds:setMaxBounds', 'bounds:fitBounds:fitBoundsOptions'
+    'zoom:setZoom', 'center:panTo:panOptions', 'maxBounds:setMaxBounds', 'bounds:fitBounds:fitBoundsOptions'
   ],
 
   center: toLatLng(),
@@ -85,7 +85,7 @@ export default BaseLayer.extend(ContainerMixin, {
       (!this.get('bounds') && (this.get('center') && this.get('zoom') !== undefined))
     );
     if (this.get('bounds')) {
-      this._layer.fitBounds(this.get('bounds'), this.get('fitBoundsOptions'));
+      this._layer.fitBounds(this.get('bounds'), Ember.assign({reset: true}, this.get('fitBoundsOptions')));
     } else {
 
       this._layer.setView(this.get('center'), this.get('zoom'), {reset: true});

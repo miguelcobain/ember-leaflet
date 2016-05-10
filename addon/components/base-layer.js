@@ -120,12 +120,7 @@ export default Component.extend(ChildMixin, InvokeActionMixin, {
       this._observers[property] = function() {
         let value = this.get(objectProperty);
         assert(this.constructor + ' must have a ' + leafletProperty + ' function.', !!this._layer[leafletProperty]);
-        let propertyParams = [];
-        if (params) {
-          params.forEach(paramProperty => {
-            propertyParams.push(this.get(paramProperty));
-          });
-        }
+        let propertyParams = params.map(p => this.get(p));
         this._layer[leafletProperty].call(this._layer, value, ...propertyParams);
       };
 
