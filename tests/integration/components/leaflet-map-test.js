@@ -3,6 +3,7 @@ import hbs from 'htmlbars-inline-precompile';
 import { assertionInjector, assertionCleanup } from '../../assertions';
 import LeafletMapComponent from 'ember-leaflet/components/leaflet-map';
 import locations from '../../helpers/locations';
+/* globals L */
 
 let map;
 
@@ -81,6 +82,19 @@ test('update map layer using leafletProperties (bounds and then center)', functi
   this.set('center2', locations.nyc);
 
   assert.locationsEqual(map._layer.getCenter(), locations.nyc);
+});
+
+test('update map layer using leafletProperties (bounds and fitBoundsOptions)', function(assert) {
+  this.set('bounds', [locations.nyc, locations.chicago]);
+  this.render(hbs`{{leaflet-map bounds=bounds}}`);
+  let pixelBounds = map._layer.getPixelBounds();
+
+  this.set('fitBoundsOptions', {padding: L.point(100, 100)});
+  this.render(hbs`{{leaflet-map bounds=bounds fitBoundsOptions=fitBoundsOptions}}`);
+  let pixelBoundsWithOptions = map._layer.getPixelBounds();
+
+  assert.notEqual(pixelBounds.min.x, pixelBoundsWithOptions.min.x);
+  assert.notEqual(pixelBounds.min.y, pixelBoundsWithOptions.min.y);
 });
 
 test('map sends actions for events', function(assert) {
