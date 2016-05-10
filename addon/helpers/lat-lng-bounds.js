@@ -1,8 +1,8 @@
 import Ember from 'ember';
 /* global L */
 
-export function latLngBounds(params) {
-  return L.latLngBounds(...params);
+export function latLngBounds(latLngs) {
+  return L.latLngBounds(latLngs);
 }
 
 export default Ember.Helper.helper(latLngBounds);
