@@ -183,14 +183,3 @@ test('using icons from div-icon helper works', function(assert) {
   assert.equal(marker._layer.options.icon.options.iconSize.x, 21);
   assert.equal(marker._layer.options.icon.options.iconSize.y, 21);
 });
-
-test('popupOptions hash', function(assert) {
-  this.set('markerCenter', locations.nyc);
-  this.render(hbs`
-    {{#leaflet-map zoom=zoom center=center}}
-      {{marker-layer location=markerCenter draggable=draggable popupOptions=(hash className="foo")}}
-    {{/leaflet-map}}
-  `);
-
-  assert.equal(marker._popup.options.className, 'foo');
-});
