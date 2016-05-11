@@ -4,7 +4,6 @@ import { module, test } from 'qunit';
 
 module('Unit | Helper | lat-lng-bounds');
 
-// Replace this with your real tests.
 test('it works', function(assert) {
   let result = latLngBounds([
     [42.12312412431231, 41.12331213212],

@@ -4,7 +4,6 @@ import { module, test } from 'qunit';
 
 module('Unit | Helper | div-icon');
 
-// Replace this with your real tests.
 test('it works', function(assert) {
   let result = divIcon([], {
     html: '<h1>what\'s up?</h1>'

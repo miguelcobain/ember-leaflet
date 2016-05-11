@@ -3,6 +3,7 @@ import hbs from 'htmlbars-inline-precompile';
 import { assertionInjector, assertionCleanup } from '../../assertions';
 import LeafletMapComponent from 'ember-leaflet/components/leaflet-map';
 import locations from '../../helpers/locations';
+/* global L */
 
 let map;
 
@@ -144,4 +145,18 @@ test('setting zoom to 0 should not throw', function(assert) {
   this.render(hbs`{{leaflet-map zoom=0 center=center}}`);
 
   assert.equal(map._layer.getZoom(), 0, 'zoom 0 is set');
+});
+
+test('using bounds from lat-lng-bounds helper works', function(assert) {
+
+  this.set('markerCenter', locations.nyc);
+  this.set('bounds', locations.bounds());
+
+  this.render(hbs`
+    {{#leaflet-map bounds=(lat-lng-bounds bounds)}}
+      {{marker-layer location=markerCenter}}
+    {{/leaflet-map}}
+  `);
+
+  assert.ok(map._layer.getBounds() instanceof L.LatLngBounds);
 });
