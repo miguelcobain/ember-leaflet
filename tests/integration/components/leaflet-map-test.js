@@ -85,12 +85,13 @@ test('update map layer using leafletProperties (bounds and then center)', functi
 });
 
 test('update map layer using leafletProperties (bounds and fitBoundsOptions)', function(assert) {
+  this.set('fitBoundsOptions', null);
   this.set('bounds', [locations.nyc, locations.chicago]);
-  this.render(hbs`{{leaflet-map bounds=bounds}}`);
+  this.render(hbs`{{leaflet-map bounds=bounds fitBoundsOptions=fitBoundsOptions}}`);
   let pixelBounds = map._layer.getPixelBounds();
 
-  this.set('fitBoundsOptions', {padding: L.point(100, 100)});
-  this.render(hbs`{{leaflet-map bounds=bounds fitBoundsOptions=fitBoundsOptions}}`);
+  this.set('fitBoundsOptions', {padding: L.point(500, 500)});
+  this.set('bounds', [locations.chicago, locations.nyc]);
   let pixelBoundsWithOptions = map._layer.getPixelBounds();
 
   assert.notEqual(pixelBounds.min.x, pixelBoundsWithOptions.min.x);
