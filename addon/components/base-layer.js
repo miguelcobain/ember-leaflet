@@ -113,14 +113,15 @@ export default Component.extend(ChildMixin, InvokeActionMixin, {
     this._observers = {};
     this.get('leafletProperties').forEach(propExp => {
 
-      let [property, leafletProperty] = propExp.split(':');
+      let [property, leafletProperty, ...params] = propExp.split(':');
       if (!leafletProperty) { leafletProperty = 'set' + Ember.String.classify(property); }
       let objectProperty = property.replace(/\.\[]/, ''); //allow usage of .[] to observe array changes
 
       this._observers[property] = function() {
         let value = this.get(objectProperty);
         assert(this.constructor + ' must have a ' + leafletProperty + ' function.', !!this._layer[leafletProperty]);
-        this._layer[leafletProperty].call(this._layer, value);
+        let propertyParams = params.map(p => this.get(p));
+        this._layer[leafletProperty].call(this._layer, value, ...propertyParams);
       };
 
       this.addObserver(property, this, this._observers[property]);

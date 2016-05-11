@@ -4,6 +4,7 @@ import ContainerMixin from 'ember-leaflet/mixins/container';
 import toLatLng from 'ember-leaflet/macros/to-lat-lng';
 import layout from '../templates/leaflet-map';
 const { assert } = Ember;
+const assign = Ember.assign || Ember.merge;
 
 export default BaseLayer.extend(ContainerMixin, {
   tagName: 'div',
@@ -38,7 +39,7 @@ export default BaseLayer.extend(ContainerMixin, {
   ],
 
   leafletProperties: [
-    'zoom:setZoom', 'center:panTo', 'maxBounds:setMaxBounds', 'bounds:fitBounds'
+    'zoom:setZoom', 'center:panTo:zoomPanOptions', 'maxBounds:setMaxBounds', 'bounds:fitBounds:fitBoundsOptions'
   ],
 
   center: toLatLng(),
@@ -85,10 +86,10 @@ export default BaseLayer.extend(ContainerMixin, {
       (!this.get('bounds') && (this.get('center') && this.get('zoom') !== undefined))
     );
     if (this.get('bounds')) {
-      this._layer.fitBounds(this.get('bounds'), {reset: true});
+      this._layer.fitBounds(this.get('bounds'), assign({reset: true}, this.get('fitBoundsOptions')));
     } else {
 
-      this._layer.setView(this.get('center'), this.get('zoom'), {reset: true});
+      this._layer.setView(this.get('center'), this.get('zoom'), assign({reset: true}, this.get('zoomPanOptions')));
     }
   }
 });

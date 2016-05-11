@@ -83,6 +83,20 @@ test('update map layer using leafletProperties (bounds and then center)', functi
   assert.locationsEqual(map._layer.getCenter(), locations.nyc);
 });
 
+test('update map layer using leafletProperties (bounds and fitBoundsOptions)', function(assert) {
+  this.set('fitBoundsOptions', null);
+  this.set('bounds', [locations.nyc, locations.chicago]);
+  this.render(hbs`{{leaflet-map bounds=bounds fitBoundsOptions=fitBoundsOptions}}`);
+  let pixelBounds = map._layer.getPixelBounds();
+
+  this.set('fitBoundsOptions', {padding: [500, 500]});
+  this.set('bounds', [locations.chicago, locations.nyc]);
+  let pixelBoundsWithOptions = map._layer.getPixelBounds();
+
+  assert.notEqual(pixelBounds.min.x, pixelBoundsWithOptions.min.x);
+  assert.notEqual(pixelBounds.min.y, pixelBoundsWithOptions.min.y);
+});
+
 test('map sends actions for events', function(assert) {
   assert.expect(5);
 
