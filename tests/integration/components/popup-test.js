@@ -145,9 +145,10 @@ test('popup closes when layer is destroyed', function(assert) {
 
 test('popupOptions hash', function(assert) {
   this.set('markerCenter', locations.nyc);
+  this.set('popupOptions', { className: 'foo' });
   this.render(hbs`
     {{#leaflet-map zoom=zoom center=center}}
-      {{#marker-layer location=markerCenter draggable=draggable popupOptions=(hash className="foo")}}
+      {{#marker-layer location=markerCenter draggable=draggable popupOptions=popupOptions}}
         Popup Content
       {{/marker-layer}}
     {{/leaflet-map}}
