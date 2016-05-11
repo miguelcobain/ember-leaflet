@@ -153,5 +153,5 @@ test('popupOptions hash', function(assert) {
     {{/leaflet-map}}
   `);
   
-  assert.equal(marker._popup.options.className, 'foo');
+  assert.equal(marker._popup.options.className, 'foo', 'popup class set');
 });
