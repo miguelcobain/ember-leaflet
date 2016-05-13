@@ -9,6 +9,12 @@ export default Mixin.create({
 
   layout,
   popupOpen: false,
+  
+  actions: {
+    closePopup () {
+      this._popup._close ();
+    }
+  },
 
   /*
    * Evil hack by @rwjblue.
