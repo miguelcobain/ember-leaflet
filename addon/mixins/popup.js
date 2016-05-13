@@ -9,11 +9,9 @@ export default Mixin.create({
 
   layout,
   popupOpen: false,
-  
-  actions: {
-    closePopup () {
-      this._popup._close ();
-    }
+
+  closePopup () {
+    this._popup._close ();
   },
 
   /*
