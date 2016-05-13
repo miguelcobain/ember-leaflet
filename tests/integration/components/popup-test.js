@@ -156,11 +156,11 @@ test('popup closes with yielded action', function(assert) {
     marker._layer.fire('click', { latlng: locations.nyc });
   });
 
-  Ember.run(() => {
-    assert.ok(!!marker._popup._map, 'popup opened');
-  });
+  assert.ok(!!marker._popup._map, 'popup opened');
 
-  this.$('#closeEl').click();
+  Ember.run(() => {
+    this.$('#closeEl').click();
+  });
 
   let map = layer._map;
   assert.equal(map._popup, null, 'popup closed');
