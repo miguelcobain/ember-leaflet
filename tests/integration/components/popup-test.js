@@ -140,7 +140,30 @@ test('popup closes when layer is destroyed', function(assert) {
   this.set('isVisible', false);
 
   assert.equal(map._popup, null, 'popup closed');
+});
 
+test('popup closes with yielded action', function(assert) {
+
+  this.render(hbs`
+    {{#leaflet-map zoom=zoom center=center}}
+      {{#marker-layer location=center popupOpen=popupOpen as |closePopup|}}
+        <span id="closeEl" onclick={{closePopup}}>Popup content</span>
+      {{/marker-layer}}
+    {{/leaflet-map}}
+  `);
+
+  Ember.run(() => {
+    marker._layer.fire('click', { latlng: locations.nyc });
+  });
+
+  Ember.run(() => {
+    assert.ok(!!marker._popup._map, 'popup opened');
+  });
+
+  this.$('#closeEl').click();
+
+  let map = layer._map;
+  assert.equal(map._popup, null, 'popup closed');
 });
 
 test('popupOptions hash', function(assert) {
@@ -153,6 +176,6 @@ test('popupOptions hash', function(assert) {
       {{/marker-layer}}
     {{/leaflet-map}}
   `);
-  
+
   assert.equal(marker._popup.options.className, 'foo', 'popup class set');
 });

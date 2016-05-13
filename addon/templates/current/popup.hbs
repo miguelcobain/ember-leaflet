@@ -1,4 +1,4 @@
 {{#if hasBlock}}{{setHasBlock}}{{/if}}
 {{#if popupOpen}}
-  {{yield}}
+  {{yield (action closePopup)}}
 {{/if}}

@@ -10,6 +10,10 @@ export default Mixin.create({
   layout,
   popupOpen: false,
 
+  closePopup() {
+    this._popup._close();
+  },
+
   /*
    * Evil hack by @rwjblue.
    * `hasBlock` isn't available in js land.
