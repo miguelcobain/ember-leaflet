@@ -159,4 +159,5 @@ test('using bounds from lat-lng-bounds helper works', function(assert) {
   `);
 
   assert.ok(map._layer.getBounds() instanceof L.LatLngBounds);
+  assert.boundsContain(map._layer.getBounds(), locations.bounds());
 });
