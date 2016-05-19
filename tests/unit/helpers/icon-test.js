@@ -4,7 +4,6 @@ import { module, test } from 'qunit';
 
 module('Unit | Helper | icon');
 
-// Replace this with your real tests.
 test('it works', function(assert) {
   let result = icon([], {
     iconUrl: 'custom-url.png'
