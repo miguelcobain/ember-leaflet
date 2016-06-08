@@ -1,9 +1,10 @@
 import BaseLayer from 'ember-leaflet/components/base-layer';
 import DraggabilityMixin from 'ember-leaflet/mixins/draggability';
+import IconMixin from 'ember-leaflet/mixins/icon';
 import PopupMixin from 'ember-leaflet/mixins/popup';
 import toLatLng from 'ember-leaflet/macros/to-lat-lng';
 
-export default BaseLayer.extend(DraggabilityMixin, PopupMixin, {
+export default BaseLayer.extend(IconMixin, DraggabilityMixin, PopupMixin, {
 
   leafletRequiredOptions: [
     'location'
