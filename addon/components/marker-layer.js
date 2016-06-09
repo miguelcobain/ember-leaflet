@@ -22,7 +22,7 @@ export default BaseLayer.extend(IconMixin, DraggabilityMixin, PopupMixin, {
   ],
 
   leafletProperties: [
-    'icon', 'zIndexOffset', 'opacity', 'location:setLatLng'
+    'zIndexOffset', 'opacity', 'location:setLatLng'
   ],
 
   location: toLatLng(),
