@@ -1,10 +1,10 @@
 import BaseLayer from 'ember-leaflet/components/base-layer';
 import DraggabilityMixin from 'ember-leaflet/mixins/draggability';
-import IconMixin from 'ember-leaflet/mixins/icon';
 import PopupMixin from 'ember-leaflet/mixins/popup';
 import toLatLng from 'ember-leaflet/macros/to-lat-lng';
+import observer from 'ember-metal/observer';
 
-export default BaseLayer.extend(IconMixin, DraggabilityMixin, PopupMixin, {
+export default BaseLayer.extend(DraggabilityMixin, PopupMixin, {
 
   leafletRequiredOptions: [
     'location'
@@ -29,5 +29,17 @@ export default BaseLayer.extend(IconMixin, DraggabilityMixin, PopupMixin, {
 
   createLayer() {
     return this.L.marker(...this.get('requiredOptions'), this.get('options'));
-  }
+  },
+
+  // icon observer separated from generator (leaflet properties) due to a
+  // leaflet bug where draggability is lost on icon change
+  iconDidChange: observer('icon', function() {
+    this._layer.setIcon(this.get('icon'));
+
+    if (this.get('draggable')) {
+      this._layer.dragging.enable();
+    } else {
+      this._layer.dragging.disable();
+    }
+  })
 });
