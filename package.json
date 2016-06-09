@@ -1,6 +1,6 @@
 {
   "name": "ember-leaflet",
-  "version": "2.2.6",
+  "version": "2.2.7",
   "description": "Easy and declarative mapping for ember.",
   "directories": {
     "doc": "doc",
