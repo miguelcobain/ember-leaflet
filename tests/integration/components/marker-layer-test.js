@@ -136,6 +136,56 @@ test('marker dragging bound when icon changes', function(assert) {
    assert.equal(marker._layer.dragging.enabled(), false, 'marker dragging disabled');
 });
 
+test('marker retains negative draggability when icon changes', function(assert) {
+
+  this.set('markerCenter', locations.nyc);
+  this.set('draggable', false);
+  this.set('currentIconUrl', 'custom-url.png');
+  this.set('currentSize', 12);
+
+  this.render(hbs`
+    {{#leaflet-map zoom=zoom center=center}}
+      {{marker-layer location=markerCenter draggable=draggable
+        icon=(icon
+          iconUrl=currentIconUrl
+          iconSize=(point currentSize currentSize))}}
+    {{/leaflet-map}}
+  `);
+
+    //pre-conditions
+   assert.equal(marker._layer.dragging.enabled(), false, 'marker dragging disabled');
+
+   this.set('currentIconUrl', 'another-custom-url.png');
+
+   assert.equal(marker._layer.options.icon.options.iconUrl, 'another-custom-url.png');
+   assert.equal(marker._layer.dragging.enabled(), false, 'marker dragging disabled');
+});
+
+test('marker retains positive draggability when icon changes', function(assert) {
+
+  this.set('markerCenter', locations.nyc);
+  this.set('draggable', true);
+  this.set('currentIconUrl', 'custom-url.png');
+  this.set('currentSize', 12);
+
+  this.render(hbs`
+    {{#leaflet-map zoom=zoom center=center}}
+      {{marker-layer location=markerCenter draggable=draggable
+        icon=(icon
+          iconUrl=currentIconUrl
+          iconSize=(point currentSize currentSize))}}
+    {{/leaflet-map}}
+  `);
+
+    //pre-conditions
+   assert.ok(marker._layer.dragging.enabled(), 'marker dragging enabled');
+
+   this.set('currentIconUrl', 'another-custom-url.png');
+
+   assert.equal(marker._layer.options.icon.options.iconUrl, 'another-custom-url.png');
+   assert.equal(marker._layer.dragging.enabled(), true, 'marker dragging enabled');
+});
+
 if (hasEmberVersion(2,3)) {
   // do stuff in Ember 2.3+
   test('marker works as contextual component', function(assert) {
