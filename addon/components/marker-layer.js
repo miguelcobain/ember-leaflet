@@ -1,8 +1,9 @@
+import Ember from 'ember';
 import BaseLayer from 'ember-leaflet/components/base-layer';
 import DraggabilityMixin from 'ember-leaflet/mixins/draggability';
 import PopupMixin from 'ember-leaflet/mixins/popup';
 import toLatLng from 'ember-leaflet/macros/to-lat-lng';
-import observer from 'ember-metal/observer';
+const { observer } = Ember;
 
 export default BaseLayer.extend(DraggabilityMixin, PopupMixin, {
 
