@@ -110,6 +110,32 @@ test('marker updates dragging', function(assert) {
    assert.equal(marker._layer.dragging.enabled(), false, 'marker dragging disabled');
 });
 
+// Leaflet bug. More info: https://github.com/Leaflet/Leaflet/issues/3807
+test('marker retains draggability options when icon changes', function(assert) {
+
+  let icon1 = L.divIcon({className: 'my-div-icon-1'});
+  let icon2 = L.divIcon({className: 'my-div-icon-2'});
+
+  this.set('markerCenter', locations.nyc);
+  this.set('draggable', true);
+  this.set('currentIcon', icon1);
+
+  this.render(hbs`
+      {{#leaflet-map zoom=zoom center=center}}
+        {{marker-layer location=markerCenter draggable=draggable icon=currentIcon}}
+      {{/leaflet-map}}
+  `);
+
+  //pre-conditions
+  assert.equal(marker._layer.dragging.enabled(), true, 'marker dragging enabled');
+
+  this.set('draggable', false);
+  assert.equal(marker._layer.dragging.enabled(), false, 'marker dragging disabled');
+
+  this.set('currentIcon', icon2);
+  assert.equal(marker._layer.dragging.enabled(), false, 'marker dragging is still disabled');
+});
+
 if (hasEmberVersion(2,3)) {
   // do stuff in Ember 2.3+
   test('marker works as contextual component', function(assert) {

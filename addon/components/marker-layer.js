@@ -1,7 +1,9 @@
+import Ember from 'ember';
 import BaseLayer from 'ember-leaflet/components/base-layer';
 import DraggabilityMixin from 'ember-leaflet/mixins/draggability';
 import PopupMixin from 'ember-leaflet/mixins/popup';
 import toLatLng from 'ember-leaflet/macros/to-lat-lng';
+const { observer } = Ember;
 
 export default BaseLayer.extend(DraggabilityMixin, PopupMixin, {
 
@@ -21,12 +23,24 @@ export default BaseLayer.extend(DraggabilityMixin, PopupMixin, {
   ],
 
   leafletProperties: [
-    'icon', 'zIndexOffset', 'opacity', 'location:setLatLng'
+    'zIndexOffset', 'opacity', 'location:setLatLng'
   ],
 
   location: toLatLng(),
 
   createLayer() {
     return this.L.marker(...this.get('requiredOptions'), this.get('options'));
-  }
+  },
+
+  // icon observer separated from generator (leaflet properties) due to a
+  // leaflet bug where draggability is lost on icon change
+  iconDidChange: observer('icon', function() {
+    this._layer.setIcon(this.get('icon'));
+
+    if (this.get('draggable')) {
+      this._layer.dragging.enable();
+    } else {
+      this._layer.dragging.disable();
+    }
+  })
 });
