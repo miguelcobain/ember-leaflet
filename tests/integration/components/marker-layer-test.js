@@ -110,80 +110,30 @@ test('marker updates dragging', function(assert) {
    assert.equal(marker._layer.dragging.enabled(), false, 'marker dragging disabled');
 });
 
-test('marker dragging bound when icon changes', function(assert) {
+// Leaflet bug. More info: https://github.com/Leaflet/Leaflet/issues/3807
+test('marker retains draggability options when icon changes', function(assert) {
+
+  let icon1 = L.divIcon({className: 'my-div-icon-1'});
+  let icon2 = L.divIcon({className: 'my-div-icon-2'});
 
   this.set('markerCenter', locations.nyc);
   this.set('draggable', true);
-  this.set('currentIconUrl', 'custom-url.png');
-  this.set('currentSize', 12);
+  this.set('currentIcon', icon1);
 
   this.render(hbs`
-    {{#leaflet-map zoom=zoom center=center}}
-      {{marker-layer location=markerCenter draggable=draggable
-        icon=(icon
-          iconUrl=currentIconUrl
-          iconSize=(point currentSize currentSize))}}
-    {{/leaflet-map}}
+      {{#leaflet-map zoom=zoom center=center}}
+        {{marker-layer location=markerCenter draggable=draggable icon=currentIcon}}
+      {{/leaflet-map}}
   `);
 
-    //pre-conditions
-   assert.ok(marker._layer.dragging.enabled(), 'marker dragging enabled');
+  //pre-conditions
+  assert.equal(marker._layer.dragging.enabled(), true, 'marker dragging enabled');
 
-   this.set('draggable', false);
-   this.set('currentIconUrl', 'another-custom-url.png');
-
-   assert.equal(marker._layer.options.icon.options.iconUrl, 'another-custom-url.png');
-   assert.equal(marker._layer.dragging.enabled(), false, 'marker dragging disabled');
-});
-
-test('marker retains negative draggability when icon changes', function(assert) {
-
-  this.set('markerCenter', locations.nyc);
   this.set('draggable', false);
-  this.set('currentIconUrl', 'custom-url.png');
-  this.set('currentSize', 12);
+  assert.equal(marker._layer.dragging.enabled(), false, 'marker dragging disabled');
 
-  this.render(hbs`
-    {{#leaflet-map zoom=zoom center=center}}
-      {{marker-layer location=markerCenter draggable=draggable
-        icon=(icon
-          iconUrl=currentIconUrl
-          iconSize=(point currentSize currentSize))}}
-    {{/leaflet-map}}
-  `);
-
-    //pre-conditions
-   assert.equal(marker._layer.dragging.enabled(), false, 'marker dragging disabled');
-
-   this.set('currentIconUrl', 'another-custom-url.png');
-
-   assert.equal(marker._layer.options.icon.options.iconUrl, 'another-custom-url.png');
-   assert.equal(marker._layer.dragging.enabled(), false, 'marker dragging disabled');
-});
-
-test('marker retains positive draggability when icon changes', function(assert) {
-
-  this.set('markerCenter', locations.nyc);
-  this.set('draggable', true);
-  this.set('currentIconUrl', 'custom-url.png');
-  this.set('currentSize', 12);
-
-  this.render(hbs`
-    {{#leaflet-map zoom=zoom center=center}}
-      {{marker-layer location=markerCenter draggable=draggable
-        icon=(icon
-          iconUrl=currentIconUrl
-          iconSize=(point currentSize currentSize))}}
-    {{/leaflet-map}}
-  `);
-
-    //pre-conditions
-   assert.ok(marker._layer.dragging.enabled(), 'marker dragging enabled');
-
-   this.set('currentIconUrl', 'another-custom-url.png');
-
-   assert.equal(marker._layer.options.icon.options.iconUrl, 'another-custom-url.png');
-   assert.equal(marker._layer.dragging.enabled(), true, 'marker dragging enabled');
+  this.set('currentIcon', icon2);
+  assert.equal(marker._layer.dragging.enabled(), false, 'marker dragging is still disabled');
 });
 
 if (hasEmberVersion(2,3)) {
