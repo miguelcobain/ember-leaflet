@@ -115,3 +115,24 @@ test('replace item in content moves polyline', function(assert) {
   assert.locationsEqual(layerLatLngs[2], locations.sf);
   assert.equal(layerLatLngs.length, 3);
 });
+
+test('supports array of arrays as well', function(assert) {
+  this.set('locations', [[-43.123, 71.123], [-43.123, 71.123], [-43.123, 71.123]]);
+
+  this.render(hbs`
+    {{#leaflet-map zoom=zoom center=center}}
+      {{cutom-array-path-layer locations=locations}}
+    {{/leaflet-map}}
+  `);
+  let layerLatLngs = arrayPath._layer.getLatLngs();
+  assert.ok(layerLatLngs[0].equals([-43.123, 71.123]));
+  assert.ok(layerLatLngs[1].equals([-43.123, 71.123]));
+  assert.ok(layerLatLngs[2].equals([-43.123, 71.123]));
+
+  this.set('locations', [[45.528531, -122.681682], [45.530970, -122.661968], [45.522752, -122.657979]]);
+
+  layerLatLngs = arrayPath._layer.getLatLngs();
+  assert.ok(layerLatLngs[0].equals([45.528531, -122.681682]));
+  assert.ok(layerLatLngs[1].equals([45.530970, -122.661968]));
+  assert.ok(layerLatLngs[2].equals([45.522752, -122.657979]));
+});
