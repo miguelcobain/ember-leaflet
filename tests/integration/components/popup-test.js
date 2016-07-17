@@ -191,13 +191,13 @@ test('popupOptions hash', function(assert) {
   assert.equal(marker._popup.options.className, 'foo', 'popup class set');
 });
 
-test('popup options in array-path', function(assert) {
+test('popupOptions in array-path', function(assert) {
   this.set('locations', Ember.A([locations.chicago, locations.nyc, locations.sf]));
   this.set('popupOptions', { className: 'exists' });
 
   this.render(hbs`
-    {{#leaflet-map zoom=zoom center=center popupOptions=popupOptions}}
-      {{#custom-array-path-layer locations=locations}}
+    {{#leaflet-map zoom=zoom center=center}}
+      {{#custom-array-path-layer locations=locations popupOptions=popupOptions}}
         Popup content
       {{/custom-array-path-layer}}
     {{/leaflet-map}}
