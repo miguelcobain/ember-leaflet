@@ -3,6 +3,7 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import { assertionInjector, assertionCleanup } from '../../assertions';
 import MarkerLayerComponent from 'ember-leaflet/components/marker-layer';
+import ArrayPathLayerComponent from 'ember-leaflet/components/array-path-layer';
 import locations from '../../helpers/locations';
 const { computed } = Ember;
 /* globals L */
@@ -10,7 +11,7 @@ const { computed } = Ember;
 //Needed to silence leaflet autodetection error
 L.Icon.Default.imagePath = 'some-path';
 
-let marker, layer;
+let marker, layer, arrayPath;
 
 moduleForComponent('marker-layer', 'Integration | Component | popup mixin', {
   integration: true,
@@ -26,6 +27,16 @@ moduleForComponent('marker-layer', 'Integration | Component | popup mixin', {
         let leafletLayer = this._super(...arguments);
         layer = leafletLayer;
         return leafletLayer;
+      }
+    }));
+
+    this.register('component:custom-array-path-layer', ArrayPathLayerComponent.extend({
+      init() {
+        this._super(...arguments);
+        arrayPath = this;
+      },
+      createLayer() {
+        return this.L.polyline(...this.get('requiredOptions'), this.get('options'));
       }
     }));
 
@@ -178,4 +189,19 @@ test('popupOptions hash', function(assert) {
   `);
 
   assert.equal(marker._popup.options.className, 'foo', 'popup class set');
+});
+
+test('popup options in array-path', function(assert) {
+  this.set('locations', Ember.A([locations.chicago, locations.nyc, locations.sf]));
+  this.set('popupOptions', { className: 'exists' });
+
+  this.render(hbs`
+    {{#leaflet-map zoom=zoom center=center popupOptions=popupOptions}}
+      {{#custom-array-path-layer locations=locations}}
+        Popup content
+      {{/custom-array-path-layer}}
+    {{/leaflet-map}}
+  `);
+
+  assert.equal(arrayPath._popup.options.className, 'exists', 'popup class set on array-path');
 });
