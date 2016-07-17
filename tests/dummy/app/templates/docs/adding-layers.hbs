@@ -78,21 +78,23 @@ export default Ember.Controller.extend({
   </div>
 {{/code-sample}}
 
+
 <p>
-  So, there are two important things to notice here:
-  <ol>
-    <li>
-      We now used a different notation to represent the coordinates. Instead of using
-      <code>lat</code> and <code>lng</code> we used a <code>[lat, lng]</code>. You
-      can use these two notations interchangeably.
-    </li>
-    <li>
-      Did you notice how we used <code>\{{marker-layer}}</code>'s block to specify our popup text?
-      Go ahead and click the markers. It feels Ember and it feels natural.
-      Why not a form in a popup? A component? Why not <code>\{{outlet}}</code>? Possibilities
-      are endless.
-    </li>
-  </ol>
+  Did you notice that you can specify coordinates two different ways? Instead of using <code>lat</code> and <code>lng</code>,
+  you can alternatively use <code>[lat, lng]</code>. When setting the <code>location</code> or <code>locations</code> property,
+  you can either use key value pairs (<code>{lat: xxxx, lng: xxx}</code>) or arrays <code>[lat,lng]</code>.
+</p>
+
+<p>
+  Want to add a popup to your map? We used <code>\{{marker-layer}}</code>'s block to specify our popup text.
+  Go ahead and click the markers. It feels Ember and it feels natural.
+  Why not a form in a popup? A component? Why not <code>\{{outlet}}</code>? Possibilities
+  are endless.
+</p>
+
+<p>
+  In order to customize your popup, you can pass a hash of <code>popupOptions</code> values, include custom class names.
+  The full list of options is available on the <a href="http://leafletjs.com/reference.html#popup">Leaflet.js website.</a>
 </p>
 
 <div class="doc-page-nav">
