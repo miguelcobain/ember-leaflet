@@ -15,6 +15,6 @@ module.exports = {
   },
 
   afterInstall: function(options) {
-    return this.addBowerPackageToProject('leaflet', '~0.7.7');
+    return this.addBowerPackageToProject('leaflet', '~1.0.0-rc.2');
   }
 };
