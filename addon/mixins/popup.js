@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import layout from '../templates/popup';
-const { computed, observer, Mixin, run: { schedule } } = Ember;
+const { computed, observer, Mixin, run } = Ember;
 
 export default Mixin.create({
 
@@ -76,16 +76,24 @@ export default Mixin.create({
   _hijackPopup() {
     let oldOnAdd = this._popup.onAdd;
     this._popup.onAdd = (map) => {
-      schedule('render', () => {
+      this.set('popupOpen', true);
+      run.schedule('render', () => {
         oldOnAdd.call(this._popup, map);
-        this.set('popupOpen', true);
       });
     };
 
     let oldOnRemove = this._popup.onRemove;
     this._popup.onRemove = (map) => {
       oldOnRemove.call(this._popup, map);
-      this.set('popupOpen', false);
+      // only destroy DOM after popup fades (200 ms)
+      // otherwise we get a short flicker
+      if (map._fadeAnimated) {
+        run.later(() => {
+          this.set('popupOpen', false);
+        }, 200);
+      } else {
+        this.set('popupOpen', false);
+      }
     };
   },
 
