@@ -13,7 +13,7 @@ ember install ember-leaflet
 
 ## Support, Questions, Collaboration
 
-Join the [flexi](https://embercommunity.slack.com/messages/flexi/) channel on Slack.
+Join the [#e-leaflet](https://embercommunity.slack.com/messages/e-leaflet/) channel on Slack.
 
 [![Slack Status](https://ember-community-slackin.herokuapp.com/badge.svg)](https://ember-community-slackin.herokuapp.com/)
 
