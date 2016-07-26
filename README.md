@@ -11,6 +11,12 @@ To install it run:
 ember install ember-leaflet
 ```
 
+## Support, Questions, Collaboration
+
+Join the [#e-leaflet](https://embercommunity.slack.com/messages/e-leaflet/) channel on Slack.
+
+[![Slack Status](https://ember-community-slackin.herokuapp.com/badge.svg)](https://ember-community-slackin.herokuapp.com/)
+
 ## Usage
 
 Documentation and examples are hosted at [www.ember-leaflet.com](http://www.ember-leaflet.com).

@@ -39,7 +39,7 @@ export default BaseLayer.extend(ContainerMixin, {
   ],
 
   leafletProperties: [
-    'zoom:setZoom', 'center:panTo:zoomPanOptions', 'maxBounds:setMaxBounds', 'bounds:fitBounds:fitBoundsOptions'
+    'zoom:setZoom:zoomPanOptions', 'center:panTo:zoomPanOptions', 'maxBounds:setMaxBounds', 'bounds:fitBounds:fitBoundsOptions'
   ],
 
   center: toLatLng(),

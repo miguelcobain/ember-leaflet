@@ -50,6 +50,18 @@ module.exports = {
           'ember': 'canary'
         }
       }
+    },
+    {
+      name: 'ember-1.13-leaflet-0.7.7',
+      bower: {
+        dependencies: {
+          'ember': '~1.13.0',
+          'leaflet': '~0.7.7'
+        },
+        resolutions: {
+          'ember': '~1.13.0'
+        }
+      }
     }
   ]
 };
