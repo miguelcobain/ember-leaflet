@@ -69,3 +69,18 @@ test('lat/lng changes propagate to the circle layer', function(assert) {
 
   assert.locationsEqual(circle._layer.getLatLng(), locations.london);
 });
+
+
+test('popupOptions hash applies to the popup', function(assert) {
+  this.set('circleCenter', locations.nyc);
+  this.set('popupOptions', { className: 'circle' });
+  this.render(hbs`
+    {{#leaflet-map zoom=zoom center=center}}
+      {{#circle-layer location=circleCenter radius=5 popupOptions=popupOptions}}
+        Circle Content
+      {{/circle-layer}}
+    {{/leaflet-map}}
+  `);
+
+  assert.equal(circle._popup.options.className, 'circle', 'options passed to circle-layer correctly');
+});

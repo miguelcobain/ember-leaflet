@@ -166,9 +166,9 @@ test('popup closes with yielded action', function(assert) {
   assert.equal(map._popup, null, 'popup closed');
 });
 
-test('popupOptions hash', function(assert) {
+test('popupOptions hash on marker-layer', function(assert) {
   this.set('markerCenter', locations.nyc);
-  this.set('popupOptions', { className: 'foo' });
+  this.set('popupOptions', { className: 'marker' });
   this.render(hbs`
     {{#leaflet-map zoom=zoom center=center}}
       {{#marker-layer location=markerCenter draggable=draggable popupOptions=popupOptions}}
@@ -177,5 +177,5 @@ test('popupOptions hash', function(assert) {
     {{/leaflet-map}}
   `);
 
-  assert.equal(marker._popup.options.className, 'foo', 'popup class set');
+  assert.equal(marker._popup.options.className, 'marker', 'options passed to marker-later correctly');
 });
