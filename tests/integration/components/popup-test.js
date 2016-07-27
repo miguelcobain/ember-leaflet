@@ -10,17 +10,32 @@ const { computed } = Ember;
 //Needed to silence leaflet autodetection error
 L.Icon.Default.imagePath = 'some-path';
 
-let marker, layer;
+let marker, circle, layer;
 
 moduleForComponent('marker-layer', 'Integration | Component | popup mixin', {
   integration: true,
   beforeEach() {
     assertionInjector();
 
+    // Marker and Circle layers handle binding of popups differently.
+    // We need both components here to test both paths.
+
     this.register('component:marker-layer', MarkerLayerComponent.extend({
       init() {
         this._super(...arguments);
         marker = this;
+      },
+      createLayer() {
+        let leafletLayer = this._super(...arguments);
+        layer = leafletLayer;
+        return leafletLayer;
+      }
+    }));
+
+    this.register('component:circle-layer', MarkerLayerComponent.extend({
+      init() {
+        this._super(...arguments);
+        circle = this;
       },
       createLayer() {
         let leafletLayer = this._super(...arguments);
@@ -178,4 +193,18 @@ test('popupOptions hash on marker-layer', function(assert) {
   `);
 
   assert.equal(marker._popup.options.className, 'marker', 'options passed to marker-later correctly');
+});
+
+test('popupOptions hash applies to the popup', function(assert) {
+  this.set('circleCenter', locations.nyc);
+  this.set('popupOptions', { className: 'circle' });
+  this.render(hbs`
+    {{#leaflet-map zoom=zoom center=center}}
+      {{#circle-layer location=circleCenter radius=5 popupOptions=popupOptions}}
+        Circle Content
+      {{/circle-layer}}
+    {{/leaflet-map}}
+  `);
+
+  assert.equal(circle._popup.options.className, 'circle', 'options passed to circle-layer correctly');
 });
