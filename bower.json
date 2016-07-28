@@ -5,7 +5,7 @@
     "ember-cli-shims": "0.1.1",
     "ember-cli-test-loader": "0.2.2",
     "ember-qunit-notifications": "0.1.0",
-    "leaflet": "0.7.7",
+    "leaflet": "~1.0.0-rc.2",
     "prism": "~1.3.0"
   }
 }

@@ -28,7 +28,10 @@ moduleForComponent('leaflet-map', 'Integration | Component | leaflet map', {
 });
 
 test('update map layer using leafletProperties (zoom and center)', function(assert) {
-  this.render(hbs`{{leaflet-map zoom=zoom center=center}}`);
+  this.set('zoomPanOptions', {
+    animate: false
+  });
+  this.render(hbs`{{leaflet-map zoom=zoom center=center zoomPanOptions=zoomPanOptions}}`);
 
   assert.locationsEqual(map._layer.getCenter(), locations.nyc);
   assert.equal(map._layer.getZoom(), 12);
@@ -60,9 +63,12 @@ test('lat/lng changes propagate to the map', function(assert) {
 });
 
 test('update map layer using leafletProperties (bounds)', function(assert) {
+  this.set('fitBoundsOptions', {
+    animate: false
+  });
   this.set('bounds', [locations.nyc, locations.chicago]);
 
-  this.render(hbs`{{leaflet-map bounds=bounds}}`);
+  this.render(hbs`{{leaflet-map bounds=bounds fitBoundsOptions=fitBoundsOptions}}`);
 
   assert.boundsContain(map._layer.getBounds(), [locations.nyc, locations.chicago]);
 

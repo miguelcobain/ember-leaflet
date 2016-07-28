@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import layout from '../templates/popup';
-const { computed, observer, Mixin, run: { schedule } } = Ember;
+const { computed, observer, Mixin, run } = Ember;
 
 export default Mixin.create({
 
@@ -28,11 +28,16 @@ export default Mixin.create({
     return document.createElement('div');
   }),
 
+  isOpen() {
+    // leaflet 1 added an `isOpen` method
+    return this._popup.isOpen ? this._popup.isOpen() : this._popup._isOpen;
+  },
+
   popupOpenDidChange: observer('popupOpen', function() {
     if (this.get('popupOpen')) {
-      if (!this._popup._isOpen) { this._layer.openPopup(); }
+      if (!this.isOpen()) { this._layer.openPopup(); }
     } else {
-      if (this._popup._isOpen) { this._layer.closePopup(); }
+      if (this.isOpen()) { this._layer.closePopup(); }
     }
   }),
 
@@ -74,7 +79,7 @@ export default Mixin.create({
     let oldOnAdd = this._popup.onAdd;
     this._popup.onAdd = (map) => {
       this.set('popupOpen', true);
-      schedule('render', () => {
+      run.schedule('render', () => {
         oldOnAdd.call(this._popup, map);
       });
     };
@@ -82,7 +87,15 @@ export default Mixin.create({
     let oldOnRemove = this._popup.onRemove;
     this._popup.onRemove = (map) => {
       oldOnRemove.call(this._popup, map);
-      this.set('popupOpen', false);
+      // only destroy DOM after popup fades (200 ms)
+      // otherwise we get a short flicker
+      if (map._fadeAnimated) {
+        run.later(() => {
+          this.set('popupOpen', false);
+        }, 200);
+      } else {
+        this.set('popupOpen', false);
+      }
     };
   },
 
