@@ -191,7 +191,7 @@ test('popupOptions hash', function(assert) {
   assert.equal(marker._popup.options.className, 'foo', 'popup class set');
 });
 
-test('popupOptions in array-path', function(assert) {
+test('popupOptions hash in path layers', function(assert) {
   this.set('locations', Ember.A([locations.chicago, locations.nyc, locations.sf]));
   this.set('popupOptions', { className: 'exists' });
 

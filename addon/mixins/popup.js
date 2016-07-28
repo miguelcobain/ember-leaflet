@@ -64,7 +64,7 @@ export default Mixin.create({
     this._super(...arguments);
     if (this.get('hasBlock')) {
 
-      let popupOptions = this.get('popupOptions') ? this.get('popupOptions') : {};
+      let popupOptions = this.get('popupOptions');
       this._popup = this.L.popup(popupOptions, this._layer);
       this._popup.setContent(this.get('destinationElement'));
       this._layer.bindPopup(this._popup);
