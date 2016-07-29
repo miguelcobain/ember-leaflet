@@ -67,38 +67,10 @@ export default Mixin.create({
       this._popup.setContent(this.get('destinationElement'));
       this._layer.bindPopup(this._popup);
 
-      this._hijackPopup();
+      this._addPopupListeners();
 
       this.popupOpenDidChange();
     }
-  },
-
-  _hijackPopup() {
-    let oldOnAdd = this._popup.onAdd;
-    this._popup.onAdd = (map) => {
-      this.set('popupOpen', true);
-      run.schedule('render', () => {
-        oldOnAdd.call(this._popup, map);
-      });
-    };
-
-    let oldOnRemove = this._popup.onRemove;
-    this._popup.onRemove = (map) => {
-      oldOnRemove.call(this._popup, map);
-      // only destroy DOM after popup fades (200 ms)
-      // otherwise we get a short flicker
-      if (map._fadeAnimated) {
-        run.later(() => {
-          if (!this.isDestroyed && !this.isDestroying) {
-            this.set('popupOpen', false);
-          }
-        }, 200);
-      } else {
-        if (!this.isDestroyed && !this.isDestroying) {
-          this.set('popupOpen', false);
-        }
-      }
-    };
   },
 
   willDestroyLayer() {
@@ -106,9 +78,35 @@ export default Mixin.create({
     if (this.get('hasBlock')) {
       this._layer.closePopup();
       this._layer.unbindPopup();
+      this._removePopupListeners();
       delete this._popup;
       delete this._firstNode;
       delete this._lastNode;
     }
+  },
+
+  _onPopupopen() {
+    run(() => {
+      this.set('popupOpen', true);
+    });
+  },
+
+  _onLayerRemove({layer}) {
+    if (layer === this._popup) {
+      run(() => {
+        this.set('popupOpen', false);
+      });
+    }
+  },
+
+  _addPopupListeners() {
+    this._layer.addEventListener('popupopen', this._onPopupopen, this);
+    this._layer._map.addEventListener('layerremove', this._onLayerRemove, this);
+  },
+
+  _removePopupListeners() {
+    this._layer.removeEventListener('popupopen', this._onPopupopen, this);
+    this._layer._map.removeEventListener('layerremove', this._onLayerRemove, this);
   }
+
 });

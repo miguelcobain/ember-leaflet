@@ -87,6 +87,7 @@ test('layers works within each', function(assert) {
 });
 
 test('popup remains open when another layer is destroyed', function(assert) {
+
   this.set('markers', [
     restaurant1,
     restaurant2,
