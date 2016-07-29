@@ -85,27 +85,35 @@ export default Mixin.create({
     }
   },
 
-  _onPopupopen() {
-    run(() => {
-      this.set('popupOpen', true);
-    });
-  },
-
   _onLayerRemove({layer}) {
     if (layer === this._popup) {
-      run(() => {
+      if (this._layer._map._fadeAnimated) {
+        run.later(() => {
+          this.set('popupOpen', false);
+        }, 200);
+      } else {
         this.set('popupOpen', false);
-      });
+      }
     }
   },
 
   _addPopupListeners() {
-    this._layer.addEventListener('popupopen', this._onPopupopen, this);
+    // we need to hijack the `onAdd` method because we need to
+    // render the template *before* the popup is opened.
+    // This way, the popup will set its dimensions according to the rendered DOM.
+    let oldOnAdd = this._popup.onAdd;
+    this._popup.onAdd = (map) => {
+      this.set('popupOpen', true);
+      run.schedule('render', () => {
+        oldOnAdd.call(this._popup, map);
+      });
+    };
+    // we need to user `layerremove` event becase it's the only one that fires
+    // *after* the popup was completely removed from the map
     this._layer._map.addEventListener('layerremove', this._onLayerRemove, this);
   },
 
   _removePopupListeners() {
-    this._layer.removeEventListener('popupopen', this._onPopupopen, this);
     this._layer._map.removeEventListener('layerremove', this._onLayerRemove, this);
   }
 
