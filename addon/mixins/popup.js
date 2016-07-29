@@ -89,10 +89,14 @@ export default Mixin.create({
       // otherwise we get a short flicker
       if (map._fadeAnimated) {
         run.later(() => {
-          this.set('popupOpen', false);
+          if (!this.isDestroyed && !this.isDestroying) {
+            this.set('popupOpen', false);
+          }
         }, 200);
       } else {
-        this.set('popupOpen', false);
+        if (!this.isDestroyed && !this.isDestroying) {
+          this.set('popupOpen', false);
+        }
       }
     };
   },
