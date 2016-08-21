@@ -89,7 +89,9 @@ export default Mixin.create({
     if (layer === this._popup) {
       if (this._layer._map._fadeAnimated) {
         run.later(() => {
-          this.set('popupOpen', false);
+          if (!this.get('isDestroyed') && !this.get('isDestroying')) {
+            this.set('popupOpen', false);
+          }
         }, 200);
       } else {
         this.set('popupOpen', false);
