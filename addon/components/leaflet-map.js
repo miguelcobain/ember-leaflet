@@ -77,7 +77,6 @@ export default BaseLayer.extend(ContainerMixin, {
     delete options.center;
     delete options.zoom;
     if (!this._layer){
-
         return this.L.map(this.element, options);
     } else {
         return this._layer
@@ -87,7 +86,6 @@ export default BaseLayer.extend(ContainerMixin, {
 
   // Manually call `remove` method in the case of the root map layer.
   layerTeardown() {
-    console.log("tearing down")
     let layer = this._layer;
     this._super(...arguments);
     layer.remove();
