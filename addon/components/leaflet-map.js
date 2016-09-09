@@ -70,6 +70,8 @@ export default BaseLayer.extend(ContainerMixin, {
   unregisterWithParent() { },
 
   createLayer() {
+    this.L.map.off()
+    this.L.map.remove()
     let options = this.get('options');
 
     // Don't set center and zoom right now.
