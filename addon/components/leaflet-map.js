@@ -79,7 +79,7 @@ export default BaseLayer.extend(ContainerMixin, {
     if (!this._layer){
         return this.L.map(this.element, options);
     } else {
-        return this._layer
+        return this._layer;
     }
 
   },
