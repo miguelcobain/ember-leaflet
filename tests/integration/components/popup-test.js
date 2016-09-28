@@ -130,7 +130,8 @@ test('popup opens based on popupOpen', function(assert) {
     run(() => {
       this.set('popupOpen', true);
     });
-
+    return wait();
+  }).then(() => {
     assert.ok(!!marker._layer._popup._map, 'popup opens again');
     assert.equal(Ember.$(marker._layer._popup._contentNode).text().trim(), 'Popup content', 'popup content set');
   });
