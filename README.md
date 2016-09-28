@@ -4,7 +4,7 @@ Ember-Leaflet aims to make working with Leaflet layers in your Ember app as easy
 
 ## Installation
 
-Ember Leaflet works in Ember 1.13.9+ or 2.0+ with no deprecations.
+Ember Leaflet works in Ember 1.13.9+ with no deprecations.
 
 To install it run:
 ```
@@ -61,19 +61,23 @@ So, let the mapping begin.
 Think of your map as a set of layers inside a container. Your main container will be the component `{{leaflet-map}}`. This component creates the map container where your tiles, vectors and markers will be added to. Let's see an example of how it looks:
 
 ```handlebars
-{{#leaflet-map lat=lat lng=lng zoom=zoom}}
+{{#leaflet-map lat=lat lng=lng zoom=zoom as |layers|}}
 
-  {{tile-layer url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
+  {{layers.tile url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
 
-  {{#marker-layer location=emberConfLocation}}
-    <h3>The Oregon Convention Center</h3>
-    777 NE Martin Luther King Jr Blvd<br>
-    Portland, OR 97232
-  {{/marker-layer}}
+  {{#layers.marker location=emberConfLocation as |marker|}}
+    {{#marker.popup}}
+      <h3>The Oregon Convention Center</h3>
+      777 NE Martin Luther King Jr Blvd<br>
+      Portland, OR 97232
+    {{/marker.popup}}
+  {{/layers.marker}}
 
-  {{#marker-layer location=hotel}}
-    <h3>Hotel</h3>
-  {{/marker-layer}}
+  {{#layers.marker location=hotel as |marker|}}
+    {{#marker.popup}}
+      <h3>Hotel</h3>
+    {{/marker.popup}}
+  {{/layers.marker}}
 
 {{/leaflet-map}}
 ```
