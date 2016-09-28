@@ -48,6 +48,63 @@ export default Ember.Controller.extend({
   do whatever we need when the user interacts with the map.
 </p>
 
+<p>Here's another demo, this one showcasing an independent popup using
+<code>popup-layer</code>. Try clicking anywhere on the map below.</p>
+
+{{#code-sample as |component|}}
+  {{#code-block language="handlebars" class=(concat "code-sample-snippet " (if (eq component.activeTab "template") "active"))}}
+\{{#leaflet-map lat=lat lng=lng zoom=zoom}}
+  \{{tile-layer url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
+  \{{#if popupLocation}}
+    \{{#popup-layer location=popupLocation closePopup=(action 'resetPopupLocation') closeOnClick=false}}
+      &lt;p&gt;This popup can move! It's currently located at:&lt;/p&gt;
+      &lt;ul&gt;
+        &lt;li&gt;Lat: \{{popupLocation.lat}}&lt;/li&gt;
+        &lt;li&gt;Lng: \{{popupLocation.lng}}&lt;/li&gt;
+      &lt;/ul&gt;
+    \{{/popup-layer}}
+  \{{/if}}
+\{{/leaflet-map}}{{/code-block}}
+  {{#code-block language="javascript" class=(concat "code-sample-snippet " (if (eq component.activeTab "javascript") "active"))}}
+export default Ember.Controller.extend({
+  lat: 45.519743,
+  lng: -122.680522,
+  zoom: 10,
+  popupLocation: [45.519743, -122.680522],
+
+  actions: {
+    setPopupLocation(e) {
+      this.set('popupLocation', e.latlng);
+    },
+
+    resetPopupLocation() {
+      this.set('popupLocation', null);
+    }
+  }
+});{{/code-block}}
+  <div class="code-sample-snippet result {{if (eq component.activeTab "result") "active"}}">
+    {{#leaflet-map lat=lat lng=lng zoom=zoom onClick=(action 'setPopupLocation')}}
+      {{tile-layer url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
+      {{#if popupLocation}}
+        {{#popup-layer location=popupLocation closePopup=(action 'resetPopupLocation') closeOnClick=false}}
+          <p>This popup can move! It's currently located at:</p>
+          <ul>
+            <li>Lat: {{popupLocation.lat}}</li>
+            <li>Lng: {{popupLocation.lng}}).</li>
+          </ul>
+        {{/popup-layer}}
+      {{/if}}
+    {{/leaflet-map}}
+  </div>
+{{/code-sample}}
+
+<p>Note the binding of <code>resetPopupLocation</code> to <code>closePopup</code>.
+By default, <code>popup-layer</code> triggers the <code>closePopup</code>
+action when you click on the close button, or on the map background (the latter
+has been disabled in this example, using <code>closeOnClick=false</code>). This
+means that a <code>popup-layer</code> won't close unless you handle its
+action.</p>
+
 <p>
   Currently, <strong>all actions get the leaflet raw event passed in</strong>.
 </p>
