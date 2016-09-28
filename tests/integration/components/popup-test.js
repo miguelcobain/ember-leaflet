@@ -6,8 +6,9 @@ import wait from 'ember-test-helpers/wait';
 import MarkerLayerComponent from 'ember-leaflet/components/marker-layer';
 import ArrayPathLayerComponent from 'ember-leaflet/components/array-path-layer';
 import locations from '../../helpers/locations';
-const { computed } = Ember;
 /* globals L */
+
+const { computed, run, A } = Ember;
 
 //Needed to silence leaflet autodetection error
 L.Icon.Default.imagePath = 'some-path';
@@ -59,7 +60,7 @@ test('popup works', function(assert) {
 
   assert.equal(marker._layer._popup._map, null, 'popup not added until opened');
 
-  Ember.run(() => {
+  run(() => {
     marker._layer.fire('click', { latlng: locations.nyc });
   });
 
@@ -91,7 +92,7 @@ test('popup content isn\'t rendered until it is opened (lazy popups)', function(
 
   assert.ok(!didRun, 'computed property did not run');
 
-  Ember.run(() => {
+  run(() => {
     marker._layer.fire('click', { latlng: locations.nyc });
   });
 
@@ -120,13 +121,13 @@ test('popup opens based on popupOpen', function(assert) {
     assert.ok(!!marker._layer._popup._map, 'popup starts open');
     assert.equal(Ember.$(marker._layer._popup._contentNode).text().trim(), 'Popup content', 'popup content set');
 
-    Ember.run(() => {
+    run(() => {
       this.set('popupOpen', false);
     });
 
     assert.equal(marker._layer._popup._map, null, 'popup closed');
 
-    Ember.run(() => {
+    run(() => {
       this.set('popupOpen', true);
     });
 
@@ -175,14 +176,14 @@ test('popup closes with yielded action', function(assert) {
     {{/leaflet-map}}
   `);
 
-  Ember.run(() => {
+  run(() => {
     marker._layer.fire('click', { latlng: locations.nyc });
   });
 
   return wait().then(() => {
     assert.ok(!!marker._layer._popup._map, 'popup opened');
 
-    Ember.run(() => {
+    run(() => {
       this.$('#closeEl').click();
     });
 
@@ -209,7 +210,7 @@ test('popup options work', function(assert) {
 });
 
 test('popup options within path layers', function(assert) {
-  this.set('locations', Ember.A([locations.chicago, locations.nyc, locations.sf]));
+  this.set('locations', A([locations.chicago, locations.nyc, locations.sf]));
 
   this.render(hbs`
     {{#leaflet-map zoom=zoom center=center}}

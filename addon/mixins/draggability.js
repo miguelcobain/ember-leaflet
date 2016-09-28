@@ -1,7 +1,7 @@
 import Ember from 'ember';
-const { observer } = Ember;
+const { Mixin, observer } = Ember;
 
-export default Ember.Mixin.create({
+export default Mixin.create({
 
   draggableDidChange: observer('draggable', function() {
     if (this.get('draggable')) {

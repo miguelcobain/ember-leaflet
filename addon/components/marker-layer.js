@@ -32,7 +32,7 @@ export default BaseLayer.extend(DraggabilityMixin, DivOverlayableMixin, {
     return this.L.marker(...this.get('requiredOptions'), this.get('options'));
   },
 
-  // icon observer separated from generator (leaflet properties) due to a
+  // icon observer separated from generated (leaflet properties) due to a
   // leaflet bug where draggability is lost on icon change
   iconDidChange: observer('icon', function() {
     this._layer.setIcon(this.get('icon'));

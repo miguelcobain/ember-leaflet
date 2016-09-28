@@ -1,7 +1,6 @@
 // import Ember from 'ember';
 import BaseLayer from 'ember-leaflet/components/base-layer';
 import StyleMixin from 'ember-leaflet/mixins/style';
-/* global L */
 
 /**
  * An ember-leaflet wrapper for L.geoJson, which renders GeoJson data onto a
@@ -48,6 +47,6 @@ export default BaseLayer.extend(StyleMixin, {
   },
 
   createLayer() {
-    return L.geoJson(...this.get('requiredOptions'), this.get('options'));
+    return this.L.geoJson(...this.get('requiredOptions'), this.get('options'));
   }
 });

@@ -41,7 +41,7 @@
     "ember-getowner-polyfill": "1.0.1",
     "ember-load-initializers": "^0.5.1",
     "ember-pagefront": "0.11.1",
-    "ember-prism": "brandonjmckay/ember-prism#e334d9704e2c2801d4422afd9e8385a436c21359",
+    "ember-prism": "0.0.8",
     "ember-resolver": "^2.0.3",
     "ember-truth-helpers": "1.2.0",
     "loader.js": "^4.0.1"

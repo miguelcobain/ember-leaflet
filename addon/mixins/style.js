@@ -1,7 +1,8 @@
 import Ember from 'ember';
-// const { Mixin, computed, assert } = Ember;
 
-export default Ember.Mixin.create({
+const { Mixin } = Ember;
+
+export default Mixin.create({
 
   leafletStyleProperties: [
     'stroke', 'color', 'weight', 'opacity', 'fill', 'fillColor',

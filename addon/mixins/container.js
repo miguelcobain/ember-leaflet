@@ -1,7 +1,7 @@
 import Ember from 'ember';
-const { A } = Ember;
+const { Mixin, A } = Ember;
 
-export default Ember.Mixin.create({
+export default Mixin.create({
   _childLayers: null,
 
   init() {

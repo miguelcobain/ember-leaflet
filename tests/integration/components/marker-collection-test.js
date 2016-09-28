@@ -7,6 +7,8 @@ import MarkerLayerComponent from 'ember-leaflet/components/marker-layer';
 import locations from '../../helpers/locations';
 /* globals L */
 
+const { run } = Ember;
+
 //Needed to silence leaflet autodetection error
 L.Icon.Default.imagePath = 'some-path';
 
@@ -115,7 +117,7 @@ test('popup remains open when another layer is destroyed', function(assert) {
 
   assert.equal(markers[2]._layer._popup._map, null, 'popup not added until opened');
 
-  Ember.run(() => {
+  run(() => {
     markers[2]._layer.fire('click', { latlng: locations.nyc });
   });
 

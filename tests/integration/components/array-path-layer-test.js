@@ -5,6 +5,8 @@ import { assertionInjector, assertionCleanup } from '../../assertions';
 import ArrayPathLayerComponent from 'ember-leaflet/components/array-path-layer';
 import locations from '../../helpers/locations';
 
+const { A } = Ember;
+
 let arrayPath;
 
 moduleForComponent('array-path-layer', 'Integration | Component | array path layer', {
@@ -12,7 +14,7 @@ moduleForComponent('array-path-layer', 'Integration | Component | array path lay
   beforeEach() {
     assertionInjector();
 
-    this.register('component:cutom-array-path-layer', ArrayPathLayerComponent.extend({
+    this.register('component:custom-array-path-layer', ArrayPathLayerComponent.extend({
       init() {
         this._super(...arguments);
         arrayPath = this;
@@ -35,7 +37,7 @@ test('replace locations updates array path layer', function(assert) {
 
   this.render(hbs`
     {{#leaflet-map zoom=zoom center=center}}
-      {{cutom-array-path-layer locations=locations}}
+      {{custom-array-path-layer locations=locations}}
     {{/leaflet-map}}
   `);
   let layerLatLngs = arrayPath._layer.getLatLngs();
@@ -52,11 +54,11 @@ test('replace locations updates array path layer', function(assert) {
 });
 
 test('adding to locations updates array path layer', function(assert) {
-  this.set('locations', Ember.A([locations.chicago, locations.nyc, locations.sf]));
+  this.set('locations', A([locations.chicago, locations.nyc, locations.sf]));
 
   this.render(hbs`
     {{#leaflet-map zoom=zoom center=center}}
-      {{cutom-array-path-layer locations=locations}}
+      {{custom-array-path-layer locations=locations}}
     {{/leaflet-map}}
   `);
   let layerLatLngs = arrayPath._layer.getLatLngs();
@@ -74,11 +76,11 @@ test('adding to locations updates array path layer', function(assert) {
 });
 
 test('removing from locations updates array path layer', function(assert) {
-  this.set('locations', Ember.A([locations.chicago, locations.nyc, locations.sf]));
+  this.set('locations', A([locations.chicago, locations.nyc, locations.sf]));
 
   this.render(hbs`
     {{#leaflet-map zoom=zoom center=center}}
-      {{cutom-array-path-layer locations=locations}}
+      {{custom-array-path-layer locations=locations}}
     {{/leaflet-map}}
   `);
   let layerLatLngs = arrayPath._layer.getLatLngs();
@@ -95,11 +97,11 @@ test('removing from locations updates array path layer', function(assert) {
 });
 
 test('replace item in content moves polyline', function(assert) {
-  this.set('locations', Ember.A([locations.chicago, locations.nyc, locations.sf]));
+  this.set('locations', A([locations.chicago, locations.nyc, locations.sf]));
 
   this.render(hbs`
     {{#leaflet-map zoom=zoom center=center}}
-      {{cutom-array-path-layer locations=locations}}
+      {{custom-array-path-layer locations=locations}}
     {{/leaflet-map}}
   `);
   let layerLatLngs = arrayPath._layer.getLatLngs();
@@ -121,7 +123,7 @@ test('supports array of arrays as well', function(assert) {
 
   this.render(hbs`
     {{#leaflet-map zoom=zoom center=center}}
-      {{cutom-array-path-layer locations=locations}}
+      {{custom-array-path-layer locations=locations}}
     {{/leaflet-map}}
   `);
   let layerLatLngs = arrayPath._layer.getLatLngs();

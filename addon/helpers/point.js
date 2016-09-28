@@ -1,8 +1,10 @@
 import Ember from 'ember';
 /* global L */
 
+const { Helper: { helper } } = Ember;
+
 export function point(params) {
   return L.point(...params);
 }
 
-export default Ember.Helper.helper(point);
+export default helper(point);
