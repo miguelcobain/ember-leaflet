@@ -25,9 +25,16 @@ export default Component.extend(ChildMixin, InvokeActionMixin, {
     this._addObservers();
     this._addEventListeners();
     if (this.get('containerLayer')) {
-      this.get('containerLayer')._layer.addLayer(this._layer);
+      this.addToContainer();
     }
     this.didCreateLayer();
+  },
+
+  /*
+   * Default logic for adding the layer to the container
+   */
+  addToContainer() {
+    this.get('containerLayer')._layer.addLayer(this._layer);
   },
 
   /*
@@ -38,9 +45,16 @@ export default Component.extend(ChildMixin, InvokeActionMixin, {
     this._removeEventListeners();
     this._removeObservers();
     if (this.get('containerLayer') && this._layer) {
-      this.get('containerLayer')._layer.removeLayer(this._layer);
+      this.removeFromContainer();
     }
     this._layer = null;
+  },
+
+  /*
+   * Default logic for removing the layer from the container
+   */
+  removeFromContainer() {
+    this.get('containerLayer')._layer.removeLayer(this._layer);
   },
 
   leafletOptions: [],

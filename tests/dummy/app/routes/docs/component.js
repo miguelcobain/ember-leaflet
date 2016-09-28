@@ -1,8 +1,8 @@
 import Ember from 'ember';
 
-const { getOwner } = Ember;
+const { Route, getOwner } = Ember;
 
-export default Ember.Route.extend({
+export default Route.extend({
   model(params) {
     this.componentName = params.component_name;
     return getOwner(this).lookup(`component:${params.component_name}`);

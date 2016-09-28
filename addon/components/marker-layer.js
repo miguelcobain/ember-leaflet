@@ -1,11 +1,11 @@
 import Ember from 'ember';
 import BaseLayer from 'ember-leaflet/components/base-layer';
 import DraggabilityMixin from 'ember-leaflet/mixins/draggability';
-import PopupMixin from 'ember-leaflet/mixins/popup';
+import DivOverlayableMixin from 'ember-leaflet/mixins/div-overlayable';
 import toLatLng from 'ember-leaflet/macros/to-lat-lng';
 const { observer } = Ember;
 
-export default BaseLayer.extend(DraggabilityMixin, PopupMixin, {
+export default BaseLayer.extend(DraggabilityMixin, DivOverlayableMixin, {
 
   leafletRequiredOptions: [
     'location'

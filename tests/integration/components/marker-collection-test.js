@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import wait from 'ember-test-helpers/wait';
 import { assertionInjector, assertionCleanup } from '../../assertions';
 import MarkerLayerComponent from 'ember-leaflet/components/marker-layer';
 import locations from '../../helpers/locations';
@@ -99,7 +100,9 @@ test('popup remains open when another layer is destroyed', function(assert) {
     {{#leaflet-map zoom=zoom center=center}}
       {{#each markers as |m|}}
         {{#marker-layer location=m.location}}
-          Popup content
+          {{#popup-layer}}
+            Popup content
+          {{/popup-layer}}
         {{/marker-layer}}
       {{/each}}
     {{/leaflet-map}}
@@ -110,25 +113,27 @@ test('popup remains open when another layer is destroyed', function(assert) {
   assert.equal(createLayersCount, 4);
   assert.equal(destroyLayersCount, 0);
 
-  assert.equal(markers[2]._popup._map, null, 'popup not added until opened');
+  assert.equal(markers[2]._layer._popup._map, null, 'popup not added until opened');
 
   Ember.run(() => {
     markers[2]._layer.fire('click', { latlng: locations.nyc });
   });
 
-  assert.ok(!!markers[2]._popup._map, 'marker added to map');
-  assert.equal(Ember.$(markers[2]._popup._contentNode).text().trim(), 'Popup content', 'popup content set');
+  return wait().then(() => {
+    assert.ok(!!markers[2]._layer._popup._map, 'marker added to map');
+    assert.equal(Ember.$(markers[2]._layer._popup._contentNode).text().trim(), 'Popup content', 'popup content set');
 
-  this.set('markers', [
-    restaurant1,
-    restaurant2,
-    restaurant3
-  ]);
+    this.set('markers', [
+      restaurant1,
+      restaurant2,
+      restaurant3
+    ]);
 
-  assert.equal(markersInitCount, 4);
-  assert.equal(createLayersCount, 4);
-  assert.equal(destroyLayersCount, 1);
+    assert.equal(markersInitCount, 4);
+    assert.equal(createLayersCount, 4);
+    assert.equal(destroyLayersCount, 1);
 
-  assert.ok(!!markers[2]._popup._map, 'marker added to map');
-  assert.equal(Ember.$(markers[2]._popup._contentNode).text().trim(), 'Popup content', 'popup content set');
+    assert.ok(!!markers[2]._layer._popup._map, 'marker added to map');
+    assert.equal(Ember.$(markers[2]._layer._popup._contentNode).text().trim(), 'Popup content', 'popup content set');
+  });
 });

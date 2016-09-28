@@ -1,8 +1,8 @@
 import BaseLayer from 'ember-leaflet/components/base-layer';
-import PopupMixin from 'ember-leaflet/mixins/popup';
+import DivOverlayableMixin from 'ember-leaflet/mixins/div-overlayable';
 import StyleMixin from 'ember-leaflet/mixins/style';
 
-export default BaseLayer.extend(PopupMixin, StyleMixin, {
+export default BaseLayer.extend(DivOverlayableMixin, StyleMixin, {
 
   leafletOptions: [
     'stroke', 'color', 'weight', 'opacity', 'fill', 'fillColor',
