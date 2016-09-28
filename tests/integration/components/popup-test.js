@@ -15,7 +15,7 @@ L.Icon.Default.imagePath = 'some-path';
 
 let marker, arrayPath;
 
-moduleForComponent('marker-layer', 'Integration | Component | popup mixin', {
+moduleForComponent('marker-layer', 'Integration | Component | popup layer', {
   integration: true,
   beforeEach() {
     assertionInjector();
