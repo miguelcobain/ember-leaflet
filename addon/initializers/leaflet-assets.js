@@ -1,7 +1,7 @@
 /* global L */
 
 export function initialize(/* container, application */) {
-  L.Icon.Default.imagePath = '/assets/images';
+  L.Icon.Default.imagePath = '/assets/images/';
 }
 
 export default {
