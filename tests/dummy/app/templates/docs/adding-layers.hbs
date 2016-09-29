@@ -45,13 +45,17 @@ export default Ember.Controller.extend({
   \{{tile-layer url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
 
   \{{#marker-layer location=emberConfLocation}}
-    &lt;h3&gt;The Oregon Convention Center&lt;/h3&gt;
-    777 NE Martin Luther King Jr Blvd&lt;br&gt;
-    Portland, OR 97232
+    \{{#popup-layer}}
+      &lt;h3&gt;The Oregon Convention Center&lt;/h3&gt;
+      777 NE Martin Luther King Jr Blvd&lt;br&gt;
+      Portland, OR 97232
+    \{{/popup-layer}}
   \{{/marker-layer}}
 
   \{{#marker-layer location=hotel}}
-    &lt;h3&gt;Hotel&lt;/h3&gt;
+    \{{#popup-layer}}
+      &lt;h3&gt;Hotel&lt;/h3&gt;
+    \{{/popup-layer}}
   \{{/marker-layer}}
 
 \{{/leaflet-map}}{{/code-block}}
@@ -67,12 +71,16 @@ export default Ember.Controller.extend({
     {{#leaflet-map lat=lat lng=lng zoom=zoom}}
       {{tile-layer url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
       {{#marker-layer location=emberConfLocation popupOpen=false}}
-        <h3>The Oregon Convention Center</h3>
-        777 NE Martin Luther King Jr Blvd<br>
-        Portland, OR 97232
+        {{#popup-layer}}
+          <h3>The Oregon Convention Center</h3>
+          777 NE Martin Luther King Jr Blvd<br>
+          Portland, OR 97232
+        {{/popup-layer}}
       {{/marker-layer}}
       {{#marker-layer location=hotel}}
-        <h3>Hotel</h3>
+        {{#popup-layer}}
+          <h3>Hotel</h3>
+        {{/popup-layer}}
       {{/marker-layer}}
     {{/leaflet-map}}
   </div>
@@ -87,7 +95,8 @@ export default Ember.Controller.extend({
       can use these two notations interchangeably.
     </li>
     <li>
-      Did you notice how we used <code>\{{marker-layer}}</code>'s block to specify our popup text?
+      Did you notice how we used <code>\{{popup-layer}}</code> inside <code>\{{marker-layer}}</code>'s
+      block to specify our popup text?
       Go ahead and click the markers. It feels Ember and it feels natural.
       Why not a form in a popup? A component? Why not <code>\{{outlet}}</code>? Possibilities
       are endless.
