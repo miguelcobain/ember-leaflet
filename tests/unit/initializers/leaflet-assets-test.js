@@ -3,12 +3,14 @@ import { initialize } from '../../../initializers/leaflet-assets';
 import { module, test } from 'qunit';
 /* global L */
 
+const { run, Application } = Ember;
+
 var registry, application;
 
 module('Unit | Initializer | leaflet assets', {
   beforeEach: function() {
-    Ember.run(function() {
-      application = Ember.Application.create();
+    run(function() {
+      application = Application.create();
       registry = application.registry;
       application.deferReadiness();
     });

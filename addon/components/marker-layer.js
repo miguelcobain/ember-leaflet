@@ -1,11 +1,11 @@
 import Ember from 'ember';
 import BaseLayer from 'ember-leaflet/components/base-layer';
 import DraggabilityMixin from 'ember-leaflet/mixins/draggability';
-import PopupMixin from 'ember-leaflet/mixins/popup';
+import DivOverlayableMixin from 'ember-leaflet/mixins/div-overlayable';
 import toLatLng from 'ember-leaflet/macros/to-lat-lng';
 const { observer } = Ember;
 
-export default BaseLayer.extend(DraggabilityMixin, PopupMixin, {
+export default BaseLayer.extend(DraggabilityMixin, DivOverlayableMixin, {
 
   leafletRequiredOptions: [
     'location'
@@ -32,7 +32,7 @@ export default BaseLayer.extend(DraggabilityMixin, PopupMixin, {
     return this.L.marker(...this.get('requiredOptions'), this.get('options'));
   },
 
-  // icon observer separated from generator (leaflet properties) due to a
+  // icon observer separated from generated (leaflet properties) due to a
   // leaflet bug where draggability is lost on icon change
   iconDidChange: observer('icon', function() {
     this._layer.setIcon(this.get('icon'));

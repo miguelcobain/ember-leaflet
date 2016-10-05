@@ -1,8 +1,9 @@
 import Ember from 'ember';
 import ChildMixin from 'ember-leaflet/mixins/child';
 import { InvokeActionMixin } from 'ember-invoke-action';
-const { assert, computed, Component, run } = Ember;
 /* global L */
+
+const { assert, computed, Component, run, K, A, String: { classify } } = Ember;
 
 export default Component.extend(ChildMixin, InvokeActionMixin, {
   tagName: '',
@@ -14,8 +15,8 @@ export default Component.extend(ChildMixin, InvokeActionMixin, {
     assert('BaseLayer\'s `createLayer` should be overriden.');
   },
 
-  didCreateLayer: Ember.K,
-  willDestroyLayer: Ember.K,
+  didCreateLayer: K,
+  willDestroyLayer: K,
 
   /*
    * Method called by parent when the layer needs to setup
@@ -25,9 +26,16 @@ export default Component.extend(ChildMixin, InvokeActionMixin, {
     this._addObservers();
     this._addEventListeners();
     if (this.get('containerLayer')) {
-      this.get('containerLayer')._layer.addLayer(this._layer);
+      this.addToContainer();
     }
     this.didCreateLayer();
+  },
+
+  /*
+   * Default logic for adding the layer to the container
+   */
+  addToContainer() {
+    this.get('containerLayer')._layer.addLayer(this._layer);
   },
 
   /*
@@ -38,9 +46,16 @@ export default Component.extend(ChildMixin, InvokeActionMixin, {
     this._removeEventListeners();
     this._removeObservers();
     if (this.get('containerLayer') && this._layer) {
-      this.get('containerLayer')._layer.removeLayer(this._layer);
+      this.removeFromContainer();
     }
     this._layer = null;
+  },
+
+  /*
+   * Default logic for removing the layer from the container
+   */
+  removeFromContainer() {
+    this.get('containerLayer')._layer.removeLayer(this._layer);
   },
 
   leafletOptions: [],
@@ -66,11 +81,11 @@ export default Component.extend(ChildMixin, InvokeActionMixin, {
     return options;
   }),
 
-  leafletEvents: Ember.A(),
+  leafletEvents: A(),
   usedLeafletEvents: computed('leafletEvents', function() {
     return this.get('leafletEvents').filter(eventName => {
       let methodName = '_' + eventName;
-      let actionName = 'on' + Ember.String.classify(eventName);
+      let actionName = 'on' + classify(eventName);
       return this.get(methodName) !== undefined || this.get(actionName) !== undefined;
     });
   }),
@@ -79,16 +94,16 @@ export default Component.extend(ChildMixin, InvokeActionMixin, {
     this._eventHandlers = {};
     this.get('usedLeafletEvents').forEach(eventName => {
 
-      let actionName = 'on' + Ember.String.classify(eventName);
+      let actionName = 'on' + classify(eventName);
       let methodName = '_' + eventName;
       // create an event handler that runs the function inside an event loop.
       this._eventHandlers[eventName] = function(e) {
-        run.schedule('actions', this, function() {
+        run(() => {
           //try to invoke/send an action for this event
           this.invokeAction(actionName, e);
           //allow classes to add custom logic on events as well
           if(typeof this[methodName] === 'function') {
-            Ember.run(this, this[methodName], e);
+            run(this, this[methodName], e);
           }
         });
       };
@@ -114,7 +129,7 @@ export default Component.extend(ChildMixin, InvokeActionMixin, {
     this.get('leafletProperties').forEach(propExp => {
 
       let [property, leafletProperty, ...params] = propExp.split(':');
-      if (!leafletProperty) { leafletProperty = 'set' + Ember.String.classify(property); }
+      if (!leafletProperty) { leafletProperty = 'set' + classify(property); }
       let objectProperty = property.replace(/\.\[]/, ''); //allow usage of .[] to observe array changes
 
       this._observers[property] = function() {

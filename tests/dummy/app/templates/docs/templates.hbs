@@ -19,14 +19,18 @@
   \{{/if}}
 
   \{{#each restaurants as |r|}}
-    \{{#marker-layer lat=r.lat lng=r.lng draggable=true popupOpen=(readonly r.isOpen) onDragend=(action "updateLocation" r)}}
-      &lt;h3&gt;\{{r.name}}&lt;/h3&gt;
-      Rating: \{{r.rating}}/5
+    \{{#marker-layer lat=r.lat lng=r.lng draggable=true onDragend=(action "updateLocation" r)}}
+      \{{#popup-layer popupOpen=(readonly r.isOpen)}}
+        &lt;h3&gt;\{{r.name}}&lt;/h3&gt;
+        Rating: \{{r.rating}}/5
+      \{{/popup-layer}}
     \{{/marker-layer}}
   \{{/each}}
 
   \{{#polygon-layer locations=dangerZone color="red"}}
-    DANGER ZONE
+    \{{#tooltip-layer sticky=true}}
+      DANGER ZONE
+    \{{/tooltip-layer}}
   \{{/polygon-layer}}
 
 \{{/leaflet-map}}
@@ -65,7 +69,8 @@ export default Ember.Controller.extend({
       name: 'Le Pigeon',
       rating: 4.5,
       lat: 45.522752,
-      lng: -122.657979
+      lng: -122.657979,
+      isOpen: true
     },
   ]),
 
@@ -95,14 +100,18 @@ export default Ember.Controller.extend({
       {{/if}}
 
       {{#each restaurants as |r|}}
-        {{#marker-layer lat=r.lat lng=r.lng draggable=true popupOpen=(readonly r.isOpen) onDragend=(action "updateLocation" r)}}
-          <h3>{{input value=r.name}}</h3>
-          Rating: {{r.rating}}/5
+        {{#marker-layer lat=r.lat lng=r.lng draggable=true onDragend=(action "updateLocation" r)}}
+          {{#popup-layer popupOpen=(readonly r.isOpen)}}
+            <h3>{{input value=r.name}}</h3>
+            Rating: {{r.rating}}/5
+          {{/popup-layer}}
         {{/marker-layer}}
       {{/each}}
 
       {{#polygon-layer locations=dangerZone color="red"}}
-        DANGER ZONE
+        {{#tooltip-layer sticky=true}}
+          DANGER ZONE
+        {{/tooltip-layer}}
       {{/polygon-layer}}
 
     {{/leaflet-map}}

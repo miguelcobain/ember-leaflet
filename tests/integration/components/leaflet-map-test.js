@@ -96,7 +96,7 @@ test('update map layer using leafletProperties (bounds and fitBoundsOptions)', f
   this.render(hbs`{{leaflet-map bounds=bounds fitBoundsOptions=fitBoundsOptions}}`);
   let pixelBounds = map._layer.getPixelBounds();
 
-  this.set('fitBoundsOptions', {padding: [500, 500]});
+  this.set('fitBoundsOptions', { padding: [150, 150] });
   this.set('bounds', [locations.chicago, locations.nyc]);
   let pixelBoundsWithOptions = map._layer.getPixelBounds();
 

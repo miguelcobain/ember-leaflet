@@ -1,8 +1,8 @@
 import Ember from 'ember';
 import ContainerMixin from 'ember-leaflet/mixins/container';
-const { computed, assert } = Ember;
+const { Mixin, computed, assert } = Ember;
 
-export default Ember.Mixin.create({
+export default Mixin.create({
 
   containerLayer: computed(function() {
     return this.nearestOfType(ContainerMixin);

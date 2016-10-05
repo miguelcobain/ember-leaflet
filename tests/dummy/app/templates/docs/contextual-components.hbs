@@ -19,6 +19,11 @@
     <li><code>\{{layers.geoJSON</code> equivalent to <code>\{{geojson-layer</code></li>
   </ul>
 
+  Also, every component that supports popups and tooltips yields the <code>popup</code>
+  and <code>tooltip</code> components.
+</p>
+
+<p>
    If you're using an Ember version later or equal to <code>2.3.0-beta.1</code>, you should use this feature.
    Here is an example of what it looks like:
 </p>
@@ -28,10 +33,12 @@
 
   \{{layers.tile url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
 
-  \{{#layers.marker location=emberConfLocation}}
-    <h3>The Oregon Convention Center</h3>
-    777 NE Martin Luther King Jr Blvd<br>
-    Portland, OR 97232
+  \{{#layers.marker location=emberConfLocation as |marker|}}
+    \{{#marker.popup}}
+      <h3>The Oregon Convention Center</h3>
+      777 NE Martin Luther King Jr Blvd<br>
+      Portland, OR 97232
+    \{{/marker.popup}}
   \{{/layers.marker}}
 
 \{{/leaflet-map}}
@@ -54,14 +61,18 @@
   \{{/if}}
 
   \{{#each restaurants as |r|}}
-    \{{#layers.marker lat=r.lat lng=r.lng draggable=true onDragend=(action "updateLocation" r)}}
-      <h3>\{{input value=r.name}}</h3>
-      Rating: \{{r.rating}}/5
+    \{{#layers.marker lat=r.lat lng=r.lng draggable=true onDragend=(action "updateLocation" r) as |marker|}}
+      \{{#marker.popup}}
+        <h3>\{{input value=r.name}}</h3>
+        Rating: \{{r.rating}}/5
+      \{{/marker.popup}}
     \{{/layers.marker}}
   \{{/each}}
 
-  \{{#layers.polygon locations=dangerZone color="red"}}
+  \{{#layers.polygon locations=dangerZone color="red" as |polygon|}}
+    \{{#polygon.tooltip}}
     DANGER ZONE
+    \{{/polygon.tooltip}}
   \{{/layers.polygon}}
 
 \{{/leaflet-map}}
@@ -99,7 +110,8 @@ export default Ember.Controller.extend({
       name: 'Le Pigeon',
       rating: 4.5,
       lat: 45.522752,
-      lng: -122.657979
+      lng: -122.657979,
+      isOpen: true
     },
   ]),
 
@@ -129,14 +141,18 @@ export default Ember.Controller.extend({
       {{/if}}
 
       {{#each restaurants as |r|}}
-        {{#layers.marker lat=r.lat lng=r.lng draggable=true onDragend=(action "updateLocation" r)}}
-          <h3>{{input value=r.name}}</h3>
-          Rating: {{r.rating}}/5
+        {{#layers.marker lat=r.lat lng=r.lng draggable=true onDragend=(action "updateLocation" r) as |marker|}}
+          {{#marker.popup}}
+            <h3>{{input value=r.name}}</h3>
+            Rating: {{r.rating}}/5
+          {{/marker.popup}}
         {{/layers.marker}}
       {{/each}}
 
-      {{#layers.polygon locations=dangerZone color="red"}}
-        DANGER ZONE
+      {{#layers.polygon locations=dangerZone color="red" as |polygon|}}
+        {{#polygon.tooltip}}
+          DANGER ZONE
+        {{/polygon.tooltip}}
       {{/layers.polygon}}
 
     {{/leaflet-map}}

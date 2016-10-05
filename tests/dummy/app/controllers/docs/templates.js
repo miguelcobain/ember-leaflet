@@ -22,7 +22,8 @@ export default Ember.Controller.extend({
       name: 'Le Pigeon',
       rating: 4.5,
       lat: 45.522752,
-      lng: -122.657979
+      lng: -122.657979,
+      isOpen: true
     },
   ]),
 

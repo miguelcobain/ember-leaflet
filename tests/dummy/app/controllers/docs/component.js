@@ -1,11 +1,13 @@
 import Ember from 'ember';
 /* global require, requirejs */
 
+const { Controller, computed } = Ember;
+
 let URL_PREFIX = 'http://leafletjs.com/reference.html#';
 
-export default Ember.Controller.extend({
+export default Controller.extend({
 
-  leafletUrlPrefix: Ember.computed('componentName', function() {
+  leafletUrlPrefix: computed('componentName', function() {
     let id, componentName = this.get('componentName');
     if (componentName === 'leaflet-map') {
       id = 'map';
@@ -51,7 +53,7 @@ export default Ember.Controller.extend({
     return props;
   },
 
-  superclassName: Ember.computed('component', function() {
+  superclassName: computed('component', function() {
     let component = this.get('component');
     let superclass = component.constructor.superclass.superclass;
     if (superclass !== Ember.Component) {
@@ -61,24 +63,24 @@ export default Ember.Controller.extend({
     }
   }),
 
-  leafletRequiredOptions: Ember.computed('component', function() {
+  leafletRequiredOptions: computed('component', function() {
     let component = this.get('component');
     return component.get('leafletRequiredOptions');
   }),
 
-  leafletProperties: Ember.computed('component', function() {
+  leafletProperties: computed('component', function() {
     return this._subtractSuperClassProps('leafletProperties');
   }),
 
-  leafletOptions: Ember.computed('component', function() {
+  leafletOptions: computed('component', function() {
     return this._subtractSuperClassProps('leafletOptions');
   }),
 
-  leafletEvents: Ember.computed('component', function() {
+  leafletEvents: computed('component', function() {
     return this._subtractSuperClassProps('leafletEvents');
   }),
 
-  leafletStyleProperties: Ember.computed('component', function() {
+  leafletStyleProperties: computed('component', function() {
     return this._subtractSuperClassProps('leafletStyleProperties');
   })
 

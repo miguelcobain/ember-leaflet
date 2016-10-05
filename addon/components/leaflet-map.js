@@ -79,6 +79,13 @@ export default BaseLayer.extend(ContainerMixin, {
     return this.L.map(this.element, options);
   },
 
+  // Manually call `remove` method in the case of the root map layer.
+  layerTeardown() {
+    let layer = this._layer;
+    this._super(...arguments);
+    layer.remove();
+  },
+
   didCreateLayer() {
     //after base layer bound the events, we can now set the map's view
     assert('You must provide either valid `bounds` or a `center` (or `lat`/`lng`) and a `zoom` value.',
