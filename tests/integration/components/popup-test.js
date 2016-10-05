@@ -225,3 +225,34 @@ test('popup options within path layers', function(assert) {
 
   assert.equal(arrayPath._layer._popup.options.className, 'exists', 'popup class set on array-path');
 });
+
+test('popups work on path layers too', function(assert) {
+  this.set('locations', A([locations.chicago, locations.nyc, locations.sf]));
+
+  this.render(hbs`
+    {{#leaflet-map zoom=zoom center=center}}
+      {{#custom-array-path-layer locations=locations}}
+        {{#popup-layer popupOpen=popupOpen as |closePopup|}}
+          <span id="closeEl" onclick={{closePopup}}>Popup content</span>
+        {{/popup-layer}}
+      {{/custom-array-path-layer}}
+    {{/leaflet-map}}
+  `);
+
+  run(() => {
+    arrayPath._layer.fire('click', { latlng: locations.nyc });
+  });
+
+  return wait().then(() => {
+    assert.ok(!!arrayPath._layer._popup._map, 'popup opened');
+
+    run(() => {
+      this.$('#closeEl').click();
+    });
+
+    return wait();
+  }).then(() => {
+    let map = arrayPath._layer._map;
+    assert.equal(map._popup, null, 'popup closed');
+  });
+});
