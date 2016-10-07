@@ -22,6 +22,6 @@ export default BaseLayer.extend({
   ],
 
   createLayer() {
-    return this.L.tileLayer(...this.get('requiredOptions'), this.get('options'));
+    return this.get('L').tileLayer(...this.get('requiredOptions'), this.get('options'));
   }
 });

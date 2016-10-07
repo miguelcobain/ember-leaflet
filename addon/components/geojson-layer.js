@@ -47,6 +47,6 @@ export default BaseLayer.extend(StyleMixin, {
   },
 
   createLayer() {
-    return this.L.geoJson(...this.get('requiredOptions'), this.get('options'));
+    return this.get('L').geoJson(...this.get('requiredOptions'), this.get('options'));
   }
 });

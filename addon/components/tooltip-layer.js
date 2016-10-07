@@ -15,7 +15,7 @@ export default DivOverlayLayer.extend({
   }),
 
   createLayer() {
-    return this.L.tooltip(this.get('options')).setContent(this.get('destinationElement'));
+    return this.get('L').tooltip(this.get('options')).setContent(this.get('destinationElement'));
   },
 
   didCreateLayer() {

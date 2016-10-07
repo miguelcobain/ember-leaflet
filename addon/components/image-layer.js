@@ -15,6 +15,6 @@ export default BaseLayer.extend({
   ],
 
   createLayer() {
-    return this.L.imageOverlay(...this.get('requiredOptions'), this.get('options'));
+    return this.get('L').imageOverlay(...this.get('requiredOptions'), this.get('options'));
   }
 });
