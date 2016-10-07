@@ -7,7 +7,7 @@ export default TileLayer.extend({
   ],
 
   createLayer() {
-    return this.L.tileLayer.wms(...this.get('requiredOptions'), this.get('options'));
+    return this.get('L').tileLayer.wms(...this.get('requiredOptions'), this.get('options'));
   }
 
 });

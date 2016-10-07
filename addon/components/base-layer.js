@@ -7,7 +7,13 @@ const { assert, computed, Component, run, K, A, String: { classify } } = Ember;
 
 export default Component.extend(ChildMixin, InvokeActionMixin, {
   tagName: '',
-  L,
+
+  //FASTBOOT-TODO: Exposing L here is a problem
+  L: Ember.computed('window.L', function(){
+    if(L){
+      return L;
+    }
+  }),
 
   concatenatedProperties: ['leafletOptions', 'leafletRequiredOptions', 'leafletEvents', 'leafletProperties'],
 

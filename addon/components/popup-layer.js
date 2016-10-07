@@ -45,7 +45,7 @@ export default DivOverlayLayer.extend({
   },
 
   createLayer() {
-    return this.L.popup(this.get('options')).setContent(this.get('destinationElement'));
+    return this.get('L').popup(this.get('options')).setContent(this.get('destinationElement'));
   },
 
   didCreateLayer() {

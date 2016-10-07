@@ -6,6 +6,6 @@ export default ArrayPathLayer.extend({
   ],
 
   createLayer() {
-    return this.L.polyline(...this.get('requiredOptions'), this.get('options'));
+    return this.get('L').polyline(...this.get('requiredOptions'), this.get('options'));
   }
 });

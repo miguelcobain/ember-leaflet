@@ -29,7 +29,7 @@ export default BaseLayer.extend(DraggabilityMixin, DivOverlayableMixin, {
   location: toLatLng(),
 
   createLayer() {
-    return this.L.marker(...this.get('requiredOptions'), this.get('options'));
+    return this.get('L').marker(...this.get('requiredOptions'), this.get('options'));
   },
 
   // icon observer separated from generated (leaflet properties) due to a
