@@ -23,20 +23,21 @@ module('Unit | Initializer | leaflet assets', {
   }
 });
 
-test('it sets icon default imagePath', function(assert) {
+test('it sets icon default imagePath to default assets path', function(assert) {
   initialize(registry, application);
 
   assert.ok(typeof L.Icon.Default.imagePath !== 'undefined', '`L.Icon.Default.imagePath` is not set');
+  assert.equal(L.Icon.Default.imagePath, '/assets/images/');
 });
 
-test('it sets icon default imagePath with baseURL', function (assert) {
+test('it sets icon default imagePath with baseURL', function(assert) {
   ENV.baseURL = '/path/to/base/';
   initialize(registry, application);
 
   assert.equal(L.Icon.Default.imagePath, '/path/to/base/assets/images/');
 });
 
-test('it sets icon default imagePath with rootURL', function (assert) {
+test('it sets icon default imagePath with rootURL', function(assert) {
   ENV.baseURL = '/path/to/base/';
   ENV.rootURL = '/path/to/root/';
   initialize(registry, application);
