@@ -1,6 +1,6 @@
-// import Ember from 'ember';
 import BaseLayer from 'ember-leaflet/components/base-layer';
 import StyleMixin from 'ember-leaflet/mixins/style';
+import DivOverlayableMixin from 'ember-leaflet/mixins/div-overlayable';
 
 /**
  * An ember-leaflet wrapper for L.geoJson, which renders GeoJson data onto a
@@ -10,7 +10,7 @@ import StyleMixin from 'ember-leaflet/mixins/style';
  *   - geoJSON: the GeoJSON object to render
  *   - all standard leaflet options for L.geoJson
  */
-export default BaseLayer.extend(StyleMixin, {
+export default BaseLayer.extend(DivOverlayableMixin, StyleMixin, {
   leafletRequiredOptions: ['geoJSON'],
 
   leafletOptions: [
