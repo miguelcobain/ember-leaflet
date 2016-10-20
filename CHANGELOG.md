@@ -1,5 +1,10 @@
 # ember-leaflet changelog
 
+### 3.0.2 (October 20, 2016)
+- [BUGFIX] geojson-layer now supports popups and tooltips
+- [ENHANCEMENT] nested addon/engines support for asset import ([#107](https://github.com/miguelcobain/ember-leaflet/pull/107))
+- [INTERNAL] Use ember-composability-tools!
+
 ### 3.0.1 (October 13, 2016)
 - [BUGFIX] Set icon default imagePath according to ENV.rootURL, ENV.baseURL ([#105](https://github.com/miguelcobain/ember-leaflet/pull/105))
 
