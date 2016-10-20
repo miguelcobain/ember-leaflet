@@ -1,18 +1,13 @@
 import Ember from 'ember';
 import DivOverlayLayer from 'ember-leaflet/components/div-overlay-layer';
 
-const { computed, run } = Ember;
+const { run } = Ember;
 
 export default DivOverlayLayer.extend({
 
   leafletOptions: [
     'direction', 'permanent', 'sticky', 'interactive', 'opacity'
   ],
-
-  // creates a document fragment that will hold the DOM
-  destinationElement: computed(function() {
-    return document.createElement('div');
-  }),
 
   createLayer() {
     return this.L.tooltip(this.get('options')).setContent(this.get('destinationElement'));
@@ -27,11 +22,11 @@ export default DivOverlayLayer.extend({
   },
 
   addToContainer() {
-    this.get('containerLayer')._layer.bindTooltip(this._layer);
+    this.get('parentComponent')._layer.bindTooltip(this._layer);
   },
 
   removeFromContainer() {
-    this.get('containerLayer')._layer.unbindTooltip();
+    this.get('parentComponent')._layer.unbindTooltip();
   },
 
   _onLayerRemove({layer}) {
@@ -60,12 +55,12 @@ export default DivOverlayLayer.extend({
     };
     // we need to user `layerremove` event becase it's the only one that fires
     // *after* the popup was completely removed from the map
-    let containerLayer = this.get('containerLayer');
-    containerLayer._layer._map.addEventListener('layerremove', this._onLayerRemove, this);
+    let parentComponent = this.get('parentComponent');
+    parentComponent._layer._map.addEventListener('layerremove', this._onLayerRemove, this);
   },
 
   _removePopupListeners() {
-    let containerLayer = this.get('containerLayer');
-    containerLayer._layer._map.removeEventListener('layerremove', this._onLayerRemove, this);
+    let parentComponent = this.get('parentComponent');
+    parentComponent._layer._map.removeEventListener('layerremove', this._onLayerRemove, this);
   }
 });

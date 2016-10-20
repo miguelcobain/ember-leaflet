@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import DivOverlayLayer from 'ember-leaflet/components/div-overlay-layer';
 
-const { computed, observer, run } = Ember;
+const { observer, run } = Ember;
 
 export default DivOverlayLayer.extend({
 
@@ -10,11 +10,6 @@ export default DivOverlayLayer.extend({
     'autoPanPaddingBottomRight', 'autoPanPadding', 'keepInView', 'closeButton',
     'autoClose'
   ],
-
-  // creates a document fragment that will hold the DOM
-  destinationElement: computed(function() {
-    return document.createElement('div');
-  }),
 
   isOpen() {
     // leaflet 1 added an `isOpen` method
@@ -30,9 +25,9 @@ export default DivOverlayLayer.extend({
 
   popupOpenDidChange: observer('popupOpen', function() {
     if (this.get('popupOpen')) {
-      if (!this.isOpen()) { this.get('containerLayer')._layer.openPopup(); }
+      if (!this.isOpen()) { this.get('parentComponent')._layer.openPopup(); }
     } else {
-      if (this.isOpen()) { this.get('containerLayer')._layer.closePopup(); }
+      if (this.isOpen()) { this.get('parentComponent')._layer.closePopup(); }
     }
   }),
 
@@ -55,19 +50,20 @@ export default DivOverlayLayer.extend({
 
   willDestroyLayer() {
     this._removePopupListeners();
+    this.closePopup();
   },
 
   addToContainer() {
-    this.get('containerLayer')._layer.bindPopup(this._layer);
+    this.get('parentComponent')._layer.bindPopup(this._layer);
   },
 
   removeFromContainer() {
-    this.get('containerLayer')._layer.unbindPopup();
+    this.get('parentComponent')._layer.unbindPopup();
   },
 
-  _onLayerRemove({layer}) {
+  _onLayerRemove({ layer }) {
     if (layer === this._layer) {
-      if (this.get('containerLayer')._layer._map._fadeAnimated) {
+      if (this.get('parentComponent')._layer._map._fadeAnimated) {
         this._destroyAfterAnimation = run.later(() => {
           if (!this.get('isDestroyed') && !this.get('isDestroying')) {
             this.set('shouldRender', false);
@@ -96,12 +92,12 @@ export default DivOverlayLayer.extend({
     };
     // we need to user `layerremove` event becase it's the only one that fires
     // *after* the popup was completely removed from the map
-    let containerLayer = this.get('containerLayer');
-    containerLayer._layer._map.addEventListener('layerremove', this._onLayerRemove, this);
+    let parentComponent = this.get('parentComponent');
+    parentComponent._layer._map.addEventListener('layerremove', this._onLayerRemove, this);
   },
 
   _removePopupListeners() {
-    let containerLayer = this.get('containerLayer');
-    containerLayer._layer._map.removeEventListener('layerremove', this._onLayerRemove, this);
+    let parentComponent = this.get('parentComponent');
+    parentComponent._layer._map.removeEventListener('layerremove', this._onLayerRemove, this);
   }
 });

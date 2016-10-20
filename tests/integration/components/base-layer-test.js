@@ -30,6 +30,6 @@ test('using any layer outside a content layer throws', function(assert) {
 
   assert.throws(() => {
     this.render(hbs`{{new-base-layer}}`);
-  }, /Assertion Failed: Tried to use .* outside the context of a container layer\./);
+  }, /Assertion Failed: Tried to use .* outside the context of a parent component\./);
 });
 

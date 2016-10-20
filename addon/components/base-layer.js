@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import ChildMixin from 'ember-leaflet/mixins/child';
+import { ChildMixin } from 'ember-composability-tools';
 import { InvokeActionMixin } from 'ember-invoke-action';
 /* global L */
 
@@ -21,11 +21,11 @@ export default Component.extend(ChildMixin, InvokeActionMixin, {
   /*
    * Method called by parent when the layer needs to setup
    */
-  layerSetup() {
+  didInsertParent() {
     this._layer = this.createLayer();
     this._addObservers();
     this._addEventListeners();
-    if (this.get('containerLayer')) {
+    if (this.get('parentComponent')) {
       this.addToContainer();
     }
     this.didCreateLayer();
@@ -35,27 +35,27 @@ export default Component.extend(ChildMixin, InvokeActionMixin, {
    * Default logic for adding the layer to the container
    */
   addToContainer() {
-    this.get('containerLayer')._layer.addLayer(this._layer);
+    this.get('parentComponent')._layer.addLayer(this._layer);
   },
 
   /*
    * Method called by parent when the layer needs to teardown
    */
-  layerTeardown() {
+  willDestroyParent() {
     this.willDestroyLayer();
     this._removeEventListeners();
     this._removeObservers();
-    if (this.get('containerLayer') && this._layer) {
+    if (this.get('parentComponent') && this._layer) {
       this.removeFromContainer();
     }
-    this._layer = null;
+    delete this._layer;
   },
 
   /*
    * Default logic for removing the layer from the container
    */
   removeFromContainer() {
-    this.get('containerLayer')._layer.removeLayer(this._layer);
+    this.get('parentComponent')._layer.removeLayer(this._layer);
   },
 
   leafletOptions: [],

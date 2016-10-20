@@ -1,12 +1,12 @@
 import Ember from 'ember';
 import BaseLayer from 'ember-leaflet/components/base-layer';
-import ContainerMixin from 'ember-leaflet/mixins/container';
+import { ParentMixin } from 'ember-composability-tools';
 import toLatLng from 'ember-leaflet/macros/to-lat-lng';
 import layout from '../templates/leaflet-map';
 const { assert } = Ember;
 const assign = Ember.assign || Ember.merge;
 
-export default BaseLayer.extend(ContainerMixin, {
+export default BaseLayer.extend(ParentMixin, {
   tagName: 'div',
   layout,
 
@@ -44,26 +44,6 @@ export default BaseLayer.extend(ContainerMixin, {
 
   center: toLatLng(),
 
-  // Since no parent container layer is controling the rendering flow,
-  // we need to implement render hooks and call `layerSetup` and `layerTeardown` ourselves.
-  //
-  // This is the only case where it happens, because this is a real DOM element,
-  // and its rendering flow reverts back to Ember way.
-  containerLayer: null,
-
-  didInsertElement() {
-    this._super(...arguments);
-    this.layerSetup();
-    this.get('_childLayers').invoke('layerSetup');
-  },
-
-  willDestroyElement() {
-    this._super(...arguments);
-    this.get('_childLayers').invoke('layerTeardown');
-    this.get('_childLayers').clear();
-    this.layerTeardown();
-  },
-
   // By default all layers try to register in a container layer.
   // It is not the case of the map itself as it is the topmost container.
   registerWithParent() { },
@@ -80,7 +60,7 @@ export default BaseLayer.extend(ContainerMixin, {
   },
 
   // Manually call `remove` method in the case of the root map layer.
-  layerTeardown() {
+  willDestroyParent() {
     let layer = this._layer;
     this._super(...arguments);
     layer.remove();

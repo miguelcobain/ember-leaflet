@@ -25,11 +25,11 @@ moduleForComponent('marker-layer', 'Integration | Component | marker layer colle
         markersInitCount++;
         markers.push(this);
       },
-      layerSetup() {
+      didInsertParent() {
         this._super(...arguments);
         createLayersCount++;
       },
-      layerTeardown() {
+      willDestroyParent() {
         this._super(...arguments);
         destroyLayersCount++;
       }

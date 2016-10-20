@@ -10,12 +10,12 @@ export default Mixin.create({
     'clickable', 'pointerEvents', 'className'
   ],
 
-  layerSetup() {
+  didInsertParent() {
     this._super(...arguments);
     this._addStyleObservers();
   },
 
-  layerTeardown() {
+  willDestroyParent() {
     this._removeStyleObservers();
     this._super(...arguments);
   },
