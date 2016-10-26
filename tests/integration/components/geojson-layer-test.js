@@ -4,7 +4,7 @@ import { assertionInjector, assertionCleanup } from '../../assertions';
 import GeoJSONLayerComponent from 'ember-leaflet/components/geojson-layer';
 import locations from '../../helpers/locations';
 import sampleGeoJSON from '../../helpers/sample-geojson';
-/* globals L */
+import L from 'ember-leaflet/L';
 
 const emptyGeoJSON = {
   type: 'FeatureCollection',

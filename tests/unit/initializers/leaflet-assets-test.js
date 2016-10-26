@@ -2,7 +2,7 @@ import Ember from 'ember';
 import ENV from '../../../config/environment';
 import { initialize } from '../../../initializers/leaflet-assets';
 import { module, test } from 'qunit';
-/* global L */
+import L from 'ember-leaflet/L';
 
 const { run, Application } = Ember;
 

@@ -4,7 +4,7 @@ import { assertionInjector, assertionCleanup } from '../../assertions';
 import hasEmberVersion from 'ember-test-helpers/has-ember-version';
 import MarkerLayerComponent from 'ember-leaflet/components/marker-layer';
 import locations from '../../helpers/locations';
-/* globals L */
+import L from 'ember-leaflet/L';
 
 //Needed to silence leaflet autodetection error
 L.Icon.Default.imagePath = 'some-path';

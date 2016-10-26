@@ -1,5 +1,5 @@
 import Ember from 'ember';
-/* global L */
+import L from 'ember-leaflet/L';
 
 const { Helper: { helper } } = Ember;
 

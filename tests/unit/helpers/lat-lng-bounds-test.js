@@ -1,6 +1,6 @@
 import { latLngBounds } from 'dummy/helpers/lat-lng-bounds';
 import { module, test } from 'qunit';
-/* global L */
+import L from 'ember-leaflet/L';
 
 module('Unit | Helper | lat-lng-bounds');
 

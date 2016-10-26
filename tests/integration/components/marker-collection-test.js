@@ -5,7 +5,7 @@ import wait from 'ember-test-helpers/wait';
 import { assertionInjector, assertionCleanup } from '../../assertions';
 import MarkerLayerComponent from 'ember-leaflet/components/marker-layer';
 import locations from '../../helpers/locations';
-/* globals L */
+import L from 'ember-leaflet/L';
 
 const { run } = Ember;
 

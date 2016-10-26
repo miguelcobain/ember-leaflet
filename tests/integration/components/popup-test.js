@@ -6,7 +6,7 @@ import wait from 'ember-test-helpers/wait';
 import MarkerLayerComponent from 'ember-leaflet/components/marker-layer';
 import ArrayPathLayerComponent from 'ember-leaflet/components/array-path-layer';
 import locations from '../../helpers/locations';
-/* globals L */
+import L from 'ember-leaflet/L';
 
 const { computed, run, A } = Ember;
 
