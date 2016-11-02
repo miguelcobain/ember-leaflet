@@ -1,5 +1,8 @@
 # ember-leaflet changelog
 
+### 3.0.3 (November 2, 2016)
+- [ENHANCEMENT] update ember-composability-tools (related https://github.com/miguelcobain/ember-composability-tools/issues/2)
+
 ### 3.0.2 (October 20, 2016)
 - [BUGFIX] geojson-layer now supports popups and tooltips
 - [ENHANCEMENT] nested addon/engines support for asset import ([#107](https://github.com/miguelcobain/ember-leaflet/pull/107))
