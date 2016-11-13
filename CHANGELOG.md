@@ -1,5 +1,10 @@
 # ember-leaflet changelog
 
+### 3.0.4
+- [BUGFIX] contextual components now correctly use `parentComponent` instead of `containerLayer`([#115](https://github.com/miguelcobain/ember-leaflet/pull/115))
+- [BUGFIX] `circle-marker` contextual component was `circle-layer` and not `circle-marker-layer`
+- [ENHANCEMENT] added `wms-tile` and `geojson` contextual components. `wmsTile` and `geoJSON` are still provided for backwards compatibility reasons. Contextual component names should have the same name as non-contextuals without the `-layer` suffix.
+
 ### 3.0.3 (November 2, 2016)
 - [ENHANCEMENT] update ember-composability-tools (related https://github.com/miguelcobain/ember-composability-tools/issues/2)
 
