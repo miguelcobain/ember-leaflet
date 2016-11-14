@@ -6,13 +6,13 @@ if (typeof L !== 'undefined') {
   L_ = L;
 } else {
   let N = () => {};
-
-  L_ = new Proxy({}, {
+  let handler = {
     get() {
       return N;
     }
-  });
+  };
 
+  L_ = Proxy.create ? Proxy.create(handler) : new Proxy({}, handler);
   L_.Icon.Default = {};
   L_.tileLayer.wms = N;
 }

@@ -88,6 +88,10 @@ Think of your map as a set of layers inside a container. Your main container wil
 * `ember test`
 * `ember test --server`
 
+## Fastboot support
+
+There's rudimentary support for fastboot right now. Node.js 6.0 an up work out of the box. For node.js < 6.0 you have to start the fastboot server with `--harmony_proxies` like `node --harmony_proxies node_modules/.bin/ember fastboot`.
+
 ## Building
 
 * `ember build`
