@@ -2,7 +2,7 @@ import ENV from '../config/environment';
 /* global L */
 
 export function initialize(/* container, application */) {
-  L.Icon.Default.imagePath = `${ENV.rootURL || ENV.baseURL || '/'}assets/images/`;
+  L.Icon.Default.imagePath = `${ENV.prepend || ENV.rootURL || ENV.baseURL || '/'}assets/images`;
 }
 
 export default {
