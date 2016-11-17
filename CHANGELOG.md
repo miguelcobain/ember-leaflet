@@ -1,5 +1,8 @@
 # ember-leaflet changelog
 
+### 3.0.5
+- [BUGFIX] tooltips with permanent=true now work properly ([#111](https://github.com/miguelcobain/ember-leaflet/issues/111))
+
 ### 3.0.4
 - [BUGFIX] contextual components now correctly use `parentComponent` instead of `containerLayer`([#115](https://github.com/miguelcobain/ember-leaflet/pull/115))
 - [BUGFIX] `circle-marker` contextual component was `circle-layer` and not `circle-marker-layer`
