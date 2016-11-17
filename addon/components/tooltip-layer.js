@@ -1,13 +1,16 @@
 import Ember from 'ember';
 import DivOverlayLayer from 'ember-leaflet/components/div-overlay-layer';
 
-const { run } = Ember;
+const { run, computed } = Ember;
 
 export default DivOverlayLayer.extend({
 
   leafletOptions: [
     'direction', 'permanent', 'sticky', 'interactive', 'opacity'
   ],
+
+  // if this tooltip is permanent, we need to render the content immediately
+  shouldRender: computed.reads('permanent'),
 
   createLayer() {
     return this.L.tooltip(this.get('options')).setContent(this.get('destinationElement'));

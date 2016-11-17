@@ -71,6 +71,23 @@ if (!/0.7.\d+/.test(L.version)) {
     });
   });
 
+  test('tooltip works with permanent=true', function(assert) {
+    this.set('markerCenter', locations.nyc);
+
+    this.render(hbs`
+      {{#leaflet-map zoom=zoom center=center}}
+        {{#marker-layer location=markerCenter}}
+          {{#tooltip-layer permanent=true}}
+            Tooltip content
+          {{/tooltip-layer}}
+        {{/marker-layer}}
+      {{/leaflet-map}}
+    `);
+
+    assert.ok(!!marker._layer._tooltip._map, 'tooltip opened');
+    assert.equal(Ember.$(marker._layer._tooltip._contentNode).text().trim(), 'Tooltip content', 'tooltip content set');
+  });
+
   test('tooltip content isn\'t rendered until it is opened (lazy tooltips)', function(assert) {
     var didRun = false;
 
