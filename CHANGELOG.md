@@ -1,5 +1,8 @@
 # ember-leaflet changelog
 
+### master
+- updated ember-composability-tools to version `0.0.5`
+
 ### 3.0.5
 - [BUGFIX] tooltips with permanent=true now work properly ([#111](https://github.com/miguelcobain/ember-leaflet/issues/111))
 
