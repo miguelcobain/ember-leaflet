@@ -38,9 +38,24 @@ export default Controller.extend({
     return false;
   },
 
+  _subtractSuperClassProps(propName) {
+    let component = this.get('component');
+    let props = component.get(propName) ? Ember.A(component.get(propName).slice(0)) : Ember.A();
+    let clazz = component.constructor.superclass.superclass;
+
+    //subtract superclass properties
+    while (clazz !== Ember.Component) {
+      let classProps = clazz.prototype[propName] || [];
+      props.removeObjects(classProps);
+      clazz = clazz.superclass;
+    }
+
+    return props;
+  },
+
   superclassName: computed('component', function() {
     let component = this.get('component');
-    let superclass = component.superclass.superclass;
+    let superclass = component.constructor.superclass.superclass;
     if (superclass !== Ember.Component) {
       return this._findClassSource(superclass).split('/').pop();
     } else {
@@ -50,27 +65,23 @@ export default Controller.extend({
 
   leafletRequiredOptions: computed('component', function() {
     let component = this.get('component');
-    return component.prototype.leafletRequiredOptions;
+    return component.get('leafletRequiredOptions');
   }),
 
   leafletProperties: computed('component', function() {
-    let component = this.get('component');
-    return component.prototype.leafletProperties;
+    return this._subtractSuperClassProps('leafletProperties');
   }),
 
   leafletOptions: computed('component', function() {
-    let component = this.get('component');
-    return component.prototype.leafletOptions;
+    return this._subtractSuperClassProps('leafletOptions');
   }),
 
   leafletEvents: computed('component', function() {
-    let component = this.get('component');
-    return component.prototype.leafletEvents;
+    return this._subtractSuperClassProps('leafletEvents');
   }),
 
   leafletStyleProperties: computed('component', function() {
-    let component = this.get('component');
-    return component.prototype.leafletStyleProperties;
+    return this._subtractSuperClassProps('leafletStyleProperties');
   })
 
 });
