@@ -1,6 +1,6 @@
 # ember-leaflet changelog
 
-### master
+### 3.0.6
 - updated ember-composability-tools to version `0.0.5`
 
 ### 3.0.5
