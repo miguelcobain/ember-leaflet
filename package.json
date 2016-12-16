@@ -51,9 +51,9 @@
     "ember-cli-babel": "^5.1.7",
     "ember-cli-htmlbars": "^1.0.10",
     "ember-cli-version-checker": "^1.1.4",
-    "ember-composability-tools": "0.0.5",
+    "ember-composability-tools": "0.0.6",
     "ember-invoke-action": "1.2.0",
-    "ember-wormhole": "0.4.1"
+    "ember-wormhole": "0.5.1"
   },
   "keywords": [
     "ember-addon",
