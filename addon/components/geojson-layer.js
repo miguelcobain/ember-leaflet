@@ -29,6 +29,10 @@ export default BaseLayer.extend(DivOverlayableMixin, StyleMixin, {
     if (newAttrs.geoJSON) {
       this.pushDataToLeaflet(newAttrs.geoJSON.value);
     }
+    
+    if (newAttrs.style) {
+      this.pushStyleToLeaflet(newAttrs.style.value);
+    }
   },
 
   pushDataToLeaflet(geoJSON) {
@@ -43,6 +47,17 @@ export default BaseLayer.extend(DivOverlayableMixin, StyleMixin, {
     if (geoJSON) {
       //...then add new data to recreate the child layers in an updated form
       this._layer.addData(geoJSON);
+    }
+  },
+  
+  pushStyleToLeaflet(style) {
+    if (!this._layer) {
+      return;
+    }
+    
+    if (style) {
+      //...then add new data to recreate the child layers in an updated form
+      this._layer.setStyle(() => style);
     }
   },
 
