@@ -1,4 +1,4 @@
-/* global L */
+import L from 'ember-leaflet/L';
 
 export default function boundsContain(bounds1, bounds2, msg = 'Bounds 1 doesn\'t contain bounds 2') {
   // use this.push to add the assertion.

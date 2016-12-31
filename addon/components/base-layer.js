@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import { ChildMixin } from 'ember-composability-tools';
 import { InvokeActionMixin } from 'ember-invoke-action';
-/* global L */
+import L from 'ember-leaflet/L';
 
 const {
   assert,

@@ -1,6 +1,6 @@
 import { icon } from 'dummy/helpers/icon';
 import { module, test } from 'qunit';
-/* global L */
+import L from 'ember-leaflet/L';
 
 module('Unit | Helper | icon');
 

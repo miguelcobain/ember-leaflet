@@ -3,7 +3,7 @@ import hbs from 'htmlbars-inline-precompile';
 import { assertionInjector, assertionCleanup } from '../../assertions';
 import LeafletMapComponent from 'ember-leaflet/components/leaflet-map';
 import locations from '../../helpers/locations';
-/* global L */
+import L from 'ember-leaflet/L';
 
 let map;
 

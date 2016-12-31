@@ -9,6 +9,10 @@ module.exports = {
   included: function(app) {
    this._super.included.apply(this, arguments);
 
+   if (process.env.EMBER_CLI_FASTBOOT) {
+     return;
+   }
+
    // If the addon has the _findHost() method (in ember-cli >= 2.7.0), we'll just
    // use that.
    if (typeof this._findHost === 'function') {
@@ -23,7 +27,7 @@ module.exports = {
    do {
      app = current.app || app;
    } while (current.parent.parent && (current = current.parent));
-    
+
    //import javascript
    app.import(app.bowerDirectory + '/leaflet/dist/leaflet-src.js');
 

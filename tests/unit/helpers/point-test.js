@@ -1,6 +1,6 @@
 import { point } from 'dummy/helpers/point';
 import { module, test } from 'qunit';
-/* global L */
+import L from 'ember-leaflet/L';
 
 module('Unit | Helper | point');
 

@@ -1,4 +1,5 @@
-/* global L */
+import L from 'ember-leaflet/L';
+
 export default {
   nyc: L.latLng(40.713282, -74.006978),
   sf: L.latLng(37.77493, -122.419415),
