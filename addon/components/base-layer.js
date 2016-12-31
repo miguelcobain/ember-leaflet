@@ -3,7 +3,14 @@ import { ChildMixin } from 'ember-composability-tools';
 import { InvokeActionMixin } from 'ember-invoke-action';
 /* global L */
 
-const { assert, computed, Component, run, K, A, String: { classify } } = Ember;
+const {
+  assert,
+  computed,
+  Component,
+  run,
+  A,
+  String: { classify }
+} = Ember;
 
 export default Component.extend(ChildMixin, InvokeActionMixin, {
   tagName: '',
@@ -15,8 +22,8 @@ export default Component.extend(ChildMixin, InvokeActionMixin, {
     assert('BaseLayer\'s `createLayer` should be overriden.');
   },
 
-  didCreateLayer: K,
-  willDestroyLayer: K,
+  didCreateLayer() {},
+  willDestroyLayer() {},
 
   /*
    * Method called by parent when the layer needs to setup
