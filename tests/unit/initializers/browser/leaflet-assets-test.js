@@ -1,6 +1,6 @@
 import Ember from 'ember';
-import ENV from '../../../config/environment';
-import { initialize } from '../../../initializers/leaflet-assets';
+import ENV from '../../../../config/environment';
+import { initialize } from '../../../../initializers/browser/leaflet-assets';
 import { module, test } from 'qunit';
 /* global L */
 
