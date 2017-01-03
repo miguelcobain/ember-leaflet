@@ -1,4 +1,4 @@
-import ENV from '../config/environment';
+import ENV from '../../config/environment';
 /* global L */
 
 export function initialize(/* container, application */) {
