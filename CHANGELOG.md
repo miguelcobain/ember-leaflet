@@ -1,5 +1,8 @@
 # ember-leaflet changelog
 
+### 3.0.8
+- [ENHANCEMENT] ember-leaflet is now fastboot compatible! ([#125](https://github.com/miguelcobain/ember-leaflet/pull/125))
+
 ### 3.0.7
 - updated ember-composability-tools to version `0.0.6`
 - updated ember-wormhole to version `0.5.1`

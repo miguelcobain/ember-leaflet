@@ -7,14 +7,25 @@ const {
   assert,
   computed,
   Component,
+  getOwner,
   run,
   A,
   String: { classify }
 } = Ember;
 
+const leaf = typeof L === 'undefined' ? {} : L;
+
 export default Component.extend(ChildMixin, InvokeActionMixin, {
   tagName: '',
-  L,
+  L: leaf,
+
+  fastboot: computed(function() {
+    let owner = getOwner(this);
+    return owner.lookup('service:fastboot');
+  }),
+  isFastBoot: computed('fastboot', function() {
+    return this.get('fastboot') && this.get('fastboot.isFastBoot');
+  }),
 
   concatenatedProperties: ['leafletOptions', 'leafletRequiredOptions', 'leafletEvents', 'leafletProperties'],
 
@@ -29,6 +40,11 @@ export default Component.extend(ChildMixin, InvokeActionMixin, {
    * Method called by parent when the layer needs to setup
    */
   didInsertParent() {
+    // Check for fastBoot
+    if (this.get('isFastBoot')) {
+      return;
+    }
+
     this._layer = this.createLayer();
     this._addObservers();
     this._addEventListeners();
@@ -49,6 +65,11 @@ export default Component.extend(ChildMixin, InvokeActionMixin, {
    * Method called by parent when the layer needs to teardown
    */
   willDestroyParent() {
+    // Check for fastBoot
+    if (this.get('isFastBoot')) {
+      return;
+    }
+
     this.willDestroyLayer();
     this._removeEventListeners();
     this._removeObservers();
