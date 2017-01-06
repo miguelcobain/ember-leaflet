@@ -1,5 +1,8 @@
 # ember-leaflet changelog
 
+### 3.0.9
+- [BUGFIX] moved ember-get-config dependency to `dependencies`
+
 ### 3.0.8
 - [ENHANCEMENT] ember-leaflet is now fastboot compatible! ([#125](https://github.com/miguelcobain/ember-leaflet/pull/125))
 
