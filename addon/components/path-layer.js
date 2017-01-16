@@ -11,7 +11,7 @@ export default BaseLayer.extend(DivOverlayableMixin, StyleMixin, {
   ],
 
   leafletEvents: [
-    'click', 'dblclick', 'mousedown', 'mouseover', 'mouseout',
+    'click', 'dblclick', 'mousedown', 'mouseover', 'mousemove', 'mouseout',
     'contextmenu', 'add', 'remove', 'popupopen', 'popupclose'
   ]
 });
