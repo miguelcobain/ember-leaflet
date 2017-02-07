@@ -44,3 +44,10 @@ test('it sets icon default imagePath with rootURL', function(assert) {
 
   assert.equal(L.Icon.Default.imagePath, '/path/to/root/assets/images/');
 });
+
+test('it supports empty rootURL', function(assert) {
+  ENV.rootURL = '';
+  initialize(registry, application);
+
+  assert.equal(L.Icon.Default.imagePath, 'assets/images/');
+});
