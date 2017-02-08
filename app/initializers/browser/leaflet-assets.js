@@ -1,8 +1,19 @@
+import Ember from 'ember';
 import config from 'ember-get-config';
 /* global L */
 
+const { isNone } = Ember;
+
 export function initialize(/* container, application */) {
-  L.Icon.Default.imagePath = `${config.rootURL || config.baseURL || '/'}assets/images/`;
+  let prefix = '/';
+
+  if (!isNone(config.rootURL)) {
+    prefix = config.rootURL;
+  } else if (!isNone(config.baseURL)) {
+    prefix = config.baseURL;
+  }
+
+  L.Icon.Default.imagePath = `${prefix}assets/images/`;
 }
 
 export default {
