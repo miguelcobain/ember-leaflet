@@ -50,3 +50,14 @@ test('it supports empty rootURL', function(assert) {
   initialize(registry, application);
   assert.equal(L.Icon.Default.imagePath, 'assets/images/');
 });
+
+test('an undefined rootURL should behave the same as \'\' (as ember-cli does)', function(assert) {
+  initialize(registry, application);
+  assert.equal(L.Icon.Default.imagePath, 'assets/images/');
+});
+
+test('a null rootURL should behave the same as \'\' (as ember-cli does)', function(assert) {
+  ENV.rootURL = null;
+  initialize(registry, application);
+  assert.equal(L.Icon.Default.imagePath, 'assets/images/');
+});

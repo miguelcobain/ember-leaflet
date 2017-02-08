@@ -5,7 +5,7 @@ import config from 'ember-get-config';
 const { isNone } = Ember;
 
 export function initialize(/* container, application */) {
-  let prefix = '/';
+  let prefix = '';
 
   if (!isNone(config.rootURL)) {
     prefix = config.rootURL;

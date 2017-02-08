@@ -1,5 +1,8 @@
 # ember-leaflet changelog
 
+### master
+- [BUGFIX] Allow `rootURL` to be an empty string. Try to mimic the same defaults as ember-cli.
+
 ### 3.0.9
 - [BUGFIX] moved ember-get-config dependency to `dependencies`
 
