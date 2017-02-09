@@ -14,6 +14,9 @@ module.exports = {
   included: function(app) {
     this._super.included.apply(this, arguments);
 
+    // Addon options from the apps ember-cli-build.js
+    var options = app.options[this.name] || {};
+
     // If the addon has the _findHost() method (in ember-cli >= 2.7.0), we'll just
     // use that.
     if (typeof this._findHost === 'function') {
@@ -30,18 +33,24 @@ module.exports = {
     } while (current.parent.parent && (current = current.parent));
 
     // import javascript only if not in fastboot
-    if (!process.env.EMBER_CLI_FASTBOOT) {
+    if (!options.excludeJS && !process.env.EMBER_CLI_FASTBOOT) {
       app.import(app.bowerDirectory + '/leaflet/dist/leaflet-src.js');
     }
 
-    app.import(app.bowerDirectory + '/leaflet/dist/leaflet.css');
+    // Import leaflet css
+    if (!options.excludeCSS) {
+      app.import(app.bowerDirectory + '/leaflet/dist/leaflet.css');
+    }
 
-    var imagesDestDir = '/assets/images';
-    app.import(app.bowerDirectory + '/leaflet/dist/images/layers-2x.png', { destDir: imagesDestDir });
-    app.import(app.bowerDirectory + '/leaflet/dist/images/layers.png', { destDir: imagesDestDir });
-    app.import(app.bowerDirectory + '/leaflet/dist/images/marker-icon-2x.png', { destDir: imagesDestDir });
-    app.import(app.bowerDirectory + '/leaflet/dist/images/marker-icon.png', { destDir: imagesDestDir });
-    app.import(app.bowerDirectory + '/leaflet/dist/images/marker-shadow.png', { destDir: imagesDestDir });
+    // Import leaflet images
+    if (!options.excludeImages) {
+      var imagesDestDir = '/assets/images';
+      app.import(app.bowerDirectory + '/leaflet/dist/images/layers-2x.png', { destDir: imagesDestDir });
+      app.import(app.bowerDirectory + '/leaflet/dist/images/layers.png', { destDir: imagesDestDir });
+      app.import(app.bowerDirectory + '/leaflet/dist/images/marker-icon-2x.png', { destDir: imagesDestDir });
+      app.import(app.bowerDirectory + '/leaflet/dist/images/marker-icon.png', { destDir: imagesDestDir });
+      app.import(app.bowerDirectory + '/leaflet/dist/images/marker-shadow.png', { destDir: imagesDestDir });
+    }
  },
 
  treeForAddonTemplates: function treeForAddonTemplates (tree) {
