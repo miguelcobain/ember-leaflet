@@ -2,6 +2,7 @@
 
 ### master
 - [BUGFIX] Allow `rootURL` to be an empty string. Try to mimic the same defaults as ember-cli.
+- [ENHANCEMENT] Add exclude options for leaflet dependencies ([#134](https://github.com/miguelcobain/ember-leaflet/pull/134))
 
 ### 3.0.9
 - [BUGFIX] moved ember-get-config dependency to `dependencies`
