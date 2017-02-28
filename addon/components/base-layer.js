@@ -16,7 +16,6 @@ const {
 const leaf = typeof L === 'undefined' ? {} : L;
 
 export default Component.extend(ChildMixin, InvokeActionMixin, {
-  tagName: '',
   L: leaf,
 
   fastboot: computed(function() {
