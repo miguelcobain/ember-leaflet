@@ -11,5 +11,10 @@ export default function locationsEqual(loc1, loc2) {
     msg = 'Longitude ' + loc1.lng + ' did not match ' + loc2.lng; }
   else { isEqual = true; }
 
-  this.push(isEqual, loc1, loc2, msg);
+  this.pushResult({
+    result: isEqual,
+    actual: loc1,
+    expected: loc2,
+    message: msg
+  });
 }

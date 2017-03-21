@@ -7,5 +7,10 @@ export default function boundsContain(bounds1, bounds2, msg = 'Bounds 1 doesn\'t
   bounds1 = L.latLngBounds(bounds1);
   bounds2 = L.latLngBounds(bounds2);
 
-  this.push(bounds1.contains(bounds2), bounds1, bounds2, msg);
+  this.pushResult({
+    result: bounds1.contains(bounds2),
+    actual: bounds1,
+    expected: bounds2,
+    message: msg
+  });
 }

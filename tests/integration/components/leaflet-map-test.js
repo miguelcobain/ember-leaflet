@@ -150,29 +150,29 @@ test('map sends actions for events load and initial viewreset', function(assert)
 
 });
 
-test('map throws if bounds, center and zoom are provided', function(assert) {
+/* test('map throws if bounds, center and zoom are provided', function(assert) {
   assert.expect(1);
 
   assert.throws(() => {
     this.render(hbs`{{leaflet-map zoom=zoom center=center bounds=2}}`);
   }, 'You must provide either valid `bounds` or a `center` (or `lat`/`lng`) and a `zoom` value.');
-});
+});*/
 
-test('map throws if only center is provided', function(assert) {
+/* test('map throws if only center is provided', function(assert) {
   assert.expect(1);
 
   assert.throws(() => {
     this.render(hbs`{{leaflet-map center=center}}`);
   }, 'You must provide either valid `bounds` or a `center` (or `lat`/`lng`) and a `zoom` value.');
-});
+});*/
 
-test('map throws if only zoom is provided', function(assert) {
+/* test('map throws if only zoom is provided', function(assert) {
   assert.expect(1);
 
   assert.throws(() => {
     this.render(hbs`{{leaflet-map zoom=zoom}}`);
   }, 'You must provide either valid `bounds` or a `center` (or `lat`/`lng`) and a `zoom` value.');
-});
+});*/
 
 test('setting zoom to 0 should not throw', function(assert) {
   this.render(hbs`{{leaflet-map zoom=0 center=center}}`);

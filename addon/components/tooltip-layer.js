@@ -47,8 +47,8 @@ export default DivOverlayLayer.extend({
       // trigger _initLayout manually, otherwise Tooltip doesn't have the container set
       // to calculate initial position
       if (!this._layer._container) {
-    		this._layer._initLayout();
-    	}
+        this._layer._initLayout();
+      }
       // this will make wormwhole render to the document fragment
       this.set('shouldRender', true);
       // ember-wormhole will render on the afterRender queue, so we need to render after that

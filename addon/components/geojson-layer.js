@@ -25,9 +25,12 @@ export default BaseLayer.extend(DivOverlayableMixin, StyleMixin, {
     'contextmenu', 'add', 'remove', 'popupopen', 'popupclose'
   ],
 
-  didUpdateAttrs({ newAttrs }) {
-    if (newAttrs.geoJSON) {
-      this.pushDataToLeaflet(newAttrs.geoJSON.value);
+  didUpdateAttrs() {
+    this._super(...arguments);
+    
+    let geoJSON = this.get('geoJSON');
+    if (geoJSON) {
+      this.pushDataToLeaflet(geoJSON.value);
     }
   },
 
