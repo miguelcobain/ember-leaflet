@@ -11,7 +11,7 @@ export default BaseLayer.extend({
   ],
 
   leafletProperties: [
-    'url', 'opacity'
+    'url', 'opacity', 'bounds'
   ],
 
   createLayer() {
