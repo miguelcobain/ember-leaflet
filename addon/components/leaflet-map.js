@@ -21,6 +21,7 @@ export default BaseLayer.extend(ParentMixin, {
     'keyboard', 'keyboardPanOffset', 'keyboardZoomOffset',
     // Panning Inertia Options
     'inertia', 'inertiaDeceleration', 'inertiaMaxSpeed', 'inertiaThreshold',
+    'easeLinearity', 'worldCopyJump', 'maxBoundsViscosity',
     // Control options
     'zoomControl', 'attributionControl',
     // Animation options
@@ -39,7 +40,9 @@ export default BaseLayer.extend(ParentMixin, {
   ],
 
   leafletProperties: [
-    'zoom:setZoom:zoomPanOptions', 'center:panTo:zoomPanOptions', 'maxBounds:setMaxBounds', 'bounds:fitBounds:fitBoundsOptions'
+    'zoom:setZoom:zoomPanOptions', 'minZoom', 'maxZoom',
+    'center:panTo:zoomPanOptions',
+    'bounds:fitBounds:fitBoundsOptions', 'maxBounds'
   ],
 
   center: toLatLng(),
