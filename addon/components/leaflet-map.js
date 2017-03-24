@@ -16,7 +16,7 @@ export default BaseLayer.extend(ParentMixin, {
     // Interaction options
     'dragging', 'touchZoom', 'scrollWheelZoom', 'doubleClickZoom', 'boxZoom',
     'tap', 'tapTolerance', 'trackResize', 'worldCopyJump', 'closePopupOnClick',
-    'bounceAtZoomLimits',
+    'bounceAtZoomLimits', 'wheelPxPerZoomLevel', 'zoomDelta', 'zoomSnap',
     // Keyboard navigation options
     'keyboard', 'keyboardPanOffset', 'keyboardZoomOffset',
     // Panning Inertia Options
