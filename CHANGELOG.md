@@ -1,5 +1,8 @@
 # ember-leaflet changelog
 
+### master
+- [ENHANCEMENT] leaflet-map: pass more options and observe `minZoom`, `maxZoom` ([#142](https://github.com/miguelcobain/ember-leaflet/pull/142))
+
 ### 3.0.10
 - [BUGFIX] Allow `rootURL` to be an empty string. Try to mimic the same defaults as ember-cli.
 - [ENHANCEMENT] Add exclude options for leaflet dependencies ([#134](https://github.com/miguelcobain/ember-leaflet/pull/134))
