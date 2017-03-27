@@ -4,6 +4,7 @@
 - [ENHANCEMENT] leaflet-map: pass more options and observe `minZoom`, `maxZoom` ([#142](https://github.com/miguelcobain/ember-leaflet/pull/142), [#144](https://github.com/miguelcobain/ember-leaflet/pull/144))
 - [DEPRECATION] [ENHANCEMENT] image-layer: `imageUrl` attribute is deprecated in favor of the observed `url` attribute ([#143](https://github.com/miguelcobain/ember-leaflet/pull/143))
 - [ENHANCEMENT] Public components, the `toLatLng` macro and the `Leaflet` library itself are now exported by this addon ([#141](https://github.com/miguelcobain/ember-leaflet/pull/141))
+- [ENHANCEMENT] leaflet is now pulled from npm instead of bower ([#145](https://github.com/miguelcobain/ember-leaflet/pull/145))
 
 ### 3.0.10
 - [BUGFIX] Allow `rootURL` to be an empty string. Try to mimic the same defaults as ember-cli.
