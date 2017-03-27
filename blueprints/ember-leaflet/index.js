@@ -1,5 +1,5 @@
 module.exports = {
-  description: 'add leaflet bower package',
+  description: 'add leaflet npm package',
 
   // locals: function(options) {
   //   // Return custom template variables here.
@@ -15,6 +15,6 @@ module.exports = {
   },
 
   afterInstall: function(options) {
-    return this.addBowerPackageToProject('leaflet', '^1.0.0');
+    return this.addPackageToProject('leaflet', '^1.0.0');
   }
 };

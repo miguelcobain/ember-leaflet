@@ -1,7 +1,9 @@
 /* eslint-env node */
 'use strict';
+const resolve = require('resolve');
 const path = require('path');
 const mergeTrees = require('broccoli-merge-trees');
+const Funnel = require('broccoli-funnel');
 const VersionChecker = require('ember-cli-version-checker');
 const filterInitializers = require('fastboot-filter-initializers');
 
@@ -10,6 +12,11 @@ module.exports = {
 
   preconcatTree(tree) {
     return filterInitializers(tree, this.app.name);
+  },
+
+  treeForVendor: function() {
+    let dist = path.join(this.pathBase('leaflet'), 'dist');
+    return new Funnel(dist, { destDir: 'leaflet' });
   },
 
   included(app) {
@@ -35,22 +42,22 @@ module.exports = {
 
     // import javascript only if not in fastboot
     if (!options.excludeJS && !process.env.EMBER_CLI_FASTBOOT) {
-      app.import(app.bowerDirectory + '/leaflet/dist/leaflet-src.js');
+      app.import('vendor/leaflet/leaflet-src.js');
     }
 
     // Import leaflet css
     if (!options.excludeCSS) {
-      app.import(app.bowerDirectory + '/leaflet/dist/leaflet.css');
+      app.import('vendor/leaflet/leaflet.css');
     }
 
     // Import leaflet images
     if (!options.excludeImages) {
       let imagesDestDir = '/assets/images';
-      app.import(app.bowerDirectory + '/leaflet/dist/images/layers-2x.png', { destDir: imagesDestDir });
-      app.import(app.bowerDirectory + '/leaflet/dist/images/layers.png', { destDir: imagesDestDir });
-      app.import(app.bowerDirectory + '/leaflet/dist/images/marker-icon-2x.png', { destDir: imagesDestDir });
-      app.import(app.bowerDirectory + '/leaflet/dist/images/marker-icon.png', { destDir: imagesDestDir });
-      app.import(app.bowerDirectory + '/leaflet/dist/images/marker-shadow.png', { destDir: imagesDestDir });
+      app.import('vendor/leaflet/images/layers-2x.png', { destDir: imagesDestDir });
+      app.import('vendor/leaflet/images/layers.png', { destDir: imagesDestDir });
+      app.import('vendor/leaflet/images/marker-icon-2x.png', { destDir: imagesDestDir });
+      app.import('vendor/leaflet/images/marker-icon.png', { destDir: imagesDestDir });
+      app.import('vendor/leaflet/images/marker-shadow.png', { destDir: imagesDestDir });
     }
  },
 
@@ -67,5 +74,9 @@ module.exports = {
     } else {
       return this.treeGenerator(path.join(baseTemplatesPath, 'current'));
     }
+  },
+
+  pathBase: function(packageName) {
+    return path.dirname(resolve.sync(packageName + '/package.json', { basedir: __dirname }));
   }
 };
