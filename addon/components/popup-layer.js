@@ -25,9 +25,13 @@ export default DivOverlayLayer.extend({
 
   popupOpenDidChange: observer('popupOpen', function() {
     if (this.get('popupOpen')) {
-      if (!this.isOpen()) { this.get('parentComponent')._layer.openPopup(); }
+      if (!this.isOpen()) {
+        this.get('parentComponent')._layer.openPopup();
+      }
     } else {
-      if (this.isOpen()) { this.get('parentComponent')._layer.closePopup(); }
+      if (this.isOpen()) {
+        this.get('parentComponent')._layer.closePopup();
+      }
     }
   }),
 

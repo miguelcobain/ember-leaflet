@@ -1,5 +1,4 @@
 import Ember from 'ember';
-
 const { Route, getOwner } = Ember;
 
 export default Route.extend({

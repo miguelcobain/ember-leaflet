@@ -26,7 +26,7 @@ export default Mixin.create({
 
       this._styleObservers[property] = function() {
         let value = this.get(property);
-        this._layer.setStyle({[property]: value});
+        this._layer.setStyle({ [property]: value });
       };
 
       this.addObserver(property, this, this._styleObservers[property]);

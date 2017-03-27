@@ -5,11 +5,12 @@ import wait from 'ember-test-helpers/wait';
 import { assertionInjector, assertionCleanup } from '../../assertions';
 import MarkerLayerComponent from 'ember-leaflet/components/marker-layer';
 import locations from '../../helpers/locations';
+import $ from 'jquery';
 /* globals L */
 
 const { run } = Ember;
 
-//Needed to silence leaflet autodetection error
+// Needed to silence leaflet autodetection error
 L.Icon.Default.imagePath = 'some-path';
 
 let markersInitCount, createLayersCount, destroyLayersCount, markers;
@@ -70,23 +71,23 @@ test('layers works within each', function(assert) {
     {{/leaflet-map}}
   `);
 
-  //pre-conditions
+  // pre-conditions
   assert.equal(markersInitCount, 4);
   assert.equal(createLayersCount, 4);
   assert.equal(destroyLayersCount, 0);
 
   this.set('markers', [
     restaurant1,
-    restaurant5, //only one item has changed, in a new
+    restaurant5, // only one item has changed, in a new
     restaurant3,
     restaurant4
   ]);
 
-  //only one leaflet marker was created
-  //great for performance
+  // only one leaflet marker was created
+  // great for performance
   assert.equal(markersInitCount, 5);
   assert.equal(createLayersCount, 5);
-  assert.equal(destroyLayersCount, 1); //and only one was destroyed
+  assert.equal(destroyLayersCount, 1); // and only one was destroyed
 });
 
 test('popup remains open when another layer is destroyed', function(assert) {
@@ -110,7 +111,7 @@ test('popup remains open when another layer is destroyed', function(assert) {
     {{/leaflet-map}}
   `);
 
-  //pre-conditions
+  // pre-conditions
   assert.equal(markersInitCount, 4);
   assert.equal(createLayersCount, 4);
   assert.equal(destroyLayersCount, 0);
@@ -123,7 +124,7 @@ test('popup remains open when another layer is destroyed', function(assert) {
 
   return wait().then(() => {
     assert.ok(!!markers[2]._layer._popup._map, 'marker added to map');
-    assert.equal(Ember.$(markers[2]._layer._popup._contentNode).text().trim(), 'Popup content', 'popup content set');
+    assert.equal($(markers[2]._layer._popup._contentNode).text().trim(), 'Popup content', 'popup content set');
 
     this.set('markers', [
       restaurant1,
@@ -136,6 +137,6 @@ test('popup remains open when another layer is destroyed', function(assert) {
     assert.equal(destroyLayersCount, 1);
 
     assert.ok(!!markers[2]._layer._popup._map, 'marker added to map');
-    assert.equal(Ember.$(markers[2]._layer._popup._contentNode).text().trim(), 'Popup content', 'popup content set');
+    assert.equal($(markers[2]._layer._popup._contentNode).text().trim(), 'Popup content', 'popup content set');
   });
 });

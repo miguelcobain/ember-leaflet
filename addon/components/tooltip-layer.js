@@ -32,7 +32,7 @@ export default DivOverlayLayer.extend({
     this.get('parentComponent')._layer.unbindTooltip();
   },
 
-  _onLayerRemove({layer}) {
+  _onLayerRemove({ layer }) {
     if (layer === this._layer) {
       this.set('shouldRender', false);
     }

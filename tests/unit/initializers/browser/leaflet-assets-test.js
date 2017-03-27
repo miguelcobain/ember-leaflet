@@ -6,10 +6,10 @@ import { module, test } from 'qunit';
 
 const { run, Application } = Ember;
 
-var registry, application;
+let registry, application;
 
 module('Unit | Initializer | leaflet assets', {
-  beforeEach: function() {
+  beforeEach() {
     run(function() {
       application = Application.create();
       registry = application.registry;
@@ -17,7 +17,7 @@ module('Unit | Initializer | leaflet assets', {
     });
   },
 
-  afterEach: function() {
+  afterEach() {
     delete ENV.baseURL;
     delete ENV.rootURL;
   }

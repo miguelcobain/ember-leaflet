@@ -1,7 +1,8 @@
 import Ember from 'ember';
 import config from './config/environment';
+const { Router: ERouter } = Ember;
 
-const Router = Ember.Router.extend({
+const Router = ERouter.extend({
   location: config.locationType,
   rootURL: config.rootURL
 });
@@ -18,10 +19,10 @@ Router.map(function() {
     this.route('contextual-components');
 
     // COMPONENTS
-    this.route('component', {path: ':component_name'});
+    this.route('component', { path: ':component_name' });
 
     // HELPERS
-    this.route('helper', {path: 'helpers/:helper_name'});
+    this.route('helper', { path: 'helpers/:helper_name' });
   });
 
   this.route('addons');

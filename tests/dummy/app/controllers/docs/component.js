@@ -1,14 +1,15 @@
 import Ember from 'ember';
 /* global require, requirejs */
 
-const { Controller, computed } = Ember;
+const { Controller, Component, computed, A } = Ember;
 
 let URL_PREFIX = 'http://leafletjs.com/reference-1.0.2.html#';
 
 export default Controller.extend({
 
   leafletUrlPrefix: computed('componentName', function() {
-    let id, componentName = this.get('componentName');
+    let id;
+    let componentName = this.get('componentName');
     if (componentName === 'leaflet-map') {
       id = 'map';
     } else if (componentName === 'tile-layer') {
@@ -23,11 +24,11 @@ export default Controller.extend({
   }),
 
   _findClassSource(klass) {
-    for (var key in requirejs.entries) {
+    for (let key in requirejs.entries) {
       if (key.indexOf('ember-leaflet/components/') !== -1) {
-        var module = require(key);
+        let module = require(key);
 
-        for (var exported in module) {
+        for (let exported in module) {
           if (module[exported] === klass) {
             return key;
           }
@@ -40,11 +41,11 @@ export default Controller.extend({
 
   _subtractSuperClassProps(propName) {
     let component = this.get('component');
-    let props = component.get(propName) ? Ember.A(component.get(propName).slice(0)) : Ember.A();
+    let props = component.get(propName) ? A(component.get(propName).slice(0)) : A();
     let clazz = component.constructor.superclass.superclass;
 
-    //subtract superclass properties
-    while (clazz !== Ember.Component) {
+    // subtract superclass properties
+    while (clazz !== Component) {
       let classProps = clazz.prototype[propName] || [];
       props.removeObjects(classProps);
       clazz = clazz.superclass;
@@ -55,8 +56,8 @@ export default Controller.extend({
 
   superclassName: computed('component', function() {
     let component = this.get('component');
-    let superclass = component.constructor.superclass.superclass;
-    if (superclass !== Ember.Component) {
+    let { constructor: { superclass: { superclass } } } = component;
+    if (superclass !== Component) {
       return this._findClassSource(superclass).split('/').pop();
     } else {
       return false;

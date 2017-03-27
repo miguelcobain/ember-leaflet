@@ -6,7 +6,7 @@ import MarkerLayerComponent from 'ember-leaflet/components/marker-layer';
 import locations from '../../helpers/locations';
 /* globals L */
 
-//Needed to silence leaflet autodetection error
+// Needed to silence leaflet autodetection error
 L.Icon.Default.imagePath = 'some-path';
 
 let marker;
@@ -35,7 +35,7 @@ test('update marker layer using leafletProperties', function(assert) {
   this.set('markerCenter', locations.nyc);
   this.set('opacity', 0.2);
   this.set('zIndexOffset', 13);
-  this.set('icon', L.divIcon({className: 'my-div-icon'}));
+  this.set('icon', L.divIcon({ className: 'my-div-icon' }));
 
   this.render(hbs`
     {{#leaflet-map zoom=zoom center=center}}
@@ -43,7 +43,7 @@ test('update marker layer using leafletProperties', function(assert) {
     {{/leaflet-map}}
   `);
 
-  //pre-conditions
+  // pre-conditions
   assert.locationsEqual(marker._layer.getLatLng(), locations.nyc);
   assert.equal(marker._layer.options.opacity, 0.2);
   assert.equal(marker._layer.options.zIndexOffset, 13);
@@ -52,7 +52,7 @@ test('update marker layer using leafletProperties', function(assert) {
   this.set('markerCenter', locations.sf);
   this.set('opacity', 0.8);
   this.set('zIndexOffset', 2);
-  this.set('icon', L.divIcon({className: 'another-div-icon'}));
+  this.set('icon', L.divIcon({ className: 'another-div-icon' }));
 
   assert.locationsEqual(marker._layer.getLatLng(), locations.sf);
   assert.equal(marker._layer.options.opacity, 0.8);
@@ -88,7 +88,7 @@ test('marker is created with enabled dragging', function(assert) {
     {{/leaflet-map}}
   `);
 
-   assert.ok(marker._layer.dragging.enabled(), 'marker dragging enabled');
+  assert.ok(marker._layer.dragging.enabled(), 'marker dragging enabled');
 });
 
 test('marker updates dragging', function(assert) {
@@ -102,19 +102,19 @@ test('marker updates dragging', function(assert) {
     {{/leaflet-map}}
   `);
 
-    //pre-conditions
-   assert.ok(marker._layer.dragging.enabled(), 'marker dragging enabled');
+  // pre-conditions
+  assert.ok(marker._layer.dragging.enabled(), 'marker dragging enabled');
 
-   this.set('draggable', false);
+  this.set('draggable', false);
 
-   assert.equal(marker._layer.dragging.enabled(), false, 'marker dragging disabled');
+  assert.equal(marker._layer.dragging.enabled(), false, 'marker dragging disabled');
 });
 
 // Leaflet bug. More info: https://github.com/Leaflet/Leaflet/issues/3807
 test('marker retains draggability options when icon changes', function(assert) {
 
-  let icon1 = L.divIcon({className: 'my-div-icon-1'});
-  let icon2 = L.divIcon({className: 'my-div-icon-2'});
+  let icon1 = L.divIcon({ className: 'my-div-icon-1' });
+  let icon2 = L.divIcon({ className: 'my-div-icon-2' });
 
   this.set('markerCenter', locations.nyc);
   this.set('draggable', true);
@@ -126,7 +126,7 @@ test('marker retains draggability options when icon changes', function(assert) {
       {{/leaflet-map}}
   `);
 
-  //pre-conditions
+  // pre-conditions
   assert.equal(marker._layer.dragging.enabled(), true, 'marker dragging enabled');
 
   this.set('draggable', false);
@@ -136,7 +136,7 @@ test('marker retains draggability options when icon changes', function(assert) {
   assert.equal(marker._layer.dragging.enabled(), false, 'marker dragging is still disabled');
 });
 
-if (hasEmberVersion(2,3)) {
+if (hasEmberVersion(2, 3)) {
   // do stuff in Ember 2.3+
   test('marker works as contextual component', function(assert) {
 
@@ -148,7 +148,7 @@ if (hasEmberVersion(2,3)) {
       {{/leaflet-map}}
     `);
 
-     assert.ok(marker._layer, 'marker was created');
+    assert.ok(marker._layer, 'marker was created');
   });
 }
 

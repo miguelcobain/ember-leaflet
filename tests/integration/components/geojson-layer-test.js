@@ -42,17 +42,17 @@ test('render geoJSON as SVG and Markers', function(assert) {
     {{/leaflet-map}}
   `);
 
-  //renders polygon as SVG:
-  const polygonPath = this.$('path');
+  // renders polygon as SVG:
+  let polygonPath = this.$('path');
 
   assert.strictEqual(polygonPath.length, 1);
 
-  //this property should have *something* in it if we've done our job, leave it
-  //to Leaflet to test that the GeoJSONLayer populates it correctly
+  // this property should have *something* in it if we've done our job, leave it
+  // to Leaflet to test that the GeoJSONLayer populates it correctly
   assert.ok(polygonPath.attr('d'));
 
-  //renders point as marker:
-  const markers = geoJSONLayer._layer.getLayers().filter(
+  // renders point as marker:
+  let markers = geoJSONLayer._layer.getLayers().filter(
     (layer) => layer instanceof L.Marker);
 
   assert.strictEqual(markers.length, 1);
@@ -60,23 +60,23 @@ test('render geoJSON as SVG and Markers', function(assert) {
 });
 
 test('re-render SVG and markers after geoJSON changes', function(assert) {
-  //we know this works, as per the above test...
+  // we know this works, as per the above test...
   this.render(hbs`
     {{#leaflet-map zoom=zoom center=center}}
       {{geojson-layer geoJSON=sampleGeoJSON}}
     {{/leaflet-map}}
   `);
 
-  //...now let's force a re-render, clearing all the geoJSON from the map
+  // ...now let's force a re-render, clearing all the geoJSON from the map
 
-  //NOTE that it's not enough to modify the geoJSON hash -- we must replace it
-  //entirely.
+  // NOTE that it's not enough to modify the geoJSON hash -- we must replace it
+  // entirely.
   this.set('sampleGeoJSON', emptyGeoJSON);
 
-  const polygonPath = this.$('path');
+  let polygonPath = this.$('path');
   assert.strictEqual(polygonPath.length, 0);
 
-  const markers = geoJSONLayer._layer.getLayers().filter(
+  let markers = geoJSONLayer._layer.getLayers().filter(
     (layer) => layer instanceof L.Marker);
   assert.strictEqual(markers.length, 0);
 });

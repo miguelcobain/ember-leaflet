@@ -6,11 +6,12 @@ import wait from 'ember-test-helpers/wait';
 import MarkerLayerComponent from 'ember-leaflet/components/marker-layer';
 import ArrayPathLayerComponent from 'ember-leaflet/components/array-path-layer';
 import locations from '../../helpers/locations';
+import $ from 'jquery';
 /* globals L */
 
 const { computed, run, A } = Ember;
 
-//Needed to silence leaflet autodetection error
+// Needed to silence leaflet autodetection error
 L.Icon.Default.imagePath = 'some-path';
 
 let marker, arrayPath;
@@ -67,7 +68,7 @@ if (!/0.7.\d+/.test(L.version)) {
 
     return wait().then(() => {
       assert.ok(!!marker._layer._tooltip._map, 'tooltip opened');
-      assert.equal(Ember.$(marker._layer._tooltip._contentNode).text().trim(), 'Tooltip content', 'tooltip content set');
+      assert.equal($(marker._layer._tooltip._contentNode).text().trim(), 'Tooltip content', 'tooltip content set');
     });
   });
 
@@ -85,11 +86,11 @@ if (!/0.7.\d+/.test(L.version)) {
     `);
 
     assert.ok(!!marker._layer._tooltip._map, 'tooltip opened');
-    assert.equal(Ember.$(marker._layer._tooltip._contentNode).text().trim(), 'Tooltip content', 'tooltip content set');
+    assert.equal($(marker._layer._tooltip._contentNode).text().trim(), 'Tooltip content', 'tooltip content set');
   });
 
   test('tooltip content isn\'t rendered until it is opened (lazy tooltips)', function(assert) {
-    var didRun = false;
+    let didRun = false;
 
     this.set('markerCenter', locations.nyc);
     this.set('computedProperty', computed(function() {
@@ -144,7 +145,7 @@ if (!/0.7.\d+/.test(L.version)) {
     return wait().then(() => {
       let tooltip = marker._layer._tooltip;
       assert.ok(!!tooltip._map, 'tooltip opened');
-      assert.equal(Ember.$(tooltip._contentNode).text().trim(), 'Tooltip content', 'tooltip content set');
+      assert.equal($(tooltip._contentNode).text().trim(), 'Tooltip content', 'tooltip content set');
 
       this.set('isVisible', false);
 

@@ -27,9 +27,9 @@ export default BaseLayer.extend({
         'ember-leaflet/image-layer: The `imageUrl` attribute has been deprecated in favor of the observed attribute `url`.',
         false,
         {
-          id:    'ember-leaflet.image-layer.imageUrl',
+          id: 'ember-leaflet.image-layer.imageUrl',
           until: '4.0.0',
-          url:   'https://github.com/miguelcobain/ember-leaflet/pull/143'
+          url: 'https://github.com/miguelcobain/ember-leaflet/pull/143'
         }
       );
       this.set('url', imageUrl);
