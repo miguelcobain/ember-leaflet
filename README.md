@@ -11,7 +11,8 @@ To install it run:
 ember install ember-leaflet
 ```
 
-If you're upgrading from a previous version of `ember-leaflet`, you can safely remove the `leaflet` dependency from your `bower.json`.
+This will also add the `leaflet` package to your project.
+If you're upgrading from a previous version of `ember-leaflet`, you can safely remove the `leaflet` dependency from your `bower.json` and add it to `package.json`.
 
 If you require a legacy support version of leaflet or need a specific version for other reasons, you can just install that version via npm / yarn:
 
