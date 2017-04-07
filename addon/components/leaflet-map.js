@@ -59,7 +59,12 @@ export default BaseLayer.extend(ParentMixin, {
     // Let base layer bind the events first
     delete options.center;
     delete options.zoom;
-    return this.L.map(this.element, options);
+    if (!this._layer){
+        return this.L.map(this.element, options);
+    } else {
+        return this._layer;
+    }
+
   },
 
   // Manually call `remove` method in the case of the root map layer.
