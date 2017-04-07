@@ -138,3 +138,16 @@ test('supports array of arrays as well', function(assert) {
   assert.ok(layerLatLngs[1].equals([45.530970, -122.661968]));
   assert.ok(layerLatLngs[2].equals([45.522752, -122.657979]));
 });
+
+test('supports passing svg pointer events options', function(assert) {
+  this.set('locations', [[-43.123, 71.123], [-43.123, 71.123], [-43.123, 71.123]]);
+
+  this.render(hbs`
+    {{#leaflet-map zoom=zoom center=center}}
+      {{custom-array-path-layer locations=locations pointerEvents='all'}}
+    {{/leaflet-map}}
+  `);
+  assert.equal(arrayPath._layer.options.pointerEvents, 'all', 'pointer event set on option');
+  assert.equal(this.$('svg').attr('pointer-events'), 'all', 'pointer event set in dom');
+
+});
