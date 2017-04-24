@@ -1,5 +1,8 @@
 # ember-leaflet changelog
 
+### 3.0.12
+- [ENHANCEMENT] Expose option 'className' for TileLayer ([#151](https://github.com/miguelcobain/ember-leaflet/pull/151))
+
 ### 3.0.11
 - [ENHANCEMENT] leaflet-map: pass more options and observe `minZoom`, `maxZoom` ([#142](https://github.com/miguelcobain/ember-leaflet/pull/142), [#144](https://github.com/miguelcobain/ember-leaflet/pull/144))
 - [DEPRECATION] [ENHANCEMENT] image-layer: `imageUrl` attribute is deprecated in favor of the observed `url` attribute ([#143](https://github.com/miguelcobain/ember-leaflet/pull/143))
