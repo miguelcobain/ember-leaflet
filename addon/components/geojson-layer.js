@@ -31,7 +31,7 @@ export default BaseLayer.extend(DivOverlayableMixin, StyleMixin, {
 
     let geoJSON = this.get('geoJSON');
     if (geoJSON) {
-      this.pushDataToLeaflet(geoJSON.value);
+      this.pushDataToLeaflet(geoJSON);
     }
   },
 
