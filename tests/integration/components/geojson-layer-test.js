@@ -80,3 +80,30 @@ test('re-render SVG and markers after geoJSON changes', function(assert) {
     (layer) => layer instanceof L.Marker);
   assert.strictEqual(markers.length, 0);
 });
+
+test('update color on event', function(assert) {
+  this.set('color', 'blue');
+  this.render(hbs`
+    {{#leaflet-map zoom=zoom center=center as |map|}}
+      {{map.geojson geoJSON=sampleGeoJSON color=color fillColor=color
+        onMouseover=(action (mut color) 'red')
+        onMouseout=(action (mut color) 'blue')}}
+    {{/leaflet-map}}
+  `);
+
+  let polygonPath = this.$('path');
+
+  assert.equal(polygonPath.length, 1);
+  assert.equal(polygonPath.attr('stroke'), 'blue', 'Original stroke set');
+  assert.equal(polygonPath.attr('fill'), 'blue', 'Original fill set');
+
+  polygonPath.trigger('mouseenter');
+
+  assert.equal(polygonPath.attr('stroke'), 'red', 'Mouseover stroke set');
+  assert.equal(polygonPath.attr('fill'), 'red', 'Mouseover fill set');
+
+  polygonPath.trigger('mouseleave');
+
+  assert.equal(polygonPath.attr('stroke'), 'blue', 'Mouseleave stroke set');
+  assert.equal(polygonPath.attr('fill'), 'blue', 'Mouseleave fill set');
+});
