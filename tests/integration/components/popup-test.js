@@ -75,6 +75,29 @@ module('Integration | Component | popup layer', function(hooks) {
     assert.dom(marker._layer._popup._contentNode).hasText('Popup content', 'popup content set');
   });
 
+  test('popup is compatible with markerClusterLayer', async function(assert) {
+    this.set('markerCenter', locations.nyc);
+
+    await render(hbs`
+      {{#leaflet-map maxZoom=16 zoom=zoom center=center}}
+        {{#marker-cluster-layer}}
+          {{#marker-layer location=markerCenter as |marker|}}
+            {{#marker.popup}}
+              Popup content
+            {{/marker.popup}}
+          {{/marker-layer}}
+          {{#marker-layer location=markerCenter as |marker|}}
+            {{#marker.popup}}
+              Popup content
+            {{/marker.popup}}
+          {{/marker-layer}}
+        {{/marker-cluster-layer}}
+      {{/leaflet-map}}
+    `);
+
+    assert.ok(true);
+  });
+
   test('popup content isn\'t rendered until it is opened (lazy popups)', async function(assert) {
     let didRun = false;
 
