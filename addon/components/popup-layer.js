@@ -53,7 +53,6 @@ export default DivOverlayLayer.extend({
   },
 
   willDestroyLayer() {
-    this._removePopupListeners();
     this.closePopup();
   },
 
@@ -67,7 +66,9 @@ export default DivOverlayLayer.extend({
 
   _onLayerRemove({ layer }) {
     if (layer === this._layer) {
-      if (this.get('parentComponent')._layer._map._fadeAnimated) {
+      let map = this.get('parentComponent')._layer._map;
+      map.removeEventListener('layerremove', this._onLayerRemove, this);
+      if (map._fadeAnimated) {
         this._destroyAfterAnimation = run.later(() => {
           if (!this.get('isDestroyed') && !this.get('isDestroying')) {
             this.set('shouldRender', false);
@@ -85,6 +86,9 @@ export default DivOverlayLayer.extend({
     // This way, the popup will set its dimensions according to the rendered DOM.
     let oldOnAdd = this._layer.onAdd;
     this._layer.onAdd = (map) => {
+      // we need to user `layerremove` event becase it's the only one that fires
+      // *after* the popup was completely removed from the map
+      map.addEventListener('layerremove', this._onLayerRemove, this);
       // if we're currently waiting for the animation to end, cancel the wait
       run.cancel(this._destroyAfterAnimation);
       // this will make wormwhole render to the document fragment
@@ -94,14 +98,5 @@ export default DivOverlayLayer.extend({
         oldOnAdd.call(this._layer, map);
       });
     };
-    // we need to user `layerremove` event becase it's the only one that fires
-    // *after* the popup was completely removed from the map
-    let parentComponent = this.get('parentComponent');
-    parentComponent._layer._map.addEventListener('layerremove', this._onLayerRemove, this);
-  },
-
-  _removePopupListeners() {
-    let parentComponent = this.get('parentComponent');
-    parentComponent._layer._map.removeEventListener('layerremove', this._onLayerRemove, this);
   }
 });
