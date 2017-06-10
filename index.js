@@ -6,17 +6,23 @@ const mergeTrees = require('broccoli-merge-trees');
 const Funnel = require('broccoli-funnel');
 const VersionChecker = require('ember-cli-version-checker');
 const filterInitializers = require('fastboot-filter-initializers');
+const fastbootTransform = require('fastboot-transform');
 
 module.exports = {
   name: 'ember-leaflet',
 
-  preconcatTree(tree) {
-    return filterInitializers(tree, this.app.name);
-  },
-
   treeForVendor: function() {
     let dist = path.join(this.pathBase('leaflet'), 'dist');
-    return new Funnel(dist, { destDir: 'leaflet' });
+    let leafletJs = fastbootTransform(new Funnel(dist, {
+      files: ['foo.js'],
+      destDir: 'leaflet'
+    }));
+
+    let remainingLeafletFiles = new Funnel(dist, {
+      exclude: ['leaflet-src.js', 'leaflet-src.map'],
+      destDir: 'leaflet'
+    });
+    return mergeTrees([remainingLeafletFiles, leafletJs]);
   },
 
   included(app) {
@@ -40,9 +46,8 @@ module.exports = {
      app = current.app || app;
     } while (current.parent.parent && (current = current.parent));
 
-    // import javascript only if not in fastboot
-    if (!options.excludeJS && !process.env.EMBER_CLI_FASTBOOT) {
-      app.import('vendor/leaflet/leaflet-src.js');
+    if (!options.excludeJS) {
+      app.import('vendor/leaflet/foo.js', {outputFile: 'browser.js'});
     }
 
     // Import leaflet css
