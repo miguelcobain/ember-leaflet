@@ -80,3 +80,20 @@ test('re-render SVG and markers after geoJSON changes', function(assert) {
     (layer) => layer instanceof L.Marker);
   assert.strictEqual(markers.length, 0);
 });
+
+test('make sure geojson is still there on attribute update', function(assert) {
+  this.set('color', 'blue');
+  this.render(hbs`
+    {{#leaflet-map zoom=zoom center=center}}
+      {{geojson-layer geoJSON=sampleGeoJSON color=color}}
+    {{/leaflet-map}}
+  `);
+
+  let polygonPath = this.$('path');
+  assert.strictEqual(polygonPath.length, 1);
+
+  this.set('color', 'red');
+
+  polygonPath = this.$('path');
+  assert.strictEqual(polygonPath.length, 1);
+});
