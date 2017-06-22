@@ -5,24 +5,28 @@ const path = require('path');
 const mergeTrees = require('broccoli-merge-trees');
 const Funnel = require('broccoli-funnel');
 const VersionChecker = require('ember-cli-version-checker');
-const filterInitializers = require('fastboot-filter-initializers');
-const fastbootTransform = require('fastboot-transform');
+const map = require('broccoli-stew').map;
 
 module.exports = {
   name: 'ember-leaflet',
 
-  treeForVendor: function() {
+  treeForVendor() {
     let dist = path.join(this.pathBase('leaflet'), 'dist');
-    let leafletJs = fastbootTransform(new Funnel(dist, {
-      files: ['foo.js'],
-      destDir: 'leaflet'
-    }));
 
-    let remainingLeafletFiles = new Funnel(dist, {
-      exclude: ['leaflet-src.js', 'leaflet-src.map'],
+    let leafletJs = new Funnel(dist, {
+      files: ['leaflet-src.js'],
       destDir: 'leaflet'
     });
-    return mergeTrees([remainingLeafletFiles, leafletJs]);
+
+    // wrap the leaflet js file in a test for fastboot
+    leafletJs = map(leafletJs, (content) => `if (typeof FastBoot === 'undefined') {\n${content}\n}`);
+
+    let leafletFiles = new Funnel(dist, {
+      exclude: ['leaflet.js', 'leaflet-src.js', '*.html'],
+      destDir: 'leaflet'
+    });
+
+    return mergeTrees([leafletJs, leafletFiles]);
   },
 
   included(app) {
@@ -47,7 +51,7 @@ module.exports = {
     } while (current.parent.parent && (current = current.parent));
 
     if (!options.excludeJS) {
-      app.import('vendor/leaflet/foo.js', {outputFile: 'browser.js'});
+      app.import('vendor/leaflet/leaflet-src.js');
     }
 
     // Import leaflet css
@@ -81,7 +85,7 @@ module.exports = {
     }
   },
 
-  pathBase: function(packageName) {
+  pathBase(packageName) {
     return path.dirname(resolve.sync(packageName + '/package.json', { basedir: __dirname }));
   }
 };

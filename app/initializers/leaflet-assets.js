@@ -6,7 +6,6 @@ const { isNone } = Ember;
 
 export function initialize(/* container, application */) {
   if (typeof FastBoot === 'undefined') {
-    console.log('inn');
     let prefix = '';
 
     if (!isNone(config.rootURL)) {
