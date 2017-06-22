@@ -58,8 +58,7 @@
     "ember-composability-tools": "0.0.8",
     "ember-get-config": "0.2.1",
     "ember-invoke-action": "1.4.0",
-    "ember-wormhole": "^0.5.2",
-    "fastboot-filter-initializers": "0.0.2"
+    "ember-wormhole": "^0.5.2"
   },
   "peerDependencies": {
     "leaflet": ">=0.7"
