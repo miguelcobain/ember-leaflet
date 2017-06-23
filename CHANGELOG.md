@@ -1,7 +1,9 @@
 # ember-leaflet changelog
 
-### 3.0.12
+### master
 - [ENHANCEMENT] Expose option 'className' for TileLayer ([#151](https://github.com/miguelcobain/ember-leaflet/pull/151))
+- [BUGFIX] Fix geoJson layer updates ([#153](https://github.com/miguelcobain/ember-leaflet/pull/153))
+- Prepare for FastBoot 1.0. Update ember-cli and other dependencies. ([#163](https://github.com/miguelcobain/ember-leaflet/pull/163))
 
 ### 3.0.11
 - [ENHANCEMENT] leaflet-map: pass more options and observe `minZoom`, `maxZoom` ([#142](https://github.com/miguelcobain/ember-leaflet/pull/142), [#144](https://github.com/miguelcobain/ember-leaflet/pull/144))
