@@ -30,6 +30,7 @@ before_install:
 
 install:
   - yarn install --no-lockfile
+  - npm rebuild node-sass
   - bower install
 
 script:
