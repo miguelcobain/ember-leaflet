@@ -5,7 +5,7 @@ const path = require('path');
 const mergeTrees = require('broccoli-merge-trees');
 const Funnel = require('broccoli-funnel');
 const VersionChecker = require('ember-cli-version-checker');
-const map = require('broccoli-stew').map;
+const fastbootTransform = require('fastboot-transform');
 
 module.exports = {
   name: 'ember-leaflet',
@@ -13,13 +13,10 @@ module.exports = {
   treeForVendor() {
     let dist = path.join(this.pathBase('leaflet'), 'dist');
 
-    let leafletJs = new Funnel(dist, {
+    let leafletJs = fastbootTransform(new Funnel(dist, {
       files: ['leaflet-src.js'],
       destDir: 'leaflet'
-    });
-
-    // wrap the leaflet js file in a test for fastboot
-    leafletJs = map(leafletJs, (content) => `if (typeof FastBoot === 'undefined') {\n${content}\n}`);
+    }));
 
     let leafletFiles = new Funnel(dist, {
       exclude: ['leaflet.js', 'leaflet-src.js', '*.html'],
