@@ -1,6 +1,6 @@
 # ember-leaflet changelog
 
-### master
+### 3.0.12
 - [ENHANCEMENT] Expose option 'className' for TileLayer ([#151](https://github.com/miguelcobain/ember-leaflet/pull/151))
 - [BUGFIX] Fix geoJson layer updates ([#153](https://github.com/miguelcobain/ember-leaflet/pull/153))
 - Prepare for FastBoot 1.0. Update ember-cli and other dependencies. ([#163](https://github.com/miguelcobain/ember-leaflet/pull/163))
