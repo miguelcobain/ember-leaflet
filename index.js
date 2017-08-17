@@ -10,6 +10,7 @@ const fastbootTransform = require('fastboot-transform');
 module.exports = {
   name: 'ember-leaflet',
 
+
   treeForVendor() {
     let dist = path.join(this.pathBase('leaflet'), 'dist');
 
@@ -42,6 +43,7 @@ module.exports = {
     // method in ember-cli.
     // Keep iterating upward until we don't have a grandparent.
     // Has to do this grandparent check because at some point we hit the project.
+
     let current = this;
     do {
      app = current.app || app;
@@ -70,6 +72,7 @@ module.exports = {
  treeForAddonTemplates(tree) {
     let checker = new VersionChecker(this);
     let dep = checker.for('ember', 'bower');
+
 
     let baseTemplatesPath = path.join(this.root, 'addon/templates');
 
