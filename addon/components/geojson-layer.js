@@ -3,6 +3,7 @@ import StyleMixin from 'ember-leaflet/mixins/style';
 import DivOverlayableMixin from 'ember-leaflet/mixins/div-overlayable';
 
 /**
+ * @public
  * An ember-leaflet wrapper for L.geoJson, which renders GeoJson data onto a
  * map as features.
  *
@@ -25,9 +26,12 @@ export default BaseLayer.extend(DivOverlayableMixin, StyleMixin, {
     'contextmenu', 'add', 'remove', 'popupopen', 'popupclose'
   ],
 
-  didUpdateAttrs({ newAttrs }) {
-    if (newAttrs.geoJSON) {
-      this.pushDataToLeaflet(newAttrs.geoJSON.value);
+  didUpdateAttrs() {
+    this._super(...arguments);
+
+    let geoJSON = this.get('geoJSON');
+    if (geoJSON) {
+      this.pushDataToLeaflet(geoJSON);
     }
   },
 
@@ -36,12 +40,12 @@ export default BaseLayer.extend(DivOverlayableMixin, StyleMixin, {
       return;
     }
 
-    //recall that GeoJSON layers are actually layer groups -- we have to clear
-    //their contents first...
+    // recall that GeoJSON layers are actually layer groups -- we have to clear
+    // their contents first...
     this._layer.clearLayers();
 
     if (geoJSON) {
-      //...then add new data to recreate the child layers in an updated form
+      // ...then add new data to recreate the child layers in an updated form
       this._layer.addData(geoJSON);
     }
   },

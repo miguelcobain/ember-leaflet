@@ -1,7 +1,6 @@
-/* jshint ignore:start */
 import Ember from 'ember';
+const { Helper, String: { classify } } = Ember;
 
-export default Ember.Helper.helper(function([arg1 = '']) {
-  return Ember.String.classify(arg1);
+export default Helper.helper(function([arg1 = '']) {
+  return classify(arg1);
 });
-/* jshint ignore:end */

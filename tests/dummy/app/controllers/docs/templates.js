@@ -1,11 +1,12 @@
 import Ember from 'ember';
+const { Controller, A, computed, setProperties } = Ember;
 
-export default Ember.Controller.extend({
+export default Controller.extend({
   lat: 45.528178,
   lng: -122.670059,
   zoom: 14,
 
-  restaurants: Ember.A([
+  restaurants: A([
     {
       name: 'Sinju Restaurant',
       rating: 4,
@@ -24,17 +25,17 @@ export default Ember.Controller.extend({
       lat: 45.522752,
       lng: -122.657979,
       isOpen: true
-    },
+    }
   ]),
 
-  dangerZone: Ember.computed('restaurants.@each.lat', 'restaurants.@each.lng', function() {
-    return this.get('restaurants').map(r => ({lat: r.lat, lng: r.lng}));
+  dangerZone: computed('restaurants.@each.lat', 'restaurants.@each.lng', function() {
+    return this.get('restaurants').map((r) => ({ lat: r.lat, lng: r.lng }));
   }),
 
   actions: {
     updateLocation(r, e) {
       let location = e.target.getLatLng();
-      Ember.setProperties(r, {
+      setProperties(r, {
         lat: location.lat,
         lng: location.lng
       });

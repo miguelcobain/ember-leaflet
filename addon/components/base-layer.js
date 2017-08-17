@@ -3,11 +3,29 @@ import { ChildMixin } from 'ember-composability-tools';
 import { InvokeActionMixin } from 'ember-invoke-action';
 /* global L */
 
-const { assert, computed, Component, run, K, A, String: { classify } } = Ember;
+const {
+  assert,
+  computed,
+  Component,
+  getOwner,
+  run,
+  A,
+  String: { classify }
+} = Ember;
+
+const leaf = typeof L === 'undefined' ? {} : L;
 
 export default Component.extend(ChildMixin, InvokeActionMixin, {
   tagName: '',
-  L,
+  L: leaf,
+
+  fastboot: computed(function() {
+    let owner = getOwner(this);
+    return owner.lookup('service:fastboot');
+  }),
+  isFastBoot: computed('fastboot', function() {
+    return this.get('fastboot') && this.get('fastboot.isFastBoot');
+  }),
 
   concatenatedProperties: ['leafletOptions', 'leafletRequiredOptions', 'leafletEvents', 'leafletProperties'],
 
@@ -15,13 +33,18 @@ export default Component.extend(ChildMixin, InvokeActionMixin, {
     assert('BaseLayer\'s `createLayer` should be overriden.');
   },
 
-  didCreateLayer: K,
-  willDestroyLayer: K,
+  didCreateLayer() {},
+  willDestroyLayer() {},
 
   /*
    * Method called by parent when the layer needs to setup
    */
   didInsertParent() {
+    // Check for fastBoot
+    if (this.get('isFastBoot')) {
+      return;
+    }
+
     this._layer = this.createLayer();
     this._addObservers();
     this._addEventListeners();
@@ -42,6 +65,11 @@ export default Component.extend(ChildMixin, InvokeActionMixin, {
    * Method called by parent when the layer needs to teardown
    */
   willDestroyParent() {
+    // Check for fastBoot
+    if (this.get('isFastBoot')) {
+      return;
+    }
+
     this.willDestroyLayer();
     this._removeEventListeners();
     this._removeObservers();
@@ -62,7 +90,7 @@ export default Component.extend(ChildMixin, InvokeActionMixin, {
   options: computed(function() {
     let leafletOptions = this.get('leafletOptions');
     let options = {};
-    leafletOptions.forEach(optionName => {
+    leafletOptions.forEach((optionName) => {
       if (this.get(optionName) !== undefined) {
         options[optionName] = this.get(optionName);
       }
@@ -74,7 +102,7 @@ export default Component.extend(ChildMixin, InvokeActionMixin, {
   requiredOptions: computed(function() {
     let leafletRequiredOptions = this.get('leafletRequiredOptions');
     let options = [];
-    leafletRequiredOptions.forEach(optionName => {
+    leafletRequiredOptions.forEach((optionName) => {
       assert(`\`${optionName}\` is a required option but its value was \`${this.get(optionName)}\``, this.get(optionName));
       options.push(this.get(optionName));
     });
@@ -83,26 +111,26 @@ export default Component.extend(ChildMixin, InvokeActionMixin, {
 
   leafletEvents: A(),
   usedLeafletEvents: computed('leafletEvents', function() {
-    return this.get('leafletEvents').filter(eventName => {
-      let methodName = '_' + eventName;
-      let actionName = 'on' + classify(eventName);
+    return this.get('leafletEvents').filter((eventName) => {
+      let methodName = `_${eventName}`;
+      let actionName = `on${classify(eventName)}`;
       return this.get(methodName) !== undefined || this.get(actionName) !== undefined;
     });
   }),
 
   _addEventListeners() {
     this._eventHandlers = {};
-    this.get('usedLeafletEvents').forEach(eventName => {
+    this.get('usedLeafletEvents').forEach((eventName) => {
 
-      let actionName = 'on' + classify(eventName);
-      let methodName = '_' + eventName;
+      let actionName = `on${classify(eventName)}`;
+      let methodName = `_${eventName}`;
       // create an event handler that runs the function inside an event loop.
       this._eventHandlers[eventName] = function(e) {
         run(() => {
-          //try to invoke/send an action for this event
+          // try to invoke/send an action for this event
           this.invokeAction(actionName, e);
-          //allow classes to add custom logic on events as well
-          if(typeof this[methodName] === 'function') {
+          // allow classes to add custom logic on events as well
+          if (typeof this[methodName] === 'function') {
             run(this, this[methodName], e);
           }
         });
@@ -114,7 +142,7 @@ export default Component.extend(ChildMixin, InvokeActionMixin, {
 
   _removeEventListeners() {
     if (this._eventHandlers) {
-      this.get('usedLeafletEvents').forEach(eventName => {
+      this.get('usedLeafletEvents').forEach((eventName) => {
         this._layer.removeEventListener(eventName,
           this._eventHandlers[eventName], this);
         delete this._eventHandlers[eventName];
@@ -126,16 +154,18 @@ export default Component.extend(ChildMixin, InvokeActionMixin, {
 
   _addObservers() {
     this._observers = {};
-    this.get('leafletProperties').forEach(propExp => {
+    this.get('leafletProperties').forEach((propExp) => {
 
       let [property, leafletProperty, ...params] = propExp.split(':');
-      if (!leafletProperty) { leafletProperty = 'set' + classify(property); }
-      let objectProperty = property.replace(/\.\[]/, ''); //allow usage of .[] to observe array changes
+      if (!leafletProperty) {
+        leafletProperty = `set${classify(property)}`;
+      }
+      let objectProperty = property.replace(/\.\[]/, ''); // allow usage of .[] to observe array changes
 
       this._observers[property] = function() {
         let value = this.get(objectProperty);
-        assert(this.constructor + ' must have a ' + leafletProperty + ' function.', !!this._layer[leafletProperty]);
-        let propertyParams = params.map(p => this.get(p));
+        assert(`${this.constructor} must have a ${leafletProperty} function.`, !!this._layer[leafletProperty]);
+        let propertyParams = params.map((p) => this.get(p));
         this._layer[leafletProperty].call(this._layer, value, ...propertyParams);
       };
 
@@ -145,7 +175,7 @@ export default Component.extend(ChildMixin, InvokeActionMixin, {
 
   _removeObservers() {
     if (this._observers) {
-      this.get('leafletProperties').forEach(propExp => {
+      this.get('leafletProperties').forEach((propExp) => {
 
         let [property] = propExp.split(':');
 

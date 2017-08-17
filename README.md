@@ -11,6 +11,16 @@ To install it run:
 ember install ember-leaflet
 ```
 
+This will also add the `leaflet` package to your project.
+If you're upgrading from a previous version of `ember-leaflet`, you can safely remove the `leaflet` dependency from your `bower.json` and add it to `package.json`.
+
+If you require a legacy support version of leaflet or need a specific version for other reasons, you can just install that version via npm / yarn:
+
+```
+npm install --save-dev leaflet@0.7
+yarn add -D leaflet@0.7
+```
+
 ## Support, Questions, Collaboration
 
 Join the [#e-leaflet](https://embercommunity.slack.com/messages/e-leaflet/) channel on Slack.
@@ -84,7 +94,7 @@ Think of your map as a set of layers inside a container. Your main container wil
 
 ## Running Tests
 
-* `npm test` (Runs `ember try:testall` to test your addon against multiple Ember versions)
+* `npm test` (Runs `ember try:each` to test your addon against multiple Ember versions)
 * `ember test`
 * `ember test --server`
 
@@ -92,4 +102,4 @@ Think of your map as a set of layers inside a container. Your main container wil
 
 * `ember build`
 
-For more information on using ember-cli, visit [http://www.ember-cli.com/](http://www.ember-cli.com/).
+For more information on using ember-cli, visit [https://ember-cli.com/](https://ember-cli.com/).

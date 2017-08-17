@@ -1,13 +1,16 @@
 import Ember from 'ember';
 import DivOverlayLayer from 'ember-leaflet/components/div-overlay-layer';
 
-const { run } = Ember;
+const { run, computed } = Ember;
 
 export default DivOverlayLayer.extend({
 
   leafletOptions: [
     'direction', 'permanent', 'sticky', 'interactive', 'opacity'
   ],
+
+  // if this tooltip is permanent, we need to render the content immediately
+  shouldRender: computed.reads('permanent'),
 
   createLayer() {
     return this.L.tooltip(this.get('options')).setContent(this.get('destinationElement'));
@@ -29,7 +32,7 @@ export default DivOverlayLayer.extend({
     this.get('parentComponent')._layer.unbindTooltip();
   },
 
-  _onLayerRemove({layer}) {
+  _onLayerRemove({ layer }) {
     if (layer === this._layer) {
       this.set('shouldRender', false);
     }
@@ -44,8 +47,8 @@ export default DivOverlayLayer.extend({
       // trigger _initLayout manually, otherwise Tooltip doesn't have the container set
       // to calculate initial position
       if (!this._layer._container) {
-    		this._layer._initLayout();
-    	}
+        this._layer._initLayout();
+      }
       // this will make wormwhole render to the document fragment
       this.set('shouldRender', true);
       // ember-wormhole will render on the afterRender queue, so we need to render after that

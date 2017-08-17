@@ -1,6 +1,7 @@
 import Ember from 'ember';
+const { Controller } = Ember;
 
-export default Ember.Controller.extend({
+export default Controller.extend({
   lat: 45.528298,
   lng: -122.662986,
   zoom: 14,

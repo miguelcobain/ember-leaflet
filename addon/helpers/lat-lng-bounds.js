@@ -2,9 +2,10 @@ import Ember from 'ember';
 /* global L */
 
 const { Helper: { helper } } = Ember;
+const isFastBoot = typeof FastBoot !== 'undefined';
 
-export function latLngBounds(latLngs) {
+export const latLngBounds = isFastBoot ? function() {} : function(latLngs) {
   return L.latLngBounds(latLngs);
-}
+};
 
 export default helper(latLngBounds);

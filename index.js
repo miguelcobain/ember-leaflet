@@ -1,13 +1,37 @@
-/* jshint node: true */
+/* eslint-env node */
 'use strict';
-var path = require('path');
-var mergeTrees = require('broccoli-merge-trees');
-var VersionChecker = require('ember-cli-version-checker');
+const resolve = require('resolve');
+const path = require('path');
+const mergeTrees = require('broccoli-merge-trees');
+const Funnel = require('broccoli-funnel');
+const VersionChecker = require('ember-cli-version-checker');
+const fastbootTransform = require('fastboot-transform');
 
 module.exports = {
   name: 'ember-leaflet',
-  included: function(app) {
+
+
+  treeForVendor() {
+    let dist = path.join(this.pathBase('leaflet'), 'dist');
+
+    let leafletJs = fastbootTransform(new Funnel(dist, {
+      files: ['leaflet-src.js'],
+      destDir: 'leaflet'
+    }));
+
+    let leafletFiles = new Funnel(dist, {
+      exclude: ['leaflet.js', 'leaflet-src.js', '*.html'],
+      destDir: 'leaflet'
+    });
+
+    return mergeTrees([leafletJs, leafletFiles]);
+  },
+
+  included(app) {
     this._super.included.apply(this, arguments);
+
+    // Addon options from the apps ember-cli-build.js
+    let options = app.options[this.name] || {};
 
     // If the addon has the _findHost() method (in ember-cli >= 2.7.0), we'll just
     // use that.
@@ -19,48 +43,49 @@ module.exports = {
     // method in ember-cli.
     // Keep iterating upward until we don't have a grandparent.
     // Has to do this grandparent check because at some point we hit the project.
-    var current = this;
+
+    let current = this;
     do {
-      app = current.app || app;
+     app = current.app || app;
     } while (current.parent.parent && (current = current.parent));
 
-    //import javascript
-    app.import(app.bowerDirectory + '/leaflet/dist/leaflet-src.js');
+    if (!options.excludeJS) {
+      app.import('vendor/leaflet/leaflet-src.js');
+    }
 
-    //app.import(app.bowerDirectory + '/leaflet/dist/leaflet.css');
+    // Import leaflet css
+    if (!options.excludeCSS) {
+      app.import('vendor/leaflet/leaflet.css');
+    }
 
-    var imagesDestDir = '/assets/images';
-    app.import(app.bowerDirectory + '/leaflet/dist/images/layers-2x.png', {
-      destDir: imagesDestDir
-    });
-    app.import(app.bowerDirectory + '/leaflet/dist/images/layers.png', {
-      destDir: imagesDestDir
-    });
-    app.import(app.bowerDirectory + '/leaflet/dist/images/marker-icon-2x.png', {
-      destDir: imagesDestDir
-    });
-    app.import(app.bowerDirectory + '/leaflet/dist/images/marker-icon.png', {
-      destDir: imagesDestDir
-    });
-    app.import(app.bowerDirectory + '/leaflet/dist/images/marker-shadow.png', {
-      destDir: imagesDestDir
-    });
-  },
+    // Import leaflet images
+    if (!options.excludeImages) {
+      let imagesDestDir = '/assets/images';
+      app.import('vendor/leaflet/images/layers-2x.png', { destDir: imagesDestDir });
+      app.import('vendor/leaflet/images/layers.png', { destDir: imagesDestDir });
+      app.import('vendor/leaflet/images/marker-icon-2x.png', { destDir: imagesDestDir });
+      app.import('vendor/leaflet/images/marker-icon.png', { destDir: imagesDestDir });
+      app.import('vendor/leaflet/images/marker-shadow.png', { destDir: imagesDestDir });
+    }
+ },
 
-  treeForAddonTemplates: function treeForAddonTemplates(tree) {
-    var checker = new VersionChecker(this);
-    var dep = checker.for('ember', 'bower');
+ treeForAddonTemplates(tree) {
+    let checker = new VersionChecker(this);
+    let dep = checker.for('ember', 'bower');
 
-    var baseTemplatesPath = path.join(this.root, 'addon/templates');
+
+    let baseTemplatesPath = path.join(this.root, 'addon/templates');
 
     if (dep.lt('2.3.0-beta.1')) {
-      var current = this.treeGenerator(path.join(baseTemplatesPath, 'current'))
-      var specificVersionTemplate = this.treeGenerator(path.join(baseTemplatesPath, 'lt-2-3'));
-      return mergeTrees([current, specificVersionTemplate], {
-        overwrite: true
-      })
+      let current = this.treeGenerator(path.join(baseTemplatesPath, 'current'));
+      let specificVersionTemplate = this.treeGenerator(path.join(baseTemplatesPath, 'lt-2-3'));
+      return mergeTrees([current, specificVersionTemplate], { overwrite: true });
     } else {
       return this.treeGenerator(path.join(baseTemplatesPath, 'current'));
     }
+  },
+
+  pathBase(packageName) {
+    return path.dirname(resolve.sync(packageName + '/package.json', { basedir: __dirname }));
   }
 };

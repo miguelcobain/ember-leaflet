@@ -1,11 +1,19 @@
 {{yield (hash
-    tile=(component "tile-layer" containerLayer=this)
-    wmsTile=(component "wms-tile-layer" containerLayer=this)
-    marker=(component "marker-layer" containerLayer=this)
-    circle=(component "circle-layer" containerLayer=this)
-    circle-marker=(component "circle-layer" containerLayer=this)
-    image=(component "image-layer" containerLayer=this)
-    polyline=(component "polyline-layer" containerLayer=this)
-    polygon=(component "polygon-layer" containerLayer=this)
-    geoJSON=(component "geojson-layer" containerLayer=this)
+    tile=(component "tile-layer" parentComponent=this)
+    wms-tile=(component "wms-tile-layer" parentComponent=this)
+    marker=(component "marker-layer" parentComponent=this)
+    circle=(component "circle-layer" parentComponent=this)
+    circle-marker=(component "circle-marker-layer" parentComponent=this)
+    image=(component "image-layer" parentComponent=this)
+    polyline=(component "polyline-layer" parentComponent=this)
+    polygon=(component "polygon-layer" parentComponent=this)
+    geojson=(component "geojson-layer" parentComponent=this)
+
+    wmsTile=(component "wms-tile-layer" parentComponent=this)
+    geoJSON=(component "geojson-layer" parentComponent=this)
   )}}
+{{!--
+  `wmsTile` and `geoJSON` are provided for backwards compatibility reasons.
+  Contextual component names should have the same name as non-contextuals
+  without the `-layer` suffix.
+--}}

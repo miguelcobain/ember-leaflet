@@ -6,11 +6,12 @@ import wait from 'ember-test-helpers/wait';
 import MarkerLayerComponent from 'ember-leaflet/components/marker-layer';
 import ArrayPathLayerComponent from 'ember-leaflet/components/array-path-layer';
 import locations from '../../helpers/locations';
+import $ from 'jquery';
 /* globals L */
 
 const { computed, run, A } = Ember;
 
-//Needed to silence leaflet autodetection error
+// Needed to silence leaflet autodetection error
 L.Icon.Default.imagePath = 'some-path';
 
 let marker, arrayPath;
@@ -66,12 +67,12 @@ test('popup works', function(assert) {
 
   return wait().then(() => {
     assert.ok(!!marker._layer._popup._map, 'popup opened');
-    assert.equal(Ember.$(marker._layer._popup._contentNode).text().trim(), 'Popup content', 'popup content set');
+    assert.equal($(marker._layer._popup._contentNode).text().trim(), 'Popup content', 'popup content set');
   });
 });
 
 test('popup content isn\'t rendered until it is opened (lazy popups)', function(assert) {
-  var didRun = false;
+  let didRun = false;
 
   this.set('markerCenter', locations.nyc);
   this.set('computedProperty', computed(function() {
@@ -119,7 +120,7 @@ test('popup opens based on popupOpen', function(assert) {
 
   return wait().then(() => {
     assert.ok(!!marker._layer._popup._map, 'popup starts open');
-    assert.equal(Ember.$(marker._layer._popup._contentNode).text().trim(), 'Popup content', 'popup content set');
+    assert.equal($(marker._layer._popup._contentNode).text().trim(), 'Popup content', 'popup content set');
 
     run(() => {
       this.set('popupOpen', false);
@@ -133,7 +134,7 @@ test('popup opens based on popupOpen', function(assert) {
     return wait();
   }).then(() => {
     assert.ok(!!marker._layer._popup._map, 'popup opens again');
-    assert.equal(Ember.$(marker._layer._popup._contentNode).text().trim(), 'Popup content', 'popup content set');
+    assert.equal($(marker._layer._popup._contentNode).text().trim(), 'Popup content', 'popup content set');
   });
 });
 
@@ -157,7 +158,7 @@ test('popup closes when layer is destroyed', function(assert) {
   return wait().then(() => {
     let map = marker._layer._map;
     assert.ok(!!map._popup, 'popup starts open');
-    assert.equal(Ember.$(map._popup._contentNode).text().trim(), 'Popup content', 'popup content set');
+    assert.equal($(map._popup._contentNode).text().trim(), 'Popup content', 'popup content set');
 
     this.set('isVisible', false);
 

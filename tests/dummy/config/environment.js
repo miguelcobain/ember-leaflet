@@ -1,4 +1,4 @@
-/* jshint node: true */
+/* eslint-env node */
 
 module.exports = function(environment) {
   var ENV = {
@@ -10,6 +10,10 @@ module.exports = function(environment) {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
         // e.g. 'with-controller': true
+      },
+      EXTEND_PROTOTYPES: {
+        // Prevent Ember Data from overriding Date.parse.
+        Date: false
       }
     },
 
@@ -17,12 +21,6 @@ module.exports = function(environment) {
       // Here you can pass flags/options to your application instance
       // when it is created
     }
-  };
-
-  ENV.contentSecurityPolicy = {
-    'img-src': "'self' http://*.basemaps.cartocdn.com",
-    'font-src': "'self' fonts.gstatic.com",
-    'style-src': "'self' fonts.googleapis.com"
   };
 
   if (environment === 'development') {

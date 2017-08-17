@@ -1,12 +1,13 @@
 import Ember from 'ember';
+const { Controller, computed } = Ember;
 /* global requirejs */
 
-export default Ember.Controller.extend({
+export default Controller.extend({
 
-  componentList: Ember.computed(function() {
+  componentList: computed(function() {
     let componentList = [];
 
-    for (var key in requirejs.entries) {
+    for (let key in requirejs.entries) {
       if (key.indexOf('ember-leaflet/components/') !== -1 && key.indexOf('jshint') === -1) {
         componentList.push(key.split('/').pop());
       }
@@ -15,10 +16,10 @@ export default Ember.Controller.extend({
     return componentList;
   }),
 
-  helperList: Ember.computed(function() {
+  helperList: computed(function() {
     let helperList = [];
 
-    for (var key in requirejs.entries) {
+    for (let key in requirejs.entries) {
       if (key.indexOf('ember-leaflet/helpers/') !== -1 && key.indexOf('jshint') === -1) {
         helperList.push(key.split('/').pop());
       }

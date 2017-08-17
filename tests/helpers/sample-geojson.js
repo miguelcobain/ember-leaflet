@@ -1,6 +1,5 @@
 import locations from './locations';
-
-const chicago = locations.chicago;
+const { chicago } = locations;
 
 export default {
   type: 'FeatureCollection',
@@ -24,7 +23,7 @@ export default {
           [chicago.lng - 0.01, chicago.lat - 0.01],
           [chicago.lng + 0.01, chicago.lat - 0.01],
           [chicago.lng + 0.01, chicago.lat + 0.01],
-          [chicago.lng - 0.01, chicago.lat + 0.01],
+          [chicago.lng - 0.01, chicago.lat + 0.01]
         ]]
       },
       properties: {

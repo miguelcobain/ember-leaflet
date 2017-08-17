@@ -1,7 +1,6 @@
-/* jshint ignore:start */
 import Ember from 'ember';
+const { Helper } = Ember;
 
-export default Ember.Helper.helper(function([arg1 = '']) {
+export default Helper.helper(function([arg1 = '']) {
   return arg1.toLowerCase();
 });
-/* jshint ignore:end */
