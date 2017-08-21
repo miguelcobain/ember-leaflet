@@ -1,5 +1,8 @@
 # ember-leaflet changelog
 
+### master
+- [ENHANCEMENT] add `moveend` event to marker-layer ([#174](https://github.com/miguelcobain/ember-leaflet/pull/174))
+
 ### 3.0.12
 - [ENHANCEMENT] Expose option 'className' for TileLayer ([#151](https://github.com/miguelcobain/ember-leaflet/pull/151))
 - [BUGFIX] Fix geoJson layer updates ([#153](https://github.com/miguelcobain/ember-leaflet/pull/153))

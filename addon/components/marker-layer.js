@@ -18,7 +18,7 @@ export default BaseLayer.extend(DraggabilityMixin, DivOverlayableMixin, {
 
   leafletEvents: [
     'click', 'dblclick', 'mousedown', 'mouseover', 'mouseout',
-    'contextmenu', 'dragstart', 'drag', 'dragend', 'move', 'moveend', 
+    'contextmenu', 'dragstart', 'drag', 'dragend', 'move', 'moveend',
     'remove', 'add', 'popupopen', 'popupclose'
   ],
 
