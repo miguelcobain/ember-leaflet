@@ -36,6 +36,7 @@ export default BaseLayer.extend(DraggabilityMixin, DivOverlayableMixin, {
   // leaflet bug where draggability is lost on icon change
   iconDidChange: observer('icon', function() {
     this._layer.setIcon(this.get('icon'));
+    if (!this._layer.dragging) { return; }
 
     if (this.get('draggable')) {
       this._layer.dragging.enable();
