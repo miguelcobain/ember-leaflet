@@ -110,7 +110,7 @@ test('replace item in content moves polyline', function(assert) {
   assert.locationsEqual(layerLatLngs[1], locations.nyc);
   assert.locationsEqual(layerLatLngs[2], locations.sf);
 
-  this.get('locations').replace(1, 1, locations.paris);
+  this.get('locations').replace(1, 1, [locations.paris]);
 
   layerLatLngs = arrayPath._layer.getLatLngs();
   assert.locationsEqual(layerLatLngs[0], locations.chicago);
