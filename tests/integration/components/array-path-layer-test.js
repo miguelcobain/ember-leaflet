@@ -1,11 +1,12 @@
-import Ember from 'ember';
+import { A } from '@ember/array';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import { assertionInjector, assertionCleanup } from '../../assertions';
+import {
+  assertionInjector,
+  assertionCleanup
+} from '../../assertions';
 import ArrayPathLayerComponent from 'ember-leaflet/components/array-path-layer';
 import locations from '../../helpers/locations';
-
-const { A } = Ember;
 
 let arrayPath;
 

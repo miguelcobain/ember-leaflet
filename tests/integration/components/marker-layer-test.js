@@ -1,6 +1,9 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import { assertionInjector, assertionCleanup } from '../../assertions';
+import {
+  assertionInjector,
+  assertionCleanup
+} from '../../assertions';
 import hasEmberVersion from 'ember-test-helpers/has-ember-version';
 import MarkerLayerComponent from 'ember-leaflet/components/marker-layer';
 import locations from '../../helpers/locations';

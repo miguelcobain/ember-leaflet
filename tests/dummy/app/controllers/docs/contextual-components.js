@@ -1,5 +1,6 @@
-import Ember from 'ember';
-const { Controller, A, computed, setProperties } = Ember;
+import Controller from '@ember/controller';
+import { A } from '@ember/array';
+import { setProperties, computed } from '@ember/object';
 
 export default Controller.extend({
   lat: 45.528178,

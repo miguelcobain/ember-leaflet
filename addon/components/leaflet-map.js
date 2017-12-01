@@ -1,9 +1,12 @@
-import Ember from 'ember';
+import { assert } from '@ember/debug';
+import {
+  merge as emberMerge,
+  assign as emberAssign
+} from '@ember/polyfills';
 import BaseLayer from 'ember-leaflet/components/base-layer';
 import { ParentMixin } from 'ember-composability-tools';
 import toLatLng from 'ember-leaflet/macros/to-lat-lng';
 import layout from '../templates/leaflet-map';
-const { assert, assign: emberAssign, merge: emberMerge } = Ember;
 const assign = emberAssign || emberMerge;
 
 export default BaseLayer.extend(ParentMixin, {

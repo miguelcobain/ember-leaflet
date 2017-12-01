@@ -1,7 +1,4 @@
-import Ember from 'ember';
-/* global L */
-
-const { Helper: { helper } } = Ember;
+import { helper } from '@ember/component/helper';
 const isFastBoot = typeof FastBoot !== 'undefined';
 
 export const icon = isFastBoot ? function() {} : function icon(_, hash) {

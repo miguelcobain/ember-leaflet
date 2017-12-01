@@ -1,7 +1,8 @@
-import Ember from 'ember';
-/* global require, requirejs */
-
-const { Controller, Component, computed, A } = Ember;
+import Controller from '@ember/controller';
+import Component from '@ember/component';
+import { computed } from '@ember/object';
+import { A } from '@ember/array';
+/* global requirejs, require */
 
 let URL_PREFIX = 'http://leafletjs.com/reference-1.0.2.html#';
 

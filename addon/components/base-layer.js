@@ -1,17 +1,12 @@
-import Ember from 'ember';
+import { assert } from '@ember/debug';
+import { computed } from '@ember/object';
+import Component from '@ember/component';
+import { getOwner } from '@ember/application';
+import { run } from '@ember/runloop';
+import { A } from '@ember/array';
+import { classify } from '@ember/string';
 import { ChildMixin } from 'ember-composability-tools';
 import { InvokeActionMixin } from 'ember-invoke-action';
-/* global L */
-
-const {
-  assert,
-  computed,
-  Component,
-  getOwner,
-  run,
-  A,
-  String: { classify }
-} = Ember;
 
 const leaf = typeof L === 'undefined' ? {} : L;
 

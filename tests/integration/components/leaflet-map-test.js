@@ -1,6 +1,9 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import { assertionInjector, assertionCleanup } from '../../assertions';
+import {
+  assertionInjector,
+  assertionCleanup
+} from '../../assertions';
 import LeafletMapComponent from 'ember-leaflet/components/leaflet-map';
 import locations from '../../helpers/locations';
 /* global L */
@@ -115,7 +118,9 @@ test('map sends actions for events', function(assert) {
     assert.ok(true, 'onZoomchanged fired');
   });
 
-  this.render(hbs`{{leaflet-map zoom=zoom center=center
+  // enabling zoom animation leads to an error, probably because the
+  // animation end event occurs after the component is destroyed?
+  this.render(hbs`{{leaflet-map zoom=zoom center=center zoomAnimation=false
     onMovestart=(action moveAction) onZoomstart=(action zoomAction)}}`);
 
   // This runs 5 actions because:

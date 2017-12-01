@@ -1,8 +1,5 @@
-import Ember from 'ember';
+import { isNone } from '@ember/utils';
 import config from 'ember-get-config';
-/* global L */
-
-const { isNone } = Ember;
 
 export function initialize(/* container, application */) {
   if (typeof FastBoot === 'undefined') {
@@ -20,5 +17,5 @@ export function initialize(/* container, application */) {
 
 export default {
   name: 'leaflet-assets',
-  initialize: initialize
+  initialize
 };

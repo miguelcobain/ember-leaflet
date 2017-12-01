@@ -1,15 +1,17 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import { run } from '@ember/runloop';
+import { A } from '@ember/array';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import { assertionInjector, assertionCleanup } from '../../assertions';
+import {
+  assertionInjector,
+  assertionCleanup
+} from '../../assertions';
 import wait from 'ember-test-helpers/wait';
 import MarkerLayerComponent from 'ember-leaflet/components/marker-layer';
 import ArrayPathLayerComponent from 'ember-leaflet/components/array-path-layer';
 import locations from '../../helpers/locations';
 import $ from 'jquery';
-/* globals L */
-
-const { computed, run, A } = Ember;
 
 // Needed to silence leaflet autodetection error
 L.Icon.Default.imagePath = 'some-path';

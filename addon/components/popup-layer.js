@@ -1,7 +1,6 @@
-import Ember from 'ember';
+import { observer } from '@ember/object';
+import { run } from '@ember/runloop';
 import DivOverlayLayer from 'ember-leaflet/components/div-overlay-layer';
-
-const { observer, run } = Ember;
 
 export default DivOverlayLayer.extend({
 

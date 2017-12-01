@@ -1,5 +1,4 @@
-import Ember from 'ember';
-const { computed } = Ember;
+import { computed } from '@ember/object';
 
 export default function(latKey = 'lat', lngKey = 'lng') {
   return computed(latKey, lngKey, {

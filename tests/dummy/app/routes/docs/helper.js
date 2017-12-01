@@ -1,5 +1,4 @@
-import Ember from 'ember';
-const { Route } = Ember;
+import Route from '@ember/routing/route';
 /* global require */
 
 export default Route.extend({

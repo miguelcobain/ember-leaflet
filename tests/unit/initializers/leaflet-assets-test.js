@@ -1,10 +1,8 @@
-import Ember from 'ember';
+import { run } from '@ember/runloop';
+import Application from '@ember/application';
 import ENV from '../../../config/environment';
 import { initialize } from '../../../initializers/leaflet-assets';
 import { module, test } from 'qunit';
-/* global L */
-
-const { run, Application } = Ember;
 
 let registry, application;
 

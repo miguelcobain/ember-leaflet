@@ -1,7 +1,6 @@
-import Ember from 'ember';
+import { reads } from '@ember/object/computed';
+import { run } from '@ember/runloop';
 import DivOverlayLayer from 'ember-leaflet/components/div-overlay-layer';
-
-const { run, computed } = Ember;
 
 export default DivOverlayLayer.extend({
 
@@ -10,7 +9,7 @@ export default DivOverlayLayer.extend({
   ],
 
   // if this tooltip is permanent, we need to render the content immediately
-  shouldRender: computed.reads('permanent'),
+  shouldRender: reads('permanent'),
 
   createLayer() {
     return this.L.tooltip(this.get('options')).setContent(this.get('destinationElement'));

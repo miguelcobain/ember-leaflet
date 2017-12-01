@@ -1,10 +1,6 @@
-import Ember from 'ember';
+import { deprecate } from '@ember/application/deprecations';
+import { isPresent } from '@ember/utils';
 import BaseLayer from 'ember-leaflet/components/base-layer';
-
-const {
-  deprecate,
-  isPresent
-} = Ember;
 
 export default BaseLayer.extend({
 

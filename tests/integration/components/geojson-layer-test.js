@@ -1,6 +1,9 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import { assertionInjector, assertionCleanup } from '../../assertions';
+import {
+  assertionInjector,
+  assertionCleanup
+} from '../../assertions';
 import GeoJSONLayerComponent from 'ember-leaflet/components/geojson-layer';
 import locations from '../../helpers/locations';
 import sampleGeoJSON from '../../helpers/sample-geojson';
