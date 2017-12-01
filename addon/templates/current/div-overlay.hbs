@@ -1,9 +1,11 @@
-{{#if shouldRender}}
-  {{#ember-wormhole destinationElement=destinationElement~}}
-    {{#if closePopup}}
-      {{yield (action closePopup)}}
-    {{else}}
-      {{yield}}
-    {{/if}}
-  {{~/ember-wormhole}}
-{{/if}}
+{{#unless isFastBoot}}
+  {{#if shouldRender}}
+    {{#ember-wormhole destinationElement=destinationElement~}}
+      {{#if closePopup}}
+        {{yield (action closePopup)}}
+      {{else}}
+        {{yield}}
+      {{/if}}
+    {{~/ember-wormhole}}
+  {{/if}}
+{{/unless}}
