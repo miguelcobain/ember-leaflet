@@ -39,7 +39,12 @@ matrix:
 before_install:
   - npm config set spin false
   - npm install -g npm@4
+  - npm install -g bower
   - npm --version
+
+install:
+  - npm install
+  - bower install
 
 script:
   # Usually, it's ok to finish the test scenario without reverting
