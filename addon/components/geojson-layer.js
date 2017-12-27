@@ -29,7 +29,10 @@ export default BaseLayer.extend(DivOverlayableMixin, StyleMixin, {
   didUpdateAttrs() {
     this._super(...arguments);
 
-    let geoJSON = this.get('geoJSON');
+    let { geoJSON, style } = this.getProperties('geoJSON', 'style');
+
+    this.updateStyle(style);
+
     if (geoJSON) {
       this.pushDataToLeaflet(geoJSON);
     }
@@ -48,6 +51,14 @@ export default BaseLayer.extend(DivOverlayableMixin, StyleMixin, {
       // ...then add new data to recreate the child layers in an updated form
       this._layer.addData(geoJSON);
     }
+  },
+
+  updateStyle(style) {
+    if (!this._layer) {
+      return;
+    }
+
+    this._layer.options.style = style;
   },
 
   createLayer() {
