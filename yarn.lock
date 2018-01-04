@@ -541,6 +541,12 @@ babel-plugin-ember-modules-api-polyfill@^2.0.1:
   dependencies:
     ember-rfc176-data "^0.3.0"
 
+babel-plugin-ember-modules-api-polyfill@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/babel-plugin-ember-modules-api-polyfill/-/babel-plugin-ember-modules-api-polyfill-2.3.0.tgz#0c01f359658cfb9c797f705af6b09f6220205ae0"
+  dependencies:
+    ember-rfc176-data "^0.3.0"
+
 babel-plugin-eval@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/babel-plugin-eval/-/babel-plugin-eval-1.0.1.tgz#a2faed25ce6be69ade4bfec263f70169195950da"
@@ -2194,6 +2200,24 @@ ember-cli-babel@^6.0.0, ember-cli-babel@^6.0.0-beta.7, ember-cli-babel@^6.10.0, 
     ember-cli-version-checker "^2.1.0"
     semver "^5.4.1"
 
+ember-cli-babel@^6.6.0:
+  version "6.11.0"
+  resolved "https://registry.yarnpkg.com/ember-cli-babel/-/ember-cli-babel-6.11.0.tgz#79cb184bac3c05bfe181ddc306bac100ab1f9493"
+  dependencies:
+    amd-name-resolver "0.0.7"
+    babel-plugin-debug-macros "^0.1.11"
+    babel-plugin-ember-modules-api-polyfill "^2.3.0"
+    babel-plugin-transform-es2015-modules-amd "^6.24.0"
+    babel-polyfill "^6.16.0"
+    babel-preset-env "^1.5.1"
+    broccoli-babel-transpiler "^6.1.2"
+    broccoli-debug "^0.6.2"
+    broccoli-funnel "^1.0.0"
+    broccoli-source "^1.1.0"
+    clone "^2.0.0"
+    ember-cli-version-checker "^2.1.0"
+    semver "^5.4.1"
+
 ember-cli-broccoli-sane-watcher@^2.0.4:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/ember-cli-broccoli-sane-watcher/-/ember-cli-broccoli-sane-watcher-2.0.4.tgz#f43f42f75b7509c212fb926cd9aea86ae19264c6"
@@ -2238,7 +2262,7 @@ ember-cli-deploy-display-revisions@0.1.0:
     ember-cli-deploy-plugin "0.2.0"
     moment "2.10.6"
 
-"ember-cli-deploy-gzip@github:pagefront/ember-cli-deploy-gzip#0a98e80768d089ea6488b36f2c9a79f95067d71d":
+ember-cli-deploy-gzip@pagefront/ember-cli-deploy-gzip#0a98e80768d089ea6488b36f2c9a79f95067d71d:
   version "0.1.0"
   resolved "https://codeload.github.com/pagefront/ember-cli-deploy-gzip/tar.gz/0a98e80768d089ea6488b36f2c9a79f95067d71d"
   dependencies:
@@ -2250,7 +2274,7 @@ ember-cli-deploy-display-revisions@0.1.0:
     redis "^0.12.1"
     rsvp "^3.0.18"
 
-"ember-cli-deploy-manifest@github:pagefront/ember-cli-deploy-manifest#d6fdaf9edb4ed23a5bf472317f1b46d9a4c3715c":
+ember-cli-deploy-manifest@pagefront/ember-cli-deploy-manifest#d6fdaf9edb4ed23a5bf472317f1b46d9a4c3715c:
   version "0.1.0"
   resolved "https://codeload.github.com/pagefront/ember-cli-deploy-manifest/tar.gz/d6fdaf9edb4ed23a5bf472317f1b46d9a4c3715c"
   dependencies:
@@ -2653,11 +2677,11 @@ ember-getowner-polyfill@1.1.1:
     ember-cli-babel "^5.1.6"
     ember-cli-version-checker "^1.2.0"
 
-ember-invoke-action@1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/ember-invoke-action/-/ember-invoke-action-1.4.0.tgz#2899854bd755f9331ca86c902bf6d4dbf8bdfcb3"
+ember-invoke-action@^1.4.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/ember-invoke-action/-/ember-invoke-action-1.5.0.tgz#0370f187f39f22d54ddd039cd01aa7e685edbbec"
   dependencies:
-    ember-cli-babel "^5.1.6"
+    ember-cli-babel "^6.6.0"
 
 ember-load-initializers@^1.0.0:
   version "1.0.0"
