@@ -24,6 +24,7 @@ export default DivOverlayLayer.extend({
   },
 
   addToContainer() {
+    this._hijackOnAddMethod();
     this.get('parentComponent')._layer.bindTooltip(this._layer);
   },
 
@@ -38,23 +39,6 @@ export default DivOverlayLayer.extend({
   },
 
   _addPopupListeners() {
-    // we need to hijack the `onAdd` method because we need to
-    // render the template *before* the popup is opened.
-    // This way, the popup will set its dimensions according to the rendered DOM.
-    let oldOnAdd = this._layer.onAdd;
-    this._layer.onAdd = (map) => {
-      // trigger _initLayout manually, otherwise Tooltip doesn't have the container set
-      // to calculate initial position
-      if (!this._layer._container) {
-        this._layer._initLayout();
-      }
-      // this will make wormwhole render to the document fragment
-      this.set('shouldRender', true);
-      // ember-wormhole will render on the afterRender queue, so we need to render after that
-      run.next(() => {
-        oldOnAdd.call(this._layer, map);
-      });
-    };
     // we need to user `layerremove` event becase it's the only one that fires
     // *after* the popup was completely removed from the map
     let parentComponent = this.get('parentComponent');
@@ -64,5 +48,27 @@ export default DivOverlayLayer.extend({
   _removePopupListeners() {
     let parentComponent = this.get('parentComponent');
     parentComponent._layer._map.removeEventListener('layerremove', this._onLayerRemove, this);
-  }
+  },
+  
+  _hijackOnAddMethod() {
+		// we need to hijack the `onAdd` method because we need to
+		// render the template *before* the popup is opened.
+		// This way, the popup will set its dimensions according to the rendered DOM.
+		let oldOnAdd = this._layer.onAdd;
+		this._layer.onAdd = (map) => {
+			// trigger _initLayout manually, otherwise Tooltip doesn't have the container set
+			// to calculate initial position
+			if (!this._layer._container) {
+				this._layer._initLayout();
+			}
+			// this will make wormwhole render to the document fragment
+			this.set('shouldRender', true);
+			// ember-wormhole will render on the afterRender queue, so we need to render after that
+			run.next(() => {
+				if (this.get('shouldRender')) {
+					oldOnAdd.call(this._layer, map);
+				}
+			});
+		};	
+	}
 });
