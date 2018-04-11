@@ -42,11 +42,6 @@ before_install:
   - npm install -g npm@4
   - npm --version
 
-install:
-  - npm config set spin false
-  - npm install -g npm@4
-  - npm --version
-
 script:
   - npm run lint:js
   # Usually, it's ok to finish the test scenario without reverting
