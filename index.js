@@ -43,7 +43,7 @@ module.exports = {
     // Has to do this grandparent check because at some point we hit the project.
     let current = this;
     do {
-     app = current.app || app;
+      app = current.app || app;
     } while (current.parent.parent && (current = current.parent));
 
     if (!options.excludeJS) {
@@ -64,9 +64,9 @@ module.exports = {
       app.import('vendor/leaflet/images/marker-icon.png', { destDir: imagesDestDir });
       app.import('vendor/leaflet/images/marker-shadow.png', { destDir: imagesDestDir });
     }
- },
+  },
 
- treeForAddonTemplates(tree) {
+  treeForAddonTemplates() {
     let checker = new VersionChecker(this);
     let dep = checker.for('ember', 'bower');
 

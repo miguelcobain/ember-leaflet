@@ -9,7 +9,7 @@ module.exports = function(defaults) {
     },
     'ember-prism': {
       'theme': 'none',
-      'components': ['scss', 'javascript', 'handlebars', 'bash']
+      'components': ['scss', 'javascript', 'handlebars', 'markup-templating', 'bash']
     }
   });
 
