@@ -13,7 +13,7 @@ export default BaseLayer.extend(ParentMixin, {
   tagName: 'div',
   layout,
 
-  leafletOptions: [
+  leafletOptions: Object.freeze([
     // Map state options
     'center', 'zoom', 'minZoom', 'maxZoom', 'maxBounds', 'crs',
     // Interaction options
@@ -29,10 +29,10 @@ export default BaseLayer.extend(ParentMixin, {
     'zoomControl', 'attributionControl',
     // Animation options
     'fadeAnimation', 'zoomAnimation', 'zoomAnimationThreshold', 'markerZoomAnimation'
-  ],
+  ]),
 
   // Events this map can respond to.
-  leafletEvents: [
+  leafletEvents: Object.freeze([
     'click', 'dblclick', 'mousedown', 'mouseup', 'mouseover', 'mouseout',
     'mousemove', 'contextmenu', 'focus', 'blur', 'preclick', 'load',
     'unload', 'viewreset', 'movestart', 'move', 'moveend', 'dragstart',
@@ -40,13 +40,13 @@ export default BaseLayer.extend(ParentMixin, {
     'resize', 'autopanstart', 'layeradd', 'layerremove',
     'baselayerchange', 'overlayadd', 'overlayremove', 'locationfound',
     'locationerror', 'popupopen', 'popupclose'
-  ],
+  ]),
 
-  leafletProperties: [
+  leafletProperties: Object.freeze([
     'zoom:setZoom:zoomPanOptions', 'minZoom', 'maxZoom',
     'center:panTo:zoomPanOptions',
     'bounds:fitBounds:fitBoundsOptions', 'maxBounds'
-  ],
+  ]),
 
   center: toLatLng(),
 

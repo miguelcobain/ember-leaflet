@@ -2,13 +2,13 @@ import PointPathLayer from 'ember-leaflet/components/point-path-layer';
 
 export default PointPathLayer.extend({
 
-  leafletRequiredOptions: [
+  leafletRequiredOptions: Object.freeze([
     'radius'
-  ],
+  ]),
 
-  leafletProperties: [
+  leafletProperties: Object.freeze([
     'radius'
-  ],
+  ]),
 
   createLayer() {
     return this.L.circle(...this.get('requiredOptions'), this.get('options'));

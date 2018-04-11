@@ -4,9 +4,9 @@ import DivOverlayLayer from 'ember-leaflet/components/div-overlay-layer';
 
 export default DivOverlayLayer.extend({
 
-  leafletOptions: [
+  leafletOptions: Object.freeze([
     'direction', 'permanent', 'sticky', 'interactive', 'opacity'
-  ],
+  ]),
 
   // if this tooltip is permanent, we need to render the content immediately
   shouldRender: reads('permanent'),

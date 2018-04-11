@@ -4,17 +4,17 @@ import BaseLayer from 'ember-leaflet/components/base-layer';
 
 export default BaseLayer.extend({
 
-  leafletRequiredOptions: [
+  leafletRequiredOptions: Object.freeze([
     'url', 'bounds'
-  ],
+  ]),
 
-  leafletOptions: [
+  leafletOptions: Object.freeze([
     'attribution', 'opacity'
-  ],
+  ]),
 
-  leafletProperties: [
+  leafletProperties: Object.freeze([
     'url', 'opacity', 'bounds'
-  ],
+  ]),
 
   init() {
     let imageUrl = this.get('imageUrl');

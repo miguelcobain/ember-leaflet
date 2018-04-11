@@ -1,5 +1,6 @@
 import { isNone } from '@ember/utils';
 import config from 'ember-get-config';
+/* global L */
 
 export function initialize(/* container, application */) {
   if (typeof FastBoot === 'undefined') {

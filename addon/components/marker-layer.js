@@ -6,24 +6,24 @@ import toLatLng from 'ember-leaflet/macros/to-lat-lng';
 
 export default BaseLayer.extend(DraggabilityMixin, DivOverlayableMixin, {
 
-  leafletRequiredOptions: [
+  leafletRequiredOptions: Object.freeze([
     'location'
-  ],
+  ]),
 
-  leafletOptions: [
+  leafletOptions: Object.freeze([
     'icon', 'clickable', 'draggable', 'keyboard', 'title',
     'alt', 'zIndexOffset', 'opacity', 'riseOnHover', 'riseOffset'
-  ],
+  ]),
 
-  leafletEvents: [
+  leafletEvents: Object.freeze([
     'click', 'dblclick', 'mousedown', 'mouseover', 'mouseout',
     'contextmenu', 'dragstart', 'drag', 'dragend', 'move', 'moveend',
     'remove', 'add', 'popupopen', 'popupclose'
-  ],
+  ]),
 
-  leafletProperties: [
+  leafletProperties: Object.freeze([
     'zIndexOffset', 'opacity', 'location:setLatLng'
-  ],
+  ]),
 
   location: toLatLng(),
 

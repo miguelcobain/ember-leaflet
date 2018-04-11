@@ -12,19 +12,19 @@ import DivOverlayableMixin from 'ember-leaflet/mixins/div-overlayable';
  *   - all standard leaflet options for L.geoJson
  */
 export default BaseLayer.extend(DivOverlayableMixin, StyleMixin, {
-  leafletRequiredOptions: ['geoJSON'],
+  leafletRequiredOptions: Object.freeze(['geoJSON']),
 
-  leafletOptions: [
+  leafletOptions: Object.freeze([
     'stroke', 'color', 'weight', 'opacity', 'fill', 'fillColor',
     'fillOpacity', 'fillRule', 'dashArray', 'lineCap', 'lineJoin',
     'clickable', 'pointerEvents', 'className', 'pointToLayer',
     'style', 'onEachFeature', 'filter', 'coordsToLatLng'
-  ],
+  ]),
 
-  leafletEvents: [
+  leafletEvents: Object.freeze([
     'click', 'dblclick', 'mousedown', 'mouseover', 'mouseout',
     'contextmenu', 'add', 'remove', 'popupopen', 'popupclose'
-  ],
+  ]),
 
   didUpdateAttrs() {
     this._super(...arguments);

@@ -3,6 +3,7 @@ import Application from '@ember/application';
 import ENV from '../../../config/environment';
 import { initialize } from '../../../initializers/leaflet-assets';
 import { module, test } from 'qunit';
+/* global L */
 
 let registry, application;
 

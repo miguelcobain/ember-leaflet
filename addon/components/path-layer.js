@@ -4,14 +4,14 @@ import StyleMixin from 'ember-leaflet/mixins/style';
 
 export default BaseLayer.extend(DivOverlayableMixin, StyleMixin, {
 
-  leafletOptions: [
+  leafletOptions: Object.freeze([
     'stroke', 'color', 'weight', 'opacity', 'fill', 'fillColor',
     'fillOpacity', 'fillRule', 'dashArray', 'lineCap', 'lineJoin',
     'clickable', 'pointerEvents', 'className'
-  ],
+  ]),
 
-  leafletEvents: [
+  leafletEvents: Object.freeze([
     'click', 'dblclick', 'mousedown', 'mouseover', 'mouseout',
     'contextmenu', 'add', 'remove', 'popupopen', 'popupclose'
-  ]
+  ])
 });

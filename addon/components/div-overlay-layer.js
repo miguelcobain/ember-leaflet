@@ -7,9 +7,9 @@ import { RenderBlockMixin } from 'ember-composability-tools';
 export default BaseLayer.extend(RenderBlockMixin, {
   layout,
 
-  leafletOptions: [
+  leafletOptions: Object.freeze([
     'offset', 'className', 'pane'
-  ],
+  ]),
 
   fastboot: computed(function() {
     let owner = getOwner(this);

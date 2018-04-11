@@ -2,11 +2,11 @@ import PathLayer from 'ember-leaflet/components/path-layer';
 
 export default PathLayer.extend({
 
-  leafletRequiredOptions: [
+  leafletRequiredOptions: Object.freeze([
     'locations'
-  ],
+  ]),
 
-  leafletProperties: [
+  leafletProperties: Object.freeze([
     'locations.[]:setLatLngs'
-  ]
+  ])
 });

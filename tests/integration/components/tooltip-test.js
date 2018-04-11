@@ -12,6 +12,7 @@ import MarkerLayerComponent from 'ember-leaflet/components/marker-layer';
 import ArrayPathLayerComponent from 'ember-leaflet/components/array-path-layer';
 import locations from '../../helpers/locations';
 import $ from 'jquery';
+/* global L */
 
 // Needed to silence leaflet autodetection error
 L.Icon.Default.imagePath = 'some-path';

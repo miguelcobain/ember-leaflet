@@ -2,11 +2,11 @@ import Mixin from '@ember/object/mixin';
 
 export default Mixin.create({
 
-  leafletStyleProperties: [
+  leafletStyleProperties: Object.freeze([
     'stroke', 'color', 'weight', 'opacity', 'fill', 'fillColor',
     'fillOpacity', 'fillRule', 'dashArray', 'lineCap', 'lineJoin',
     'clickable', 'pointerEvents', 'className'
-  ],
+  ]),
 
   didInsertParent() {
     this._super(...arguments);

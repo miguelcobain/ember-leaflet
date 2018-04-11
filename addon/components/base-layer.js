@@ -7,6 +7,7 @@ import { A } from '@ember/array';
 import { classify } from '@ember/string';
 import { ChildMixin } from 'ember-composability-tools';
 import { InvokeActionMixin } from 'ember-invoke-action';
+/* global L */
 
 const leaf = typeof L === 'undefined' ? {} : L;
 
@@ -81,7 +82,10 @@ export default Component.extend(ChildMixin, InvokeActionMixin, {
     this.get('parentComponent')._layer.removeLayer(this._layer);
   },
 
-  leafletOptions: [],
+  leafletOptions: computed(function() {
+    return [];
+  }),
+
   options: computed(function() {
     let leafletOptions = this.get('leafletOptions');
     let options = {};
@@ -93,7 +97,10 @@ export default Component.extend(ChildMixin, InvokeActionMixin, {
     return options;
   }),
 
-  leafletRequiredOptions: [],
+  leafletRequiredOptions: computed(function() {
+    return [];
+  }),
+
   requiredOptions: computed(function() {
     let leafletRequiredOptions = this.get('leafletRequiredOptions');
     let options = [];
@@ -145,7 +152,9 @@ export default Component.extend(ChildMixin, InvokeActionMixin, {
     }
   },
 
-  leafletProperties: [],
+  leafletProperties: computed(function() {
+    return [];
+  }),
 
   _addObservers() {
     this._observers = {};

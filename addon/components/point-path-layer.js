@@ -3,13 +3,13 @@ import toLatLng from 'ember-leaflet/macros/to-lat-lng';
 
 export default PathLayer.extend({
 
-  leafletRequiredOptions: [
+  leafletRequiredOptions: Object.freeze([
     'location'
-  ],
+  ]),
 
-  leafletProperties: [
+  leafletProperties: Object.freeze([
     'location:setLatLng'
-  ],
+  ]),
 
   location: toLatLng()
 });

@@ -29,7 +29,7 @@ export default Controller.extend({
     }
   ]),
 
-  dangerZone: computed('restaurants.@each.lat', 'restaurants.@each.lng', function() {
+  dangerZone: computed('restaurants.@each.{lat,lng}', function() {
     return this.get('restaurants').map((r) => ({ lat: r.lat, lng: r.lng }));
   }),
 

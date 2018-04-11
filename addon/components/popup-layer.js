@@ -4,11 +4,11 @@ import DivOverlayLayer from 'ember-leaflet/components/div-overlay-layer';
 
 export default DivOverlayLayer.extend({
 
-  leafletOptions: [
+  leafletOptions: Object.freeze([
     'maxWidth', 'minWidth', 'maxHeight', 'autoPan', 'autoPanPaddingTopLeft',
     'autoPanPaddingBottomRight', 'autoPanPadding', 'keepInView', 'closeButton',
     'autoClose'
-  ],
+  ]),
 
   isOpen() {
     // leaflet 1 added an `isOpen` method
