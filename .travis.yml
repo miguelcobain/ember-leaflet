@@ -43,8 +43,9 @@ before_install:
   - npm --version
 
 install:
-  - npm install
-  - bower install
+  - npm config set spin false
+  - npm install -g npm@4
+  - npm --version
 
 script:
   - npm run lint:js
