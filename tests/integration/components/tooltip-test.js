@@ -71,10 +71,10 @@ if (!/0.7.\d+/.test(L.version)) {
         marker._layer.fire('mouseover', { latlng: locations.nyc });
       });
 
-      return settled().then(() => {
-        assert.ok(!!marker._layer._tooltip._map, 'tooltip opened');
-        assert.equal($(marker._layer._tooltip._contentNode).text().trim(), 'Tooltip content', 'tooltip content set');
-      });
+      await settled();
+
+      assert.ok(!!marker._layer._tooltip._map, 'tooltip opened');
+      assert.equal($(marker._layer._tooltip._contentNode).text().trim(), 'Tooltip content', 'tooltip content set');
     });
 
     test('tooltip works with permanent=true', async function(assert) {
@@ -120,10 +120,10 @@ if (!/0.7.\d+/.test(L.version)) {
         marker._layer.fire('mouseover', { latlng: locations.nyc });
       });
 
-      return settled().then(() => {
-        assert.ok(!!marker._layer._tooltip._map, 'tooltip opened');
-        assert.ok(didRun, 'computed property did run');
-      });
+      await settled();
+
+      assert.ok(!!marker._layer._tooltip._map, 'tooltip opened');
+      assert.ok(didRun, 'computed property did run');
     });
 
     test('tooltip closes when layer is destroyed', async function(assert) {
@@ -147,15 +147,15 @@ if (!/0.7.\d+/.test(L.version)) {
         marker._layer.fire('mouseover', { latlng: locations.nyc });
       });
 
-      return settled().then(() => {
-        let tooltip = marker._layer._tooltip;
-        assert.ok(!!tooltip._map, 'tooltip opened');
-        assert.equal($(tooltip._contentNode).text().trim(), 'Tooltip content', 'tooltip content set');
+      await settled();
 
-        this.set('isVisible', false);
+      let tooltip = marker._layer._tooltip;
+      assert.ok(!!tooltip._map, 'tooltip opened');
+      assert.equal($(tooltip._contentNode).text().trim(), 'Tooltip content', 'tooltip content set');
 
-        assert.equal(tooltip._map, null, 'tooltip closed');
-      });
+      this.set('isVisible', false);
+
+      assert.equal(tooltip._map, null, 'tooltip closed');
     });
 
     test('tooltip options work', async function(assert) {

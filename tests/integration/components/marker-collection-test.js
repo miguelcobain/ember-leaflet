@@ -125,22 +125,22 @@ module('Integration | Component | marker layer collection', function(hooks) {
       markers[2]._layer.fire('click', { latlng: locations.nyc });
     });
 
-    return settled().then(() => {
-      assert.ok(!!markers[2]._layer._popup._map, 'marker added to map');
-      assert.equal($(markers[2]._layer._popup._contentNode).text().trim(), 'Popup content', 'popup content set');
+    await settled();
 
-      this.set('markers', [
-        restaurant1,
-        restaurant2,
-        restaurant3
-      ]);
+    assert.ok(!!markers[2]._layer._popup._map, 'marker added to map');
+    assert.equal($(markers[2]._layer._popup._contentNode).text().trim(), 'Popup content', 'popup content set');
 
-      assert.equal(markersInitCount, 4);
-      assert.equal(createLayersCount, 4);
-      assert.equal(destroyLayersCount, 1);
+    this.set('markers', [
+      restaurant1,
+      restaurant2,
+      restaurant3
+    ]);
 
-      assert.ok(!!markers[2]._layer._popup._map, 'marker added to map');
-      assert.equal($(markers[2]._layer._popup._contentNode).text().trim(), 'Popup content', 'popup content set');
-    });
+    assert.equal(markersInitCount, 4);
+    assert.equal(createLayersCount, 4);
+    assert.equal(destroyLayersCount, 1);
+
+    assert.ok(!!markers[2]._layer._popup._map, 'marker added to map');
+    assert.equal($(markers[2]._layer._popup._contentNode).text().trim(), 'Popup content', 'popup content set');
   });
 });
