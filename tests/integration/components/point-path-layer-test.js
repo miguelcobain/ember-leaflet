@@ -1,4 +1,6 @@
-import { moduleForComponent, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import {
   assertionInjector,
@@ -9,12 +11,13 @@ import locations from '../../helpers/locations';
 
 let pointPath;
 
-moduleForComponent('point-path-layer', 'Integration | Component | point path layer', {
-  integration: true,
-  beforeEach() {
+module('Integration | Component | point path layer', function(hooks) {
+  setupRenderingTest(hooks);
+
+  hooks.beforeEach(function() {
     assertionInjector();
 
-    this.register('component:cutom-point-path-layer', PointPathLayerComponent.extend({
+    this.owner.register('component:cutom-point-path-layer', PointPathLayerComponent.extend({
       init() {
         this._super(...arguments);
         pointPath = this;
@@ -26,47 +29,48 @@ moduleForComponent('point-path-layer', 'Integration | Component | point path lay
 
     this.set('center', locations.nyc);
     this.set('zoom', 13);
-  },
-  afterEach() {
+  });
+
+  hooks.afterEach(function() {
     assertionCleanup();
-  }
-});
-
-test('update point path layer using leafletProperties', function(assert) {
-  this.set('location', locations.chicago);
-
-  this.render(hbs`
-    {{#leaflet-map zoom=zoom center=center}}
-      {{cutom-point-path-layer location=location}}
-    {{/leaflet-map}}
-  `);
-
-  assert.locationsEqual(pointPath._layer.getLatLng(), locations.chicago);
-
-  this.set('location', locations.london);
-
-  assert.locationsEqual(pointPath._layer.getLatLng(), locations.london);
-});
-
-test('lat/lng changes propagate to the point path layer', function(assert) {
-
-  this.setProperties({
-    lat: locations.nyc.lat,
-    lng: locations.nyc.lng
   });
 
-  this.render(hbs`
-    {{#leaflet-map zoom=zoom center=center}}
-      {{cutom-point-path-layer lat=lat lng=lng}}
-    {{/leaflet-map}}
-  `);
+  test('update point path layer using leafletProperties', async function(assert) {
+    this.set('location', locations.chicago);
 
-  assert.locationsEqual(pointPath._layer.getLatLng(), locations.nyc);
+    await render(hbs`
+      {{#leaflet-map zoom=zoom center=center}}
+        {{cutom-point-path-layer location=location}}
+      {{/leaflet-map}}
+    `);
 
-  this.setProperties({
-    lat: locations.london.lat,
-    lng: locations.london.lng
+    assert.locationsEqual(pointPath._layer.getLatLng(), locations.chicago);
+
+    this.set('location', locations.london);
+
+    assert.locationsEqual(pointPath._layer.getLatLng(), locations.london);
   });
 
-  assert.locationsEqual(pointPath._layer.getLatLng(), locations.london);
+  test('lat/lng changes propagate to the point path layer', async function(assert) {
+
+    this.setProperties({
+      lat: locations.nyc.lat,
+      lng: locations.nyc.lng
+    });
+
+    await render(hbs`
+      {{#leaflet-map zoom=zoom center=center}}
+        {{cutom-point-path-layer lat=lat lng=lng}}
+      {{/leaflet-map}}
+    `);
+
+    assert.locationsEqual(pointPath._layer.getLatLng(), locations.nyc);
+
+    this.setProperties({
+      lat: locations.london.lat,
+      lng: locations.london.lng
+    });
+
+    assert.locationsEqual(pointPath._layer.getLatLng(), locations.london);
+  });
 });

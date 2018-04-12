@@ -1,4 +1,6 @@
-import { moduleForComponent, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import {
   assertionInjector,
@@ -9,12 +11,13 @@ import locations from '../../helpers/locations';
 
 let circle;
 
-moduleForComponent('circle-layer', 'Integration | Component | circle layer', {
-  integration: true,
-  beforeEach() {
+module('Integration | Component | circle layer', function(hooks) {
+  setupRenderingTest(hooks);
+
+  hooks.beforeEach(function() {
     assertionInjector();
 
-    this.register('component:circle-layer', CircleLayerComponent.extend({
+    this.owner.register('component:circle-layer', CircleLayerComponent.extend({
       init() {
         this._super(...arguments);
         circle = this;
@@ -23,52 +26,53 @@ moduleForComponent('circle-layer', 'Integration | Component | circle layer', {
 
     this.set('center', locations.nyc);
     this.set('zoom', 13);
-  },
-  afterEach() {
+  });
+
+  hooks.afterEach(function() {
     assertionCleanup();
-  }
-});
-
-test('update circle layer using leafletProperties', function(assert) {
-  this.set('circleCenter', locations.nyc);
-  this.set('radius', 25);
-
-  this.render(hbs`
-    {{#leaflet-map zoom=zoom center=center}}
-      {{circle-layer location=circleCenter radius=radius}}
-    {{/leaflet-map}}
-  `);
-
-  assert.locationsEqual(circle._layer.getLatLng(), locations.nyc);
-  assert.equal(circle._layer.getRadius(), 25);
-
-  this.set('circleCenter', locations.london);
-  this.set('radius', 14);
-
-  assert.locationsEqual(circle._layer.getLatLng(), locations.london);
-  assert.equal(circle._layer.getRadius(), 14);
-});
-
-test('lat/lng changes propagate to the circle layer', function(assert) {
-
-  this.setProperties({
-    lat: locations.nyc.lat,
-    lng: locations.nyc.lng,
-    radius: 25
   });
 
-  this.render(hbs`
-    {{#leaflet-map zoom=zoom center=center}}
-      {{circle-layer lat=lat lng=lng radius=radius}}
-    {{/leaflet-map}}
-  `);
+  test('update circle layer using leafletProperties', async function(assert) {
+    this.set('circleCenter', locations.nyc);
+    this.set('radius', 25);
 
-  assert.locationsEqual(circle._layer.getLatLng(), locations.nyc);
+    await render(hbs`
+      {{#leaflet-map zoom=zoom center=center}}
+        {{circle-layer location=circleCenter radius=radius}}
+      {{/leaflet-map}}
+    `);
 
-  this.setProperties({
-    lat: locations.london.lat,
-    lng: locations.london.lng
+    assert.locationsEqual(circle._layer.getLatLng(), locations.nyc);
+    assert.equal(circle._layer.getRadius(), 25);
+
+    this.set('circleCenter', locations.london);
+    this.set('radius', 14);
+
+    assert.locationsEqual(circle._layer.getLatLng(), locations.london);
+    assert.equal(circle._layer.getRadius(), 14);
   });
 
-  assert.locationsEqual(circle._layer.getLatLng(), locations.london);
+  test('lat/lng changes propagate to the circle layer', async function(assert) {
+
+    this.setProperties({
+      lat: locations.nyc.lat,
+      lng: locations.nyc.lng,
+      radius: 25
+    });
+
+    await render(hbs`
+      {{#leaflet-map zoom=zoom center=center}}
+        {{circle-layer lat=lat lng=lng radius=radius}}
+      {{/leaflet-map}}
+    `);
+
+    assert.locationsEqual(circle._layer.getLatLng(), locations.nyc);
+
+    this.setProperties({
+      lat: locations.london.lat,
+      lng: locations.london.lng
+    });
+
+    assert.locationsEqual(circle._layer.getLatLng(), locations.london);
+  });
 });
