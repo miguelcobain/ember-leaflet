@@ -82,9 +82,7 @@ export default Component.extend(ChildMixin, InvokeActionMixin, {
     this.get('parentComponent')._layer.removeLayer(this._layer);
   },
 
-  leafletOptions: computed(function() {
-    return [];
-  }),
+  leafletOptions: A(),
 
   options: computed(function() {
     let leafletOptions = this.get('leafletOptions');
@@ -97,9 +95,7 @@ export default Component.extend(ChildMixin, InvokeActionMixin, {
     return options;
   }),
 
-  leafletRequiredOptions: computed(function() {
-    return [];
-  }),
+  leafletRequiredOptions: A(),
 
   requiredOptions: computed(function() {
     let leafletRequiredOptions = this.get('leafletRequiredOptions');
@@ -152,9 +148,7 @@ export default Component.extend(ChildMixin, InvokeActionMixin, {
     }
   },
 
-  leafletProperties: computed(function() {
-    return [];
-  }),
+  leafletProperties: A(),
 
   _addObservers() {
     this._observers = {};
