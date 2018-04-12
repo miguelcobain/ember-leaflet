@@ -70,10 +70,10 @@ module('Integration | Component | popup layer', function(hooks) {
       marker._layer.fire('click', { latlng: locations.nyc });
     });
 
-    return settled().then(() => {
-      assert.ok(!!marker._layer._popup._map, 'popup opened');
-      assert.equal($(marker._layer._popup._contentNode).text().trim(), 'Popup content', 'popup content set');
-    });
+    await settled();
+
+    assert.ok(!!marker._layer._popup._map, 'popup opened');
+    assert.equal($(marker._layer._popup._contentNode).text().trim(), 'Popup content', 'popup content set');
   });
 
   test('popup content isn\'t rendered until it is opened (lazy popups)', async function(assert) {
@@ -102,10 +102,10 @@ module('Integration | Component | popup layer', function(hooks) {
       marker._layer.fire('click', { latlng: locations.nyc });
     });
 
-    return settled().then(() => {
-      assert.ok(!!marker._layer._popup._map, 'popup opened');
-      assert.ok(didRun, 'computed property did run');
-    });
+    await settled();
+
+    assert.ok(!!marker._layer._popup._map, 'popup opened');
+    assert.ok(didRun, 'computed property did run');
   });
 
   test('popup opens based on popupOpen', async function(assert) {
@@ -123,24 +123,25 @@ module('Integration | Component | popup layer', function(hooks) {
       {{/leaflet-map}}
     `);
 
-    return settled().then(() => {
-      assert.ok(!!marker._layer._popup._map, 'popup starts open');
-      assert.equal($(marker._layer._popup._contentNode).text().trim(), 'Popup content', 'popup content set');
+    await settled();
 
-      run(() => {
-        this.set('popupOpen', false);
-      });
+    assert.ok(!!marker._layer._popup._map, 'popup starts open');
+    assert.equal($(marker._layer._popup._contentNode).text().trim(), 'Popup content', 'popup content set');
 
-      assert.equal(marker._layer._popup._map, null, 'popup closed');
-
-      run(() => {
-        this.set('popupOpen', true);
-      });
-      return settled();
-    }).then(() => {
-      assert.ok(!!marker._layer._popup._map, 'popup opens again');
-      assert.equal($(marker._layer._popup._contentNode).text().trim(), 'Popup content', 'popup content set');
+    run(() => {
+      this.set('popupOpen', false);
     });
+
+    assert.equal(marker._layer._popup._map, null, 'popup closed');
+
+    run(() => {
+      this.set('popupOpen', true);
+    });
+
+    await settled();
+
+    assert.ok(!!marker._layer._popup._map, 'popup opens again');
+    assert.equal($(marker._layer._popup._contentNode).text().trim(), 'Popup content', 'popup content set');
   });
 
   test('popup closes when layer is destroyed', async function(assert) {
@@ -160,15 +161,15 @@ module('Integration | Component | popup layer', function(hooks) {
       {{/leaflet-map}}
     `);
 
-    return settled().then(() => {
-      let map = marker._layer._map;
-      assert.ok(!!map._popup, 'popup starts open');
-      assert.equal($(map._popup._contentNode).text().trim(), 'Popup content', 'popup content set');
+    await settled();
 
-      this.set('isVisible', false);
+    let map = marker._layer._map;
+    assert.ok(!!map._popup, 'popup starts open');
+    assert.equal($(map._popup._contentNode).text().trim(), 'Popup content', 'popup content set');
 
-      assert.equal(map._popup, null, 'popup closed');
-    });
+    this.set('isVisible', false);
+
+    assert.equal(map._popup, null, 'popup closed');
   });
 
   test('popup closes with yielded action', async function(assert) {
@@ -187,18 +188,14 @@ module('Integration | Component | popup layer', function(hooks) {
       marker._layer.fire('click', { latlng: locations.nyc });
     });
 
-    return settled().then(() => {
-      assert.ok(!!marker._layer._popup._map, 'popup opened');
+    await settled();
 
-      run(async () => {
-        await click('#closeEl');
-      });
+    assert.ok(!!marker._layer._popup._map, 'popup opened');
 
-      return settled();
-    }).then(() => {
-      let map = marker._layer._map;
-      assert.equal(map._popup, null, 'popup closed');
-    });
+    await click('#closeEl');
+
+    let map = marker._layer._map;
+    assert.equal(map._popup, null, 'popup closed');
   });
 
   test('popup options work', async function(assert) {
