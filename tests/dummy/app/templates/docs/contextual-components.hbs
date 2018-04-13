@@ -31,7 +31,7 @@
 {{#code-block language="handlebars"}}
 \{{#leaflet-map lat=lat lng=lng zoom=zoom as |layers|}}
 
-  \{{layers.tile url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
+  \{{layers.tile url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
 
   \{{#layers.marker location=emberConfLocation as |marker|}}
     \{{#marker.popup}}
@@ -55,9 +55,9 @@
 \{{#leaflet-map lat=lat lng=lng zoom=zoom as |layers|}}
 
   \{{#if nightMode}}
-    \{{layers.tile url="http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png"}}
+    \{{layers.tile url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png"}}
   \{{else}}
-    \{{layers.tile url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
+    \{{layers.tile url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
   \{{/if}}
 
   \{{#each restaurants as |r|}}
@@ -135,9 +135,9 @@ export default Ember.Controller.extend({
     {{#leaflet-map lat=lat lng=lng zoom=zoom as |layers|}}
 
       {{#if nightMode}}
-        {{layers.tile url="http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png"}}
+        {{layers.tile url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png"}}
       {{else}}
-        {{layers.tile url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
+        {{layers.tile url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
       {{/if}}
 
       {{#each restaurants as |r|}}
