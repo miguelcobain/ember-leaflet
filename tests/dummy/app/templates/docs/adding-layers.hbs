@@ -18,7 +18,7 @@
 {{#code-sample as |component|}}
   {{#code-block language="handlebars" class=(concat "code-sample-snippet " (if (eq component.activeTab "template") "active"))}}
 \{{#leaflet-map lat=lat lng=lng zoom=zoom}}
-  \{{tile-layer url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
+  \{{tile-layer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
 \{{/leaflet-map}}{{/code-block}}
   {{#code-block language="javascript" class=(concat "code-sample-snippet " (if (eq component.activeTab "javascript") "active"))}}
 export default Ember.Controller.extend({
@@ -28,7 +28,7 @@ export default Ember.Controller.extend({
 });{{/code-block}}
   <div class="code-sample-snippet result {{if (eq component.activeTab "result") "active"}}">
     {{#leaflet-map lat=lat lng=lng zoom=zoom}}
-      {{tile-layer url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
+      {{tile-layer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
     {{/leaflet-map}}
   </div>
 {{/code-sample}}
@@ -42,7 +42,7 @@ export default Ember.Controller.extend({
   {{#code-block language="handlebars" class=(concat "code-sample-snippet " (if (eq component.activeTab "template") "active"))}}
 \{{#leaflet-map lat=lat lng=lng zoom=zoom}}
 
-  \{{tile-layer url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
+  \{{tile-layer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
 
   \{{#marker-layer location=emberConfLocation}}
     \{{#popup-layer}}
@@ -69,7 +69,7 @@ export default Ember.Controller.extend({
 });{{/code-block}}
   <div class="code-sample-snippet result {{if (eq component.activeTab "result") "active"}}">
     {{#leaflet-map lat=lat lng=lng zoom=zoom}}
-      {{tile-layer url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
+      {{tile-layer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
       {{#marker-layer location=emberConfLocation popupOpen=false}}
         {{#popup-layer}}
           <h3>The Oregon Convention Center</h3>

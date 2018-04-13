@@ -18,7 +18,7 @@
   {{#code-block language="handlebars" class=(concat "code-sample-snippet " (if (eq component.activeTab "template") "active"))}}
 &lt;p&gt;Latitude: &lt;code&gt;\{{lat}}&lt;/code&gt; / Longitude: &lt;code&gt;\{{lng}}&lt;/code&gt;&lt;/p&gt;
 \{{#leaflet-map lat=lat lng=lng zoom=zoom onMoveend=(action "updateCenter")}}
-  \{{tile-layer url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
+  \{{tile-layer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
 \{{/leaflet-map}}{{/code-block}}
   {{#code-block language="javascript" class=(concat "code-sample-snippet " (if (eq component.activeTab "javascript") "active"))}}
 export default Ember.Controller.extend({
@@ -36,7 +36,7 @@ export default Ember.Controller.extend({
   <div class="code-sample-snippet result {{if (eq component.activeTab "result") "active"}}">
     <p>Latitude: {{input value=lat}} / Longitude: {{input value=lng}}</p>
     {{#leaflet-map lat=lat lng=lng zoom=zoom onMoveend=(action "updateCenter")}}
-      {{tile-layer url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
+      {{tile-layer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
     {{/leaflet-map}}
   </div>
 {{/code-sample}}

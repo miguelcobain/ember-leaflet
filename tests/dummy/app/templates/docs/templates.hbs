@@ -13,9 +13,9 @@
 \{{#leaflet-map lat=lat lng=lng zoom=zoom}}
 
   \{{#if nightMode}}
-    \{{tile-layer url="http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png"}}
+    \{{tile-layer url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png"}}
   \{{else}}
-    \{{tile-layer url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
+    \{{tile-layer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
   \{{/if}}
 
   \{{#each restaurants as |r|}}
@@ -94,9 +94,9 @@ export default Ember.Controller.extend({
     {{#leaflet-map lat=lat lng=lng zoom=zoom}}
 
       {{#if nightMode}}
-        {{tile-layer url="http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png"}}
+        {{tile-layer url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png"}}
       {{else}}
-        {{tile-layer url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
+        {{tile-layer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
       {{/if}}
 
       {{#each restaurants as |r|}}
