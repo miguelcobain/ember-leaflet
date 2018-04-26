@@ -1,6 +1,7 @@
 'use strict';
 
 const EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
+const crawl = require('prember-crawler');
 
 module.exports = function(defaults) {
   let app = new EmberAddon(defaults, {
@@ -10,6 +11,9 @@ module.exports = function(defaults) {
     'ember-prism': {
       'theme': 'none',
       'components': ['scss', 'javascript', 'handlebars', 'markup-templating', 'bash']
+    },
+    prember: {
+      urls: crawl
     }
   });
 
