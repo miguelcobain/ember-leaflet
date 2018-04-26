@@ -24,7 +24,7 @@
   <ul>
     {{#each leafletProperties as |prop|}}
       <li>
-        <a target="_blank" href="{{leafletUrlPrefix}}-{{lowercase (split prop 0)}}">
+        <a target="_blank" rel="noopener" href="{{leafletUrlPrefix}}-{{lowercase (split prop 0)}}">
           {{split prop 0}}
           <small>(uses {{if (split prop 1) (split prop 1) (concat "set" (classify (split prop 0)))}}())</small>
         </a>
@@ -37,7 +37,7 @@
   <p><strong>{{componentName}}</strong> component supports the following options:</p>
   <ul>
     {{#each leafletOptions as |option|}}
-      <li><a target="_blank" href="{{leafletUrlPrefix}}-{{lowercase option}}">{{option}}</a></li>
+      <li><a target="_blank" rel="noopener" href="{{leafletUrlPrefix}}-{{lowercase option}}">{{option}}</a></li>
     {{/each}}
   </ul>
 {{/if}}
@@ -50,7 +50,7 @@
   </p>
   <ul>
     {{#each leafletStyleProperties as |option|}}
-      <li><a target="_blank" href="{{leafletUrlPrefix}}-{{lowercase option}}">{{option}}</a></li>
+      <li><a target="_blank" rel="noopener" href="{{leafletUrlPrefix}}-{{lowercase option}}">{{option}}</a></li>
     {{/each}}
   </ul>
 {{/if}}
@@ -59,7 +59,7 @@
   <p><strong>{{componentName}}</strong> component supports the following actions:</p>
   <ul>
     {{#each leafletEvents as |event|}}
-      <li><a target="_blank" href="{{leafletUrlPrefix}}-{{lowercase event}}">on{{classify event}}</a></li>
+      <li><a target="_blank" rel="noopener" href="{{leafletUrlPrefix}}-{{lowercase event}}">on{{classify event}}</a></li>
     {{/each}}
   </ul>
 {{/if}}
