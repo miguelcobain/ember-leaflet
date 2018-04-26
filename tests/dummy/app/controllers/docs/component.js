@@ -6,6 +6,10 @@ import { A } from '@ember/array';
 
 let URL_PREFIX = 'http://leafletjs.com/reference-1.0.2.html#';
 
+function getSuperclass(instance) {
+  return instance.constructor.superclass;
+}
+
 export default Controller.extend({
 
   leafletUrlPrefix: computed('componentName', function() {
@@ -43,7 +47,7 @@ export default Controller.extend({
   _subtractSuperClassProps(propName) {
     let component = this.get('component');
     let props = component.get(propName) ? A(component.get(propName).slice(0)) : A();
-    let clazz = component.constructor.superclass.superclass;
+    let clazz = getSuperclass(component);
 
     // subtract superclass properties
     while (clazz !== Component) {
@@ -57,7 +61,7 @@ export default Controller.extend({
 
   superclassName: computed('component', function() {
     let component = this.get('component');
-    let { constructor: { superclass: { superclass } } } = component;
+    let superclass = getSuperclass(component);
     if (superclass !== Component) {
       return this._findClassSource(superclass).split('/').pop();
     } else {
