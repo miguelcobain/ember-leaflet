@@ -14,7 +14,7 @@ module.exports = {
     // to us
   },
 
-  afterInstall: function(options) {
+  afterInstall: function() {
     return this.addPackageToProject('leaflet', '^1.0.0');
   }
 };
