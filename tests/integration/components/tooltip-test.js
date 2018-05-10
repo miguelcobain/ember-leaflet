@@ -1,4 +1,4 @@
-import { computed } from '@ember/object';
+import { computed, defineProperty } from '@ember/object';
 import { run } from '@ember/runloop';
 import { A } from '@ember/array';
 import { module, test } from 'qunit';
@@ -98,7 +98,7 @@ if (!/0.7.\d+/.test(L.version)) {
       let didRun = false;
 
       this.set('markerCenter', locations.nyc);
-      this.set('computedProperty', computed(function() {
+      defineProperty(this, 'computedProperty', computed(function() {
         didRun = true;
       }));
 

@@ -1,4 +1,4 @@
-import { computed } from '@ember/object';
+import { computed, defineProperty } from '@ember/object';
 import { run } from '@ember/runloop';
 import { A } from '@ember/array';
 import { module, test } from 'qunit';
@@ -80,7 +80,7 @@ module('Integration | Component | popup layer', function(hooks) {
     let didRun = false;
 
     this.set('markerCenter', locations.nyc);
-    this.set('computedProperty', computed(function() {
+    defineProperty(this, 'computedProperty', computed(function() {
       didRun = true;
     }));
 
