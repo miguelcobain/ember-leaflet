@@ -18,7 +18,7 @@ export default BaseLayer.extend({
   ]),
 
   leafletProperties: Object.freeze([
-    'url', 'zIndex', 'opacity'
+    'url:setUrl:noRedraw', 'zIndex', 'opacity'
   ]),
 
   createLayer() {
