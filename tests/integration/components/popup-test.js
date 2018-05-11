@@ -229,3 +229,26 @@ module('Integration | Component | popup layer', function(hooks) {
     assert.equal(arrayPath._layer._popup.options.className, 'exists', 'popup class set on array-path');
   });
 });
+
+test('popup works with popupOpen option set and an action on marker', function(assert) {
+  this.set('markerCenter', locations.nyc);
+
+  this.render(hbs`
+    {{#leaflet-map zoom=zoom center=center}}
+      {{#marker-layer location=markerCenter onClick=(action (mut isPropertySet) true)}}
+        {{#popup-layer popupOpen=isPropertySet}}
+          Popup content
+        {{/popup-layer}}
+      {{/marker-layer}}
+    {{/leaflet-map}}
+  `);
+
+  run(() => {
+    marker._layer.fire('click', { latlng: locations.nyc });
+  });
+
+  return wait().then(() => {
+    assert.ok(!!marker._layer._popup._map, 'popup opened');
+    assert.equal(Ember.$(marker._layer._popup._contentNode).text().trim(), 'Popup content', 'popup content set');
+  });
+});
