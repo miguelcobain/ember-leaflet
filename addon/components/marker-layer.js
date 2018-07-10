@@ -11,7 +11,7 @@ export default BaseLayer.extend(DraggabilityMixin, DivOverlayableMixin, {
   ]),
 
   leafletOptions: Object.freeze([
-    'icon', 'clickable', 'draggable', 'keyboard', 'title',
+    'icon', 'clickable', 'interactive', 'draggable', 'keyboard', 'title',
     'alt', 'zIndexOffset', 'opacity', 'riseOnHover', 'riseOffset'
   ]),
 
