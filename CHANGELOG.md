@@ -1,7 +1,19 @@
 # ember-leaflet changelog
 
-### master
+### 3.0.16
+- [ENHANCEMENT] add `interactive` property to marker-layer ([cae4497](https://github.com/miguelcobain/ember-leaflet/commit/cae4497f582a42f917d9ffad480ab8b97b6a51e1))
+
+### 3.0.15
+- [DEPRECATION] fix set computed deprecation and remove getowner polyfill ([aca7659](https://github.com/miguelcobain/ember-leaflet/commit/aca7659f7b3eb42575fc7a3f7c2abac6e692c595))
+- [ENHANCEMENT] add `noRedraw` property to tile-layer ([#198](https://github.com/miguelcobain/ember-leaflet/pull/198))
+
+### 3.0.14
+- [BUGFIX] change ember-invoke-action to caret dependency ([#185](https://github.com/miguelcobain/ember-leaflet/pull/185))
+- [BUGFIX] fix initializer when using older versions of ember-cli-babel ([#190](https://github.com/miguelcobain/ember-leaflet/pull/190))
+
+### 3.0.13
 - [ENHANCEMENT] add `moveend` event to marker-layer ([#174](https://github.com/miguelcobain/ember-leaflet/pull/174))
+- [BUGFIX] fix issue with fastboot and overlay layers ([5c7ec67](https://github.com/miguelcobain/ember-leaflet/commit/5c7ec673feee378a88a60592718b82e97e91b3eb))
 
 ### 3.0.12
 - [ENHANCEMENT] Expose option 'className' for TileLayer ([#151](https://github.com/miguelcobain/ember-leaflet/pull/151))
