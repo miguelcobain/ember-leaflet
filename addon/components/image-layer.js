@@ -9,11 +9,16 @@ export default InteractiveLayer.extend({
   ]),
 
   leafletOptions: Object.freeze([
-    'attribution', 'opacity'
+    'opacity', 'alt', 'crossOrigin',
+    'errorOverlayUrl', 'zIndex', 'className'
   ]),
 
   leafletProperties: Object.freeze([
     'url', 'opacity', 'bounds'
+  ]),
+
+  leafletEvents: Object.freeze([
+    'load', 'error'
   ]),
 
   init() {

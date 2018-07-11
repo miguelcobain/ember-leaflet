@@ -19,11 +19,20 @@ export default Component.extend(ChildMixin, InvokeActionMixin, {
     let owner = getOwner(this);
     return owner.lookup('service:fastboot');
   }),
+
   isFastBoot: computed('fastboot', function() {
     return this.get('fastboot') && this.get('fastboot.isFastBoot');
   }),
 
   concatenatedProperties: ['leafletOptions', 'leafletRequiredOptions', 'leafletEvents', 'leafletProperties'],
+
+  leafletOptions: Object.freeze([
+    'pane', 'attribution'
+  ]),
+
+  leafletEvents: Object.freeze([
+    'add', 'remove'
+  ]),
 
   createLayer() {
     assert('BaseLayer\'s `createLayer` should be overriden.');
@@ -82,8 +91,6 @@ export default Component.extend(ChildMixin, InvokeActionMixin, {
     this.get('parentComponent')._layer.removeLayer(this._layer);
   },
 
-  leafletOptions: A(),
-
   options: computed(function() {
     let leafletOptions = this.get('leafletOptions');
     let options = {};
@@ -107,7 +114,6 @@ export default Component.extend(ChildMixin, InvokeActionMixin, {
     return options;
   }),
 
-  leafletEvents: A(),
   usedLeafletEvents: computed('leafletEvents', function() {
     return this.get('leafletEvents').filter((eventName) => {
       let methodName = `_${eventName}`;
