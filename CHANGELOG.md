@@ -1,5 +1,9 @@
 # ember-leaflet changelog
 
+### 3.0.17
+- [ENHANCEMENT] add interactive layer ([3b61eef](https://github.com/miguelcobain/ember-leaflet/commit/3b61eef7bb3785b97e8a1123beb0b3e639c96ea6))
+- [ENHANCEMENT] add video layer ([367284a](https://github.com/miguelcobain/ember-leaflet/commit/367284aa4d67105f2499aca8ddc4e58d8bd350bf))
+
 ### 3.0.16
 - [ENHANCEMENT] add `interactive` property to marker-layer ([cae4497](https://github.com/miguelcobain/ember-leaflet/commit/cae4497f582a42f917d9ffad480ab8b97b6a51e1))
 
