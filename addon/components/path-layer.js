@@ -1,8 +1,8 @@
-import BaseLayer from 'ember-leaflet/components/base-layer';
+import InteractiveLayer from 'ember-leaflet/components/interactive-layer';
 import DivOverlayableMixin from 'ember-leaflet/mixins/div-overlayable';
 import StyleMixin from 'ember-leaflet/mixins/style';
 
-export default BaseLayer.extend(DivOverlayableMixin, StyleMixin, {
+export default InteractiveLayer.extend(DivOverlayableMixin, StyleMixin, {
 
   leafletOptions: Object.freeze([
     'stroke', 'color', 'weight', 'opacity', 'fill', 'fillColor',
@@ -11,7 +11,6 @@ export default BaseLayer.extend(DivOverlayableMixin, StyleMixin, {
   ]),
 
   leafletEvents: Object.freeze([
-    'click', 'dblclick', 'mousedown', 'mouseover', 'mouseout',
-    'contextmenu', 'add', 'remove', 'popupopen', 'popupclose'
+    'add', 'remove', 'popupopen', 'popupclose'
   ])
 });

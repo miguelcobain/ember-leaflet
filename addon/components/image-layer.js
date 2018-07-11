@@ -1,8 +1,8 @@
 import { deprecate } from '@ember/application/deprecations';
 import { isPresent } from '@ember/utils';
-import BaseLayer from 'ember-leaflet/components/base-layer';
+import InteractiveLayer from 'ember-leaflet/components/interactive-layer';
 
-export default BaseLayer.extend({
+export default InteractiveLayer.extend({
 
   leafletRequiredOptions: Object.freeze([
     'url', 'bounds'
