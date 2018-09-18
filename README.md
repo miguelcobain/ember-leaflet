@@ -23,9 +23,7 @@ yarn add -D leaflet@0.7
 
 ## Support, Questions, Collaboration
 
-Join the [#e-leaflet](https://embercommunity.slack.com/messages/e-leaflet/) channel on Slack.
-
-[![Slack Status](https://ember-community-slackin.herokuapp.com/badge.svg)](https://ember-community-slackin.herokuapp.com/)
+![Discord](https://img.shields.io/discord/480462759797063690.svg?logo=discord) Join Ember on [Discord](https://discord.gg/zT3asNS)
 
 ## Usage
 
