@@ -2353,6 +2353,15 @@ ember-get-config@^0.2.3:
     broccoli-file-creator "^1.1.1"
     ember-cli-babel "^6.3.0"
 
+ember-in-element-polyfill@^0.1.3:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/ember-in-element-polyfill/-/ember-in-element-polyfill-0.1.3.tgz#cacba70c3244a9148c278bce4704c3feb60c6778"
+  dependencies:
+    debug "^3.1.0"
+    ember-cli-babel "^6.6.0"
+    ember-cli-version-checker "^2.1.0"
+    ember-wormhole "^0.5.4"
+
 ember-invoke-action@^1.5.1:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/ember-invoke-action/-/ember-invoke-action-1.5.1.tgz#b6cad51ee729fc227cdbdba83b2b5486f0fa5834"
@@ -2480,9 +2489,9 @@ ember-wormhole@0.5.3:
     ember-cli-babel "^6.8.2"
     ember-cli-htmlbars "^2.0.1"
 
-ember-wormhole@^0.5.2:
-  version "0.5.4"
-  resolved "https://registry.yarnpkg.com/ember-wormhole/-/ember-wormhole-0.5.4.tgz#968e80f093494f4aed266e750afa63919c61383d"
+ember-wormhole@^0.5.4:
+  version "0.5.5"
+  resolved "https://registry.yarnpkg.com/ember-wormhole/-/ember-wormhole-0.5.5.tgz#db417ff748cb21e574cd5f233889897bc27096cb"
   dependencies:
     ember-cli-babel "^6.10.0"
     ember-cli-htmlbars "^2.0.1"
