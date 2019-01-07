@@ -1,11 +1,11 @@
 {{#unless isFastBoot}}
   {{#if shouldRender}}
-    {{#ember-wormhole destinationElement=destinationElement~}}
+    {{#in-element destinationElement~}}
       {{#if closePopup}}
         {{yield (action closePopup)}}
       {{else}}
         {{yield}}
       {{/if}}
-    {{~/ember-wormhole}}
+    {{~/in-element}}
   {{/if}}
 {{/unless}}
