@@ -48,8 +48,8 @@
   Let's revisit the previous example, but now using this feature:
 </p>
 
-{{#code-sample as |component|}}
-  {{#code-block language="handlebars" class=(concat "code-sample-snippet " (if (eq component.activeTab "template") "active"))}}
+{{#code-sample as |c|}}
+  {{#code-block language="handlebars" class=(concat "code-sample-snippet " (if (eq c.activeTab "template") "active"))}}
 &lt;p&gt;&lt;label&gt;\{{input type="checkbox" checked=nightMode}} Night mode&lt;/label&gt;&lt;/p&gt;
 
 \{{#leaflet-map lat=lat lng=lng zoom=zoom as |layers|}}
@@ -87,7 +87,7 @@
     &lt;/li&gt;
   \{{/each}}
 &lt;/ul&gt;{{/code-block}}
-  {{#code-block language="javascript" class=(concat "code-sample-snippet " (if (eq component.activeTab "javascript") "active"))}}
+  {{#code-block language="javascript" class=(concat "code-sample-snippet " (if (eq c.activeTab "javascript") "active"))}}
 export default Ember.Controller.extend({
   lat: 45.528178,
   lng: -122.670059,
@@ -130,7 +130,7 @@ export default Ember.Controller.extend({
   }
 
 });{{/code-block}}
-  <div class="code-sample-snippet result {{if (eq component.activeTab "result") "active"}}">
+  <div class="code-sample-snippet result {{if (eq c.activeTab "result") "active"}}">
     <p><label>{{input type="checkbox" checked=nightMode}} Night mode</label></p>
     {{#leaflet-map lat=lat lng=lng zoom=zoom as |layers|}}
 
