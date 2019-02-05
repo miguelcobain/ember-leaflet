@@ -2753,8 +2753,9 @@ ember-cli-broccoli-sane-watcher@^2.0.4:
     sane "^2.4.1"
 
 ember-cli-custom-assertions@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/ember-cli-custom-assertions/-/ember-cli-custom-assertions-0.1.0.tgz#99a38ae3aa3adf72057b916d841c92bbeaf8b95d"
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/ember-cli-custom-assertions/-/ember-cli-custom-assertions-0.1.1.tgz#b377393072436c8ea5642d199af25378f4bae0eb"
+  integrity sha512-dsH4g3du7QmXZGkMxA01RIg+vYobnJc5tNKUN6qkczEQVe9S3r4EJU9dCX2HLAdNCNtOJ+ZKntYR63YMDZLwcg==
   dependencies:
     ember-cli-babel "^6.6.0"
     ember-cli-string-utils "^1.0.0"
