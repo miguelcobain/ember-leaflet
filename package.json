@@ -28,7 +28,7 @@
     "ember-cli-dependency-checker": "^3.1.0",
     "ember-cli-eslint": "^4.2.1",
     "ember-cli-fastboot": "^1.1.4-beta.1",
-    "ember-cli-htmlbars-inline-precompile": "^1.0.2",
+    "ember-cli-htmlbars-inline-precompile": "^2.1.0",
     "ember-cli-inject-live-reload": "^1.4.1",
     "ember-cli-is-component": "^0.5.0",
     "ember-cli-qunit": "^4.3.2",
@@ -56,7 +56,7 @@
   "dependencies": {
     "broccoli-funnel": "^1.2.0",
     "broccoli-merge-trees": "^1.2.4",
-    "ember-cli-babel": "^6.10.0",
+    "ember-cli-babel": "^7.4.1",
     "ember-cli-htmlbars": "^2.0.1",
     "ember-cli-version-checker": "^2.1.0",
     "ember-composability-tools": "^0.0.11",
