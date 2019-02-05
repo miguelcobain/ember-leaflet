@@ -6278,9 +6278,10 @@ prember-crawler@^0.1.0:
   dependencies:
     jsdom "^11.5.1"
 
-prember@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/prember/-/prember-0.4.0.tgz#55607d74babe74958e0c08d78da66e002dc02bea"
+prember@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/prember/-/prember-1.0.2.tgz#a50a3f4fcd07fa1fc697d67a2d3c73b480e796cf"
+  integrity sha512-GMEzQOij2dJ7M+/86ZUD1D/bmLGe4vTxfPmEbhO2Ap6UfnqHqkUDSWaDlK4AaHSbx999DZFbArCnYaGEOb4WZw==
   dependencies:
     broccoli-debug "^0.6.3"
     broccoli-merge-trees "^2.0.0"
