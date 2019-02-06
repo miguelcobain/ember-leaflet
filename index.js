@@ -7,7 +7,7 @@ const VersionChecker = require('ember-cli-version-checker');
 const fastbootTransform = require('fastboot-transform');
 
 module.exports = {
-  name: 'ember-leaflet',
+  name: require('./package').name,
 
   treeForVendor() {
     let dist = path.join(this.pathBase('leaflet'), 'dist');

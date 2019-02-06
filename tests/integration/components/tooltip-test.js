@@ -12,7 +12,6 @@ import {
 import MarkerLayerComponent from 'ember-leaflet/components/marker-layer';
 import ArrayPathLayerComponent from 'ember-leaflet/components/array-path-layer';
 import locations from '../../helpers/locations';
-import $ from 'jquery';
 /* global L */
 
 // Needed to silence leaflet autodetection error
@@ -74,7 +73,7 @@ if (!/0.7.\d+/.test(L.version)) {
       await settled();
 
       assert.ok(!!marker._layer._tooltip._map, 'tooltip opened');
-      assert.equal($(marker._layer._tooltip._contentNode).text().trim(), 'Tooltip content', 'tooltip content set');
+      assert.dom(marker._layer._tooltip._contentNode).hasText('Tooltip content', 'tooltip content set');
     });
 
     test('tooltip works with permanent=true', async function(assert) {
@@ -91,7 +90,7 @@ if (!/0.7.\d+/.test(L.version)) {
       `);
 
       assert.ok(!!marker._layer._tooltip._map, 'tooltip opened');
-      assert.equal($(marker._layer._tooltip._contentNode).text().trim(), 'Tooltip content', 'tooltip content set');
+      assert.dom(marker._layer._tooltip._contentNode).hasText('Tooltip content', 'tooltip content set');
     });
 
     test('tooltip content isn\'t rendered until it is opened (lazy tooltips)', async function(assert) {
@@ -151,7 +150,7 @@ if (!/0.7.\d+/.test(L.version)) {
 
       let tooltip = marker._layer._tooltip;
       assert.ok(!!tooltip._map, 'tooltip opened');
-      assert.equal($(tooltip._contentNode).text().trim(), 'Tooltip content', 'tooltip content set');
+      assert.dom(tooltip._contentNode).hasText('Tooltip content', 'tooltip content set');
 
       this.set('isVisible', false);
 

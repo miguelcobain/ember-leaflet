@@ -3,6 +3,7 @@ import { observer } from '@ember/object';
 
 export default Mixin.create({
 
+  // eslint-disable-next-line ember/no-observers
   draggableDidChange: observer('draggable', function() {
     if (this.get('draggable')) {
       this._layer.dragging.enable();

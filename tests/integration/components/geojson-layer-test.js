@@ -49,13 +49,12 @@ module('Integration | Component | geojson layer', function(hooks) {
     `);
 
     // renders polygon as SVG:
-    let polygonPath = this.$('path');
-
-    assert.strictEqual(polygonPath.length, 1);
+    assert.dom('path').exists({ count: 1 });
 
     // this property should have *something* in it if we've done our job, leave it
     // to Leaflet to test that the GeoJSONLayer populates it correctly
-    assert.ok(polygonPath.attr('d'));
+    assert.dom('path').hasAttribute('d');
+
 
     // renders point as marker:
     let markers = geoJSONLayer._layer.getLayers().filter(
@@ -79,8 +78,7 @@ module('Integration | Component | geojson layer', function(hooks) {
     // entirely.
     this.set('sampleGeoJSON', emptyGeoJSON);
 
-    let polygonPath = this.$('path');
-    assert.strictEqual(polygonPath.length, 0);
+    assert.dom('path').doesNotExist();
 
     let markers = geoJSONLayer._layer.getLayers().filter(
       (layer) => layer instanceof L.Marker);
@@ -95,12 +93,10 @@ module('Integration | Component | geojson layer', function(hooks) {
       {{/leaflet-map}}
     `);
 
-    let polygonPath = this.$('path');
-    assert.strictEqual(polygonPath.length, 1);
+    assert.dom('path').exists({ count: 1 });
 
     this.set('color', 'red');
 
-    polygonPath = this.$('path');
-    assert.strictEqual(polygonPath.length, 1);
+    assert.dom('path').exists({ count: 1 });
   });
 });

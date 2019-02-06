@@ -32,6 +32,7 @@ export default InteractiveLayer.extend(DraggabilityMixin, DivOverlayableMixin, {
 
   // icon observer separated from generated (leaflet properties) due to a
   // leaflet bug where draggability is lost on icon change
+  // eslint-disable-next-line ember/no-observers
   iconDidChange: observer('icon', function() {
     this._layer.setIcon(this.get('icon'));
 

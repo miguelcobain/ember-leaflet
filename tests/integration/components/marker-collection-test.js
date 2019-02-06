@@ -9,7 +9,6 @@ import {
 } from '../../assertions';
 import MarkerLayerComponent from 'ember-leaflet/components/marker-layer';
 import locations from '../../helpers/locations';
-import $ from 'jquery';
 /* global L */
 
 // Needed to silence leaflet autodetection error
@@ -128,7 +127,7 @@ module('Integration | Component | marker layer collection', function(hooks) {
     await settled();
 
     assert.ok(!!markers[2]._layer._popup._map, 'marker added to map');
-    assert.equal($(markers[2]._layer._popup._contentNode).text().trim(), 'Popup content', 'popup content set');
+    assert.dom(markers[2]._layer._popup._contentNode).hasText('Popup content', 'popup content set');
 
     this.set('markers', [
       restaurant1,
@@ -141,6 +140,6 @@ module('Integration | Component | marker layer collection', function(hooks) {
     assert.equal(destroyLayersCount, 1);
 
     assert.ok(!!markers[2]._layer._popup._map, 'marker added to map');
-    assert.equal($(markers[2]._layer._popup._contentNode).text().trim(), 'Popup content', 'popup content set');
+    assert.dom(markers[2]._layer._popup._contentNode).hasText('Popup content', 'popup content set');
   });
 });

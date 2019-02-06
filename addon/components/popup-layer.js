@@ -22,6 +22,7 @@ export default DivOverlayLayer.extend({
     this._layer._close();
   },
 
+  // eslint-disable-next-line ember/no-observers
   popupOpenDidChange: observer('popupOpen', function() {
     if (this.get('popupOpen')) {
       if (!this.isOpen()) {

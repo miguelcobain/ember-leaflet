@@ -12,7 +12,6 @@ import {
 import MarkerLayerComponent from 'ember-leaflet/components/marker-layer';
 import ArrayPathLayerComponent from 'ember-leaflet/components/array-path-layer';
 import locations from '../../helpers/locations';
-import $ from 'jquery';
 /* global L */
 
 // Needed to silence leaflet autodetection error
@@ -73,7 +72,7 @@ module('Integration | Component | popup layer', function(hooks) {
     await settled();
 
     assert.ok(!!marker._layer._popup._map, 'popup opened');
-    assert.equal($(marker._layer._popup._contentNode).text().trim(), 'Popup content', 'popup content set');
+    assert.dom(marker._layer._popup._contentNode).hasText('Popup content', 'popup content set');
   });
 
   test('popup content isn\'t rendered until it is opened (lazy popups)', async function(assert) {
@@ -126,7 +125,7 @@ module('Integration | Component | popup layer', function(hooks) {
     await settled();
 
     assert.ok(!!marker._layer._popup._map, 'popup starts open');
-    assert.equal($(marker._layer._popup._contentNode).text().trim(), 'Popup content', 'popup content set');
+    assert.dom(marker._layer._popup._contentNode).hasText('Popup content', 'popup content set');
 
     run(() => {
       this.set('popupOpen', false);
@@ -141,7 +140,7 @@ module('Integration | Component | popup layer', function(hooks) {
     await settled();
 
     assert.ok(!!marker._layer._popup._map, 'popup opens again');
-    assert.equal($(marker._layer._popup._contentNode).text().trim(), 'Popup content', 'popup content set');
+    assert.dom(marker._layer._popup._contentNode).hasText('Popup content', 'popup content set');
   });
 
   test('popup closes when layer is destroyed', async function(assert) {
@@ -165,7 +164,7 @@ module('Integration | Component | popup layer', function(hooks) {
 
     let map = marker._layer._map;
     assert.ok(!!map._popup, 'popup starts open');
-    assert.equal($(map._popup._contentNode).text().trim(), 'Popup content', 'popup content set');
+    assert.dom(map._popup._contentNode).hasText('Popup content', 'popup content set');
 
     this.set('isVisible', false);
 
