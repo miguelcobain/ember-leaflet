@@ -1,5 +1,9 @@
 # ember-leaflet changelog
 
+### 3.0.18
+- [BUGFIX] `icon` and `div-icon` helpers now use proper objects (this makes the library compatible with old versions of leaflet) ([e53fd87](https://github.com/miguelcobain/ember-leaflet/commit/e53fd8745470435f8c86e1f3c5002ca6201360c0))
+- [ENHANCEMENT] bump ember/ember-cli and dependencies ([c03e628](https://github.com/miguelcobain/ember-leaflet/commit/c03e628a2aece9e1b9da1eb6a30862d87508038f))
+
 ### 3.0.17
 - [ENHANCEMENT] add interactive layer ([3b61eef](https://github.com/miguelcobain/ember-leaflet/commit/3b61eef7bb3785b97e8a1123beb0b3e639c96ea6))
 - [ENHANCEMENT] add video layer ([367284a](https://github.com/miguelcobain/ember-leaflet/commit/367284aa4d67105f2499aca8ddc4e58d8bd350bf))
