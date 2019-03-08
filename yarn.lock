@@ -5391,11 +5391,11 @@ ember-cli-version-checker@^2.0.0, ember-cli-version-checker@^2.1.0, ember-cli-ve
     semver "^5.3.0"
 
 ember-cli-version-checker@^3.0.0, ember-cli-version-checker@^3.0.1:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/ember-cli-version-checker/-/ember-cli-version-checker-3.1.0.tgz#b18c91f1ed19dfac8b12c42ed40bba9b751f68e2"
-  integrity sha512-ZYr6fpddV6nbfLKbyH4tJUXeZq+FLZkYBvzhbOn0SVCeEy+Zh/cIyCnccBYg8VzmRuSGU2HgPOiKFdiStDf9WQ==
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/ember-cli-version-checker/-/ember-cli-version-checker-3.1.2.tgz#baee5cc621d5259d9011b5ef60fe6fbe61bd57c7"
+  integrity sha512-SNY7757cqj5GmES9dlWb43aWoGUcc+keniu+Rvsl/C/TnSK99edgL6eG4+Zr0ESeJ1hEcI3UrHN/8GIcK5eJUQ==
   dependencies:
-    resolve-package-path "^1.0.6"
+    resolve-package-path "^1.1.1"
     semver "^5.6.0"
 
 ember-cli@~3.8.1:
@@ -11196,10 +11196,10 @@ resolve-from@^4.0.0:
   resolved "https://registry.yarnpkg.com/resolve-from/-/resolve-from-4.0.0.tgz#4abcd852ad32dd7baabfe9b40e00a36db5f392e6"
   integrity sha512-pb/MYmXstAkysRFx8piNI1tGFNQIFA3vkE3Gq4EuA1dF6gHp/+vgZqsCGJapvy8N3Q+4o7FwvquPJcnZ7RYy4g==
 
-resolve-package-path@^1.0.6:
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/resolve-package-path/-/resolve-package-path-1.0.7.tgz#8a0be5165a95bb056580129a422ca89bf4dcae02"
-  integrity sha512-a9WCtYh41TQVAT/PBF32GdkpoGi9IG8chSHaMkBz6+IdK5C4aPhuWWfS7wuO8nhG+N988xWHdM2teHBhPZ3Ucg==
+resolve-package-path@^1.1.1:
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/resolve-package-path/-/resolve-package-path-1.2.4.tgz#814c5fcfb5f6e4151d95ec6e5653707c43706670"
+  integrity sha512-AOIfR/AauBM1w1Oq9swqGxUjL4PW7bMztN7UCQ4KWg9AR2t03bGb9faegZbE0meAOHlntAni/4kXkcsQ7dWLPQ==
   dependencies:
     path-root "^0.1.1"
     resolve "^1.10.0"
