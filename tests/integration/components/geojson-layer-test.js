@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import {
   assertionInjector,
@@ -98,5 +98,35 @@ module('Integration | Component | geojson layer', function(hooks) {
     this.set('color', 'red');
 
     assert.dom('path').exists({ count: 1 });
+  });
+
+  test('update color on event', async function(assert) {
+    this.set('color', 'green');
+
+    await render(hbs`
+      {{#leaflet-map zoom=zoom center=center}}
+        {{geojson-layer geoJSON=sampleGeoJSON color=color fillColor=color
+          onMouseover=(action (mut color) "red")
+          onMouseout=(action (mut color) "blue")}}
+      {{/leaflet-map}}
+    `);
+
+    assert.dom('path').exists({ count: 1 });
+    assert.dom('path').hasAttribute('stroke', 'green', 'Original stroke set');
+    assert.dom('path').hasAttribute('fill', 'green', 'Original fill set');
+
+    geoJSONLayer._layer.fire('mouseover');
+    await settled();
+
+    assert.equal(this.color, 'red', 'action triggered');
+    assert.dom('path').hasAttribute('stroke', 'red', 'Mouseover stroke set');
+    assert.dom('path').hasAttribute('fill', 'red', 'Mouseover fill set');
+
+    geoJSONLayer._layer.fire('mouseout');
+    await settled();
+
+    assert.equal(this.color, 'blue', 'action triggered');
+    assert.dom('path').hasAttribute('stroke', 'blue', 'Mouseleave stroke set');
+    assert.dom('path').hasAttribute('fill', 'blue', 'Mouseleave fill set');
   });
 });

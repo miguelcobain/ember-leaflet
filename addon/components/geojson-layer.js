@@ -44,6 +44,10 @@ export default BaseLayer.extend(DivOverlayableMixin, StyleMixin, {
     // their contents first...
     this._layer.clearLayers();
 
+    // we need to update the group layers options before re-adding geojson
+    // otherwise, they wouldn't get the changes that could be happening meanwhile
+    this._layer.options = this.get('options');
+
     if (geoJSON) {
       // ...then add new data to recreate the child layers in an updated form
       this._layer.addData(geoJSON);

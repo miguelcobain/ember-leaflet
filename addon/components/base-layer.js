@@ -100,7 +100,7 @@ export default Component.extend(ChildMixin, InvokeActionMixin, {
       }
     });
     return options;
-  }),
+  }).volatile(),
 
   leafletRequiredOptions: A(),
 
