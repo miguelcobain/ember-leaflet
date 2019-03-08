@@ -1,0 +1,1 @@
+This helper returns an [`L.Point`](http://leafletjs.com/reference.html#point) instance.

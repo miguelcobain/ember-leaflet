@@ -1,13 +1,14 @@
-import EmberRouter from '@ember/routing/router';
+import AddonDocsRouter, { docsRoute } from 'ember-cli-addon-docs/router';
+import RouterScroll from 'ember-router-scroll';
 import config from './config/environment';
 
-const Router = EmberRouter.extend({
+const Router = AddonDocsRouter.extend(RouterScroll, {
   location: config.locationType,
   rootURL: config.rootURL
 });
 
 Router.map(function() {
-  this.route('docs', function() {
+  docsRoute(this, function() {
     // GETTING STARTED
     // index.hbs is "Overview"
     this.route('installation');
@@ -15,7 +16,6 @@ Router.map(function() {
     this.route('adding-layers');
     this.route('actions');
     this.route('templates');
-    this.route('contextual-components');
 
     // COMPONENTS
     this.route('component', { path: ':component_name' });
@@ -25,6 +25,8 @@ Router.map(function() {
   });
 
   this.route('addons');
+
+  this.route('not-found', { path: '/*path' });
 });
 
 export default Router;

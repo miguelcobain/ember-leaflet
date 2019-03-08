@@ -1,5 +1,5 @@
 import { reads } from '@ember/object/computed';
-import { run } from '@ember/runloop';
+import { next } from '@ember/runloop';
 import DivOverlayLayer from 'ember-leaflet/components/div-overlay-layer';
 
 export default DivOverlayLayer.extend({
@@ -19,10 +19,6 @@ export default DivOverlayLayer.extend({
     this._addPopupListeners();
   },
 
-  willDestroyLayer() {
-    this._removePopupListeners();
-  },
-
   addToContainer() {
     this.get('parentComponent')._layer.bindTooltip(this._layer);
   },
@@ -33,6 +29,7 @@ export default DivOverlayLayer.extend({
 
   _onLayerRemove({ layer }) {
     if (layer === this._layer) {
+      this._removePopupListeners();
       this.set('shouldRender', false);
     }
   },
@@ -43,22 +40,21 @@ export default DivOverlayLayer.extend({
     // This way, the popup will set its dimensions according to the rendered DOM.
     let oldOnAdd = this._layer.onAdd;
     this._layer.onAdd = (map) => {
+      // we need to user `layerremove` event becase it's the only one that fires
+      // *after* the popup was completely removed from the map
+      map.addEventListener('layerremove', this._onLayerRemove, this);
       // trigger _initLayout manually, otherwise Tooltip doesn't have the container set
       // to calculate initial position
       if (!this._layer._container) {
         this._layer._initLayout();
       }
-      // this will make wormwhole render to the document fragment
+      // this will make in-element render to the document fragment
       this.set('shouldRender', true);
       // ember-wormhole will render on the afterRender queue, so we need to render after that
-      run.next(() => {
+      next(() => {
         oldOnAdd.call(this._layer, map);
       });
     };
-    // we need to user `layerremove` event becase it's the only one that fires
-    // *after* the popup was completely removed from the map
-    let parentComponent = this.get('parentComponent');
-    parentComponent._layer._map.addEventListener('layerremove', this._onLayerRemove, this);
   },
 
   _removePopupListeners() {

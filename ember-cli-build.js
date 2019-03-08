@@ -8,12 +8,18 @@ module.exports = function(defaults) {
     fingerprint: {
       exclude: ['assets/images']
     },
-    'ember-prism': {
-      'theme': 'none',
-      'components': ['scss', 'javascript', 'handlebars', 'markup-templating', 'bash']
+    'ember-cli-favicon': {
+      faviconsConfig: {
+        path: '/ADDON_DOCS_ROOT_URL'
+      }
     },
     prember: {
       urls: crawl
+    },
+    babel: {
+      plugins: [
+        '@babel/plugin-proposal-class-properties'
+      ]
     }
   });
 

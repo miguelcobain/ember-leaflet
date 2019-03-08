@@ -2,7 +2,7 @@ import { assert } from '@ember/debug';
 import { computed } from '@ember/object';
 import Component from '@ember/component';
 import { getOwner } from '@ember/application';
-import { run } from '@ember/runloop';
+import { scheduleOnce } from '@ember/runloop';
 import { A } from '@ember/array';
 import { classify } from '@ember/string';
 import { ChildMixin } from 'ember-composability-tools';
@@ -130,12 +130,12 @@ export default Component.extend(ChildMixin, InvokeActionMixin, {
       let methodName = `_${eventName}`;
       // create an event handler that runs the function inside an event loop.
       this._eventHandlers[eventName] = function(e) {
-        run(() => {
+        scheduleOnce('actions', () => {
           // try to invoke/send an action for this event
           this.invokeAction(actionName, e);
           // allow classes to add custom logic on events as well
           if (typeof this[methodName] === 'function') {
-            run(this, this[methodName], e);
+            this[methodName](e);
           }
         });
       };

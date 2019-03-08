@@ -1,25 +1,21 @@
-
-@import "variables";
-@import "base";
-@import "utilities";
-@import "prism-theme";
-
-@import "header";
-@import "footer";
-@import "side-nav";
-@import "code-sample";
-
-@import "index";
-@import "docs";
-
-body  > .ember-view {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
+:root {
+  --brand-primary: #1EB300;
 }
 
-.main-content {
-  flex: 1; // Expand to fix all available vertical space
+body {
+  font-family:
+    'Roboto',
+    'system-ui',
+    'BlinkMacSystemFont',
+    '-apple-system',
+    'Segoe UI',
+    'Oxygen',
+    'Ubuntu',
+    'Cantarell',
+    'Fira Sans',
+    'Droid Sans',
+    'Helvetica Neue',
+    'sans-serif';
 }
 
 .leaflet-container {
@@ -33,12 +29,45 @@ body  > .ember-view {
   }
 }
 
-.leaflet-popup {
-  input {
-    font-weight: bold;
-    font-size: 14px;
+.main-page-map {
+  height: 400px;
+}
+
+.main-page-headline > div {
+  position: absolute;
+  margin-top: -400px;
+  width: 100%;
+  //background-color: rgba(0,0,0,0.2);
+  background-image: linear-gradient(0,transparent 0,rgba(0,0,0,.5) 100%);
+  background-color: transparent !important;
+  pointer-events: none;
+  z-index: 400;
+
+  a, button {
+    pointer-events: auto;
   }
-  h1, h2, h3, h4 {
-    margin: 0;
+}
+
+
+// Selling points
+.selling-point-icon {
+  width: 150px;
+  height: 150px;
+  margin: 25px auto;
+}
+.selling-point-code {
+  color: #CCC;
+  padding: 0;
+  font-size: 25px;
+  font-family: monospace;
+  padding: 40px 0;
+  white-space: nowrap;
+  text-align: center;
+  @media only screen and (min-width: 520px) and (max-width: 768px) {
+    font-size: 18px;
   }
+}
+
+.docs-font-title {
+  font-family: inherit;
 }

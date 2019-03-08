@@ -1,5 +1,5 @@
 import { observer } from '@ember/object';
-import { run } from '@ember/runloop';
+import { later, cancel, next } from '@ember/runloop';
 import DivOverlayLayer from 'ember-leaflet/components/div-overlay-layer';
 
 export default DivOverlayLayer.extend({
@@ -53,7 +53,6 @@ export default DivOverlayLayer.extend({
   },
 
   willDestroyLayer() {
-    this._removePopupListeners();
     this.closePopup();
   },
 
@@ -67,8 +66,9 @@ export default DivOverlayLayer.extend({
 
   _onLayerRemove({ layer }) {
     if (layer === this._layer) {
+      this._removePopupListeners();
       if (this.get('parentComponent')._layer._map._fadeAnimated) {
-        this._destroyAfterAnimation = run.later(() => {
+        this._destroyAfterAnimation = later(() => {
           if (!this.get('isDestroyed') && !this.get('isDestroying')) {
             this.set('shouldRender', false);
           }
@@ -85,19 +85,18 @@ export default DivOverlayLayer.extend({
     // This way, the popup will set its dimensions according to the rendered DOM.
     let oldOnAdd = this._layer.onAdd;
     this._layer.onAdd = (map) => {
+      // we need to user `layerremove` event becase it's the only one that fires
+      // *after* the popup was completely removed from the map
+      map.addEventListener('layerremove', this._onLayerRemove, this);
       // if we're currently waiting for the animation to end, cancel the wait
-      run.cancel(this._destroyAfterAnimation);
-      // this will make wormwhole render to the document fragment
+      cancel(this._destroyAfterAnimation);
+      // this will make in-element render to the document fragment
       this.set('shouldRender', true);
       // ember-wormhole will render on the afterRender queue, so we need to render after that
-      run.next(() => {
+      next(() => {
         oldOnAdd.call(this._layer, map);
       });
     };
-    // we need to user `layerremove` event becase it's the only one that fires
-    // *after* the popup was completely removed from the map
-    let parentComponent = this.get('parentComponent');
-    parentComponent._layer._map.addEventListener('layerremove', this._onLayerRemove, this);
   },
 
   _removePopupListeners() {

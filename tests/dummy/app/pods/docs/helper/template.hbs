@@ -1,0 +1,9 @@
+<div class="docs-md">
+
+  <h1 class="docs-md__h1">{{concat "{{" helperName "}}"}}</h1>
+
+  {{#if (is-component (concat helperName "-example"))}}
+    {{component (concat helperName "-example")}}
+  {{/if}}
+
+</div>
