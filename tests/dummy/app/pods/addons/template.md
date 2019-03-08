@@ -11,8 +11,8 @@ Leaflet plugins are good candidates for ember-leaflet addons.
 
 This concept follows the lead of the great [ember-power-select](http://www.ember-power-select.com) and [ember-cli-deploy](http://ember-cli.github.io/ember-cli-deploy/).
 
-This addon list is auto generated from npm registry. If you made an addon and want it to show up here you just need to name
-it starting with `ember-leaflet-` and have an `ember-leaflet` keyword.
+This addon list is auto generated from npm registry. If you made an addon and want it to show up here checkout
+the instructions {{#docs-link "docs.addons"}}here{{/docs-link}}.
 
 ### Addons:
 
