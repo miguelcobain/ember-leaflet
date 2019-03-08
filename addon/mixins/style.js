@@ -32,6 +32,10 @@ export default Mixin.create({
   },
 
   _removeStyleObservers() {
+    if (!this._styleObservers) {
+      return;
+    }
+
     this.get('leafletStyleProperties').forEach(function(property) {
       this.removeObserver(property, this, this._styleObservers[property]);
       delete this._styleObservers[property];
