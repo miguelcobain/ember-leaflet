@@ -3,6 +3,7 @@ import {
   merge as emberMerge,
   assign as emberAssign
 } from '@ember/polyfills';
+import { inject as service } from '@ember/service';
 import BaseLayer from 'ember-leaflet/components/base-layer';
 import { ParentMixin } from 'ember-composability-tools';
 import toLatLng from 'ember-leaflet/macros/to-lat-lng';
@@ -12,6 +13,8 @@ const assign = emberAssign || emberMerge;
 export default BaseLayer.extend(ParentMixin, {
   tagName: 'div',
   layout,
+
+  emberLeaflet: service(),
 
   leafletOptions: Object.freeze([
     // Map state options

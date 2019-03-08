@@ -1,4 +1,4 @@
-{{yield (hash
+{{#with (hash
   tile=(component "tile-layer" parentComponent=this)
   wms-tile=(component "wms-tile-layer" parentComponent=this)
   marker=(component "marker-layer" parentComponent=this)
@@ -12,7 +12,22 @@
 
   wmsTile=(component "wms-tile-layer" parentComponent=this)
   geoJSON=(component "geojson-layer" parentComponent=this)
-)}}
+) as |components|}}
+
+  {{!--
+    Here we need to create the addon registered contextual components to yield later
+  --}}
+  {{#each emberLeaflet.components as |c|}}
+    {{ember-leaflet-assign-to
+      components
+      key=c.as
+      value=(component c.name parentComponent=this)
+      onChange=(action (mut mergedComponents))}}
+  {{/each}}
+
+  {{yield mergedComponents}}
+{{/with}}
+
 {{!--
   `wmsTile` and `geoJSON` are provided for backwards compatibility reasons.
   Contextual component names should have the same name as non-contextuals
