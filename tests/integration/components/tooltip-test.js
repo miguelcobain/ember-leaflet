@@ -13,13 +13,14 @@ import MarkerLayerComponent from 'ember-leaflet/components/marker-layer';
 import ArrayPathLayerComponent from 'ember-leaflet/components/array-path-layer';
 import locations from '../../helpers/locations';
 /* global L */
+import isLeaflet07 from '../../helpers/is-leaflet-0.7';
 
 // Needed to silence leaflet autodetection error
 L.Icon.Default.imagePath = 'some-path';
 
 let marker, arrayPath;
 
-if (!/0.7.\d+/.test(L.version)) {
+if (!isLeaflet07(L)) {
   module('Integration | Component | tooltip layer', function(hooks) {
     setupRenderingTest(hooks);
 

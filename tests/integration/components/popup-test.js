@@ -1,7 +1,7 @@
 import { computed, defineProperty } from '@ember/object';
 import { run } from '@ember/runloop';
 import { A } from '@ember/array';
-import { module, test } from 'qunit';
+import { module, test, skip } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, settled, click } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
@@ -13,6 +13,7 @@ import MarkerLayerComponent from 'ember-leaflet/components/marker-layer';
 import ArrayPathLayerComponent from 'ember-leaflet/components/array-path-layer';
 import locations from '../../helpers/locations';
 /* global L */
+import isLeaflet07 from '../../helpers/is-leaflet-0.7';
 
 // Needed to silence leaflet autodetection error
 L.Icon.Default.imagePath = 'some-path';
@@ -228,7 +229,7 @@ module('Integration | Component | popup layer', function(hooks) {
     assert.equal(arrayPath._layer._popup.options.className, 'exists', 'popup class set on array-path');
   });
 
-  test('popup is compatible with markerClusterLayer', async function(assert) {
+  (isLeaflet07(L) ? skip : test)('popup is compatible with markerClusterLayer', async function(assert) {
     this.set('markerCenter', locations.nyc);
 
     await render(hbs`
