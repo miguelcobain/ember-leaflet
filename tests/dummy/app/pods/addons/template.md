@@ -23,22 +23,3 @@ it starting with `ember-leaflet-` and have an `ember-leaflet` keyword.
 </ul>
 
 </section>
-
-{{input type="checkbox" checked=showMarker}}
-
-{{#leaflet-map maxZoom=16 zoom=14 lat=45.528178 lng=-122.670059}}
-  {{#marker-cluster-layer}}
-    {{#if showMarker}}
-      {{#marker-layer lat=45.528178 lng=-122.670059 as |marker|}}
-        {{#marker.popup}}
-          Popup content
-        {{/marker.popup}}
-      {{/marker-layer}}
-    {{/if}}
-    {{#marker-layer lat=45.528178 lng=-122.670059 as |marker|}}
-      {{#marker.popup}}
-        Popup content
-      {{/marker.popup}}
-    {{/marker-layer}}
-  {{/marker-cluster-layer}}
-{{/leaflet-map}}
