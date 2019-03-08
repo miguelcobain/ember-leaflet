@@ -55,8 +55,6 @@
     "eslint-plugin-node": "^8.0.1",
     "leaflet": "^1.4.0",
     "loader.js": "^4.7.0",
-    "prember": "^1.0.2",
-    "prember-crawler": "^0.1.0",
     "qunit-dom": "^0.8.4",
     "sass": "^1.17.2"
   },

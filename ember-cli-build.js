@@ -1,7 +1,6 @@
 'use strict';
 
 const EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
-const crawl = require('prember-crawler');
 
 module.exports = function(defaults) {
   let app = new EmberAddon(defaults, {
@@ -12,9 +11,6 @@ module.exports = function(defaults) {
       faviconsConfig: {
         path: '/ADDON_DOCS_ROOT_URL'
       }
-    },
-    prember: {
-      urls: crawl
     },
     babel: {
       plugins: [
