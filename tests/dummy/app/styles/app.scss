@@ -71,3 +71,7 @@ body {
 .docs-font-title {
   font-family: inherit;
 }
+
+.ember-modal-dialog {
+  z-index: 401;
+}
