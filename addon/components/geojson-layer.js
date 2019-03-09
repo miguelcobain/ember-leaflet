@@ -26,6 +26,10 @@ export default BaseLayer.extend(DivOverlayableMixin, StyleMixin, {
     'contextmenu', 'add', 'remove', 'popupopen', 'popupclose'
   ]),
 
+  leafletProperties: Object.freeze([
+    'style'
+  ]),
+
   didUpdateAttrs() {
     this._super(...arguments);
 

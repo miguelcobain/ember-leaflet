@@ -129,4 +129,34 @@ module('Integration | Component | geojson layer', function(hooks) {
     assert.dom('path').hasAttribute('stroke', 'blue', 'Mouseleave stroke set');
     assert.dom('path').hasAttribute('fill', 'blue', 'Mouseleave fill set');
   });
+
+  test('update color on style function change', async function(assert) {
+    this.style = function() {
+      return { color: 'green', fillColor: 'green' };
+    };
+
+    await render(hbs`
+      {{#leaflet-map zoom=zoom center=center}}
+        {{geojson-layer geoJSON=sampleGeoJSON style=style}}
+      {{/leaflet-map}}
+    `);
+
+    assert.dom('path').exists({ count: 1 });
+    assert.dom('path').hasAttribute('stroke', 'green', 'Original stroke set');
+    assert.dom('path').hasAttribute('fill', 'green', 'Original fill set');
+
+    this.set('style', function() {
+      return { color: 'red', fillColor: 'red' };
+    });
+
+    assert.dom('path').hasAttribute('stroke', 'red', 'Mouseover stroke set');
+    assert.dom('path').hasAttribute('fill', 'red', 'Mouseover fill set');
+
+    this.set('style', function() {
+      return { color: 'blue', fillColor: 'blue' };
+    });
+
+    assert.dom('path').hasAttribute('stroke', 'blue', 'Mouseleave stroke set');
+    assert.dom('path').hasAttribute('fill', 'blue', 'Mouseleave fill set');
+  });
 });
