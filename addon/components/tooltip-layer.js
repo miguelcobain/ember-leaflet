@@ -52,7 +52,9 @@ export default DivOverlayLayer.extend({
       this.set('shouldRender', true);
       // ember-wormhole will render on the afterRender queue, so we need to render after that
       next(() => {
-        oldOnAdd.call(this._layer, map);
+        if (this.get('shouldRender')) {
+          oldOnAdd.call(this._layer, map);
+        }
       });
     };
   },
