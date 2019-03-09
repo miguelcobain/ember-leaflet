@@ -23,3 +23,34 @@ the instructions {{#docs-link "docs.addons"}}here{{/docs-link}}.
 </ul>
 
 </section>
+
+{{#leaflet-map lat=-27.5555 lng=152.94703 zoom=7}}
+    {{tile-layer url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
+    
+    {{#marker-layer location=(array -27.5555  152.94703)}}
+        {{#tooltip-layer permanent=true}}
+          I seem to be incorrectly positioned<br>
+          on first load. Zooming fixes this
+        {{/tooltip-layer}}
+    {{/marker-layer}}
+	
+    {{#marker-layer location=(array -27.69149 153.01561)}}
+        {{#tooltip-layer permanent=true}}
+            I seem to be incorrectly positioned<br>
+            on first load. Zooming fixes this
+        {{/tooltip-layer}}
+    {{/marker-layer}}
+    
+    {{#marker-layer location=(array -28.5 153.01561)}}
+        {{#tooltip-layer permanent=true}}
+            I seem to be incorrectly positioned<br>
+            on first load. Zooming fixes this
+        {{/tooltip-layer}}
+    {{/marker-layer}}
+    
+    {{#marker-layer location=(array -28.5 150.01561)}}
+        {{#tooltip-layer permanent=true}}
+            I seem to be OK?
+        {{/tooltip-layer}}
+    {{/marker-layer}}
+{{/leaflet-map}}

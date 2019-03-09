@@ -9,6 +9,7 @@ import {
 import GeoJSONLayerComponent from 'ember-leaflet/components/geojson-layer';
 import locations from '../../helpers/locations';
 import sampleGeoJSON from '../../helpers/sample-geojson';
+import { run } from '@ember/runloop';
 /* globals L */
 
 const emptyGeoJSON = {
@@ -115,14 +116,14 @@ module('Integration | Component | geojson layer', function(hooks) {
     assert.dom('path').hasAttribute('stroke', 'green', 'Original stroke set');
     assert.dom('path').hasAttribute('fill', 'green', 'Original fill set');
 
-    geoJSONLayer._layer.fire('mouseover');
+    run(() => geoJSONLayer._layer.fire('mouseover'));
     await settled();
 
     assert.equal(this.color, 'red', 'action triggered');
     assert.dom('path').hasAttribute('stroke', 'red', 'Mouseover stroke set');
     assert.dom('path').hasAttribute('fill', 'red', 'Mouseover fill set');
 
-    geoJSONLayer._layer.fire('mouseout');
+    run(() => geoJSONLayer._layer.fire('mouseout'));
     await settled();
 
     assert.equal(this.color, 'blue', 'action triggered');
