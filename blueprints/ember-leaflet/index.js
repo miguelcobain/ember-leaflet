@@ -15,6 +15,6 @@ module.exports = {
   },
 
   afterInstall: function() {
-    return this.addPackageToProject('leaflet', '^1.0.0');
+    return this.addPackageToProject('leaflet', '^1.4.0');
   }
 };
