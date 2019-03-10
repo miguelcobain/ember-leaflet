@@ -13,20 +13,7 @@ As an example, let's take `ember-leaflet-marker-cluster` addon. You can install 
 ember install ember-leaflet-marker-cluster
 ```
 
-This addon will register a new `<layers.marker-cluster>` component and you can use it like in the following example.
-
-⚠️ **Note:** At the time of writing, the released version of `ember-leaflet-marker-cluster`
-still does not use ember-leaflet's recent addon integration capabilities.
-The PRs [#25](https://github.com/canufeel/ember-leaflet-marker-cluster/pull/25) and
-[#26](https://github.com/canufeel/ember-leaflet-marker-cluster/pull/26) need to be merged in order
-for `<layers.marker-cluster>` to be available.
-
-At the moment, you can either install a fork which has this integration using 
-```bash
-ember install miguelcobain/ember-leaflet-marker-cluster#register-component
-```
-
-or you can use `<MarkerClusterLayer>` instead. This demo uses the fork.
+This addon will register a new `<layers.marker-cluster>` component and you can use it like in the following example:
 
 {{#docs-demo as |demo|}}
   {{#demo.example name="marker-cluster.hbs"}}

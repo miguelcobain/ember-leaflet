@@ -5553,9 +5553,10 @@ ember-keyboard@^4.0.0:
     babel-plugin-transform-object-rest-spread "^6.26.0"
     ember-cli-babel "^6.6.0"
 
-ember-leaflet-marker-cluster@miguelcobain/ember-leaflet-marker-cluster#register-component:
-  version "0.2.0"
-  resolved "https://codeload.github.com/miguelcobain/ember-leaflet-marker-cluster/tar.gz/8eba713ea0169ccbac2c1c05dc50b144197e5eee"
+ember-leaflet-marker-cluster@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/ember-leaflet-marker-cluster/-/ember-leaflet-marker-cluster-0.3.0.tgz#55134766cd61348d326152e766d58849cba267ac"
+  integrity sha512-4rVFGBqE6XqkThqVTs8BVVS6ldtrSE6HCOLz0wtwsdrKSR5TmkIUeRlYXuL2uBKG4tbKLdPWEWF5ekCQVq8S1g==
   dependencies:
     broccoli-debug "^0.6.5"
     broccoli-funnel "^2.0.2"
