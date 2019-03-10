@@ -1,5 +1,19 @@
 # ember-leaflet changelog
 
+### 3.1.1
+- [ENHANCEMENT] default blueprint now installs leaflet `^1.4.0` ([eff95e1](https://github.com/miguelcobain/ember-leaflet/commit/eff95e1fe78629ec7c3106ac33333ffb3a896397))
+- [INTERNAL] use `{{#let` instead of `{{#with` (`{{#with` will be deprecated) [628dccf](https://github.com/miguelcobain/ember-leaflet/commit/628dccff543b4ceb4a98fe43d0b446df05e70be0)
+
+### 3.1.0
+- [INTERNAL] update ember-cli project and all dependencies
+- [INTERNAL] new website
+- [BUGFIX] fix integration with marker cluster plugin (fixes [#160](https://github.com/miguelcobain/ember-leaflet/pull/160))
+- [BUGFIX] Prevent error happening when _removeStyleObservers is called multiple times (fixes [#152](https://github.com/miguelcobain/ember-leaflet/issues/152))
+- [BUGFIX] prevent error when using a large amount of tooltips (fixes [#138](https://github.com/miguelcobain/ember-leaflet/pull/138))
+- [BUGFIX] `style` property on geojson-layer is now correctly bound (fixes [#181](https://github.com/miguelcobain/ember-leaflet/issues/181))
+- [BUGFIX] updating the style properties on the geojson-layer now works (fixes [#154](https://github.com/miguelcobain/ember-leaflet/pull/154))
+- [ENHANCEMENT] add ember-leaflet service that allows addons to register additional components for leaflet-map component to yield ([3591a4a](https://github.com/miguelcobain/ember-leaflet/commit/3591a4a0c09b0f95a87b45f753d76c27a3f9d679))
+
 ### 3.0.18
 - [BUGFIX] `icon` and `div-icon` helpers now use proper objects (this makes the library compatible with old versions of leaflet) ([e53fd87](https://github.com/miguelcobain/ember-leaflet/commit/e53fd8745470435f8c86e1f3c5002ca6201360c0))
 - [ENHANCEMENT] bump ember/ember-cli and dependencies ([c03e628](https://github.com/miguelcobain/ember-leaflet/commit/c03e628a2aece9e1b9da1eb6a30862d87508038f))
@@ -47,11 +61,11 @@
 - [ENHANCEMENT] ember-leaflet is now fastboot compatible! ([#125](https://github.com/miguelcobain/ember-leaflet/pull/125))
 
 ### 3.0.7
-- updated ember-composability-tools to version `0.0.6`
-- updated ember-wormhole to version `0.5.1`
+- [INTERNAL] updated ember-composability-tools to version `0.0.6`
+- [INTERNAL] updated ember-wormhole to version `0.5.1`
 
 ### 3.0.6
-- updated ember-composability-tools to version `0.0.5`
+- [INTERNAL] updated ember-composability-tools to version `0.0.5`
 
 ### 3.0.5
 - [BUGFIX] tooltips with permanent=true now work properly ([#111](https://github.com/miguelcobain/ember-leaflet/issues/111))
