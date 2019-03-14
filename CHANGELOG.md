@@ -1,5 +1,8 @@
 # ember-leaflet changelog
 
+### 3.1.2
+- [BUGFIX] yield built-in layer components when no addon components are registered ([06a862a](https://github.com/miguelcobain/ember-leaflet/commit/06a862a956910fa76c91faa402a66f6bc6b5d495))
+
 ### 3.1.1
 - [ENHANCEMENT] default blueprint now installs leaflet `^1.4.0` ([eff95e1](https://github.com/miguelcobain/ember-leaflet/commit/eff95e1fe78629ec7c3106ac33333ffb3a896397))
 - [INTERNAL] use `{{#let` instead of `{{#with` (`{{#with` will be deprecated) [628dccf](https://github.com/miguelcobain/ember-leaflet/commit/628dccff543b4ceb4a98fe43d0b446df05e70be0)
