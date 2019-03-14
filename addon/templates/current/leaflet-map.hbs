@@ -17,15 +17,19 @@
   {{!--
     Here we need to create the addon registered contextual components to yield later
   --}}
-  {{#each emberLeaflet.components as |c|}}
-    {{ember-leaflet-assign-to
-      components
-      key=c.as
-      value=(component c.name parentComponent=this)
-      onChange=(action (mut mergedComponents))}}
-  {{/each}}
+  {{#if emberLeaflet.components}}
+    {{#each emberLeaflet.components as |c|}}
+      {{ember-leaflet-assign-to
+        components
+        key=c.as
+        value=(component c.name parentComponent=this)
+        onChange=(action (mut mergedComponents))}}
+    {{/each}}
 
-  {{yield mergedComponents}}
+    {{yield mergedComponents}}
+  {{else}}
+    {{yield components}}
+  {{/if}}
 {{/let}}
 
 {{!--
