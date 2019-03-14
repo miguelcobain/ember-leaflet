@@ -4733,7 +4733,7 @@ ember-auto-import@^1.2.19:
     walk-sync "^0.3.3"
     webpack "~4.28"
 
-ember-cli-addon-docs@^0.6.6:
+ember-cli-addon-docs@^0.6.7:
   version "0.6.7"
   resolved "https://registry.yarnpkg.com/ember-cli-addon-docs/-/ember-cli-addon-docs-0.6.7.tgz#26854c9e60cf35c5d6fbe2e849c4450df7ecf03a"
   integrity sha512-XpgqZ5Ty3sxDto5hxSowc6rxwxoYsDXE2ny7N8bSVQQ/Uihp4BUjA/ztkIkkfXnU5dqp89S4nBlumJf5NmJQeg==
@@ -5464,7 +5464,7 @@ ember-fetch-adapter@^0.4.3:
   dependencies:
     ember-cli-babel "^6.12.0"
 
-ember-fetch@^6.2.0, ember-fetch@^6.4.0:
+ember-fetch@^6.2.0, ember-fetch@^6.5.0:
   version "6.5.0"
   resolved "https://registry.yarnpkg.com/ember-fetch/-/ember-fetch-6.5.0.tgz#efed80b3dd2259b52efce7498659e9125235bfb7"
   integrity sha512-B9KSeeO3xDNMQ22JqNwbmgnOprBzc8kNVfQMtzkAmugMb2aCmBZohAlQlwUUX5ODz8fHq2xfuZXDHD81Dzb0vg==
@@ -5647,7 +5647,7 @@ ember-router-generator@^1.2.3:
   dependencies:
     recast "^0.11.3"
 
-ember-router-scroll@^1.0.0, ember-router-scroll@^1.0.2:
+ember-router-scroll@^1.0.0, ember-router-scroll@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/ember-router-scroll/-/ember-router-scroll-1.1.0.tgz#17f7ead22a4e9f43a8956d942ca37b5e507bada5"
   integrity sha512-1eFbmsfY/DN95/3zhrMZSTGFavwtgWf7HrfM7SFipu/+Dn7w8Y5dWtqbk/hqE8FTDMiklFR52VcjTHEffRu0sw==
