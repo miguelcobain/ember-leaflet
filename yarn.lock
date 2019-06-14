@@ -292,7 +292,7 @@
     "@babel/helper-create-class-features-plugin" "^7.3.4"
     "@babel/helper-plugin-utils" "^7.0.0"
 
-"@babel/plugin-proposal-decorators@^7.1.2", "@babel/plugin-proposal-decorators@^7.3.0":
+"@babel/plugin-proposal-decorators@^7.3.0":
   version "7.4.0"
   resolved "https://registry.yarnpkg.com/@babel/plugin-proposal-decorators/-/plugin-proposal-decorators-7.4.0.tgz#8e1bfd83efa54a5f662033afcc2b8e701f4bb3a9"
   integrity sha512-d08TLmXeK/XbgCo7ZeZ+JaeZDtDai/2ctapTRsWWkkmy7G/cqz8DQN/HlWG7RR4YmfXxmExsbU3SuCjlM7AtUg==
@@ -736,16 +736,6 @@
     esutils "^2.0.2"
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
-
-"@ember-decorators/babel-transforms@^5.1.4":
-  version "5.1.4"
-  resolved "https://registry.yarnpkg.com/@ember-decorators/babel-transforms/-/babel-transforms-5.1.4.tgz#e26e0480425e4b6e43be75e24ba85103a02d5459"
-  integrity sha512-uawhQ7fVAaeUgL13aOyvchW77i3Gu1T1lSNf7ZGTRj4SZKIVHPC0HyNTNShd/YIdnTLdBlch0ybCj/2/KJ0mMA==
-  dependencies:
-    "@babel/plugin-proposal-class-properties" "^7.1.0"
-    "@babel/plugin-proposal-decorators" "^7.1.2"
-    ember-cli-babel-plugin-helpers "^1.0.0"
-    ember-cli-version-checker "^3.0.0"
 
 "@ember-decorators/component@^5.1.4":
   version "5.1.4"

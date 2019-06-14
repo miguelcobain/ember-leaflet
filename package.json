@@ -15,8 +15,6 @@
     "node": "6.* || 8.* || >= 10.*"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-class-properties": "^7.3.4",
-    "@ember-decorators/babel-transforms": "^5.1.4",
     "@ember/optional-features": "^0.7.0",
     "babel-eslint": "^10.0.1",
     "broccoli-asset-rev": "^3.0.0",
