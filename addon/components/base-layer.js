@@ -15,6 +15,20 @@ export default Component.extend(ChildMixin, InvokeActionMixin, {
   tagName: '',
   L: leaf,
 
+  init() {
+    this._super(...arguments);
+
+    let leafletOptions = this.get('leafletOptions');
+    let options = {};
+    leafletOptions.forEach((optionName) => {
+      if (this.get(optionName) !== undefined) {
+        options[optionName] = this.get(optionName);
+      }
+    });
+
+    this.set('options', options);
+  },
+
   fastboot: computed(function() {
     let owner = getOwner(this);
     return owner.lookup('service:fastboot');
@@ -90,17 +104,6 @@ export default Component.extend(ChildMixin, InvokeActionMixin, {
   removeFromContainer() {
     this.get('parentComponent')._layer.removeLayer(this._layer);
   },
-
-  options: computed(function() {
-    let leafletOptions = this.get('leafletOptions');
-    let options = {};
-    leafletOptions.forEach((optionName) => {
-      if (this.get(optionName) !== undefined) {
-        options[optionName] = this.get(optionName);
-      }
-    });
-    return options;
-  }).volatile(),
 
   leafletRequiredOptions: A(),
 
