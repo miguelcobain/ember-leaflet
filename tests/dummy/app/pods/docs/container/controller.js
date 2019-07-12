@@ -1,7 +1,7 @@
 // BEGIN-SNIPPET container.js
 import Controller from '@ember/controller';
 
-// NOTE: this example uses ember-decorators and native classes
+// NOTE: this example uses ember decorators and native classes
 export default class ContainerController extends Controller {
   lat = 45.519743;
   lng = -122.680522;

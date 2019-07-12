@@ -1,10 +1,9 @@
 // BEGIN-SNIPPET just-templates.js
 import Controller from '@ember/controller';
-import { action } from '@ember-decorators/object';
-import { computed } from '@ember-decorators/object';
+import { action, computed } from '@ember/object';
 import { setProperties } from '@ember/object';
 
-// NOTE: this example uses ember-decorators and native classes
+// NOTE: this example uses ember decorators and native classes
 export default class TemplatesController extends Controller {
   lat = 45.528178;
   lng = -122.670059;
