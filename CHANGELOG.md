@@ -1,5 +1,9 @@
 # ember-leaflet changelog
 
+### 3.1.3
+- [INTERNAL] update dependencies ([102b793](https://github.com/miguelcobain/ember-leaflet/commit/102b7939a9b780193cad326ce45813338f1630a7))
+- [INTERNAL] remove `.volatile()` usage ([1bcbd59](https://github.com/miguelcobain/ember-leaflet/commit/1bcbd596881f724255de87e76ad5df7eb91772fe))
+
 ### 3.1.2
 - [BUGFIX] yield built-in layer components when no addon components are registered ([06a862a](https://github.com/miguelcobain/ember-leaflet/commit/06a862a956910fa76c91faa402a66f6bc6b5d495))
 
