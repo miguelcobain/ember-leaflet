@@ -50,7 +50,7 @@ export default BaseLayer.extend(DivOverlayableMixin, StyleMixin, {
 
     // we need to update the group layers options before re-adding geojson
     // otherwise, they wouldn't get the changes that could be happening meanwhile
-    this._layer.options = this.get('options');
+    this._layer.options = this.options();
 
     if (geoJSON) {
       // ...then add new data to recreate the child layers in an updated form
@@ -59,6 +59,6 @@ export default BaseLayer.extend(DivOverlayableMixin, StyleMixin, {
   },
 
   createLayer() {
-    return this.L.geoJson(...this.get('requiredOptions'), this.get('options'));
+    return this.L.geoJson(...this.get('requiredOptions'), this.options());
   }
 });

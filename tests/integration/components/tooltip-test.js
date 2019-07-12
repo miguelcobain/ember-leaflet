@@ -40,7 +40,7 @@ if (!isLeaflet07(L)) {
           arrayPath = this;
         },
         createLayer() {
-          return this.L.polyline(...this.get('requiredOptions'), this.get('options'));
+          return this.L.polyline(...this.get('requiredOptions'), this.options());
         }
       }));
 

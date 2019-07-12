@@ -27,7 +27,7 @@ export default InteractiveLayer.extend(DraggabilityMixin, DivOverlayableMixin, {
   location: toLatLng(),
 
   createLayer() {
-    return this.L.marker(...this.get('requiredOptions'), this.get('options'));
+    return this.L.marker(...this.get('requiredOptions'), this.options());
   },
 
   // icon observer separated from generated (leaflet properties) due to a

@@ -12,7 +12,7 @@ export default DivOverlayLayer.extend({
   shouldRender: reads('permanent'),
 
   createLayer() {
-    return this.L.tooltip(this.get('options')).setContent(this.get('destinationElement'));
+    return this.L.tooltip(this.options()).setContent(this.get('destinationElement'));
   },
 
   didCreateLayer() {

@@ -11,6 +11,6 @@ export default PointPathLayer.extend({
   ]),
 
   createLayer() {
-    return this.L.circleMarker(...this.get('requiredOptions'), this.get('options'));
+    return this.L.circleMarker(...this.get('requiredOptions'), this.options());
   }
 });

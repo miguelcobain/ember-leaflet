@@ -40,6 +40,6 @@ export default InteractiveLayer.extend({
   },
 
   createLayer() {
-    return this.L.imageOverlay(...this.get('requiredOptions'), this.get('options'));
+    return this.L.imageOverlay(...this.get('requiredOptions'), this.options());
   }
 });

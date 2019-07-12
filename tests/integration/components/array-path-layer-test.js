@@ -24,7 +24,7 @@ module('Integration | Component | array path layer', function(hooks) {
         arrayPath = this;
       },
       createLayer() {
-        return this.L.polyline(...this.get('requiredOptions'), this.get('options'));
+        return this.L.polyline(...this.get('requiredOptions'), this.options());
       }
     }));
 

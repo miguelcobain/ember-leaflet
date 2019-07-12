@@ -15,6 +15,6 @@ export default ImageLayer.extend({
   ]),
 
   createLayer() {
-    return this.L.videoOverlay(...this.get('requiredOptions'), this.get('options'));
+    return this.L.videoOverlay(...this.get('requiredOptions'), this.options());
   }
 });

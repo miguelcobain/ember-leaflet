@@ -23,7 +23,7 @@ module('Integration | Component | point path layer', function(hooks) {
         pointPath = this;
       },
       createLayer() {
-        return this.L.circle(this.get('location'), 50, this.get('options'));
+        return this.L.circle(this.get('location'), 50, this.options());
       }
     }));
 

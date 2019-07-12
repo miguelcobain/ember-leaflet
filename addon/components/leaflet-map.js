@@ -59,7 +59,7 @@ export default BaseLayer.extend(ParentMixin, {
   unregisterWithParent() { },
 
   createLayer() {
-    let options = this.get('options');
+    let options = this.options();
 
     // Don't set center and zoom right now.
     // Let base layer bind the events first

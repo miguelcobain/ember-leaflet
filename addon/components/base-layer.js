@@ -91,7 +91,7 @@ export default Component.extend(ChildMixin, InvokeActionMixin, {
     this.get('parentComponent')._layer.removeLayer(this._layer);
   },
 
-  options: computed(function() {
+  options() {
     let leafletOptions = this.get('leafletOptions');
     let options = {};
     leafletOptions.forEach((optionName) => {
@@ -100,7 +100,7 @@ export default Component.extend(ChildMixin, InvokeActionMixin, {
       }
     });
     return options;
-  }).volatile(),
+  },
 
   leafletRequiredOptions: A(),
 
