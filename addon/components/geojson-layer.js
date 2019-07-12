@@ -50,6 +50,7 @@ export default BaseLayer.extend(DivOverlayableMixin, StyleMixin, {
 
     // we need to update the group layers options before re-adding geojson
     // otherwise, they wouldn't get the changes that could be happening meanwhile
+    this.notifyPropertyChange('options');
     this._layer.options = this.get('options');
 
     if (geoJSON) {
