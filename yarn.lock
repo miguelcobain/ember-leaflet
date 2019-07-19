@@ -3934,7 +3934,7 @@ cheerio@^1.0.0-rc.2:
   optionalDependencies:
     fsevents "^2.0.6"
 
-chokidar@^2.0.0, chokidar@^2.0.2:
+chokidar@^2.0.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-2.1.2.tgz#9c23ea40b01638439e0513864d362aeacc5ad058"
   integrity sha512-IwXUx0FXc5ibYmPC2XeEj5mpXoV66sR+t3jqu2NS2GYwCktt3KF1/Qqjws/NkegajBA4RbZ5+DDwlOiJsxDHEg==
@@ -11590,17 +11590,10 @@ sane@^4.1.0:
     minimist "^1.1.1"
     walker "~1.0.5"
 
-sass@^1.17.0:
-  version "1.17.3"
-  resolved "https://registry.yarnpkg.com/sass/-/sass-1.17.3.tgz#19f9164cf8653b9fca670a64e53285272c96d192"
-  integrity sha512-S4vJawbrNUxJUBiHLXPYUKZCoO6cvq3/3ZFBV66a+PafTxcDEFJB+FHLDFl0P+rUfha/703ajEXMuGTYhJESkQ==
-  dependencies:
-    chokidar "^2.0.0"
-
-sass@^1.22.4:
-  version "1.22.4"
-  resolved "https://registry.yarnpkg.com/sass/-/sass-1.22.4.tgz#00b433055f00a25ed5f060ca4abc332facaf02fc"
-  integrity sha512-gQFNzYKlAn9ee6Qy1UhTxy0G24QR5BWP61AN61jAEqwauzVCP5qjUveO/WkIj72po0ljncdVXo96EQR+ig2lRw==
+sass@^1.17.0, sass@^1.22.4:
+  version "1.22.7"
+  resolved "https://registry.yarnpkg.com/sass/-/sass-1.22.7.tgz#5a1a77dc11aa659db4e782d238bf9f3d44a60546"
+  integrity sha512-ahREi0AdG7RTovSv14+yd1prQSfIvFcrDpOsth5EQf1+RM7SvOxsSttzNQaFmK1aa/k/3vyYwlYF5l0Xl+6c+g==
   dependencies:
     chokidar ">=2.0.0 <4.0.0"
 
