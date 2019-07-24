@@ -5045,7 +5045,7 @@ ember-cli-babel-plugin-helpers@^1.0.0, ember-cli-babel-plugin-helpers@^1.1.0:
   resolved "https://registry.yarnpkg.com/ember-cli-babel-plugin-helpers/-/ember-cli-babel-plugin-helpers-1.1.0.tgz#de3baedd093163b6c2461f95964888c1676325ac"
   integrity sha512-Zr4my8Xn+CzO0gIuFNXji0eTRml5AxZUTDQz/wsNJ5AJAtyFWCY4QtKdoELNNbiCVGt1lq5yLiwTm4scGKu6xA==
 
-ember-cli-babel@7.7.3, ember-cli-babel@^7.0.0, ember-cli-babel@^7.1.0, ember-cli-babel@^7.1.2, ember-cli-babel@^7.1.3, ember-cli-babel@^7.1.4, ember-cli-babel@^7.4.3, ember-cli-babel@^7.5.0:
+ember-cli-babel@7.7.3:
   version "7.7.3"
   resolved "https://registry.yarnpkg.com/ember-cli-babel/-/ember-cli-babel-7.7.3.tgz#f94709f6727583d18685ca6773a995877b87b8a0"
   integrity sha512-/LWwyKIoSlZQ7k52P+6agC7AhcOBqPJ5C2u27qXHVVxKvCtg6ahNuRk/KmfZmV4zkuw4EjTZxfJE1PzpFyHkXg==
@@ -5091,7 +5091,7 @@ ember-cli-babel@^6.0.0-beta.4, ember-cli-babel@^6.0.0-beta.7, ember-cli-babel@^6
     ember-cli-version-checker "^2.1.2"
     semver "^5.5.0"
 
-ember-cli-babel@^7.7.0, ember-cli-babel@^7.7.3, ember-cli-babel@^7.8.0:
+ember-cli-babel@^7.0.0, ember-cli-babel@^7.1.0, ember-cli-babel@^7.1.2, ember-cli-babel@^7.1.3, ember-cli-babel@^7.1.4, ember-cli-babel@^7.4.3, ember-cli-babel@^7.5.0, ember-cli-babel@^7.7.0, ember-cli-babel@^7.7.3, ember-cli-babel@^7.8.0:
   version "7.8.0"
   resolved "https://registry.yarnpkg.com/ember-cli-babel/-/ember-cli-babel-7.8.0.tgz#e596500eca0f5a7c9aaee755f803d1542f578acf"
   integrity sha512-xUBgJQ81fqd7k/KIiGU+pjpoXhrmmRf9pUrqLenNSU5N+yeNFT5a1+w0b+p1F7oBphfXVwuxApdZxrmAHOdA3Q==
@@ -5151,12 +5151,12 @@ ember-cli-clipboard@^0.8.1:
     ember-cli-htmlbars "^2.0.2"
     fastboot-transform "0.1.1"
 
-ember-cli-custom-assertions@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/ember-cli-custom-assertions/-/ember-cli-custom-assertions-0.1.1.tgz#b377393072436c8ea5642d199af25378f4bae0eb"
-  integrity sha512-dsH4g3du7QmXZGkMxA01RIg+vYobnJc5tNKUN6qkczEQVe9S3r4EJU9dCX2HLAdNCNtOJ+ZKntYR63YMDZLwcg==
+ember-cli-custom-assertions@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/ember-cli-custom-assertions/-/ember-cli-custom-assertions-0.2.0.tgz#928271ba5d3e974d96cdf391a07be5be2d604c70"
+  integrity sha512-W5RNxwSovUszD7mRElhPLEjJKBh7STSOZkWK+dxZiNzTh/4nmyQr7IP/zzAED8l2gqvfVWCff0K3OWEhfOrTwg==
   dependencies:
-    ember-cli-babel "^6.6.0"
+    ember-cli-babel "^6.16.0"
     ember-cli-string-utils "^1.0.0"
 
 ember-cli-dependency-checker@^3.2.0:
