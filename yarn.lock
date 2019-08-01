@@ -5975,9 +5975,9 @@ ember-svg-jar@^1.2.2:
     path-posix "^1.0.0"
 
 ember-template-lint@^1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/ember-template-lint/-/ember-template-lint-1.3.0.tgz#f6fd926b3d60b848c6c6bfd5394acdf7d214319b"
-  integrity sha512-OP8v+g09da0PlieRD6MfqKuu87/tBxJI36ejfmlg+MPHV2g9vGXSnwF9RDQGhADYERBZPsRHf2p6hMjeutMGGA==
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/ember-template-lint/-/ember-template-lint-1.5.0.tgz#b889708123560e8428a5e0e97176c037bb5613fc"
+  integrity sha512-wldr1J7ABrP7Dzos5vGUz6Jqj9AOvddvQ+ngcSr0RNo2Z71j74iNsJTxGgIPaT9SJGcsxZeP5AXOanblj5n7wA==
   dependencies:
     "@glimmer/compiler" "^0.41.0"
     chalk "^2.0.0"
@@ -11396,14 +11396,7 @@ resolve@1.9.0:
   dependencies:
     path-parse "^1.0.6"
 
-resolve@^1.1.3, resolve@^1.1.6, resolve@^1.1.7, resolve@^1.10.0, resolve@^1.3.2, resolve@^1.3.3, resolve@^1.4.0, resolve@^1.5.0, resolve@^1.7.1, resolve@^1.8.1:
-  version "1.10.0"
-  resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.10.0.tgz#3bdaaeaf45cc07f375656dfd2e54ed0810b101ba"
-  integrity sha512-3sUr9aq5OfSg2S9pNtPA9hL1FVEAjvfOC4leW0SNf/mpnaakz2a9femSd6LqAww2RaFctwyf1lCqnTHuF1rxDg==
-  dependencies:
-    path-parse "^1.0.6"
-
-resolve@^1.10.1, resolve@^1.11.1:
+resolve@^1.1.3, resolve@^1.1.6, resolve@^1.1.7, resolve@^1.10.0, resolve@^1.10.1, resolve@^1.11.1, resolve@^1.3.2, resolve@^1.3.3, resolve@^1.4.0, resolve@^1.5.0, resolve@^1.7.1, resolve@^1.8.1:
   version "1.11.1"
   resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.11.1.tgz#ea10d8110376982fef578df8fc30b9ac30a07a3e"
   integrity sha512-vIpgF6wfuJOZI7KKKSP+HmiKggadPQAdsp5HiC1mvqnfp0gF1vdwgBWZIdrVft9pgqoMFQN+R7BSWZiBxx+BBw==
