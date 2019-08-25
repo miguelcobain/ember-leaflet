@@ -66,19 +66,22 @@ module.exports = {
     }
   },
 
-  treeForAddonTemplates() {
+  treeForAddon(tree) {
     let checker = new VersionChecker(this);
     let dep = checker.for('ember', 'bower');
 
-    let baseTemplatesPath = path.join(this.root, 'addon/templates');
+    let templatesTree;
 
     if (dep.lt('2.3.0-beta.1')) {
-      let current = this.treeGenerator(path.join(baseTemplatesPath, 'current'));
-      let specificVersionTemplate = this.treeGenerator(path.join(baseTemplatesPath, 'lt-2-3'));
-      return mergeTrees([current, specificVersionTemplate], { overwrite: true });
+      templatesTree = new Funnel(tree, {srcDir: 'templates/lt-2-3', destDir: 'templates'});
     } else {
-      return this.treeGenerator(path.join(baseTemplatesPath, 'current'));
+      templatesTree = new Funnel(tree, {srcDir: 'templates/current', destDir: 'templates'});
     }
+
+    let treeWithoutTemplates = new Funnel(tree, {exclude: ['**/templates/**']});
+    let treeWithVersionedTemplates = mergeTrees([templatesTree, treeWithoutTemplates]);
+
+    return this._super.treeForAddon.apply(this, [treeWithVersionedTemplates]);
   },
 
   pathBase(packageName) {
