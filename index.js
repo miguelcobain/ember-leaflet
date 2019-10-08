@@ -6,14 +6,6 @@ const Funnel = require('broccoli-funnel');
 const VersionChecker = require('ember-cli-version-checker');
 const fastbootTransform = require('fastboot-transform');
 
-let emberEnginesFindHost;
-try {
-  emberEnginesFindHost = require('ember-engines/lib/utils/find-host.js');
-} catch (e) {
-  console.log('oh no big error')
-  console.log(e)
-}
-
 module.exports = {
   name: require('./package').name,
 
@@ -41,11 +33,9 @@ module.exports = {
 
     // If the addon has the _findHost() method (in ember-cli >= 2.7.0), we'll just
     // use that.
-    if (emberEnginesFindHost) {
-      app = emberEnginesFindHost.bind(this)();
-    } else if (typeof this._findHost === 'function') {
-      app = this._findHost();
-    }
+    // if (typeof this._findHost === 'function') {
+    //   app = this._findHost();
+    // }
 
     // Otherwise, we'll use this implementation borrowed from the _findHost()
     // method in ember-cli.
@@ -53,6 +43,10 @@ module.exports = {
     // Has to do this grandparent check because at some point we hit the project.
     let current = this;
     do {
+      if (current.lazyLoading === true || (current.lazyLoading && current.lazyLoading.enabled === true)) {
+        app = current;
+        break;
+      }
       app = current.app || app;
     } while (current.parent.parent && (current = current.parent));
 
