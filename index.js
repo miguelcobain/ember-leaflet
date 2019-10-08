@@ -42,7 +42,7 @@ module.exports = {
     // If the addon has the _findHost() method (in ember-cli >= 2.7.0), we'll just
     // use that.
     if (emberEnginesFindHost) {
-      app = emberEnginesFindHost();
+      app = emberEnginesFindHost(this);
     } else if (typeof this._findHost === 'function') {
       app = this._findHost();
     }
