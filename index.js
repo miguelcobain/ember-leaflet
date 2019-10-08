@@ -7,7 +7,12 @@ const VersionChecker = require('ember-cli-version-checker');
 const fastbootTransform = require('fastboot-transform');
 
 let emberEnginesFindHost;
-try { emberEnginesFindHost = require('foobar'); } catch() {}
+try {
+  emberEnginesFindHost = require('foobar');
+} catch (e) {
+  console.log('oh no big error')
+  console.log(e)
+}
 
 module.exports = {
   name: require('./package').name,
