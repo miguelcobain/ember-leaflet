@@ -4,7 +4,7 @@ const path = require('path');
 const mergeTrees = require('broccoli-merge-trees');
 const Funnel = require('broccoli-funnel');
 const VersionChecker = require('ember-cli-version-checker');
-const fastbootTransform = require('fastboot-transform');
+const fastbootTransform = require('ember-engines/lib/utils/find-host.js');
 
 let emberEnginesFindHost;
 try {
