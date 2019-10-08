@@ -5,6 +5,7 @@ const mergeTrees = require('broccoli-merge-trees');
 const Funnel = require('broccoli-funnel');
 const VersionChecker = require('ember-cli-version-checker');
 const fastbootTransform = require('fastboot-transform');
+const emberEnginesFindHost = require('foobar');
 
 module.exports = {
   name: require('./package').name,
@@ -33,7 +34,9 @@ module.exports = {
 
     // If the addon has the _findHost() method (in ember-cli >= 2.7.0), we'll just
     // use that.
-    if (typeof this._findHost === 'function') {
+    if (emberEnginesFindHost) {
+      app = emberEnginesFindHost();
+    } else if (typeof this._findHost === 'function') {
       app = this._findHost();
     }
 
