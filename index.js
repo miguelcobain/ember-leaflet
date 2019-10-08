@@ -5,7 +5,9 @@ const mergeTrees = require('broccoli-merge-trees');
 const Funnel = require('broccoli-funnel');
 const VersionChecker = require('ember-cli-version-checker');
 const fastbootTransform = require('fastboot-transform');
-const emberEnginesFindHost = require('foobar');
+
+let emberEnginesFindHost;
+try { emberEnginesFindHost = require('foobar'); } catch() {}
 
 module.exports = {
   name: require('./package').name,
