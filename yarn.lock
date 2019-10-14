@@ -5045,7 +5045,7 @@ ember-cli-babel-plugin-helpers@^1.0.0, ember-cli-babel-plugin-helpers@^1.1.0:
   resolved "https://registry.yarnpkg.com/ember-cli-babel-plugin-helpers/-/ember-cli-babel-plugin-helpers-1.1.0.tgz#de3baedd093163b6c2461f95964888c1676325ac"
   integrity sha512-Zr4my8Xn+CzO0gIuFNXji0eTRml5AxZUTDQz/wsNJ5AJAtyFWCY4QtKdoELNNbiCVGt1lq5yLiwTm4scGKu6xA==
 
-ember-cli-babel@7.7.3, ember-cli-babel@^7.0.0, ember-cli-babel@^7.1.0, ember-cli-babel@^7.1.2, ember-cli-babel@^7.1.3, ember-cli-babel@^7.1.4, ember-cli-babel@^7.4.3, ember-cli-babel@^7.5.0:
+ember-cli-babel@7.7.3:
   version "7.7.3"
   resolved "https://registry.yarnpkg.com/ember-cli-babel/-/ember-cli-babel-7.7.3.tgz#f94709f6727583d18685ca6773a995877b87b8a0"
   integrity sha512-/LWwyKIoSlZQ7k52P+6agC7AhcOBqPJ5C2u27qXHVVxKvCtg6ahNuRk/KmfZmV4zkuw4EjTZxfJE1PzpFyHkXg==
@@ -5091,7 +5091,7 @@ ember-cli-babel@^6.0.0-beta.4, ember-cli-babel@^6.0.0-beta.7, ember-cli-babel@^6
     ember-cli-version-checker "^2.1.2"
     semver "^5.5.0"
 
-ember-cli-babel@^7.7.0, ember-cli-babel@^7.7.3, ember-cli-babel@^7.8.0:
+ember-cli-babel@^7.0.0, ember-cli-babel@^7.1.0, ember-cli-babel@^7.1.2, ember-cli-babel@^7.1.3, ember-cli-babel@^7.1.4, ember-cli-babel@^7.4.3, ember-cli-babel@^7.5.0, ember-cli-babel@^7.7.0, ember-cli-babel@^7.7.3, ember-cli-babel@^7.8.0:
   version "7.8.0"
   resolved "https://registry.yarnpkg.com/ember-cli-babel/-/ember-cli-babel-7.8.0.tgz#e596500eca0f5a7c9aaee755f803d1542f578acf"
   integrity sha512-xUBgJQ81fqd7k/KIiGU+pjpoXhrmmRf9pUrqLenNSU5N+yeNFT5a1+w0b+p1F7oBphfXVwuxApdZxrmAHOdA3Q==
@@ -5913,14 +5913,13 @@ ember-router-generator@^1.2.3:
     recast "^0.11.3"
 
 ember-router-scroll@^1.0.0, ember-router-scroll@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/ember-router-scroll/-/ember-router-scroll-1.1.0.tgz#17f7ead22a4e9f43a8956d942ca37b5e507bada5"
-  integrity sha512-1eFbmsfY/DN95/3zhrMZSTGFavwtgWf7HrfM7SFipu/+Dn7w8Y5dWtqbk/hqE8FTDMiklFR52VcjTHEffRu0sw==
+  version "1.3.3"
+  resolved "https://registry.yarnpkg.com/ember-router-scroll/-/ember-router-scroll-1.3.3.tgz#411991a671bd970497f5ce757baa627e850ae6e0"
+  integrity sha512-SwGsX7kceLXd3AZtKFcM/Ggl5lw37/a1v2rYHwWKZNMiyICBctJmWeEvALLQpiNzT8YMJrJHBkucHFmG07JPXQ==
   dependencies:
     ember-app-scheduler "^1.0.5"
     ember-cli-babel "^7.1.2"
     ember-compatibility-helpers "^1.1.2"
-    ember-getowner-polyfill "^2.2.0"
 
 ember-router-service-polyfill@^1.0.2:
   version "1.0.3"
