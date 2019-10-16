@@ -3,7 +3,7 @@ import config from 'ember-get-config';
 /* global L */
 
 export function initialize(/* container, application */) {
-  if (typeof FastBoot === 'undefined') {
+  if (typeof FastBoot === 'undefined' && typeof L !== 'undefined') {
     let prefix = '';
 
     if (!isNone(config.rootURL)) {
