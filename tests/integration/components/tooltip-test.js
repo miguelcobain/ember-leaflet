@@ -92,6 +92,7 @@ if (!isLeaflet07(L)) {
       this.set('markerCenter', locations.nyc);
       defineProperty(this, 'computedProperty', computed(function() {
         didRun = true;
+        return 'text';
       }));
 
       await render(hbs`

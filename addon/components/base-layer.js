@@ -130,14 +130,15 @@ export default Component.extend(ChildMixin, InvokeActionMixin, {
       let methodName = `_${eventName}`;
       // create an event handler that runs the function inside an event loop.
       this._eventHandlers[eventName] = function(e) {
-        scheduleOnce('actions', () => {
+        this._onActions = () => {
           // try to invoke/send an action for this event
           this.invokeAction(actionName, e);
           // allow classes to add custom logic on events as well
           if (typeof this[methodName] === 'function') {
             this[methodName](e);
           }
-        });
+        };
+        scheduleOnce('actions', this, this._onActions);
       };
 
       this._layer.addEventListener(eventName, this._eventHandlers[eventName], this);

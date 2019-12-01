@@ -74,6 +74,7 @@ module('Integration | Component | popup layer', function(hooks) {
     this.set('markerCenter', locations.nyc);
     defineProperty(this, 'computedProperty', computed(function() {
       didRun = true;
+      return 'text';
     }));
 
     await render(hbs`
