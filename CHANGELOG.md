@@ -3,6 +3,7 @@
 ### 4.0.0
 - [BREAKING] drop support for ember versions < 2.3.0-beta.1 ([7d5c9fe](https://github.com/miguelcobain/ember-leaflet/commit/7d5c9fe39b6e2c20d74632f886ca15ed873a6875))
 - [INTERNAL] update dependencies ([ec49f63](https://github.com/miguelcobain/ember-leaflet/commit/ec49f63837f724643303d71ef63f5c6f5b3edf8b))
+- [BUGFIX] run initializer code only if leaflet's-L variable is present ([#367](https://github.com/miguelcobain/ember-leaflet/pull/367))
 
 ### 3.1.4
 - [BUGFIX] Fix integration in lazy engines >= 0.8 ([#364](https://github.com/miguelcobain/ember-leaflet/pull/364))
