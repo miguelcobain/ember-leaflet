@@ -1,0 +1,14 @@
+{
+  "version": "1.0",
+  "name": "ember-leaflet",
+  "description": "Easy and declarative mapping for ember.",
+  "icons": {
+    "60": "/ADDON_DOCS_ROOT_URL/firefox_app_60x60.png",
+    "128": "/ADDON_DOCS_ROOT_URL/firefox_app_128x128.png",
+    "512": "/ADDON_DOCS_ROOT_URL/firefox_app_512x512.png"
+  },
+  "developer": {
+    "name": "Miguel Andrade <jmandrade0@gmail.com>",
+    "url": null
+  }
+}
