@@ -1,5 +1,11 @@
 # ember-leaflet changelog
 
+### 4.0.2
+- [ENHANCEMENT] add `crossOrigin` option to tile layer ([84dc3fe](https://github.com/miguelcobain/ember-leaflet/commit/84dc3fed8c0480169d74ccedd84f3afabd3ce85c)) 
+
+### 4.0.1
+- [INTERNAL] update blueprint to install latest leaflet ([2d398db](https://github.com/miguelcobain/ember-leaflet/commit/2d398dbe575bef3563c0ff6e7cd578321ac7b803))
+
 ### 4.0.0
 - [BREAKING] drop support for ember versions < 2.3.0-beta.1 ([7d5c9fe](https://github.com/miguelcobain/ember-leaflet/commit/7d5c9fe39b6e2c20d74632f886ca15ed873a6875))
 - [INTERNAL] update dependencies ([ec49f63](https://github.com/miguelcobain/ember-leaflet/commit/ec49f63837f724643303d71ef63f5c6f5b3edf8b))
