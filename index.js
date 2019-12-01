@@ -3,7 +3,6 @@ const resolve = require('resolve');
 const path = require('path');
 const mergeTrees = require('broccoli-merge-trees');
 const Funnel = require('broccoli-funnel');
-const VersionChecker = require('ember-cli-version-checker');
 const fastbootTransform = require('fastboot-transform');
 
 module.exports = {
@@ -67,21 +66,6 @@ module.exports = {
       app.import('vendor/leaflet/images/marker-icon-2x.png', { destDir: imagesDestDir });
       app.import('vendor/leaflet/images/marker-icon.png', { destDir: imagesDestDir });
       app.import('vendor/leaflet/images/marker-shadow.png', { destDir: imagesDestDir });
-    }
-  },
-
-  treeForAddonTemplates() {
-    let checker = new VersionChecker(this);
-    let dep = checker.for('ember', 'bower');
-
-    let baseTemplatesPath = path.join(this.root, 'addon/templates');
-
-    if (dep.lt('2.3.0-beta.1')) {
-      let current = this.treeGenerator(path.join(baseTemplatesPath, 'current'));
-      let specificVersionTemplate = this.treeGenerator(path.join(baseTemplatesPath, 'lt-2-3'));
-      return mergeTrees([current, specificVersionTemplate], { overwrite: true });
-    } else {
-      return this.treeGenerator(path.join(baseTemplatesPath, 'current'));
     }
   },
 
