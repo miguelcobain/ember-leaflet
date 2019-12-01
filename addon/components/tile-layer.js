@@ -10,7 +10,8 @@ export default BaseLayer.extend({
     'minZoom', 'maxZoom', 'maxNativeZoom', 'tileSize', 'subdomains',
     'errorTileUrl', 'attribution', 'tms', 'continuousWorld', 'noWrap',
     'zoomOffset', 'zoomReverse', 'opacity', 'zIndex', 'unloadInvisibleTiles',
-    'updateWhenIdle', 'detectRetina', 'reuseTiles', 'bounds', 'className'
+    'updateWhenIdle', 'detectRetina', 'reuseTiles', 'bounds', 'className',
+    'crossOrigin'
   ]),
 
   leafletEvents: Object.freeze([
