@@ -27,7 +27,7 @@ yarn add -D leaflet@0.7
 
 ## Usage
 
-Documentation and examples are hosted at [www.ember-leaflet.com](http://www.ember-leaflet.com).
+Documentation and examples are hosted at [https://miguelcobain.github.io/ember-leaflet/](https://miguelcobain.github.io/ember-leaflet/).
 Please file any issues if you see that something can be improved.
 
 If you're looking for the previous ember-leaflet version, you can use [this repo](https://github.com/gabesmed/ember-leaflet).

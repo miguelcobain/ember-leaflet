@@ -10,7 +10,7 @@
     "test": "ember test",
     "test:all": "ember try:each"
   },
-  "homepage": "http://www.ember-leaflet.com/",
+  "homepage": "https://miguelcobain.github.io/ember-leaflet/",
   "engines": {
     "node": "8.* || >= 10.*"
   },
@@ -88,6 +88,6 @@
   },
   "ember-addon": {
     "configPath": "tests/dummy/config",
-    "demoURL": "http://www.ember-leaflet.com/"
+    "demoURL": "https://miguelcobain.github.io/ember-leaflet/"
   }
 }
