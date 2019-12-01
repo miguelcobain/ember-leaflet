@@ -2,10 +2,7 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import {
-  assertionInjector,
-  assertionCleanup
-} from '../../assertions';
+import setupCustomAssertions from 'ember-cli-custom-assertions/test-support';
 import CircleLayerComponent from 'ember-leaflet/components/circle-layer';
 import locations from '../../helpers/locations';
 
@@ -13,10 +10,9 @@ let circle;
 
 module('Integration | Component | circle layer', function(hooks) {
   setupRenderingTest(hooks);
+  setupCustomAssertions(hooks);
 
   hooks.beforeEach(function() {
-    assertionInjector();
-
     this.owner.register('component:circle-layer', CircleLayerComponent.extend({
       init() {
         this._super(...arguments);
@@ -26,10 +22,6 @@ module('Integration | Component | circle layer', function(hooks) {
 
     this.set('center', locations.nyc);
     this.set('zoom', 13);
-  });
-
-  hooks.afterEach(function() {
-    assertionCleanup();
   });
 
   test('update circle layer using leafletProperties', async function(assert) {

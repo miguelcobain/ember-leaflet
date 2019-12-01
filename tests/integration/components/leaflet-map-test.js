@@ -2,10 +2,7 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import {
-  assertionInjector,
-  assertionCleanup
-} from '../../assertions';
+import setupCustomAssertions from 'ember-cli-custom-assertions/test-support';
 import LeafletMapComponent from 'ember-leaflet/components/leaflet-map';
 import locations from '../../helpers/locations';
 /* global L */
@@ -14,10 +11,9 @@ let map;
 
 module('Integration | Component | leaflet map', function(hooks) {
   setupRenderingTest(hooks);
+  setupCustomAssertions(hooks);
 
   hooks.beforeEach(function() {
-    assertionInjector();
-
     this.owner.register('component:leaflet-map', LeafletMapComponent.extend({
       init() {
         this._super(...arguments);
@@ -27,10 +23,6 @@ module('Integration | Component | leaflet map', function(hooks) {
 
     this.set('center', locations.nyc);
     this.set('zoom', 12);
-  });
-
-  hooks.afterEach(function() {
-    assertionCleanup();
   });
 
   test('update map layer using leafletProperties (zoom and center)', async function(assert) {

@@ -5,10 +5,7 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import {
-  assertionInjector,
-  assertionCleanup
-} from '../../assertions';
+import setupCustomAssertions from 'ember-cli-custom-assertions/test-support';
 import MarkerLayerComponent from 'ember-leaflet/components/marker-layer';
 import ArrayPathLayerComponent from 'ember-leaflet/components/array-path-layer';
 import locations from '../../helpers/locations';
@@ -23,10 +20,9 @@ let marker, arrayPath;
 if (!isLeaflet07(L)) {
   module('Integration | Component | tooltip layer', function(hooks) {
     setupRenderingTest(hooks);
+    setupCustomAssertions(hooks);
 
     hooks.beforeEach(function() {
-      assertionInjector();
-
       this.owner.register('component:marker-layer', MarkerLayerComponent.extend({
         init() {
           this._super(...arguments);
@@ -46,10 +42,6 @@ if (!isLeaflet07(L)) {
 
       this.set('center', locations.nyc);
       this.set('zoom', 13);
-    });
-
-    hooks.afterEach(function() {
-      assertionCleanup();
     });
 
     test('tooltip works', async function(assert) {

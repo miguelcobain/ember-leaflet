@@ -75,3 +75,13 @@ body {
 .ember-modal-dialog {
   z-index: 401;
 }
+
+
+// brand color no longer works in Ember CLI 3.13
+// see: https://github.com/ember-learn/ember-cli-addon-docs/issues/407
+.docs-bg-brand, .hover\:docs-bg-brand:hover {
+  background-color: #1EB300 !important;
+}
+.docs-text-brand, .hover\:docs-text-brand:hover {
+  color: #1EB300 !important;
+}

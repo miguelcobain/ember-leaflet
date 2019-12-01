@@ -2,10 +2,7 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import {
-  assertionInjector,
-  assertionCleanup
-} from '../../assertions';
+import setupCustomAssertions from 'ember-cli-custom-assertions/test-support';
 import hasEmberVersion from 'ember-test-helpers/has-ember-version';
 import MarkerLayerComponent from 'ember-leaflet/components/marker-layer';
 import locations from '../../helpers/locations';
@@ -18,10 +15,9 @@ let marker;
 
 module('Integration | Component | marker layer', function(hooks) {
   setupRenderingTest(hooks);
+  setupCustomAssertions(hooks);
 
   hooks.beforeEach(function() {
-    assertionInjector();
-
     this.owner.register('component:marker-layer', MarkerLayerComponent.extend({
       init() {
         this._super(...arguments);
@@ -31,10 +27,6 @@ module('Integration | Component | marker layer', function(hooks) {
 
     this.set('center', locations.nyc);
     this.set('zoom', 13);
-  });
-
-  hooks.afterEach(function() {
-    assertionCleanup();
   });
 
   test('update marker layer using leafletProperties', async function(assert) {

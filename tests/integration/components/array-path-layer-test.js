@@ -3,10 +3,7 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import {
-  assertionInjector,
-  assertionCleanup
-} from '../../assertions';
+import setupCustomAssertions from 'ember-cli-custom-assertions/test-support';
 import ArrayPathLayerComponent from 'ember-leaflet/components/array-path-layer';
 import locations from '../../helpers/locations';
 
@@ -14,10 +11,9 @@ let arrayPath;
 
 module('Integration | Component | array path layer', function(hooks) {
   setupRenderingTest(hooks);
+  setupCustomAssertions(hooks);
 
   hooks.beforeEach(function() {
-    assertionInjector();
-
     this.owner.register('component:custom-array-path-layer', ArrayPathLayerComponent.extend({
       init() {
         this._super(...arguments);
@@ -30,10 +26,6 @@ module('Integration | Component | array path layer', function(hooks) {
 
     this.set('center', locations.nyc);
     this.set('zoom', 13);
-  });
-
-  hooks.afterEach(function() {
-    assertionCleanup();
   });
 
   test('replace locations updates array path layer', async function(assert) {
