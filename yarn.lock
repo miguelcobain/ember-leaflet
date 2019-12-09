@@ -6165,9 +6165,9 @@ ember-svg-jar@^2.1.0:
     path-posix "^1.0.0"
 
 ember-template-lint@^1.8.2:
-  version "1.8.2"
-  resolved "https://registry.yarnpkg.com/ember-template-lint/-/ember-template-lint-1.8.2.tgz#5e124b75920088c10c5e7b162fb6775440c0b19b"
-  integrity sha512-WNlWKMm1nRlihhnRC8zPW+rGQSz1SXswzb+iQ0GAtfDR3XDRlYEnCODTiJuRsOIDPMHtacKXljHV8rZV3+/A0g==
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/ember-template-lint/-/ember-template-lint-1.10.0.tgz#490acdb312fa8e2d484c397c03b26bb366bc6f24"
+  integrity sha512-R7RsmOFoC+LlvM+Wu7TvSj8ZQxIM8ryCFCdGfcOEBCdlqRo6vgJ/jHy8CRITc8RlbrKJDPcaNDxHcNWfto1BqA==
   dependencies:
     "@glimmer/syntax" "^0.44.0"
     chalk "^2.0.0"
