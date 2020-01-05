@@ -25,23 +25,23 @@ module('Integration | Component | rectangle layer', function(hooks) {
   });
   
   test('update rectangle layer using leafletProperties', async function(assert) {
-    this.set('bounds', [locations.chicago, locations.nyc]);
+    this.set('locations', [locations.chicago, locations.nyc]);
 
     await render(hbs`
       {{#leaflet-map zoom=zoom center=center}}
-        {{rectangle-layer bounds=bounds}}
+        {{rectangle-layer locations=locations}}
       {{/leaflet-map}}
     `);
 
-    let layerLatLngs = arrayPath._layer.getLatLngs();
-    assert.locationsEqual(layerLatLngs[0], locations.chicago);
-    assert.locationsEqual(layerLatLngs[1], locations.nyc);
+    let layerLatLngs = rectangle._layer.getLatLngs(); //returns four corners
+    assert.locationsEqual(layerLatLngs[0][1], locations.chicago); //top left
+    assert.locationsEqual(layerLatLngs[0][3], locations.nyc); //bottom right
 
-    this.set('bounds', [locations.paris, locations.london]);
+    this.set('locations', [locations.paris, locations.london]);
 
-    layerLatLngs = arrayPath._layer.getLatLngs();
-    assert.locationsEqual(layerLatLngs[0], locations.paris);
-    assert.locationsEqual(layerLatLngs[1], locations.london);
+    layerLatLngs = rectangle._layer.getLatLngs(); //returns two corners
+    assert.locationsEqual(layerLatLngs[0][0], locations.paris); //top left
+    assert.locationsEqual(layerLatLngs[0][1], locations.london); //bottom right
   });
 
   test('lat/lng changes propagate to the rectangle layer', async function(assert) {
@@ -51,18 +51,19 @@ module('Integration | Component | rectangle layer', function(hooks) {
       lng1: locations.nyc.lng,
       lat2: locations.chicago.lat,
       lng2: locations.chicago.lng,
-      bounds: [[lat1,lng1],[lat2,lng2]]
     });
+
+    this.set('locations',[[this.get('lat1'),this.get('lng1')],[this.get('lat2'),this.get('lng2')]])
 
     await render(hbs`
       {{#leaflet-map zoom=zoom center=center}}
-        {{rectangle-layer bounds=bounds}}
+        {{rectangle-layer locations=locations}}
       {{/leaflet-map}}
     `);
 
-    let layerLatLngs = arrayPath._layer.getLatLngs();
-    assert.locationsEqual(layerLatLngs[0], locations.nyc);
-    assert.locationsEqual(layerLatLngs[1], locations.chicago);
+    let layerLatLngs = rectangle._layer.getLatLngs(); //returns 4 corners 
+    assert.locationsEqual(layerLatLngs[0][3], locations.nyc); //bottom right
+    assert.locationsEqual(layerLatLngs[0][1], locations.chicago); //top left
 
     this.setProperties({
       lat1: locations.paris.lat,
@@ -71,8 +72,10 @@ module('Integration | Component | rectangle layer', function(hooks) {
       lng2: locations.london.lng
     });
 
-    layerLatLngs = arrayPath._layer.getLatLngs();
-    assert.locationsEqual(layerLatLngs[0], locations.paris);
-    assert.locationsEqual(layerLatLngs[1], locations.london);
+    this.set('locations',[[this.get('lat1'),this.get('lng1')],[this.get('lat2'),this.get('lng2')]])
+
+    layerLatLngs = rectangle._layer.getLatLngs(); //returns only two corners
+    assert.locationsEqual(layerLatLngs[0][0], locations.paris); //top left
+    assert.locationsEqual(layerLatLngs[0][1], locations.london); //bottom right
   });
 });
