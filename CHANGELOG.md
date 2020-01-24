@@ -1,5 +1,9 @@
 # ember-leaflet changelog
 
+### 4.1.0
+- [ENHANCEMENT] add new rectangle layer ([#413](https://github.com/miguelcobain/ember-leaflet/pull/413)) 
+- [BUGFIX] only one addon component was being yielded. Now all addon provided components are yielded as expected ([#422](https://github.com/miguelcobain/ember-leaflet/pull/422))
+
 ### 4.0.2
 - [ENHANCEMENT] add `crossOrigin` option to tile layer ([84dc3fe](https://github.com/miguelcobain/ember-leaflet/commit/84dc3fed8c0480169d74ccedd84f3afabd3ce85c)) 
 
