@@ -23,7 +23,8 @@
         components
         key=c.as
         value=(component c.name parentComponent=this)
-        onChange=(action (mut mergedComponents))}}
+        onChange=(action "mergeComponents")
+      }}
     {{/each}}
 
     {{yield mergedComponents}}

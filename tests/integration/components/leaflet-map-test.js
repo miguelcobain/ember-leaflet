@@ -197,4 +197,34 @@ module('Integration | Component | leaflet map', function(hooks) {
     assert.ok(map._layer.getBounds() instanceof L.LatLngBounds);
     assert.boundsContain(map._layer.getBounds(), locations.bounds());
   });
+
+  test('addon components are yielded', async function(assert) {
+    this.emberLeaflet = this.owner.lookup('service:ember-leaflet');
+
+    [1, 2, 3].forEach(ix => {
+      this.owner.register(
+        `component:leaflet-component-${ix}`,
+        LeafletMapComponent.extend({})
+      );
+
+      this.emberLeaflet.registerComponent(`leaflet-component-${ix}`, {
+        as: `component-${ix}`
+      });
+    });
+
+    await render(hbs`
+      <LeafletMap @zoom={{zoom}} @center={{center}} as |layers|>
+        {{#each-in layers as |k v|}}
+          <yielded-layer>{{k}}</yielded-layer>
+        {{/each-in}}
+      </LeafletMap>
+    `);
+
+    assert.equal(
+      [...this.element.querySelectorAll('yielded-layer')].filter(
+        l => l.textContent.startsWith('component-')
+      ).length,
+      3
+    );
+  });
 });
