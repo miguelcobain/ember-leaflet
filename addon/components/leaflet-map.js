@@ -19,7 +19,7 @@ export default BaseLayer.extend(ParentMixin, {
   actions: {
     mergeComponents(obj) {
       if (!this.mergedComponents) {
-        this.set("mergedComponents", obj);
+        this.set('mergedComponents', obj);
       } else {
         Object.assign(this.mergedComponents, obj);
       }
