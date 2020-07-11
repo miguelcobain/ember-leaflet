@@ -1,22 +1,13 @@
-import { computed } from '@ember/object';
-import { getOwner } from '@ember/application';
+import { tracked } from '@glimmer/tracking';
+
 import BaseLayer from 'ember-leaflet/components/base-layer';
-import layout from '../templates/div-overlay';
-import { RenderBlockMixin } from 'ember-composability-tools';
 
-export default BaseLayer.extend(RenderBlockMixin, {
-  layout,
+export default class DivOverlayLayer extends BaseLayer {
+  destinationElementTag = 'div';
 
-  leafletOptions: Object.freeze([
-    'offset', 'className', 'pane'
-  ]),
+  leafletOptions = [...this.leafletOptions, 'offset', 'className', 'pane'];
 
-  fastboot: computed(function() {
-    let owner = getOwner(this);
-    return owner.lookup('service:fastboot');
-  }),
+  destinationElement = document.createElement(this.destinationElementTag);
 
-  isFastBoot: computed('fastboot', function() {
-    return this.get('fastboot') && this.get('fastboot.isFastBoot');
-  })
-});
+  @tracked shouldRender;
+}

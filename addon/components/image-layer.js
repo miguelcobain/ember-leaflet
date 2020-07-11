@@ -1,45 +1,15 @@
-import { deprecate } from '@ember/application/deprecations';
-import { isPresent } from '@ember/utils';
 import InteractiveLayer from 'ember-leaflet/components/interactive-layer';
 
-export default InteractiveLayer.extend({
+export default class ImageLayer extends InteractiveLayer {
+  leafletRequiredOptions = [...this.leafletRequiredOptions, 'url', 'bounds'];
 
-  leafletRequiredOptions: Object.freeze([
-    'url', 'bounds'
-  ]),
+  leafletOptions = [...this.leafletOptions, 'opacity', 'alt', 'crossOrigin', 'errorOverlayUrl', 'zIndex', 'className'];
 
-  leafletOptions: Object.freeze([
-    'opacity', 'alt', 'crossOrigin',
-    'errorOverlayUrl', 'zIndex', 'className'
-  ]),
+  leafletDescriptors = [...this.leafletDescriptors, 'url', 'opacity', 'bounds'];
 
-  leafletProperties: Object.freeze([
-    'url', 'opacity', 'bounds'
-  ]),
-
-  leafletEvents: Object.freeze([
-    'load', 'error'
-  ]),
-
-  init() {
-    let imageUrl = this.get('imageUrl');
-    if (isPresent(imageUrl)) {
-      deprecate(
-        'ember-leaflet/image-layer: The `imageUrl` attribute has been deprecated in favor of the observed attribute `url`.',
-        false,
-        {
-          id: 'ember-leaflet.image-layer.imageUrl',
-          until: '4.0.0',
-          url: 'https://github.com/miguelcobain/ember-leaflet/pull/143'
-        }
-      );
-      this.set('url', imageUrl);
-    }
-
-    this._super(...arguments);
-  },
+  leafletEvents = [...this.leafletEvents, 'load', 'error'];
 
   createLayer() {
-    return this.L.imageOverlay(...this.get('requiredOptions'), this.get('options'));
+    return this.L.imageOverlay(...this.requiredOptions, this.options);
   }
-});
+}

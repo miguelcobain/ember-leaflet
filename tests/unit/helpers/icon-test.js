@@ -1,5 +1,6 @@
-import { icon } from 'dummy/helpers/icon';
 import { module, test } from 'qunit';
+
+import { icon } from 'dummy/helpers/icon';
 /* global L */
 
 module('Unit | Helper | icon', function() {

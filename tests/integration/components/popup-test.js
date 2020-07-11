@@ -1,16 +1,20 @@
+import { render, settled, click } from '@ember/test-helpers';
+import { setupRenderingTest } from 'ember-qunit';
+import { module, test, skip } from 'qunit';
+
+import { A } from '@ember/array';
 import { computed, defineProperty } from '@ember/object';
 import { run } from '@ember/runloop';
-import { A } from '@ember/array';
-import { module, test, skip } from 'qunit';
-import { setupRenderingTest } from 'ember-qunit';
-import { render, settled, click } from '@ember/test-helpers';
-import hbs from 'htmlbars-inline-precompile';
+
 import setupCustomAssertions from 'ember-cli-custom-assertions/test-support';
-import MarkerLayerComponent from 'ember-leaflet/components/marker-layer';
-import ArrayPathLayerComponent from 'ember-leaflet/components/array-path-layer';
+import hbs from 'htmlbars-inline-precompile';
+
+import MarkerLayer from 'ember-leaflet/components/marker-layer';
+import PolylineLayer from 'ember-leaflet/components/polyline-layer';
+
+import isLeaflet07 from '../../helpers/is-leaflet-0.7';
 import locations from '../../helpers/locations';
 /* global L */
-import isLeaflet07 from '../../helpers/is-leaflet-0.7';
 
 // Needed to silence leaflet autodetection error
 L.Icon.Default.imagePath = 'some-path';
@@ -22,22 +26,25 @@ module('Integration | Component | popup layer', function(hooks) {
   setupCustomAssertions(hooks);
 
   hooks.beforeEach(function() {
-    this.owner.register('component:marker-layer', MarkerLayerComponent.extend({
-      init() {
-        this._super(...arguments);
-        marker = this;
+    this.owner.register(
+      'component:marker-layer',
+      class extends MarkerLayer {
+        constructor() {
+          super(...arguments);
+          marker = this;
+        }
       }
-    }));
+    );
 
-    this.owner.register('component:custom-array-path-layer', ArrayPathLayerComponent.extend({
-      init() {
-        this._super(...arguments);
-        arrayPath = this;
-      },
-      createLayer() {
-        return this.L.polyline(...this.get('requiredOptions'), this.get('options'));
+    this.owner.register(
+      'component:polyline-layer',
+      class extends PolylineLayer {
+        constructor() {
+          super(...arguments);
+          arrayPath = this;
+        }
       }
-    }));
+    );
 
     this.set('center', locations.nyc);
     this.set('zoom', 13);
@@ -47,13 +54,13 @@ module('Integration | Component | popup layer', function(hooks) {
     this.set('markerCenter', locations.nyc);
 
     await render(hbs`
-      {{#leaflet-map zoom=zoom center=center}}
-        {{#marker-layer location=markerCenter}}
-          {{#popup-layer}}
+      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+        <layers.marker @location={{this.markerCenter}} as |marker|>
+          <marker.popup>
             Popup content
-          {{/popup-layer}}
-        {{/marker-layer}}
-      {{/leaflet-map}}
+          </marker.popup>
+        </layers.marker>
+      </LeafletMap>
     `);
 
     assert.equal(marker._layer._popup._map, null, 'popup not added until opened');
@@ -68,23 +75,27 @@ module('Integration | Component | popup layer', function(hooks) {
     assert.dom(marker._layer._popup._contentNode).hasText('Popup content', 'popup content set');
   });
 
-  test('popup content isn\'t rendered until it is opened (lazy popups)', async function(assert) {
+  test("popup content isn't rendered until it is opened (lazy popups)", async function(assert) {
     let didRun = false;
 
     this.set('markerCenter', locations.nyc);
-    defineProperty(this, 'computedProperty', computed(function() {
-      didRun = true;
-      return 'text';
-    }));
+    defineProperty(
+      this,
+      'computedProperty',
+      computed(function() {
+        didRun = true;
+        return 'text';
+      })
+    );
 
     await render(hbs`
-      {{#leaflet-map zoom=zoom center=center}}
-        {{#marker-layer location=markerCenter}}
-          {{#popup-layer}}
-            {{computedProperty}}
-          {{/popup-layer}}
-        {{/marker-layer}}
-      {{/leaflet-map}}
+      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+        <layers.marker @location={{this.markerCenter}} as |marker|>
+          <marker.popup>
+            {{this.computedProperty}}
+          </marker.popup>
+        </layers.marker>
+      </LeafletMap>
     `);
 
     assert.equal(marker._layer._popup._map, null, 'popup not added until opened');
@@ -102,18 +113,17 @@ module('Integration | Component | popup layer', function(hooks) {
   });
 
   test('popup opens based on popupOpen', async function(assert) {
-
     this.set('markerCenter', locations.nyc);
     this.set('popupOpen', true);
 
     await render(hbs`
-      {{#leaflet-map zoom=zoom center=center}}
-        {{#marker-layer location=markerCenter}}
-          {{#popup-layer popupOpen=popupOpen}}
+      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+        <layers.marker @location={{this.markerCenter}} as |marker|>
+          <marker.popup @popupOpen={{this.popupOpen}}>
             Popup content
-          {{/popup-layer}}
-        {{/marker-layer}}
-      {{/leaflet-map}}
+          </marker.popup>
+        </layers.marker>
+      </LeafletMap>
     `);
 
     await settled();
@@ -138,20 +148,19 @@ module('Integration | Component | popup layer', function(hooks) {
   });
 
   test('popup closes when layer is destroyed', async function(assert) {
-
     this.set('markerCenter', locations.nyc);
     this.set('isVisible', true);
 
     await render(hbs`
-      {{#leaflet-map zoom=zoom center=center}}
-        {{#if isVisible}}
-          {{#marker-layer location=markerCenter}}
-            {{#popup-layer popupOpen=true}}
+      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+        {{#if this.isVisible}}
+          <layers.marker @location={{this.markerCenter}} as |marker|>
+            <marker.popup @popupOpen={{true}}>
               Popup content
-            {{/popup-layer}}
-          {{/marker-layer}}
+            </marker.popup>
+          </layers.marker>
         {{/if}}
-      {{/leaflet-map}}
+      </LeafletMap>
     `);
 
     await settled();
@@ -161,20 +170,20 @@ module('Integration | Component | popup layer', function(hooks) {
     assert.dom(map._popup._contentNode).hasText('Popup content', 'popup content set');
 
     this.set('isVisible', false);
+    await settled();
 
     assert.equal(map._popup, null, 'popup closed');
   });
 
   test('popup closes with yielded action', async function(assert) {
-
     await render(hbs`
-      {{#leaflet-map zoom=zoom center=center}}
-        {{#marker-layer location=center}}
-          {{#popup-layer popupOpen=popupOpen as |closePopup|}}
-            <span id="closeEl" onclick={{closePopup}}>Popup content</span>
-          {{/popup-layer}}
-        {{/marker-layer}}
-      {{/leaflet-map}}
+      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+        <layers.marker @location={{this.center}} as |marker|>
+          <marker.popup @popupOpen={{this.popupOpen}} as |closePopup|>
+            <span id="closeEl" {{on "click" closePopup}}>Popup content</span>
+          </marker.popup>
+        </layers.marker>
+      </LeafletMap>
     `);
 
     run(() => {
@@ -194,13 +203,13 @@ module('Integration | Component | popup layer', function(hooks) {
   test('popup options work', async function(assert) {
     this.set('markerCenter', locations.nyc);
     await render(hbs`
-      {{#leaflet-map zoom=zoom center=center}}
-        {{#marker-layer location=markerCenter draggable=draggable}}
-          {{#popup-layer className="foo"}}
+      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+        <layers.marker @location={{this.markerCenter}} as |marker|>
+          <marker.popup @className="foo">
             Popup Content
-          {{/popup-layer}}
-        {{/marker-layer}}
-      {{/leaflet-map}}
+          </marker.popup>
+        </layers.marker>
+      </LeafletMap>
     `);
 
     assert.equal(marker._layer._popup.options.className, 'foo', 'popup class set');
@@ -210,36 +219,37 @@ module('Integration | Component | popup layer', function(hooks) {
     this.set('locations', A([locations.chicago, locations.nyc, locations.sf]));
 
     await render(hbs`
-      {{#leaflet-map zoom=zoom center=center}}
-        {{#custom-array-path-layer locations=locations}}
-          {{#popup-layer className="exists"}}
-            Popup content
-          {{/popup-layer}}
-        {{/custom-array-path-layer}}
-      {{/leaflet-map}}
+      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+        <layers.polyline @locations={{this.locations}} as |polyline|>
+          <polyline.popup @className="exists">
+            Popup Content
+          </polyline.popup>
+        </layers.polyline>
+      </LeafletMap>
     `);
 
     assert.equal(arrayPath._layer._popup.options.className, 'exists', 'popup class set on array-path');
   });
 
-  (isLeaflet07(L) ? skip : test)('popup is compatible with markerClusterLayer', async function(assert) {
+  (isLeaflet07(L) ? skip : skip)('popup is compatible with markerClusterLayer', async function(assert) {
     this.set('markerCenter', locations.nyc);
 
     await render(hbs`
-      {{#leaflet-map maxZoom=16 zoom=zoom center=center}}
-        {{#marker-cluster-layer}}
-          {{#marker-layer location=markerCenter as |marker|}}
-            {{#marker.popup}}
+      <LeafletMap @maxZoom={{16}} @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+        <layers.marker-cluster as |cluster|>
+          <cluster.marker @location={{this.markerCenter}} as |marker|>
+            <marker.popup>
               Popup content
-            {{/marker.popup}}
-          {{/marker-layer}}
-          {{#marker-layer location=markerCenter as |marker|}}
-            {{#marker.popup}}
+            </marker.popup>
+          </cluster.marker>
+
+          <cluster.marker @location={{this.markerCenter}} as |marker|>
+            <marker.popup>
               Popup content
-            {{/marker.popup}}
-          {{/marker-layer}}
-        {{/marker-cluster-layer}}
-      {{/leaflet-map}}
+            </marker.popup>
+          </cluster.marker>
+        </layers.marker-cluster>
+      </LeafletMap>
     `);
 
     assert.ok(true);

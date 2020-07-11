@@ -1,9 +1,12 @@
-import { module, test } from 'qunit';
-import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
-import hbs from 'htmlbars-inline-precompile';
+import { setupRenderingTest } from 'ember-qunit';
+import { module, test } from 'qunit';
+
 import setupCustomAssertions from 'ember-cli-custom-assertions/test-support';
-import PointPathLayerComponent from 'ember-leaflet/components/point-path-layer';
+import hbs from 'htmlbars-inline-precompile';
+
+import CircleLayer from 'ember-leaflet/components/circle-layer';
+
 import locations from '../../helpers/locations';
 
 let pointPath;
@@ -13,27 +16,28 @@ module('Integration | Component | point path layer', function(hooks) {
   setupCustomAssertions(hooks);
 
   hooks.beforeEach(function() {
-    this.owner.register('component:cutom-point-path-layer', PointPathLayerComponent.extend({
-      init() {
-        this._super(...arguments);
-        pointPath = this;
-      },
-      createLayer() {
-        return this.L.circle(this.get('location'), 50, this.get('options'));
+    this.owner.register(
+      'component:circle-layer',
+      class extends CircleLayer {
+        constructor() {
+          super(...arguments);
+          pointPath = this;
+        }
       }
-    }));
+    );
 
     this.set('center', locations.nyc);
     this.set('zoom', 13);
+    this.set('radius', 50);
   });
 
-  test('update point path layer using leafletProperties', async function(assert) {
+  test('update point path layer using leafletDescriptors', async function(assert) {
     this.set('location', locations.chicago);
 
     await render(hbs`
-      {{#leaflet-map zoom=zoom center=center}}
-        {{cutom-point-path-layer location=location}}
-      {{/leaflet-map}}
+      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+        <layers.circle @location={{this.location}} @radius={{this.radius}}/>
+      </LeafletMap>
     `);
 
     assert.locationsEqual(pointPath._layer.getLatLng(), locations.chicago);
@@ -44,16 +48,15 @@ module('Integration | Component | point path layer', function(hooks) {
   });
 
   test('lat/lng changes propagate to the point path layer', async function(assert) {
-
     this.setProperties({
       lat: locations.nyc.lat,
       lng: locations.nyc.lng
     });
 
     await render(hbs`
-      {{#leaflet-map zoom=zoom center=center}}
-        {{cutom-point-path-layer lat=lat lng=lng}}
-      {{/leaflet-map}}
+      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+        <layers.circle @lat={{this.lat}} @lng={{this.lng}} @radius={{this.radius}}/>
+      </LeafletMap>
     `);
 
     assert.locationsEqual(pointPath._layer.getLatLng(), locations.nyc);

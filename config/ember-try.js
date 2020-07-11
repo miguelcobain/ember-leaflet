@@ -11,7 +11,7 @@ module.exports = async function() {
         npm: {
           devDependencies: {
             'ember-source': '~3.8.0',
-            'leaflet': '~0.7.7'
+            leaflet: '~0.7.7'
           }
         }
       },

@@ -1,0 +1,42 @@
+{{#each-in this.leafletDescriptorsValues as |prop value|}}
+  {{did-update (fn this.updateOption prop) value}}
+{{/each-in}}
+
+<div
+  {{did-insert (action this.didInsertNode)}}
+  {{will-destroy (action this.willDestroyNode)}}
+>
+  {{#let (hash
+    tile=(component "tile-layer" parent=this)
+    wms-tile=(component "wms-tile-layer" parent=this)
+    marker=(component "marker-layer" parent=this)
+    circle=(component "circle-layer" parent=this)
+    circle-marker=(component "circle-marker-layer" parent=this)
+    image=(component "image-layer" parent=this)
+    video=(component "video-layer" parent=this)
+    polyline=(component "polyline-layer" parent=this)
+    polygon=(component "polygon-layer" parent=this)
+    geojson=(component "geojson-layer" parent=this)
+  ) as |components|}}
+
+    {{!--
+      Here we need to create the addon registered contextual components to yield later
+    --}}
+    {{!--
+    {{#if this.emberLeaflet.components}}
+      {{#each this.emberLeaflet.components as |c|}}
+        {{ember-leaflet-assign-to
+          components
+          key=c.as
+          value=(component c.name parent=this)
+          onChange=(action (mut mergedComponents))}}
+      {{/each}}
+
+      {{yield mergedComponents}}
+    {{else}}
+      {{yield components}}
+    {{/if}}
+    --}}
+    {{yield components}}
+  {{/let}}
+</div>

@@ -1,0 +1,15 @@
+{{!--
+{{#each this.parsedleafletDescriptors as |o|}}
+  {{log "ran for" o}}
+  {{did-update (fn this.updateOption o) (get (assign this.args) o)}}
+{{/each}}
+--}}
+
+{{#each-in this.leafletDescriptorsValues as |key value|}}
+  {{did-update (fn this.updateOption key) value value.length}}
+{{/each-in}}
+
+{{yield (hash
+  popup=(component "popup-layer" parent=this)
+  tooltip=(component "tooltip-layer" parent=this)
+)}}

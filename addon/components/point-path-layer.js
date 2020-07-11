@@ -1,15 +1,16 @@
 import PathLayer from 'ember-leaflet/components/path-layer';
-import toLatLng from 'ember-leaflet/macros/to-lat-lng';
 
-export default PathLayer.extend({
+export default class PointPathLayer extends PathLayer {
+  leafletRequiredOptions = [...this.leafletRequiredOptions, 'location'];
 
-  leafletRequiredOptions: Object.freeze([
-    'location'
-  ]),
+  leafletDescriptors = [...this.leafletDescriptors, 'location:setLatLng'];
 
-  leafletProperties: Object.freeze([
-    'location:setLatLng'
-  ]),
-
-  location: toLatLng()
-});
+  get location() {
+    if (this.args.location) {
+      return this.args.location;
+    } else {
+      let [lat, lng] = [this.args.lat, this.args.lng];
+      return this.L.latLng(lat, lng);
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import { computed } from '@ember/object';
 
-export default function(latKey = 'lat', lngKey = 'lng') {
+export default function(latKey = 'args.lat', lngKey = 'args.lng') {
   return computed(latKey, lngKey, {
     get() {
       let [lat, lng] = [this.get(latKey), this.get(lngKey)];

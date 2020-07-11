@@ -19,8 +19,8 @@ export default function locationsEqual(context, loc1, loc2) {
 
   this.pushResult({
     result: isEqual,
-    actual: loc1,
-    expected: loc2,
+    actual: loc1 ? loc1.toString() : loc1,
+    expected: loc2 ? loc2.toString() : loc2,
     message: msg
   });
 }

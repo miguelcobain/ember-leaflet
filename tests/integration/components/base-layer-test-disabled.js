@@ -1,9 +1,12 @@
-import { module, test } from 'qunit';
-import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
+import { setupRenderingTest } from 'ember-qunit';
+import { module, test } from 'qunit';
+
 import hbs from 'htmlbars-inline-precompile';
-import locations from '../../helpers/locations';
+
 import BaseLayerComponent from 'ember-leaflet/components/base-layer';
+
+import locations from '../../helpers/locations';
 
 module('Integration | Component | base layer', function(hooks) {
   setupRenderingTest(hooks);
@@ -25,13 +28,15 @@ module('Integration | Component | base layer', function(hooks) {
   test('using any layer outside a content layer throws', function(assert) {
     assert.expect(1);
 
-    this.owner.register('component:new-base-layer', BaseLayerComponent.extend({
-      createLayer() { }
-    }));
+    this.owner.register(
+      'component:new-base-layer',
+      BaseLayerComponent.extend({
+        createLayer() {}
+      })
+    );
 
     assert.throws(async () => {
       await render(hbs`{{new-base-layer}}`);
     }, /Assertion Failed: Tried to use .* outside the context of a parent component\./);
   });
 });
-

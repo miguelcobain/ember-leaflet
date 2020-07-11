@@ -1,8 +1,11 @@
-import { run } from '@ember/runloop';
+import { module, test } from 'qunit';
+
 import Application from '@ember/application';
+import { run } from '@ember/runloop';
+
 import ENV from '../../../config/environment';
 import { initialize } from '../../../initializers/leaflet-assets';
-import { module, test } from 'qunit';
+
 /* global L */
 
 let registry, application;
@@ -24,7 +27,7 @@ module('Unit | Initializer | leaflet assets', function(hooks) {
   test('it sets icon default imagePath to default assets path', function(assert) {
     initialize(registry, application);
 
-    assert.ok(typeof L.Icon.Default.imagePath !== 'undefined', '`L.Icon.Default.imagePath` is not set');
+    assert.notStrictEqual(typeof L.Icon.Default.imagePath, 'undefined', '`L.Icon.Default.imagePath` is not set');
     assert.equal(L.Icon.Default.imagePath, '/assets/images/');
   });
 
@@ -49,12 +52,12 @@ module('Unit | Initializer | leaflet assets', function(hooks) {
     assert.equal(L.Icon.Default.imagePath, 'assets/images/');
   });
 
-  test('an undefined rootURL should behave the same as \'\' (as ember-cli does)', function(assert) {
+  test("an undefined rootURL should behave the same as '' (as ember-cli does)", function(assert) {
     initialize(registry, application);
     assert.equal(L.Icon.Default.imagePath, 'assets/images/');
   });
 
-  test('a null rootURL should behave the same as \'\' (as ember-cli does)', function(assert) {
+  test("a null rootURL should behave the same as '' (as ember-cli does)", function(assert) {
     ENV.rootURL = null;
     initialize(registry, application);
     assert.equal(L.Icon.Default.imagePath, 'assets/images/');

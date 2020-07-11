@@ -1,0 +1,13 @@
+{{did-update this.popupOpenDidChange @popupOpen}}
+
+{{#unless this.isFastBoot}}
+  {{#if this.shouldRender}}
+    {{#in-element this.destinationElement~}}
+      {{#if this.closePopup}}
+        {{yield (action this.closePopup)}}
+      {{else}}
+        {{yield}}
+      {{/if}}
+    {{~/in-element}}
+  {{/if}}
+{{/unless}}

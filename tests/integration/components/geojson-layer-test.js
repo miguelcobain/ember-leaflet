@@ -1,12 +1,17 @@
-import { module, test } from 'qunit';
-import { setupRenderingTest } from 'ember-qunit';
 import { render, settled } from '@ember/test-helpers';
-import hbs from 'htmlbars-inline-precompile';
+import { setupRenderingTest } from 'ember-qunit';
+import { module, test } from 'qunit';
+
+import { run } from '@ember/runloop';
+
 import setupCustomAssertions from 'ember-cli-custom-assertions/test-support';
+import hbs from 'htmlbars-inline-precompile';
+
 import GeoJSONLayerComponent from 'ember-leaflet/components/geojson-layer';
+
 import locations from '../../helpers/locations';
 import sampleGeoJSON from '../../helpers/sample-geojson';
-import { run } from '@ember/runloop';
+
 /* globals L */
 
 const emptyGeoJSON = {
@@ -21,12 +26,15 @@ module('Integration | Component | geojson layer', function(hooks) {
   setupCustomAssertions(hooks);
 
   hooks.beforeEach(function() {
-    this.owner.register('component:geojson-layer', GeoJSONLayerComponent.extend({
-      init() {
-        this._super(...arguments);
-        geoJSONLayer = this;
-      }
-    }));
+    this.owner.register(
+      'component:geojson-layer',
+      GeoJSONLayerComponent.extend({
+        init() {
+          this._super(...arguments);
+          geoJSONLayer = this;
+        }
+      })
+    );
 
     this.set('center', locations.chicago);
     this.set('zoom', 14);
@@ -48,10 +56,8 @@ module('Integration | Component | geojson layer', function(hooks) {
     // to Leaflet to test that the GeoJSONLayer populates it correctly
     assert.dom('path').hasAttribute('d');
 
-
     // renders point as marker:
-    let markers = geoJSONLayer._layer.getLayers().filter(
-      (layer) => layer instanceof L.Marker);
+    let markers = geoJSONLayer._layer.getLayers().filter(layer => layer instanceof L.Marker);
 
     assert.strictEqual(markers.length, 1);
     assert.locationsEqual(markers[0].getLatLng(), locations.chicago);
@@ -73,8 +79,7 @@ module('Integration | Component | geojson layer', function(hooks) {
 
     assert.dom('path').doesNotExist();
 
-    let markers = geoJSONLayer._layer.getLayers().filter(
-      (layer) => layer instanceof L.Marker);
+    let markers = geoJSONLayer._layer.getLayers().filter(layer => layer instanceof L.Marker);
     assert.strictEqual(markers.length, 0);
   });
 

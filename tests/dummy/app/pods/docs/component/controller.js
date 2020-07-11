@@ -1,7 +1,7 @@
-import Controller from '@ember/controller';
-import Component from '@ember/component';
-import { computed } from '@ember/object';
 import { A } from '@ember/array';
+import Component from '@ember/component';
+import Controller from '@ember/controller';
+import { computed } from '@ember/object';
 /* global requirejs, require */
 
 let URL_PREFIX = 'http://leafletjs.com/reference-1.0.2.html#';
@@ -11,7 +11,6 @@ function getSuperclass(instance) {
 }
 
 export default class ComponentController extends Controller {
-
   @computed('componentName')
   get leafletUrlPrefix() {
     let id;
@@ -65,7 +64,9 @@ export default class ComponentController extends Controller {
     let component = this.component;
     let superclass = getSuperclass(component);
     if (superclass !== Component) {
-      return this._findClassSource(superclass).split('/').pop();
+      return this._findClassSource(superclass)
+        .split('/')
+        .pop();
     } else {
       return false;
     }
@@ -77,8 +78,8 @@ export default class ComponentController extends Controller {
   }
 
   @computed('component')
-  get leafletProperties() {
-    return this._subtractSuperClassProps('leafletProperties');
+  get leafletDescriptors() {
+    return this._subtractSuperClassProps('leafletDescriptors');
   }
 
   @computed('component')
@@ -95,5 +96,4 @@ export default class ComponentController extends Controller {
   get leafletStyleProperties() {
     return this._subtractSuperClassProps('leafletStyleProperties');
   }
-
 }

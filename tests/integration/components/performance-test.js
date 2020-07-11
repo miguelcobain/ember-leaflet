@@ -1,7 +1,9 @@
-import { module, test } from 'qunit';
-import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
+import { setupRenderingTest } from 'ember-qunit';
+import { module, test } from 'qunit';
+
 import hbs from 'htmlbars-inline-precompile';
+
 import lines from '../../helpers/large-geometries';
 /* global L */
 
@@ -15,7 +17,10 @@ module('Integration | Performance | ember-leaflet', function(hooks) {
    */
   test('render a large number of polylines', async function(assert) {
     this.lines = lines;
-    this.bounds = [[41.1449395467859, -8.539622426033022], [41.141097715815484, -8.529322743415834]];
+    this.bounds = [
+      [41.1449395467859, -8.539622426033022],
+      [41.141097715815484, -8.529322743415834]
+    ];
 
     let startTime = performance.now();
 
@@ -45,7 +50,10 @@ module('Integration | Performance | ember-leaflet', function(hooks) {
    */
   test('render a large number of polylines (raw leaflet)', async function(assert) {
     this.lines = lines;
-    this.bounds = [[41.1449395467859, -8.539622426033022], [41.141097715815484, -8.529322743415834]];
+    this.bounds = [
+      [41.1449395467859, -8.539622426033022],
+      [41.141097715815484, -8.529322743415834]
+    ];
 
     let startTime = performance.now();
 

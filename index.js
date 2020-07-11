@@ -1,9 +1,9 @@
 'use strict';
-const resolve = require('resolve');
-const path = require('path');
-const mergeTrees = require('broccoli-merge-trees');
 const Funnel = require('broccoli-funnel');
+const mergeTrees = require('broccoli-merge-trees');
 const fastbootTransform = require('fastboot-transform');
+const path = require('path');
+const resolve = require('resolve');
 
 module.exports = {
   name: require('./package').name,
@@ -11,10 +11,12 @@ module.exports = {
   treeForVendor() {
     let dist = path.join(this.pathBase('leaflet'), 'dist');
 
-    let leafletJs = fastbootTransform(new Funnel(dist, {
-      files: ['leaflet-src.js'],
-      destDir: 'leaflet'
-    }));
+    let leafletJs = fastbootTransform(
+      new Funnel(dist, {
+        files: ['leaflet-src.js'],
+        destDir: 'leaflet'
+      })
+    );
 
     let leafletFiles = new Funnel(dist, {
       exclude: ['leaflet.js', 'leaflet-src.js', '*.html'],

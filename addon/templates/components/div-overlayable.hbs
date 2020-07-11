@@ -1,0 +1,8 @@
+{{#each-in this.leafletDescriptorsValues as |key value|}}
+  {{did-update (fn this.updateOption key) value}}
+{{/each-in}}
+
+{{yield (hash
+  popup=(component "popup-layer" parent=this)
+  tooltip=(component "tooltip-layer" parent=this)
+)}}

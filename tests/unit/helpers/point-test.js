@@ -1,5 +1,6 @@
-import { point } from 'dummy/helpers/point';
 import { module, test } from 'qunit';
+
+import { point } from 'dummy/helpers/point';
 /* global L */
 
 module('Unit | Helper | point', function() {

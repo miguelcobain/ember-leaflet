@@ -22,7 +22,7 @@ export default class MarkerClusterController extends Controller {
       title: 'Chase Bank',
       description: '253 Broadway, New York, NY 10007, EUA',
       location: [40.713316, -74.007386]
-    },
+    }
   ];
 }
 // END-SNIPPET

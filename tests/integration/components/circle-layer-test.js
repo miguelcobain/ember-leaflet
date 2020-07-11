@@ -1,9 +1,12 @@
-import { module, test } from 'qunit';
-import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
-import hbs from 'htmlbars-inline-precompile';
+import { setupRenderingTest } from 'ember-qunit';
+import { module, test } from 'qunit';
+
 import setupCustomAssertions from 'ember-cli-custom-assertions/test-support';
-import CircleLayerComponent from 'ember-leaflet/components/circle-layer';
+import hbs from 'htmlbars-inline-precompile';
+
+import CircleLayer from 'ember-leaflet/components/circle-layer';
+
 import locations from '../../helpers/locations';
 
 let circle;
@@ -13,25 +16,28 @@ module('Integration | Component | circle layer', function(hooks) {
   setupCustomAssertions(hooks);
 
   hooks.beforeEach(function() {
-    this.owner.register('component:circle-layer', CircleLayerComponent.extend({
-      init() {
-        this._super(...arguments);
-        circle = this;
+    this.owner.register(
+      'component:circle-layer',
+      class extends CircleLayer {
+        constructor() {
+          super(...arguments);
+          circle = this;
+        }
       }
-    }));
+    );
 
     this.set('center', locations.nyc);
     this.set('zoom', 13);
   });
 
-  test('update circle layer using leafletProperties', async function(assert) {
+  test('update circle layer using leafletDescriptors', async function(assert) {
     this.set('circleCenter', locations.nyc);
     this.set('radius', 25);
 
     await render(hbs`
-      {{#leaflet-map zoom=zoom center=center}}
-        {{circle-layer location=circleCenter radius=radius}}
-      {{/leaflet-map}}
+      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+        <layers.circle @location={{this.circleCenter}} @radius={{this.radius}}/>
+      </LeafletMap>
     `);
 
     assert.locationsEqual(circle._layer.getLatLng(), locations.nyc);
@@ -45,7 +51,6 @@ module('Integration | Component | circle layer', function(hooks) {
   });
 
   test('lat/lng changes propagate to the circle layer', async function(assert) {
-
     this.setProperties({
       lat: locations.nyc.lat,
       lng: locations.nyc.lng,
@@ -53,9 +58,9 @@ module('Integration | Component | circle layer', function(hooks) {
     });
 
     await render(hbs`
-      {{#leaflet-map zoom=zoom center=center}}
-        {{circle-layer lat=lat lng=lng radius=radius}}
-      {{/leaflet-map}}
+      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+        <layers.circle @lat={{this.lat}} @lng={{this.lng}} @radius={{this.radius}}/>
+      </LeafletMap>
     `);
 
     assert.locationsEqual(circle._layer.getLatLng(), locations.nyc);

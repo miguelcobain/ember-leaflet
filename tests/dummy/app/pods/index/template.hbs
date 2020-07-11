@@ -1,6 +1,6 @@
-{{#leaflet-map class="main-page-map" lat=45.519743 lng=-122.680522 zoom=13 scrollWheelZoom=false attributionControl=false zoomControl=false}}
-  {{tile-layer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
-{{/leaflet-map}}
+<LeafletMap class="main-page-map" @lat={{45.519743}} @lng={{-122.680522}} @zoom={{13}} @scrollWheelZoom={{false}} @attributionControl={{false}} @zoomControl={{false}} as |layers|>
+  <layers.tile @url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png" />
+</LeafletMap>
 
 <div class="main-page-headline">
   {{docs-hero

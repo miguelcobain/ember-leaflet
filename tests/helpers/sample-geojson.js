@@ -19,12 +19,14 @@ export default {
       type: 'Feature',
       geometry: {
         type: 'Polygon',
-        coordinates: [[
-          [chicago.lng - 0.01, chicago.lat - 0.01],
-          [chicago.lng + 0.01, chicago.lat - 0.01],
-          [chicago.lng + 0.01, chicago.lat + 0.01],
-          [chicago.lng - 0.01, chicago.lat + 0.01]
-        ]]
+        coordinates: [
+          [
+            [chicago.lng - 0.01, chicago.lat - 0.01],
+            [chicago.lng + 0.01, chicago.lat - 0.01],
+            [chicago.lng + 0.01, chicago.lat + 0.01],
+            [chicago.lng - 0.01, chicago.lat + 0.01]
+          ]
+        ]
       },
       properties: {
         name: 'A Rectangle'

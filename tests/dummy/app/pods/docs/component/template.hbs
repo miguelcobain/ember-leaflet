@@ -21,10 +21,10 @@
     </ul>
   {{/if}}
 
-  {{#if leafletProperties}}
+  {{#if leafletDescriptors}}
     <p><strong>{{componentName}}</strong> component has the following bound options:</p>
     <ul>
-      {{#each leafletProperties as |prop|}}
+      {{#each leafletDescriptors as |prop|}}
         <li>
           <a target="_blank" rel="noopener" href="{{leafletUrlPrefix}}-{{lowercase (split prop 0)}}" class="docs-md__a">
             {{split prop 0}}

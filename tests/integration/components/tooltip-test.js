@@ -1,16 +1,20 @@
+import { render, settled } from '@ember/test-helpers';
+import { setupRenderingTest } from 'ember-qunit';
+import { module, test } from 'qunit';
+
+import { A } from '@ember/array';
 import { computed, defineProperty } from '@ember/object';
 import { run } from '@ember/runloop';
-import { A } from '@ember/array';
-import { module, test } from 'qunit';
-import { setupRenderingTest } from 'ember-qunit';
-import { render, settled } from '@ember/test-helpers';
-import hbs from 'htmlbars-inline-precompile';
+
 import setupCustomAssertions from 'ember-cli-custom-assertions/test-support';
-import MarkerLayerComponent from 'ember-leaflet/components/marker-layer';
+import hbs from 'htmlbars-inline-precompile';
+
 import ArrayPathLayerComponent from 'ember-leaflet/components/array-path-layer';
+import MarkerLayerComponent from 'ember-leaflet/components/marker-layer';
+
+import isLeaflet07 from '../../helpers/is-leaflet-0.7';
 import locations from '../../helpers/locations';
 /* global L */
-import isLeaflet07 from '../../helpers/is-leaflet-0.7';
 
 // Needed to silence leaflet autodetection error
 L.Icon.Default.imagePath = 'some-path';
@@ -23,22 +27,28 @@ if (!isLeaflet07(L)) {
     setupCustomAssertions(hooks);
 
     hooks.beforeEach(function() {
-      this.owner.register('component:marker-layer', MarkerLayerComponent.extend({
-        init() {
-          this._super(...arguments);
-          marker = this;
-        }
-      }));
+      this.owner.register(
+        'component:marker-layer',
+        MarkerLayerComponent.extend({
+          init() {
+            this._super(...arguments);
+            marker = this;
+          }
+        })
+      );
 
-      this.owner.register('component:custom-array-path-layer', ArrayPathLayerComponent.extend({
-        init() {
-          this._super(...arguments);
-          arrayPath = this;
-        },
-        createLayer() {
-          return this.L.polyline(...this.get('requiredOptions'), this.get('options'));
-        }
-      }));
+      this.owner.register(
+        'component:custom-array-path-layer',
+        ArrayPathLayerComponent.extend({
+          init() {
+            this._super(...arguments);
+            arrayPath = this;
+          },
+          createLayer() {
+            return this.L.polyline(...this.get('requiredOptions'), this.get('options'));
+          }
+        })
+      );
 
       this.set('center', locations.nyc);
       this.set('zoom', 13);
@@ -86,14 +96,18 @@ if (!isLeaflet07(L)) {
       assert.dom(marker._layer._tooltip._contentNode).hasText('Tooltip content', 'tooltip content set');
     });
 
-    test('tooltip content isn\'t rendered until it is opened (lazy tooltips)', async function(assert) {
+    test("tooltip content isn't rendered until it is opened (lazy tooltips)", async function(assert) {
       let didRun = false;
 
       this.set('markerCenter', locations.nyc);
-      defineProperty(this, 'computedProperty', computed(function() {
-        didRun = true;
-        return 'text';
-      }));
+      defineProperty(
+        this,
+        'computedProperty',
+        computed(function() {
+          didRun = true;
+          return 'text';
+        })
+      );
 
       await render(hbs`
         {{#leaflet-map zoom=zoom center=center}}
@@ -120,7 +134,6 @@ if (!isLeaflet07(L)) {
     });
 
     test('tooltip closes when layer is destroyed', async function(assert) {
-
       this.set('markerCenter', locations.nyc);
       this.set('isVisible', true);
 
@@ -181,6 +194,5 @@ if (!isLeaflet07(L)) {
 
       assert.equal(arrayPath._layer._tooltip.options.className, 'exists', 'tooltip class set on array-path');
     });
-
   });
 }

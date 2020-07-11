@@ -1,21 +1,10 @@
 :root {
-  --brand-primary: #1EB300;
+  --brand-primary: #1eb300;
 }
 
 body {
-  font-family:
-    'Roboto',
-    'system-ui',
-    'BlinkMacSystemFont',
-    '-apple-system',
-    'Segoe UI',
-    'Oxygen',
-    'Ubuntu',
-    'Cantarell',
-    'Fira Sans',
-    'Droid Sans',
-    'Helvetica Neue',
-    'sans-serif';
+  font-family: 'Roboto', 'system-ui', 'BlinkMacSystemFont', '-apple-system', 'Segoe UI', 'Oxygen', 'Ubuntu', 'Cantarell',
+    'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'sans-serif';
 }
 
 .leaflet-container {
@@ -38,16 +27,16 @@ body {
   margin-top: -400px;
   width: 100%;
   //background-color: rgba(0,0,0,0.2);
-  background-image: linear-gradient(0,transparent 0,rgba(0,0,0,.5) 100%);
+  background-image: linear-gradient(0, transparent 0, rgba(0, 0, 0, 0.5) 100%);
   background-color: transparent !important;
   pointer-events: none;
   z-index: 400;
 
-  a, button {
+  a,
+  button {
     pointer-events: auto;
   }
 }
-
 
 // Selling points
 .selling-point-icon {
@@ -56,7 +45,7 @@ body {
   margin: 25px auto;
 }
 .selling-point-code {
-  color: #CCC;
+  color: #ccc;
   padding: 0;
   font-size: 25px;
   font-family: monospace;
@@ -76,12 +65,13 @@ body {
   z-index: 401;
 }
 
-
 // brand color no longer works in Ember CLI 3.13
 // see: https://github.com/ember-learn/ember-cli-addon-docs/issues/407
-.docs-bg-brand, .hover\:docs-bg-brand:hover {
-  background-color: #1EB300 !important;
+.docs-bg-brand,
+.hover\:docs-bg-brand:hover {
+  background-color: #1eb300 !important;
 }
-.docs-text-brand, .hover\:docs-text-brand:hover {
-  color: #1EB300 !important;
+.docs-text-brand,
+.hover\:docs-text-brand:hover {
+  color: #1eb300 !important;
 }

@@ -1,5 +1,6 @@
-import { latLngBounds } from 'dummy/helpers/lat-lng-bounds';
 import { module, test } from 'qunit';
+
+import { latLngBounds } from 'dummy/helpers/lat-lng-bounds';
 /* global L */
 
 module('Unit | Helper | lat-lng-bounds', function() {

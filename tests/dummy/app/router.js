@@ -1,5 +1,6 @@
 import AddonDocsRouter, { docsRoute } from 'ember-cli-addon-docs/router';
 import RouterScroll from 'ember-router-scroll';
+
 import config from './config/environment';
 
 const Router = AddonDocsRouter.extend(RouterScroll, {

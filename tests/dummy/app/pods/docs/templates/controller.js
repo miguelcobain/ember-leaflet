@@ -19,7 +19,7 @@ export default class TemplatesController extends Controller {
     {
       name: 'Burgerville',
       rating: 3.8,
-      lat: 45.530970,
+      lat: 45.53097,
       lng: -122.661968
     },
     {
@@ -33,7 +33,7 @@ export default class TemplatesController extends Controller {
 
   @computed('restaurants.@each.{lat,lng}')
   get dangerZone() {
-    return this.restaurants.map((r) => ({ lat: r.lat, lng: r.lng }));
+    return this.restaurants.map(r => ({ lat: r.lat, lng: r.lng }));
   }
 
   @action
