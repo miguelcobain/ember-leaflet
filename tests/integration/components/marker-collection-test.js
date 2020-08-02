@@ -24,10 +24,12 @@ module('Integration | Component | marker layer collection', function(hooks) {
         markersInitCount++;
         markers.push(this);
       },
+
       didInsertParent() {
         this._super(...arguments);
         createLayersCount++;
       },
+
       willDestroyParent() {
         this._super(...arguments);
         destroyLayersCount++;
@@ -58,11 +60,11 @@ module('Integration | Component | marker layer collection', function(hooks) {
     ]);
 
     await render(hbs`
-      {{#leaflet-map zoom=zoom center=center}}
-        {{#each markers as |m|}}
-          {{marker-layer location=m.location}}
+      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+        {{#each this.markers as |m|}}
+          <layers.marker @location={{m.location}}/>
         {{/each}}
-      {{/leaflet-map}}
+      </LeafletMap>
     `);
 
     // pre-conditions
@@ -94,15 +96,15 @@ module('Integration | Component | marker layer collection', function(hooks) {
     ]);
 
     await render(hbs`
-      {{#leaflet-map zoom=zoom center=center}}
-        {{#each markers as |m|}}
-          {{#marker-layer location=m.location}}
-            {{#popup-layer}}
+      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+        {{#each this.markers as |m|}}
+          <layers.marker @location={{m.location}} as |marker|>
+            <marker.popup>
               Popup content
-            {{/popup-layer}}
-          {{/marker-layer}}
+            </marker.popup>
+          </layers.marker>
         {{/each}}
-      {{/leaflet-map}}
+      </LeafletMap>
     `);
 
     // pre-conditions

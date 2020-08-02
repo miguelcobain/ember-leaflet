@@ -1,5 +1,6 @@
 import { assert } from '@ember/debug';
 import { computed } from '@ember/object';
+import { and } from '@ember/object/computed';
 import Component from '@ember/component';
 import { getOwner } from '@ember/application';
 import { scheduleOnce } from '@ember/runloop';
@@ -20,9 +21,7 @@ export default Component.extend(ChildMixin, InvokeActionMixin, {
     return owner.lookup('service:fastboot');
   }),
 
-  isFastBoot: computed('fastboot', function() {
-    return this.get('fastboot') && this.get('fastboot.isFastBoot');
-  }),
+  isFastBoot: and('fastboot', 'fastboot.isFastBoot'),
 
   concatenatedProperties: ['leafletOptions', 'leafletRequiredOptions', 'leafletEvents', 'leafletProperties'],
 

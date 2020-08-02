@@ -25,9 +25,9 @@ module('Integration | Component | wms tile layer', function(hooks) {
   test('wms parameters are set', async function(assert) {
 
     await render(hbs`
-      {{#leaflet-map zoom=zoom center=center}}
-        {{wms-tile-layer url="an-url" layers="layers" styles="styles"}}
-      {{/leaflet-map}}
+      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+        <layers.wms-tile @url="an-url" @layers="layers" @styles="styles"/>
+      </LeafletMap>
     `);
 
     assert.equal(tile._layer._url, 'an-url');

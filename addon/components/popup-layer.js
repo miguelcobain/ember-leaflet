@@ -1,4 +1,4 @@
-import { observer } from '@ember/object';
+import { observer, action } from '@ember/object';
 import { later, cancel, next } from '@ember/runloop';
 import DivOverlayLayer from 'ember-leaflet/components/div-overlay-layer';
 
@@ -18,6 +18,7 @@ export default DivOverlayLayer.extend({
   /*
    * Action to yield to block
    */
+  @action
   closePopup() {
     this._layer._close();
   },

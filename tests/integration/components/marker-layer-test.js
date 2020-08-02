@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import setupCustomAssertions from 'ember-cli-custom-assertions/test-support';
 import hasEmberVersion from 'ember-test-helpers/has-ember-version';
@@ -36,9 +36,9 @@ module('Integration | Component | marker layer', function(hooks) {
     this.set('icon', L.divIcon({ className: 'my-div-icon' }));
 
     await render(hbs`
-      {{#leaflet-map zoom=zoom center=center}}
-        {{marker-layer location=markerCenter opacity=opacity zIndexOffset=zIndexOffset icon=icon}}
-      {{/leaflet-map}}
+      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+        <layers.marker @location={{this.markerCenter}} @opacity={{this.opacity}} @zIndexOffset={{this.zIndexOffset}} @icon={{this.icon}}/>
+      </LeafletMap>
     `);
 
     // pre-conditions
@@ -52,10 +52,12 @@ module('Integration | Component | marker layer', function(hooks) {
     this.set('zIndexOffset', 2);
     this.set('icon', L.divIcon({ className: 'another-div-icon' }));
 
+    await settled();
+
     assert.locationsEqual(marker._layer.getLatLng(), locations.sf);
     assert.equal(marker._layer.options.opacity, 0.8);
     assert.equal(marker._layer.options.zIndexOffset, 2);
-    assert.equal(marker._layer.options.icon, this.get('icon'));
+    assert.equal(marker._layer.options.icon, this.icon);
   });
 
   test('marker sends actions for events', async function(assert) {
@@ -68,9 +70,9 @@ module('Integration | Component | marker layer', function(hooks) {
     this.set('markerCenter', locations.nyc);
 
     await render(hbs`
-      {{#leaflet-map zoom=zoom center=center}}
-        {{marker-layer location=markerCenter onMove=(action moveAction)}}
-      {{/leaflet-map}}
+      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+        <layers.marker @location={{this.markerCenter}} @onMove={{this.moveAction}}/>
+      </LeafletMap>
     `);
 
     this.set('markerCenter', locations.paris);
@@ -81,9 +83,9 @@ module('Integration | Component | marker layer', function(hooks) {
     this.set('markerCenter', locations.nyc);
 
     await render(hbs`
-      {{#leaflet-map zoom=zoom center=center}}
-        {{marker-layer location=markerCenter draggable=true}}
-      {{/leaflet-map}}
+      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+        <layers.marker @location={{this.markerCenter}} @draggable={{true}}/>
+      </LeafletMap>
     `);
 
     assert.ok(marker._layer.dragging.enabled(), 'marker dragging enabled');
@@ -95,15 +97,16 @@ module('Integration | Component | marker layer', function(hooks) {
     this.set('draggable', true);
 
     await render(hbs`
-      {{#leaflet-map zoom=zoom center=center}}
-        {{marker-layer location=markerCenter draggable=draggable}}
-      {{/leaflet-map}}
+      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+        <layers.marker @location={{this.markerCenter}} @draggable={{this.draggable}}/>
+      </LeafletMap>
     `);
 
     // pre-conditions
     assert.ok(marker._layer.dragging.enabled(), 'marker dragging enabled');
 
     this.set('draggable', false);
+    await settled();
 
     assert.equal(marker._layer.dragging.enabled(), false, 'marker dragging disabled');
   });
@@ -117,20 +120,25 @@ module('Integration | Component | marker layer', function(hooks) {
     this.set('markerCenter', locations.nyc);
     this.set('draggable', true);
     this.set('currentIcon', icon1);
+    await settled();
 
     await render(hbs`
-      {{#leaflet-map zoom=zoom center=center}}
-        {{marker-layer location=markerCenter draggable=draggable icon=currentIcon}}
-      {{/leaflet-map}}
+      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+        <layers.marker @location={{this.markerCenter}} @draggable={{this.draggable}} @icon={{this.currentIcon}}/>
+      </LeafletMap>
     `);
 
     // pre-conditions
     assert.equal(marker._layer.dragging.enabled(), true, 'marker dragging enabled');
 
     this.set('draggable', false);
+    await settled();
+
     assert.equal(marker._layer.dragging.enabled(), false, 'marker dragging disabled');
 
     this.set('currentIcon', icon2);
+    await settled();
+
     assert.equal(marker._layer.dragging.enabled(), false, 'marker dragging is still disabled');
   });
 
@@ -141,9 +149,9 @@ module('Integration | Component | marker layer', function(hooks) {
       this.set('markerCenter', locations.nyc);
 
       await render(hbs`
-        {{#leaflet-map zoom=zoom center=center as |layers|}}
-          {{layers.marker location=markerCenter}}
-        {{/leaflet-map}}
+        <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+          <layers.marker @location={{this.markerCenter}}/>
+        </LeafletMap>
       `);
 
       assert.ok(marker._layer, 'marker was created');
@@ -157,14 +165,14 @@ module('Integration | Component | marker layer', function(hooks) {
     this.set('currentSize', 12);
 
     await render(hbs`
-      {{#leaflet-map zoom=zoom center=center}}
-        {{marker-layer
-          location=markerCenter
-          icon=(icon
-            iconUrl=currentIconUrl
-            iconSize=(point currentSize currentSize)
-          )}}
-      {{/leaflet-map}}
+      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+        <layers.marker
+          @location={{this.markerCenter}}
+          @icon={{icon
+            iconUrl=this.currentIconUrl
+            iconSize=(point this.currentSize this.currentSize)
+          }}/>
+      </LeafletMap>
     `);
 
     assert.equal(marker._layer.options.icon.options.iconUrl, 'custom-url.png');
@@ -174,6 +182,8 @@ module('Integration | Component | marker layer', function(hooks) {
     // Let's make sure an icon recomputes with a bound param changes
     this.set('currentIconUrl', 'another-custom-url.png');
     this.set('currentSize', 21);
+    await settled();
+
     assert.equal(marker._layer.options.icon.options.iconUrl, 'another-custom-url.png');
     assert.equal(marker._layer.options.icon.options.iconSize.x, 21);
     assert.equal(marker._layer.options.icon.options.iconSize.y, 21);
@@ -186,14 +196,14 @@ module('Integration | Component | marker layer', function(hooks) {
     this.set('currentSize', 12);
 
     await render(hbs`
-      {{#leaflet-map zoom=zoom center=center}}
-        {{marker-layer
-          location=markerCenter
-          icon=(div-icon
-            html=iconContent
-            iconSize=(point currentSize currentSize)
-          )}}
-      {{/leaflet-map}}
+      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+        <layers.marker
+          @location={{this.markerCenter}}
+          @icon={{div-icon
+            html=this.iconContent
+            iconSize=(point this.currentSize this.currentSize)
+          }}/>
+      </LeafletMap>
     `);
 
     assert.equal(marker._layer.options.icon.options.html, '<h1>First title!</h1>');
@@ -203,6 +213,8 @@ module('Integration | Component | marker layer', function(hooks) {
     // Let's make sure an icon recomputes with a bound param changes
     this.set('iconContent', '<h1>Second title!</h1>');
     this.set('currentSize', 21);
+    await settled();
+
     assert.equal(marker._layer.options.icon.options.html, '<h1>Second title!</h1>');
     assert.equal(marker._layer.options.icon.options.iconSize.x, 21);
     assert.equal(marker._layer.options.icon.options.iconSize.y, 21);

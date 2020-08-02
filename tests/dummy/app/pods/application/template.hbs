@@ -1,9 +1,13 @@
-{{#docs-header as |header|}}
-  {{#header.link "addons"}}
-    Addons
-  {{/header.link}}
-{{/docs-header}}
+<div class="ember-view">
+  <DocsHeader as |header|>
+    <header.link @route="addons">
+      Addons
+    </header.link>
+  </DocsHeader>
 
-{{outlet}}
+  <div>
+    {{outlet}}
+  </div>
 
-{{docs-keyboard-shortcuts}}
+  <DocsKeyboardShortcuts/>
+</div>

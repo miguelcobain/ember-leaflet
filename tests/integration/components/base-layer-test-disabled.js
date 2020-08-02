@@ -14,11 +14,12 @@ module('Integration | Component | base layer', function(hooks) {
     this.set('center', locations.nyc);
     this.set('zoom', 13);
 
-    assert.throws(async () => {
+    assert.expectAssertion(async () => {
       await render(hbs`
-        {{#leaflet-map zoom=zoom center=center}}
-          {{base-layer}}
-        {{/leaflet-map}}`);
+        <LeafletMap @zoom={{this.zoom}} @center={{this.center}}>
+          <BaseLayer/>
+        </LeafletMap>
+      `);
     }, /Assertion Failed: BaseLayer's `createLayer` should be overriden./);
   });
 
@@ -29,8 +30,8 @@ module('Integration | Component | base layer', function(hooks) {
       createLayer() { }
     }));
 
-    assert.throws(async () => {
-      await render(hbs`{{new-base-layer}}`);
+    assert.expectAssertion(async () => {
+      await render(hbs`<NewBaseLayer/>`);
     }, /Assertion Failed: Tried to use .* outside the context of a parent component\./);
   });
 });

@@ -1,4 +1,5 @@
 import { computed } from '@ember/object';
+import { and } from '@ember/object/computed';
 import { getOwner } from '@ember/application';
 import BaseLayer from 'ember-leaflet/components/base-layer';
 import layout from '../templates/div-overlay';
@@ -16,7 +17,5 @@ export default BaseLayer.extend(RenderBlockMixin, {
     return owner.lookup('service:fastboot');
   }),
 
-  isFastBoot: computed('fastboot', function() {
-    return this.get('fastboot') && this.get('fastboot.isFastBoot');
-  })
+  isFastBoot: and('fastboot', 'fastboot.isFastBoot'),
 });

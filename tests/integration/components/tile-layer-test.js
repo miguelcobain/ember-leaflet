@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import TileLayerComponent from 'ember-leaflet/components/tile-layer';
 import locations from '../../helpers/locations';
@@ -29,9 +29,9 @@ module('Integration | Component | tile layer', function(hooks) {
     this.set('subdomains', ['123']);
 
     await render(hbs`
-      {{#leaflet-map zoom=zoom center=center}}
-        {{tile-layer url=tileUrl opacity=opacity zIndex=zIndex subdomains=subdomains}}
-      {{/leaflet-map}}
+      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+        <layers.tile @url={{this.tileUrl}} @opacity={{this.opacity}} @zIndex={{this.zIndex}} @subdomains={{this.subdomains}}/>
+      </LeafletMap>
     `);
 
     assert.equal(tile._layer._url, 'http://{s}.tile.osm.org/{z}/{x}/{y}.png');
@@ -42,6 +42,7 @@ module('Integration | Component | tile layer', function(hooks) {
     this.set('tileUrl', 'http://a.tiles.mapbox.com/v3/examples.map-zr0njcqy/{z}/{x}/{y}.png');
     this.set('zIndex', 2);
     this.set('opacity', 0.8);
+    await settled();
 
     assert.equal(tile._layer._url, 'http://a.tiles.mapbox.com/v3/examples.map-zr0njcqy/{z}/{x}/{y}.png');
     assert.equal(tile._layer.options.opacity, 0.8);
@@ -57,9 +58,9 @@ module('Integration | Component | tile layer', function(hooks) {
     });
 
     await render(hbs`
-      {{#leaflet-map zoom=zoom center=center}}
-        {{tile-layer url="http://{s}.tile.osm.org/{z}/{x}/{y}.png" onLoading=(action loadingAction)}}
-      {{/leaflet-map}}
+      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+        <layers.tile @url="http://{s}.tile.osm.org/{z}/{x}/{y}.png" @onLoading={{this.loadingAction}}/>
+      </LeafletMap>
     `);
   });
 });

@@ -14,7 +14,7 @@ You're ready to map!
 See <a class="docs-md__a" href="http://ember-cli.com/user-guide/#fingerprinting-and-cdn-urls">here</a> for more details.
 
 ```js
-//ember-cli-build.js
+// ember-cli-build.js
 let app = new EmberApp(defaults, {
   // Add options here
   fingerprint: {

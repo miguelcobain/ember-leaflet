@@ -4,7 +4,7 @@ import { computed } from '@ember/object';
 import { A } from '@ember/array';
 /* global requirejs, require */
 
-let URL_PREFIX = 'http://leafletjs.com/reference-1.0.2.html#';
+let URL_PREFIX = 'https://leafletjs.com/reference-1.6.0.html#';
 
 function getSuperclass(instance) {
   return instance.constructor.superclass;

@@ -1,36 +1,37 @@
 
 
-{{#docs-viewer as |viewer|}}
-  {{#viewer.nav as |nav|}}
-    {{nav.section "Guides"}}
+<DocsViewer as |viewer|>
+  <viewer.nav as |nav|>
+    <nav.section @label="Guides"/>
 
     <li class="mt-8"></li>
 
-    {{nav.item "Overview" "docs.index"}}
-    {{nav.item "Installation" "docs.installation"}}
-    {{nav.item "The container" "docs.container"}}
-    {{nav.item "Adding layers" "docs.adding-layers"}}
-    {{nav.item "Actions and interaction" "docs.actions"}}
-    {{nav.item "They're just templates!" "docs.templates"}}
-    {{nav.item "Addons" "docs.addons"}}
+    <nav.item @label="Overview" @route="docs.index"/>
+    <nav.item @label="Installation" @route="docs.installation"/>
+    <nav.item @label="The container" @route="docs.container"/>
+    <nav.item @label="Adding layers" @route="docs.adding-layers"/>
+    <nav.item @label="Actions and interaction" @route="docs.actions"/>
+    <nav.item @label="They're just templates!" @route="docs.templates"/>
+    <nav.item @label="Addons" @route="docs.addons"/>
 
-    {{nav.section "Components"}}
-    {{#each componentList as |c|}}
-      {{nav.item (concat "<" (classify c) "/>") "docs.component" c}}
+    <nav.section @label="Components"/>
+    {{#each this.componentList as |c|}}
+      <nav.item @label={{concat "<" (classify c) "/>"}} @route="docs.component" @model={{c}}/>
     {{/each}}
 
-    {{nav.section "Helpers"}}
-    {{#each helperList as |h|}}
-      {{nav.item (concat "{{" h "}}") "docs.helper" h}}
-    {{/each}}
-  {{/viewer.nav}}
+    <nav.section @label="Helpers"/>
 
-  {{#viewer.main}}
+    {{#each this.helperList as |h|}}
+      <nav.item @label={{concat "{{" h "}}"}} @route="docs.helper" @model={{h}}/>
+    {{/each}}
+  </viewer.nav>
+
+  <viewer.main>
     <div class="docs-container">
       <div class="docs-section">
         {{outlet}}
       </div>
     </div>
-  {{/viewer.main}}
+  </viewer.main>
 
-{{/docs-viewer}}
+</DocsViewer>

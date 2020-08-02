@@ -36,9 +36,9 @@ module('Integration | Component | geojson layer', function(hooks) {
 
   test('render geoJSON as SVG and Markers', async function(assert) {
     await render(hbs`
-      {{#leaflet-map zoom=zoom center=center}}
-        {{geojson-layer geoJSON=sampleGeoJSON}}
-      {{/leaflet-map}}
+      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+        <layers.geojson @geoJSON={{this.sampleGeoJSON}}/>
+      </LeafletMap>
     `);
 
     // renders polygon as SVG:
@@ -60,9 +60,9 @@ module('Integration | Component | geojson layer', function(hooks) {
   test('re-render SVG and markers after geoJSON changes', async function(assert) {
     // we know this works, as per the above test...
     await render(hbs`
-      {{#leaflet-map zoom=zoom center=center}}
-        {{geojson-layer geoJSON=sampleGeoJSON}}
-      {{/leaflet-map}}
+      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+        <layers.geojson @geoJSON={{this.sampleGeoJSON}}/>
+      </LeafletMap>
     `);
 
     // ...now let's force a re-render, clearing all the geoJSON from the map
@@ -81,9 +81,9 @@ module('Integration | Component | geojson layer', function(hooks) {
   test('make sure geojson is still there on attribute update', async function(assert) {
     this.set('color', 'blue');
     await render(hbs`
-      {{#leaflet-map zoom=zoom center=center}}
-        {{geojson-layer geoJSON=sampleGeoJSON color=color}}
-      {{/leaflet-map}}
+      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+        <layers.geojson @geoJSON={{this.sampleGeoJSON}} @color={{this.color}}/>
+      </LeafletMap>
     `);
 
     assert.dom('path').exists({ count: 1 });
@@ -97,11 +97,11 @@ module('Integration | Component | geojson layer', function(hooks) {
     this.set('color', 'green');
 
     await render(hbs`
-      {{#leaflet-map zoom=zoom center=center}}
-        {{geojson-layer geoJSON=sampleGeoJSON color=color fillColor=color
-          onMouseover=(action (mut color) "red")
-          onMouseout=(action (mut color) "blue")}}
-      {{/leaflet-map}}
+      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+        <layers.geojson @geoJSON={{this.sampleGeoJSON}} @color={{this.color}} @fillColor={{this.color}}
+          @onMouseover={{fn (mut this.color) "red"}}
+          @onMouseout={{fn (mut this.color) "blue"}}/>
+      </LeafletMap>
     `);
 
     assert.dom('path').exists({ count: 1 });
@@ -129,9 +129,9 @@ module('Integration | Component | geojson layer', function(hooks) {
     };
 
     await render(hbs`
-      {{#leaflet-map zoom=zoom center=center}}
-        {{geojson-layer geoJSON=sampleGeoJSON style=style}}
-      {{/leaflet-map}}
+      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+        <layers.geojson @geoJSON={{this.sampleGeoJSON}} @style={{this.style}}/>
+      </LeafletMap>
     `);
 
     assert.dom('path').exists({ count: 1 });

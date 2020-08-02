@@ -1,12 +1,12 @@
-{{#leaflet-map class="main-page-map" lat=45.519743 lng=-122.680522 zoom=13 scrollWheelZoom=false attributionControl=false zoomControl=false}}
-  {{tile-layer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
-{{/leaflet-map}}
+<LeafletMap class="main-page-map" @lat={{45.519743}} @lng={{-122.680522}} @zoom={{13}} @scrollWheelZoom={{false}} @attributionControl={{false}} @zoomControl={{false}} as |layers|>
+  <layers.tile @url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"/>
+</LeafletMap>
 
 <div class="main-page-headline">
-  {{docs-hero
-    logo="ember"
-    heading="Leaflet"
-    byline="Easy and declarative mapping for ember."}}
+  <DocsHero
+    @logo="ember"
+    @heading="Leaflet"
+    @byline="Easy and declarative mapping for ember."/>
 </div>
 
 <section class="docs-container docs-flex docs-flex-col md:docs-flex-row">
@@ -20,7 +20,7 @@
     </svg>
     <div>
       <h2 class="docs-text-center docs-mb-4">Powerful and easy</h2>
-      With <a href="http://leafletjs.com/" target="_blank" rel="noopener" class="docs-md__a">Leaflet</a> as its foundation
+      With <a href="http://leafletjs.com/" target="_blank" rel="noopener noreferrer" class="docs-md__a">Leaflet</a> as its foundation
       you get its simplicity, performance and usability.
       All of this right in your application's templates!
     </div>
@@ -53,7 +53,7 @@
 
 </section>
 
-<footer class="docs-bg-grey-light docs-text-center docs-fixed docs-pin-b docs-pin-x docs-p-2">
-  <small>Map tiles by <a class="docs-md__a" href="http://cartodb.com/attributions#basemaps">CartoDB</a>, under <a class="docs-md__a" href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>. Data by <a class="docs-md__a" href="http://www.openstreetmap.org/" target="_blank" rel="noopener">OpenStreetMap</a>, under ODbL.</small><br>
+<footer class="docs-bg-grey-light docs-text-center docs-fixed docs-bottom-0 docs-left-0 docs-right-0 docs-p-2">
+  <small>Map tiles by <a class="docs-md__a" href="http://cartodb.com/attributions#basemaps">CartoDB</a>, under <a class="docs-md__a" href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener noreferrer">CC BY 3.0</a>. Data by <a class="docs-md__a" href="http://www.openstreetmap.org/" target="_blank" rel="noopener noreferrer">OpenStreetMap</a>, under ODbL.</small><br>
   <small>"Sustainable Energy" icon by <strong>Jens Windolf</strong> and "text" icon by <strong>Austin Andrews</strong> from <a class="docs-md__a" href="https://thenounproject.com">the Noun Project</a></small><br>
 </footer>

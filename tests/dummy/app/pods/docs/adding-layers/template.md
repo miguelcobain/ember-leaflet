@@ -13,7 +13,7 @@ from CartoDB and see how it looks.
 
 {{#docs-demo as |demo|}}
   {{#demo.example name="adding-layers-tile.hbs"}}
-    <LeafletMap @lat={{lat}} @lng={{lng}} @zoom={{zoom}} as |layers|>
+    <LeafletMap @lat={{this.lat}} @lng={{this.lng}} @zoom={{this.zoom}} as |layers|>
       <layers.tile @url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"/>
     </LeafletMap>
   {{/demo.example}}
@@ -27,11 +27,11 @@ Not bad for three lines of code. Let's now try to add some markers in it.
 
 {{#docs-demo as |demo|}}
   {{#demo.example name="adding-layers-markers.hbs"}}
-    <LeafletMap @lat={{lat}} @lng={{lng}} @zoom={{zoom}} as |layers|>
+    <LeafletMap @lat={{this.lat}} @lng={{this.lng}} @zoom={{this.zoom}} as |layers|>
 
       <layers.tile @url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"/>
 
-      <layers.marker @location={{emberConfLocation}} as |marker|>
+      <layers.marker @location={{this.emberConfLocation}} as |marker|>
         <marker.popup>
           <h3>The Oregon Convention Center</h3>
           777 NE Martin Luther King Jr Blvd<br>
@@ -39,7 +39,7 @@ Not bad for three lines of code. Let's now try to add some markers in it.
         </marker.popup>
       </layers.marker>
 
-      <layers.marker @location={{hotel}} as |marker|>
+      <layers.marker @location={{this.hotel}} as |marker|>
         <marker.popup>
           <h3>Hotel</h3>
         </marker.popup>

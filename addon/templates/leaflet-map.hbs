@@ -10,7 +10,7 @@
   polygon=(component "polygon-layer" parentComponent=this)
   geojson=(component "geojson-layer" parentComponent=this)
   rectangle=(component "rectangle-layer" parentComponent=this)
-  
+
   wmsTile=(component "wms-tile-layer" parentComponent=this)
   geoJSON=(component "geojson-layer" parentComponent=this)
 ) as |components|}}
@@ -18,17 +18,17 @@
   {{!--
     Here we need to create the addon registered contextual components to yield later
   --}}
-  {{#if emberLeaflet.components}}
-    {{#each emberLeaflet.components as |c|}}
+  {{#if this.emberLeaflet.components}}
+    {{#each this.emberLeaflet.components as |c|}}
       {{ember-leaflet-assign-to
         components
         key=c.as
         value=(component c.name parentComponent=this)
-        onChange=(action "mergeComponents")
+        onChange=this.mergeComponents
       }}
     {{/each}}
 
-    {{yield mergedComponents}}
+    {{yield this.mergedComponents}}
   {{else}}
     {{yield components}}
   {{/if}}

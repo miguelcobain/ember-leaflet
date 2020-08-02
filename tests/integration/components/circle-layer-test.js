@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import setupCustomAssertions from 'ember-cli-custom-assertions/test-support';
 import CircleLayerComponent from 'ember-leaflet/components/circle-layer';
@@ -29,9 +29,9 @@ module('Integration | Component | circle layer', function(hooks) {
     this.set('radius', 25);
 
     await render(hbs`
-      {{#leaflet-map zoom=zoom center=center}}
-        {{circle-layer location=circleCenter radius=radius}}
-      {{/leaflet-map}}
+      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+        <layers.circle @location={{this.circleCenter}} @radius={{this.radius}}/>
+      </LeafletMap>
     `);
 
     assert.locationsEqual(circle._layer.getLatLng(), locations.nyc);
@@ -39,6 +39,7 @@ module('Integration | Component | circle layer', function(hooks) {
 
     this.set('circleCenter', locations.london);
     this.set('radius', 14);
+    await settled();
 
     assert.locationsEqual(circle._layer.getLatLng(), locations.london);
     assert.equal(circle._layer.getRadius(), 14);
@@ -53,9 +54,9 @@ module('Integration | Component | circle layer', function(hooks) {
     });
 
     await render(hbs`
-      {{#leaflet-map zoom=zoom center=center}}
-        {{circle-layer lat=lat lng=lng radius=radius}}
-      {{/leaflet-map}}
+      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+        <layers.circle @lat={{this.lat}} @lng={{this.lng}} @radius={{this.radius}}/>
+      </LeafletMap>
     `);
 
     assert.locationsEqual(circle._layer.getLatLng(), locations.nyc);
@@ -64,6 +65,7 @@ module('Integration | Component | circle layer', function(hooks) {
       lat: locations.london.lat,
       lng: locations.london.lng
     });
+    await settled();
 
     assert.locationsEqual(circle._layer.getLatLng(), locations.london);
   });

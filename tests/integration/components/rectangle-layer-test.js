@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import setupCustomAssertions from 'ember-cli-custom-assertions/test-support';
 import RectangleLayerComponent from 'ember-leaflet/components/rectangle-layer';
@@ -23,14 +23,14 @@ module('Integration | Component | rectangle layer', function(hooks) {
     this.set('center', locations.nyc);
     this.set('zoom', 13);
   });
-  
+
   test('update rectangle layer using leafletProperties', async function(assert) {
     this.set('locations', [locations.chicago, locations.nyc]);
 
     await render(hbs`
-      {{#leaflet-map zoom=zoom center=center}}
-        {{rectangle-layer locations=locations}}
-      {{/leaflet-map}}
+      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+        <layers.rectangle @locations={{this.locations}}/>
+      </LeafletMap>
     `);
 
     let layerLatLngs = rectangle._layer.getLatLngs(); //returns four corners
@@ -38,6 +38,7 @@ module('Integration | Component | rectangle layer', function(hooks) {
     assert.locationsEqual(layerLatLngs[0][3] || layerLatLngs[3], locations.nyc); //bottom right
 
     this.set('locations', [locations.paris, locations.london]);
+    await settled();
 
     layerLatLngs = rectangle._layer.getLatLngs(); //returns two corners
     assert.locationsEqual(layerLatLngs[0][0] || layerLatLngs[0], locations.paris); //top left
@@ -53,15 +54,16 @@ module('Integration | Component | rectangle layer', function(hooks) {
       lng2: locations.chicago.lng,
     });
 
-    this.set('locations',[[this.get('lat1'),this.get('lng1')],[this.get('lat2'),this.get('lng2')]])
+    this.set('locations',[[this.get('lat1'),this.get('lng1')],[this.get('lat2'),this.get('lng2')]]);
+    await settled();
 
     await render(hbs`
-      {{#leaflet-map zoom=zoom center=center}}
-        {{rectangle-layer locations=locations}}
-      {{/leaflet-map}}
+      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+        <layers.rectangle @locations={{this.locations}}/>
+      </LeafletMap>
     `);
 
-    let layerLatLngs = rectangle._layer.getLatLngs(); //returns 4 corners 
+    let layerLatLngs = rectangle._layer.getLatLngs(); //returns 4 corners
     assert.locationsEqual(layerLatLngs[0][3] || layerLatLngs[3], locations.nyc); //bottom right
     assert.locationsEqual(layerLatLngs[0][1] || layerLatLngs[1], locations.chicago); //top left
 
@@ -72,7 +74,8 @@ module('Integration | Component | rectangle layer', function(hooks) {
       lng2: locations.london.lng
     });
 
-    this.set('locations',[[this.get('lat1'),this.get('lng1')],[this.get('lat2'),this.get('lng2')]])
+    this.set('locations',[[this.get('lat1'),this.get('lng1')],[this.get('lat2'),this.get('lng2')]]);
+    await settled();
 
     layerLatLngs = rectangle._layer.getLatLngs(); //returns only two corners
     assert.locationsEqual(layerLatLngs[0][0] || layerLatLngs[0], locations.paris); //top left

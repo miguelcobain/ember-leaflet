@@ -1,8 +1,8 @@
-{{#unless isFastBoot}}
-  {{#if shouldRender}}
-    {{#in-element destinationElement~}}
-      {{#if closePopup}}
-        {{yield (action closePopup)}}
+{{#unless this.isFastBoot}}
+  {{#if this.shouldRender}}
+    {{#in-element this.destinationElement~}}
+      {{#if this.closePopup}}
+        {{yield (fn this.closePopup)}}
       {{else}}
         {{yield}}
       {{/if}}

@@ -17,12 +17,13 @@ This addon will register a new `<layers.marker-cluster>` component and you can u
 
 {{#docs-demo as |demo|}}
   {{#demo.example name="marker-cluster.hbs"}}
-    <LeafletMap @lat={{lat}} @lng={{lng}} @zoom={{zoom}} as |layers|>
+
+    <LeafletMap @lat={{this.lat}} @lng={{this.lng}} @zoom={{this.zoom}} as |layers|>
 
       <layers.tile @url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"/>
   
       <layers.marker-cluster as |cluster|>
-        {{#each markers as |m|}}
+        {{#each this.markers as |m|}}
           <cluster.marker @location={{m.location}} as |marker|>
             <marker.popup>
               <h3>{{m.title}}</h3>
@@ -33,6 +34,7 @@ This addon will register a new `<layers.marker-cluster>` component and you can u
       </layers.marker-cluster>
   
     </LeafletMap>
+
   {{/demo.example}}
 
   {{demo.snippet "marker-cluster.hbs"}}

@@ -7,7 +7,7 @@ import { render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import setupCustomAssertions from 'ember-cli-custom-assertions/test-support';
 import MarkerLayerComponent from 'ember-leaflet/components/marker-layer';
-import ArrayPathLayerComponent from 'ember-leaflet/components/array-path-layer';
+import PolylineLayerComponent from 'ember-leaflet/components/polyline-layer';
 import locations from '../../helpers/locations';
 /* global L */
 import isLeaflet07 from '../../helpers/is-leaflet-0.7';
@@ -30,13 +30,10 @@ if (!isLeaflet07(L)) {
         }
       }));
 
-      this.owner.register('component:custom-array-path-layer', ArrayPathLayerComponent.extend({
+      this.owner.register('component:polyline-layer', PolylineLayerComponent.extend({
         init() {
           this._super(...arguments);
           arrayPath = this;
-        },
-        createLayer() {
-          return this.L.polyline(...this.get('requiredOptions'), this.get('options'));
         }
       }));
 
@@ -48,13 +45,13 @@ if (!isLeaflet07(L)) {
       this.set('markerCenter', locations.nyc);
 
       await render(hbs`
-        {{#leaflet-map zoom=zoom center=center}}
-          {{#marker-layer location=markerCenter}}
-            {{#tooltip-layer}}
+        <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+          <layers.marker @location={{this.markerCenter}} as |marker|>
+            <marker.tooltip>
               Tooltip content
-            {{/tooltip-layer}}
-          {{/marker-layer}}
-        {{/leaflet-map}}
+            </marker.tooltip>
+          </layers.marker>
+        </LeafletMap>
       `);
 
       assert.equal(marker._layer._tooltip._map, null, 'tooltip not added until opened');
@@ -73,13 +70,13 @@ if (!isLeaflet07(L)) {
       this.set('markerCenter', locations.nyc);
 
       await render(hbs`
-        {{#leaflet-map zoom=zoom center=center}}
-          {{#marker-layer location=markerCenter}}
-            {{#tooltip-layer permanent=true}}
+        <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+          <layers.marker @location={{this.markerCenter}} as |marker|>
+            <marker.tooltip @permanent={{true}}>
               Tooltip content
-            {{/tooltip-layer}}
-          {{/marker-layer}}
-        {{/leaflet-map}}
+            </marker.tooltip>
+          </layers.marker>
+        </LeafletMap>
       `);
 
       assert.ok(!!marker._layer._tooltip._map, 'tooltip opened');
@@ -96,13 +93,13 @@ if (!isLeaflet07(L)) {
       }));
 
       await render(hbs`
-        {{#leaflet-map zoom=zoom center=center}}
-          {{#marker-layer location=markerCenter}}
-            {{#tooltip-layer}}
-              {{computedProperty}}
-            {{/tooltip-layer}}
-          {{/marker-layer}}
-        {{/leaflet-map}}
+        <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+          <layers.marker @location={{this.markerCenter}} as |marker|>
+            <marker.tooltip>
+              {{this.computedProperty}}
+            </marker.tooltip>
+          </layers.marker>
+        </LeafletMap>
       `);
 
       assert.equal(marker._layer._tooltip._map, null, 'tooltip not added until opened');
@@ -125,15 +122,15 @@ if (!isLeaflet07(L)) {
       this.set('isVisible', true);
 
       await render(hbs`
-        {{#leaflet-map zoom=zoom center=center}}
-          {{#if isVisible}}
-            {{#marker-layer location=markerCenter}}
-              {{#tooltip-layer}}
+        <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+          {{#if this.isVisible}}
+            <layers.marker @location={{this.markerCenter}} as |marker|>
+              <marker.tooltip>
                 Tooltip content
-              {{/tooltip-layer}}
-            {{/marker-layer}}
+              </marker.tooltip>
+            </layers.marker>
           {{/if}}
-        {{/leaflet-map}}
+        </LeafletMap>
       `);
 
       run(() => {
@@ -154,13 +151,13 @@ if (!isLeaflet07(L)) {
     test('tooltip options work', async function(assert) {
       this.set('markerCenter', locations.nyc);
       await render(hbs`
-        {{#leaflet-map zoom=zoom center=center}}
-          {{#marker-layer location=markerCenter draggable=draggable}}
-            {{#tooltip-layer className="foo"}}
+        <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+          <layers.marker @location={{this.markerCenter}} @draggable={{this.draggable}} as |marker|>
+            <marker.tooltip @className="foo">
               Tooltip Content
-            {{/tooltip-layer}}
-          {{/marker-layer}}
-        {{/leaflet-map}}
+            </marker.tooltip>
+          </layers.marker>
+        </LeafletMap>
       `);
 
       assert.equal(marker._layer._tooltip.options.className, 'foo', 'tooltip class set');
@@ -170,13 +167,13 @@ if (!isLeaflet07(L)) {
       this.set('locations', A([locations.chicago, locations.nyc, locations.sf]));
 
       await render(hbs`
-        {{#leaflet-map zoom=zoom center=center}}
-          {{#custom-array-path-layer locations=locations}}
-            {{#tooltip-layer className="exists"}}
+        <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+          <layers.polyline @locations={{this.locations}} as |polyline|>
+            <polyline.tooltip @className="exists">
               Tooltip content
-            {{/tooltip-layer}}
-          {{/custom-array-path-layer}}
-        {{/leaflet-map}}
+            </polyline.tooltip>
+          </layers.polyline>
+        </LeafletMap>
       `);
 
       assert.equal(arrayPath._layer._tooltip.options.className, 'exists', 'tooltip class set on array-path');

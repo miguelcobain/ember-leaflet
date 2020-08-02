@@ -8,7 +8,7 @@ where your tiles, vectors and markers will be added to. Let's see how it looks:
 
 {{#docs-demo as |demo|}}
   {{#demo.example name="container.hbs"}}
-    <LeafletMap @lat={{lat}} @lng={{lng}} @zoom={{zoom}}>
+    <LeafletMap @lat={{this.lat}} @lng={{this.lng}} @zoom={{this.zoom}}>
       {{!-- Specify child layer components here --}}
     </LeafletMap>
   {{/demo.example}}
@@ -18,8 +18,8 @@ where your tiles, vectors and markers will be added to. Let's see how it looks:
 {{/docs-demo}}
 
 Notice that we specified the center of the map and its zoom level passing regular
-properties to the component, bound to the controller. You can check what options each component supports
-in the "Components" section of the docs. Here `lat`, `lng` and `zoom`
+properties to the component, bound to the controller. You can check what arguments each component supports
+in the "Components" section of the docs. Here `@lat`, `@lng` and `@zoom`
 are arguments that the component `<LeafletMap>` supports.
 
 **Reminder: The leaflet map container needs to be styled to have some size.**

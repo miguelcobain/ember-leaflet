@@ -8,6 +8,7 @@ import BaseLayer from 'ember-leaflet/components/base-layer';
 import { ParentMixin } from 'ember-composability-tools';
 import toLatLng from 'ember-leaflet/macros/to-lat-lng';
 import layout from '../templates/leaflet-map';
+import { action } from '@ember/object';
 const assign = emberAssign || emberMerge;
 
 export default BaseLayer.extend(ParentMixin, {
@@ -16,16 +17,14 @@ export default BaseLayer.extend(ParentMixin, {
 
   emberLeaflet: service(),
 
-  actions: {
-    mergeComponents(obj) {
-      if (!this.mergedComponents) {
-        this.set('mergedComponents', obj);
-      } else {
-        Object.assign(this.mergedComponents, obj);
-      }
-    },
+  @action
+  mergeComponents(obj) {
+    if (!this.mergedComponents) {
+      this.set('mergedComponents', obj);
+    } else {
+      Object.assign(this.mergedComponents, obj);
+    }
   },
-
 
   leafletOptions: Object.freeze([
     // Map state options
