@@ -1,5 +1,9 @@
 # ember-leaflet changelog
 
+### 4.1.1
+- [BUGFIX] Leaflet icon/draggability restore bug, dragging object can be undefined for hidden markers ([7d5c9fe](https://github.com/miguelcobain/ember-leaflet/commit/79b320738ae5867ba9f4c6452db1ed985b73880d) fixes [#513](https://github.com/miguelcobain/ember-leaflet/issues/513))
+- [INTERNAL] update dependencies and tests. fix linting errors. ([ec49f63](https://github.com/miguelcobain/ember-leaflet/commit/e2590a3e69dd10637f3287f0bbc2f36e4d5d5f0d))
+
 ### 4.1.0
 - [ENHANCEMENT] add new rectangle layer ([#413](https://github.com/miguelcobain/ember-leaflet/pull/413)) 
 - [BUGFIX] only one addon component was being yielded. Now all addon provided components are yielded as expected ([#422](https://github.com/miguelcobain/ember-leaflet/pull/422))
