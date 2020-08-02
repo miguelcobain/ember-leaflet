@@ -69,11 +69,11 @@ So, let the mapping begin.
 Think of your map as a set of layers inside a container. Your main container will be the `<LeafletMap>` component. This component creates the map container where your tiles, vectors and markers will be added to. Let's see an example of how it looks:
 
 ```hbs
-<LeafletMap @lat={{lat}} @lng={{lng}} @zoom={{zoom}} as |layers|>
+<LeafletMap @lat={{this.lat}} @lng={{this.lng}} @zoom={{this.zoom}} as |layers|>
 
   <layers.tile @url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png">
 
-  <layers.marker @location={{emberConfLocation}} as |marker|>
+  <layers.marker @location={{this.emberConfLocation}} as |marker|>
     <marker.popup>
       <h3>The Oregon Convention Center</h3>
       777 NE Martin Luther King Jr Blvd<br>
@@ -81,7 +81,7 @@ Think of your map as a set of layers inside a container. Your main container wil
     </marker.popup>
   </layers.marker>
 
-  <layers.marker @location={{hotel}} as |marker|>
+  <layers.marker @location={{this.hotel}} as |marker|>
     <marker.popup>
       <h3>Hotel</h3>
     </marker.popup>
