@@ -1,6 +1,6 @@
 {
   "name": "ember-leaflet",
-  "version": "4.1.0",
+  "version": "4.1.1",
   "description": "Easy and declarative mapping for ember.",
   "scripts": {
     "build": "ember build --environment=production",
