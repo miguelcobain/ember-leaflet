@@ -37,9 +37,9 @@ export default InteractiveLayer.extend(DraggabilityMixin, DivOverlayableMixin, {
     this._layer.setIcon(this.get('icon'));
 
     if (this.get('draggable')) {
-      this._layer.dragging.enable();
+      this._layer.dragging?.enable();
     } else {
-      this._layer.dragging.disable();
+      this._layer.dragging?.disable();
     }
   })
 });
