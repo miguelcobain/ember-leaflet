@@ -3465,7 +3465,7 @@ broccoli-clean-css@^1.1.0:
     inline-source-map-comment "^1.0.5"
     json-stable-stringify "^1.0.0"
 
-broccoli-concat@^3.2.2, broccoli-concat@^3.7.4, broccoli-concat@^3.7.5:
+broccoli-concat@^3.2.2, broccoli-concat@^3.7.4:
   version "3.7.5"
   resolved "https://registry.yarnpkg.com/broccoli-concat/-/broccoli-concat-3.7.5.tgz#223beda8c1184252cf08ae020a3d45ffa6a48218"
   integrity sha512-rDs1Mej3Ej0Cy5yIO9oIQq5+BCv0opAwS2NW7M0BeCsAMeFM42Z/zacDUC6jKc5OV5wiHvGTyCPLnZkMe0h6kQ==
@@ -6437,15 +6437,15 @@ ember-fetch@^6.7.1:
     node-fetch "^2.6.0"
     whatwg-fetch "^3.0.0"
 
-ember-fetch@^7.0.0:
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/ember-fetch/-/ember-fetch-7.1.0.tgz#17549e0df0f8c402b68612aa87f77957fa956ebf"
-  integrity sha512-FF2uEE7MXahNpXsQt9J3iJdPJDu27WL/ZD4NLuIWKgSAnFEvOxrjqhrU0fNMbkmJmlMBwGykbNiZVXDMpHbuLg==
+ember-fetch@^8.0.1:
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/ember-fetch/-/ember-fetch-8.0.1.tgz#dc57f3c3ba464e4a8722785f6b44265c46b38020"
+  integrity sha512-J+knuBFQJlMQUuij2tziMiVcJ+Ss0lCV2XiCQO2cHmG2PUsfvLlTGZ04uUyOXPqrJISxY2W3Et43fQBg4jy7SA==
   dependencies:
     abortcontroller-polyfill "^1.4.0"
-    broccoli-concat "^3.7.5"
+    broccoli-concat "^4.2.4"
     broccoli-debug "^0.6.5"
-    broccoli-merge-trees "^3.0.0"
+    broccoli-merge-trees "^4.2.0"
     broccoli-rollup "^2.1.1"
     broccoli-stew "^3.0.0"
     broccoli-templater "^2.0.1"
