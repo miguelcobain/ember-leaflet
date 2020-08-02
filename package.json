@@ -22,6 +22,7 @@
     "@glimmer/tracking": "^1.0.0",
     "babel-eslint": "^10.1.0",
     "broccoli-asset-rev": "^3.0.0",
+    "ember-angle-bracket-invocation-polyfill": "^2.1.0",
     "ember-auto-import": "^1.6.0",
     "ember-cli": "~3.20.0",
     "ember-cli-addon-docs": "^0.8.0",
