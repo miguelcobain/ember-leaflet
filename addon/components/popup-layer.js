@@ -18,10 +18,9 @@ export default DivOverlayLayer.extend({
   /*
    * Action to yield to block
    */
-  @action
-  closePopup() {
+  closePopup: action(function () {
     this._layer._close();
-  },
+  }),
 
   // eslint-disable-next-line ember/no-observers
   popupOpenDidChange: observer('popupOpen', function() {

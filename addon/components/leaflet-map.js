@@ -17,14 +17,13 @@ export default BaseLayer.extend(ParentMixin, {
 
   emberLeaflet: service(),
 
-  @action
-  mergeComponents(obj) {
+  mergeComponents: action(function(obj) {
     if (!this.mergedComponents) {
       this.set('mergedComponents', obj);
     } else {
       Object.assign(this.mergedComponents, obj);
     }
-  },
+  }),
 
   leafletOptions: Object.freeze([
     // Map state options
