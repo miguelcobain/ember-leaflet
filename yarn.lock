@@ -7032,12 +7032,12 @@ escodegen@^1.11.0, escodegen@^1.11.1:
     source-map "~0.6.1"
 
 eslint-plugin-ember@^8.9.2:
-  version "8.9.2"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-ember/-/eslint-plugin-ember-8.9.2.tgz#064f2ca391958806885356d85d71962b3a69e665"
-  integrity sha512-oHQkQdCkT+q9TVjhYAdpqWQh7y6Z/a8thFgTS1LnlJVuv+M+J/evkOejjr+BM9wrZdBQwPG49d2OK0vIXsm9dw==
+  version "8.11.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-ember/-/eslint-plugin-ember-8.11.0.tgz#40f7c76047047100fed12af5e56a775cab29ae32"
+  integrity sha512-9VeqrVBbQ5HsxyvKFJORGfkyzJt0bCdUgIdVeHkYN1+31+3SVpGHB8N1zQYLlTh7JkYn/UYxhfUtBN3p4joGJg==
   dependencies:
     "@ember-data/rfc395-data" "^0.0.4"
-    ember-rfc176-data "^0.3.13"
+    ember-rfc176-data "^0.3.15"
     lodash.kebabcase "^4.1.1"
     snake-case "^3.0.3"
 
