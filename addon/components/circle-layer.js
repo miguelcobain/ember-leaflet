@@ -1,16 +1,11 @@
 import PointPathLayer from 'ember-leaflet/components/point-path-layer';
 
-export default PointPathLayer.extend({
+export default class CircleLayer extends PointPathLayer {
+  leafletRequiredOptions = [...this.leafletRequiredOptions, 'radius'];
 
-  leafletRequiredOptions: Object.freeze([
-    'radius'
-  ]),
-
-  leafletProperties: Object.freeze([
-    'radius'
-  ]),
+  leafletDescriptors = [...this.leafletDescriptors, 'radius'];
 
   createLayer() {
-    return this.L.circle(...this.get('requiredOptions'), this.get('options'));
+    return this.L.circle(...this.requiredOptions, this.options);
   }
-});
+}

@@ -1,4 +1,5 @@
 import { run } from '@ember/runloop';
+import { action } from '@ember/object';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, settled } from '@ember/test-helpers';
@@ -13,28 +14,33 @@ L.Icon.Default.imagePath = 'some-path';
 
 let markersInitCount, createLayersCount, destroyLayersCount, markers;
 
-module('Integration | Component | marker layer collection', function(hooks) {
+module('Integration | Component | marker layer collection', function (hooks) {
   setupRenderingTest(hooks);
   setupCustomAssertions(hooks);
 
-  hooks.beforeEach(function() {
-    this.owner.register('component:marker-layer', MarkerLayerComponent.extend({
-      init() {
-        this._super(...arguments);
-        markersInitCount++;
-        markers.push(this);
-      },
+  hooks.beforeEach(function () {
+    this.owner.register(
+      'component:marker-layer',
+      class extends MarkerLayerComponent {
+        constructor() {
+          super(...arguments);
+          markersInitCount++;
+          markers.push(this);
+        }
 
-      didInsertParent() {
-        this._super(...arguments);
-        createLayersCount++;
-      },
+        @action
+        didInsertParent() {
+          super.didInsertParent(...arguments);
+          createLayersCount++;
+        }
 
-      willDestroyParent() {
-        this._super(...arguments);
-        destroyLayersCount++;
+        @action
+        willDestroyParent() {
+          super.willDestroyParent(...arguments);
+          destroyLayersCount++;
+        }
       }
-    }));
+    );
 
     markersInitCount = 0;
     createLayersCount = 0;
@@ -51,13 +57,8 @@ module('Integration | Component | marker layer collection', function(hooks) {
   let restaurant4 = { location: locations.london };
   let restaurant5 = { location: locations.paris };
 
-  test('layers works within each', async function(assert) {
-    this.set('markers', [
-      restaurant1,
-      restaurant2,
-      restaurant3,
-      restaurant4
-    ]);
+  test('layers works within each', async function (assert) {
+    this.set('markers', [restaurant1, restaurant2, restaurant3, restaurant4]);
 
     await render(hbs`
       <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
@@ -86,14 +87,8 @@ module('Integration | Component | marker layer collection', function(hooks) {
     assert.equal(destroyLayersCount, 1); // and only one was destroyed
   });
 
-  test('popup remains open when another layer is destroyed', async function(assert) {
-
-    this.set('markers', [
-      restaurant1,
-      restaurant2,
-      restaurant3,
-      restaurant4
-    ]);
+  test('popup remains open when another layer is destroyed', async function (assert) {
+    this.set('markers', [restaurant1, restaurant2, restaurant3, restaurant4]);
 
     await render(hbs`
       <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
@@ -123,11 +118,7 @@ module('Integration | Component | marker layer collection', function(hooks) {
     assert.ok(!!markers[2]._layer._popup._map, 'marker added to map');
     assert.dom(markers[2]._layer._popup._contentNode).hasText('Popup content', 'popup content set');
 
-    this.set('markers', [
-      restaurant1,
-      restaurant2,
-      restaurant3
-    ]);
+    this.set('markers', [restaurant1, restaurant2, restaurant3]);
 
     assert.equal(markersInitCount, 4);
     assert.equal(createLayersCount, 4);

@@ -2,24 +2,16 @@
 
 const getChannelURL = require('ember-source-channel-url');
 
-module.exports = async function() {
+module.exports = async function () {
   return {
     useYarn: true,
     scenarios: [
       {
-        name: 'ember-lts-3.8-leaflet-0.7.7',
+        name: 'ember-lts-3.16-leaflet-0.7.7',
         npm: {
           devDependencies: {
-            'ember-source': '~3.8.0',
-            'leaflet': '~0.7.7'
-          }
-        }
-      },
-      {
-        name: 'ember-lts-3.12',
-        npm: {
-          devDependencies: {
-            'ember-source': '~3.12.0'
+            'ember-source': '~3.16.0',
+            leaflet: '~0.7.7'
           }
         }
       },
@@ -28,6 +20,14 @@ module.exports = async function() {
         npm: {
           devDependencies: {
             'ember-source': '~3.16.0'
+          }
+        }
+      },
+      {
+        name: 'ember-lts-3.20',
+        npm: {
+          devDependencies: {
+            'ember-source': '~3.20.5'
           }
         }
       },
@@ -64,7 +64,7 @@ module.exports = async function() {
         },
         npm: {
           devDependencies: {
-            '@ember/jquery': '^0.5.1'
+            '@ember/jquery': '^1.1.0'
           }
         }
       },

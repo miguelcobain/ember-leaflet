@@ -16,17 +16,20 @@ const emptyGeoJSON = {
 
 let geoJSONLayer;
 
-module('Integration | Component | geojson layer', function(hooks) {
+module('Integration | Component | geojson layer', function (hooks) {
   setupRenderingTest(hooks);
   setupCustomAssertions(hooks);
 
-  hooks.beforeEach(function() {
-    this.owner.register('component:geojson-layer', GeoJSONLayerComponent.extend({
-      init() {
-        this._super(...arguments);
-        geoJSONLayer = this;
+  hooks.beforeEach(function () {
+    this.owner.register(
+      'component:geojson-layer',
+      class extends GeoJSONLayerComponent {
+        constructor() {
+          super(...arguments);
+          geoJSONLayer = this;
+        }
       }
-    }));
+    );
 
     this.set('center', locations.chicago);
     this.set('zoom', 14);
@@ -34,7 +37,7 @@ module('Integration | Component | geojson layer', function(hooks) {
     this.set('sampleGeoJSON', sampleGeoJSON);
   });
 
-  test('render geoJSON as SVG and Markers', async function(assert) {
+  test('render geoJSON as SVG and Markers', async function (assert) {
     await render(hbs`
       <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
         <layers.geojson @geoJSON={{this.sampleGeoJSON}}/>
@@ -48,16 +51,14 @@ module('Integration | Component | geojson layer', function(hooks) {
     // to Leaflet to test that the GeoJSONLayer populates it correctly
     assert.dom('path').hasAttribute('d');
 
-
     // renders point as marker:
-    let markers = geoJSONLayer._layer.getLayers().filter(
-      (layer) => layer instanceof L.Marker);
+    let markers = geoJSONLayer._layer.getLayers().filter(layer => layer instanceof L.Marker);
 
     assert.strictEqual(markers.length, 1);
     assert.locationsEqual(markers[0].getLatLng(), locations.chicago);
   });
 
-  test('re-render SVG and markers after geoJSON changes', async function(assert) {
+  test('re-render SVG and markers after geoJSON changes', async function (assert) {
     // we know this works, as per the above test...
     await render(hbs`
       <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
@@ -73,12 +74,11 @@ module('Integration | Component | geojson layer', function(hooks) {
 
     assert.dom('path').doesNotExist();
 
-    let markers = geoJSONLayer._layer.getLayers().filter(
-      (layer) => layer instanceof L.Marker);
+    let markers = geoJSONLayer._layer.getLayers().filter(layer => layer instanceof L.Marker);
     assert.strictEqual(markers.length, 0);
   });
 
-  test('make sure geojson is still there on attribute update', async function(assert) {
+  test('make sure geojson is still there on attribute update', async function (assert) {
     this.set('color', 'blue');
     await render(hbs`
       <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
@@ -93,7 +93,7 @@ module('Integration | Component | geojson layer', function(hooks) {
     assert.dom('path').exists({ count: 1 });
   });
 
-  test('update color on event', async function(assert) {
+  test('update color on event', async function (assert) {
     this.set('color', 'green');
 
     await render(hbs`
@@ -123,8 +123,8 @@ module('Integration | Component | geojson layer', function(hooks) {
     assert.dom('path').hasAttribute('fill', 'blue', 'Mouseleave fill set');
   });
 
-  test('update color on style function change', async function(assert) {
-    this.style = function() {
+  test('update color on style function change', async function (assert) {
+    this.style = function () {
       return { color: 'green', fillColor: 'green' };
     };
 
@@ -138,14 +138,14 @@ module('Integration | Component | geojson layer', function(hooks) {
     assert.dom('path').hasAttribute('stroke', 'green', 'Original stroke set');
     assert.dom('path').hasAttribute('fill', 'green', 'Original fill set');
 
-    this.set('style', function() {
+    this.set('style', function () {
       return { color: 'red', fillColor: 'red' };
     });
 
     assert.dom('path').hasAttribute('stroke', 'red', 'Mouseover stroke set');
     assert.dom('path').hasAttribute('fill', 'red', 'Mouseover fill set');
 
-    this.set('style', function() {
+    this.set('style', function () {
       return { color: 'blue', fillColor: 'blue' };
     });
 

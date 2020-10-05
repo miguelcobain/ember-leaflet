@@ -1,14 +1,16 @@
 import BaseLayer from 'ember-leaflet/components/base-layer';
 
-export default BaseLayer.extend({
+export default class InteractiveLayer extends BaseLayer {
+  leafletOptions = [...this.leafletOptions, 'interactive', 'bubblingMouseEvents'];
 
-  leafletOptions: Object.freeze([
-    'interactive', 'bubblingMouseEvents'
-  ]),
-
-  leafletEvents: Object.freeze([
-    'click', 'dblclick', 'mousedown', 'mouseup', 'mouseover', 'mouseout',
+  leafletEvents = [
+    ...this.leafletEvents,
+    'click',
+    'dblclick',
+    'mousedown',
+    'mouseup',
+    'mouseover',
+    'mouseout',
     'contextmenu'
-  ])
-
-});
+  ];
+}

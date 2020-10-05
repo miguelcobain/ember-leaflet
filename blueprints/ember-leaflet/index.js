@@ -8,13 +8,13 @@ module.exports = {
   //   };
   // }
 
-  normalizeEntityName: function() {
+  normalizeEntityName: function () {
     // this prevents an error when the entityName is
     // not specified (since that doesn't actually matter
     // to us
   },
 
-  afterInstall: function() {
+  afterInstall: function () {
     return this.addPackageToProject('leaflet', '^1.6.0');
   }
 };

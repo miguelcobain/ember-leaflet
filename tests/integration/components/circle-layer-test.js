@@ -8,23 +8,26 @@ import locations from '../../helpers/locations';
 
 let circle;
 
-module('Integration | Component | circle layer', function(hooks) {
+module('Integration | Component | circle layer', function (hooks) {
   setupRenderingTest(hooks);
   setupCustomAssertions(hooks);
 
-  hooks.beforeEach(function() {
-    this.owner.register('component:circle-layer', CircleLayerComponent.extend({
-      init() {
-        this._super(...arguments);
-        circle = this;
+  hooks.beforeEach(function () {
+    this.owner.register(
+      'component:circle-layer',
+      class extends CircleLayerComponent {
+        constructor() {
+          super(...arguments);
+          circle = this;
+        }
       }
-    }));
+    );
 
     this.set('center', locations.nyc);
     this.set('zoom', 13);
   });
 
-  test('update circle layer using leafletProperties', async function(assert) {
+  test('update circle layer using leafletProperties', async function (assert) {
     this.set('circleCenter', locations.nyc);
     this.set('radius', 25);
 
@@ -45,8 +48,7 @@ module('Integration | Component | circle layer', function(hooks) {
     assert.equal(circle._layer.getRadius(), 14);
   });
 
-  test('lat/lng changes propagate to the circle layer', async function(assert) {
-
+  test('lat/lng changes propagate to the circle layer', async function (assert) {
     this.setProperties({
       lat: locations.nyc.lat,
       lng: locations.nyc.lng,

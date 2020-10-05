@@ -18,30 +18,36 @@ L.Icon.Default.imagePath = 'some-path';
 let marker, arrayPath;
 
 if (!isLeaflet07(L)) {
-  module('Integration | Component | tooltip layer', function(hooks) {
+  module('Integration | Component | tooltip layer', function (hooks) {
     setupRenderingTest(hooks);
     setupCustomAssertions(hooks);
 
-    hooks.beforeEach(function() {
-      this.owner.register('component:marker-layer', MarkerLayerComponent.extend({
-        init() {
-          this._super(...arguments);
-          marker = this;
+    hooks.beforeEach(function () {
+      this.owner.register(
+        'component:marker-layer',
+        class extends MarkerLayerComponent {
+          constructor() {
+            super(...arguments);
+            marker = this;
+          }
         }
-      }));
+      );
 
-      this.owner.register('component:polyline-layer', PolylineLayerComponent.extend({
-        init() {
-          this._super(...arguments);
-          arrayPath = this;
+      this.owner.register(
+        'component:polyline-layer',
+        class extends PolylineLayerComponent {
+          constructor() {
+            super(...arguments);
+            arrayPath = this;
+          }
         }
-      }));
+      );
 
       this.set('center', locations.nyc);
       this.set('zoom', 13);
     });
 
-    test('tooltip works', async function(assert) {
+    test('tooltip works', async function (assert) {
       this.set('markerCenter', locations.nyc);
 
       await render(hbs`
@@ -66,7 +72,7 @@ if (!isLeaflet07(L)) {
       assert.dom(marker._layer._tooltip._contentNode).hasText('Tooltip content', 'tooltip content set');
     });
 
-    test('tooltip works with permanent=true', async function(assert) {
+    test('tooltip works with permanent=true', async function (assert) {
       this.set('markerCenter', locations.nyc);
 
       await render(hbs`
@@ -83,14 +89,18 @@ if (!isLeaflet07(L)) {
       assert.dom(marker._layer._tooltip._contentNode).hasText('Tooltip content', 'tooltip content set');
     });
 
-    test('tooltip content isn\'t rendered until it is opened (lazy tooltips)', async function(assert) {
+    test("tooltip content isn't rendered until it is opened (lazy tooltips)", async function (assert) {
       let didRun = false;
 
       this.set('markerCenter', locations.nyc);
-      defineProperty(this, 'computedProperty', computed(function() {
-        didRun = true;
-        return 'text';
-      }));
+      defineProperty(
+        this,
+        'computedProperty',
+        computed(function () {
+          didRun = true;
+          return 'text';
+        })
+      );
 
       await render(hbs`
         <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
@@ -116,8 +126,7 @@ if (!isLeaflet07(L)) {
       assert.ok(didRun, 'computed property did run');
     });
 
-    test('tooltip closes when layer is destroyed', async function(assert) {
-
+    test('tooltip closes when layer is destroyed', async function (assert) {
       this.set('markerCenter', locations.nyc);
       this.set('isVisible', true);
 
@@ -148,7 +157,7 @@ if (!isLeaflet07(L)) {
       assert.equal(tooltip._map, null, 'tooltip closed');
     });
 
-    test('tooltip options work', async function(assert) {
+    test('tooltip options work', async function (assert) {
       this.set('markerCenter', locations.nyc);
       await render(hbs`
         <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
@@ -163,7 +172,7 @@ if (!isLeaflet07(L)) {
       assert.equal(marker._layer._tooltip.options.className, 'foo', 'tooltip class set');
     });
 
-    test('tooltip options within path layers', async function(assert) {
+    test('tooltip options within path layers', async function (assert) {
       this.set('locations', A([locations.chicago, locations.nyc, locations.sf]));
 
       await render(hbs`
@@ -178,6 +187,5 @@ if (!isLeaflet07(L)) {
 
       assert.equal(arrayPath._layer._tooltip.options.className, 'exists', 'tooltip class set on array-path');
     });
-
   });
 }

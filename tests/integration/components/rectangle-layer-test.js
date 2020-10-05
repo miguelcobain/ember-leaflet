@@ -8,23 +8,26 @@ import locations from '../../helpers/locations';
 
 let rectangle;
 
-module('Integration | Component | rectangle layer', function(hooks) {
+module('Integration | Component | rectangle layer', function (hooks) {
   setupRenderingTest(hooks);
   setupCustomAssertions(hooks);
 
-  hooks.beforeEach(function() {
-    this.owner.register('component:rectangle-layer', RectangleLayerComponent.extend({
-      init() {
-        this._super(...arguments);
-        rectangle = this;
+  hooks.beforeEach(function () {
+    this.owner.register(
+      'component:rectangle-layer',
+      class extends RectangleLayerComponent {
+        constructor() {
+          super(...arguments);
+          rectangle = this;
+        }
       }
-    }));
+    );
 
     this.set('center', locations.nyc);
     this.set('zoom', 13);
   });
 
-  test('update rectangle layer using leafletProperties', async function(assert) {
+  test('update rectangle layer using leafletProperties', async function (assert) {
     this.set('locations', [locations.chicago, locations.nyc]);
 
     await render(hbs`
@@ -45,16 +48,18 @@ module('Integration | Component | rectangle layer', function(hooks) {
     assert.locationsEqual(layerLatLngs[0][1] || layerLatLngs[1], locations.london); //bottom right
   });
 
-  test('lat/lng changes propagate to the rectangle layer', async function(assert) {
-
+  test('lat/lng changes propagate to the rectangle layer', async function (assert) {
     this.setProperties({
       lat1: locations.nyc.lat,
       lng1: locations.nyc.lng,
       lat2: locations.chicago.lat,
-      lng2: locations.chicago.lng,
+      lng2: locations.chicago.lng
     });
 
-    this.set('locations',[[this.get('lat1'),this.get('lng1')],[this.get('lat2'),this.get('lng2')]]);
+    this.set('locations', [
+      [this.get('lat1'), this.get('lng1')],
+      [this.get('lat2'), this.get('lng2')]
+    ]);
     await settled();
 
     await render(hbs`
@@ -74,7 +79,10 @@ module('Integration | Component | rectangle layer', function(hooks) {
       lng2: locations.london.lng
     });
 
-    this.set('locations',[[this.get('lat1'),this.get('lng1')],[this.get('lat2'),this.get('lng2')]]);
+    this.set('locations', [
+      [this.get('lat1'), this.get('lng1')],
+      [this.get('lat2'), this.get('lng2')]
+    ]);
     await settled();
 
     layerLatLngs = rectangle._layer.getLatLngs(); //returns only two corners

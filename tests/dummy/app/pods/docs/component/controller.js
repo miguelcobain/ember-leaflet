@@ -11,7 +11,6 @@ function getSuperclass(instance) {
 }
 
 export default class ComponentController extends Controller {
-
   @computed('componentName')
   get leafletUrlPrefix() {
     let id;
@@ -95,5 +94,4 @@ export default class ComponentController extends Controller {
   get leafletStyleProperties() {
     return this._subtractSuperClassProps('leafletStyleProperties');
   }
-
 }

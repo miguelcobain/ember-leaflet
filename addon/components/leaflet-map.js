@@ -1,99 +1,162 @@
 import { assert } from '@ember/debug';
-import {
-  merge as emberMerge,
-  assign as emberAssign
-} from '@ember/polyfills';
+import { assign } from '@ember/polyfills';
 import { inject as service } from '@ember/service';
 import BaseLayer from 'ember-leaflet/components/base-layer';
-import { ParentMixin } from 'ember-composability-tools';
-import toLatLng from 'ember-leaflet/macros/to-lat-lng';
-import layout from '../templates/leaflet-map';
 import { action } from '@ember/object';
-const assign = emberAssign || emberMerge;
 
-export default BaseLayer.extend(ParentMixin, {
-  tagName: 'div',
-  layout,
+export default class LeafletMap extends BaseLayer {
+  @service emberLeaflet;
 
-  emberLeaflet: service(),
-
-  mergeComponents: action(function(obj) {
+  @action
+  mergeComponents(obj) {
     if (!this.mergedComponents) {
-      this.set('mergedComponents', obj);
+      this.mergedComponents = obj;
     } else {
-      Object.assign(this.mergedComponents, obj);
+      assign(this.mergedComponents, obj);
     }
-  }),
+  }
 
-  leafletOptions: Object.freeze([
+  leafletOptions = [
+    ...this.leafletOptions,
     // Map state options
-    'center', 'zoom', 'minZoom', 'maxZoom', 'maxBounds', 'crs',
+    'center',
+    'zoom',
+    'minZoom',
+    'maxZoom',
+    'maxBounds',
+    'crs',
     // Interaction options
-    'dragging', 'touchZoom', 'scrollWheelZoom', 'doubleClickZoom', 'boxZoom',
-    'tap', 'tapTolerance', 'trackResize', 'worldCopyJump', 'closePopupOnClick',
-    'bounceAtZoomLimits', 'wheelPxPerZoomLevel', 'zoomDelta', 'zoomSnap',
+    'dragging',
+    'touchZoom',
+    'scrollWheelZoom',
+    'doubleClickZoom',
+    'boxZoom',
+    'tap',
+    'tapTolerance',
+    'trackResize',
+    'worldCopyJump',
+    'closePopupOnClick',
+    'bounceAtZoomLimits',
+    'wheelPxPerZoomLevel',
+    'zoomDelta',
+    'zoomSnap',
     // Keyboard navigation options
-    'keyboard', 'keyboardPanOffset', 'keyboardZoomOffset',
+    'keyboard',
+    'keyboardPanOffset',
+    'keyboardZoomOffset',
     // Panning Inertia Options
-    'inertia', 'inertiaDeceleration', 'inertiaMaxSpeed', 'inertiaThreshold',
-    'easeLinearity', 'worldCopyJump', 'maxBoundsViscosity',
+    'inertia',
+    'inertiaDeceleration',
+    'inertiaMaxSpeed',
+    'inertiaThreshold',
+    'easeLinearity',
+    'worldCopyJump',
+    'maxBoundsViscosity',
     // Control options
-    'zoomControl', 'attributionControl',
+    'zoomControl',
+    'attributionControl',
     // Animation options
-    'fadeAnimation', 'zoomAnimation', 'zoomAnimationThreshold', 'markerZoomAnimation'
-  ]),
+    'fadeAnimation',
+    'zoomAnimation',
+    'zoomAnimationThreshold',
+    'markerZoomAnimation'
+  ];
 
   // Events this map can respond to.
-  leafletEvents: Object.freeze([
-    'click', 'dblclick', 'mousedown', 'mouseup', 'mouseover', 'mouseout',
-    'mousemove', 'contextmenu', 'focus', 'blur', 'preclick', 'load',
-    'unload', 'viewreset', 'movestart', 'move', 'moveend', 'dragstart',
-    'drag', 'dragend', 'zoomstart', 'zoomend', 'zoomlevelschange',
-    'resize', 'autopanstart', 'layeradd', 'layerremove',
-    'baselayerchange', 'overlayadd', 'overlayremove', 'locationfound',
-    'locationerror', 'popupopen', 'popupclose'
-  ]),
+  leafletEvents = [
+    ...this.leafletEvents,
+    'click',
+    'dblclick',
+    'mousedown',
+    'mouseup',
+    'mouseover',
+    'mouseout',
+    'mousemove',
+    'contextmenu',
+    'focus',
+    'blur',
+    'preclick',
+    'load',
+    'unload',
+    'viewreset',
+    'movestart',
+    'move',
+    'moveend',
+    'dragstart',
+    'drag',
+    'dragend',
+    'zoomstart',
+    'zoomend',
+    'zoomlevelschange',
+    'resize',
+    'autopanstart',
+    'layeradd',
+    'layerremove',
+    'baselayerchange',
+    'overlayadd',
+    'overlayremove',
+    'locationfound',
+    'locationerror',
+    'popupopen',
+    'popupclose'
+  ];
 
-  leafletProperties: Object.freeze([
-    'zoom:setZoom:zoomPanOptions', 'minZoom', 'maxZoom',
+  leafletDescriptors = [
+    ...this.leafletDescriptors,
+    'zoom:setZoom:zoomPanOptions',
+    'minZoom',
+    'maxZoom',
     'center:panTo:zoomPanOptions',
-    'bounds:fitBounds:fitBoundsOptions', 'maxBounds'
-  ]),
+    'bounds:fitBounds:fitBoundsOptions',
+    'maxBounds'
+  ];
 
-  center: toLatLng(),
+  // required to supress glimmer component error message for acessing bounds property
+  bounds = undefined;
+
+  get center() {
+    if (this.args.center) {
+      return this.args.center;
+    } else {
+      let [lat, lng] = [this.args.lat, this.args.lng];
+      return this.L.latLng(lat, lng);
+    }
+  }
 
   // By default all layers try to register in a container layer.
   // It is not the case of the map itself as it is the topmost container.
-  registerWithParent() { },
-  unregisterWithParent() { },
+  registerWithParent() {}
+  unregisterWithParent() {}
 
-  createLayer() {
-    let options = this.get('options');
+  createLayer(element) {
+    let options = this.options;
 
     // Don't set center and zoom right now.
     // Let base layer bind the events first
     delete options.center;
     delete options.zoom;
-    return this.L.map(this.element, options);
-  },
+    return this.L.map(element, options);
+  }
 
   // Manually call `remove` method in the case of the root map layer.
+  @action
   willDestroyParent() {
     let layer = this._layer;
-    this._super(...arguments);
+    super.willDestroyParent(...arguments);
     layer.remove();
-  },
+  }
 
   didCreateLayer() {
     // after base layer bound the events, we can now set the map's view
-    assert('You must provide either valid `bounds` or a `center` (or `lat`/`lng`) and a `zoom` value.',
-      (this.get('bounds') && (!this.get('center') && this.get('zoom') === undefined))
-      || (!this.get('bounds') && (this.get('center') && this.get('zoom') !== undefined))
+    assert(
+      'You must provide either valid `bounds` or a `center` (or `lat`/`lng`) and a `zoom` value.',
+      (this.args.bounds && !this.center && this.args.zoom === undefined) ||
+        (!this.args.bounds && this.center && this.args.zoom !== undefined)
     );
-    if (this.get('bounds')) {
-      this._layer.fitBounds(this.get('bounds'), assign({ reset: true }, this.get('fitBoundsOptions')));
+    if (this.args.bounds) {
+      this._layer.fitBounds(this.args.bounds, assign({ reset: true }, this.args.fitBoundsOptions));
     } else {
-      this._layer.setView(this.get('center'), this.get('zoom'), assign({ reset: true }, this.get('zoomPanOptions')));
+      this._layer.setView(this.center, this.args.zoom, assign({ reset: true }, this.args.zoomPanOptions));
     }
   }
-});
+}

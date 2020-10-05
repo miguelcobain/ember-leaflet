@@ -9,23 +9,26 @@ import locations from '../../helpers/locations';
 
 let map;
 
-module('Integration | Component | leaflet map', function(hooks) {
+module('Integration | Component | leaflet map', function (hooks) {
   setupRenderingTest(hooks);
   setupCustomAssertions(hooks);
 
-  hooks.beforeEach(function() {
-    this.owner.register('component:leaflet-map', LeafletMapComponent.extend({
-      init() {
-        this._super(...arguments);
-        map = this;
+  hooks.beforeEach(function () {
+    this.owner.register(
+      'component:leaflet-map',
+      class extends LeafletMapComponent {
+        constructor() {
+          super(...arguments);
+          map = this;
+        }
       }
-    }));
+    );
 
     this.set('center', locations.nyc);
     this.set('zoom', 12);
   });
 
-  test('update map layer using leafletProperties (zoom and center)', async function(assert) {
+  test('update map layer using leafletProperties (zoom and center)', async function (assert) {
     this.set('zoomPanOptions', {
       animate: false
     });
@@ -44,8 +47,7 @@ module('Integration | Component | leaflet map', function(hooks) {
     assert.equal(map._layer.getZoom(), 14);
   });
 
-  test('lat/lng changes propagate to the map', async function(assert) {
-
+  test('lat/lng changes propagate to the map', async function (assert) {
     this.setProperties({
       lat: locations.nyc.lat,
       lng: locations.nyc.lng
@@ -66,7 +68,7 @@ module('Integration | Component | leaflet map', function(hooks) {
     assert.locationsEqual(map._layer.getCenter(), locations.chicago);
   });
 
-  test('update map layer using leafletProperties (bounds)', async function(assert) {
+  test('update map layer using leafletProperties (bounds)', async function (assert) {
     this.set('fitBoundsOptions', {
       animate: false
     });
@@ -84,7 +86,7 @@ module('Integration | Component | leaflet map', function(hooks) {
     assert.boundsContain(map._layer.getBounds(), [locations.nyc, locations.sf]);
   });
 
-  test('update map layer using leafletProperties (bounds and then center)', async function(assert) {
+  test('update map layer using leafletProperties (bounds and then center)', async function (assert) {
     this.set('bounds2', [locations.nyc, locations.sf]);
 
     await render(hbs`
@@ -100,7 +102,7 @@ module('Integration | Component | leaflet map', function(hooks) {
     assert.locationsEqual(map._layer.getCenter(), locations.nyc);
   });
 
-  test('update map layer using leafletProperties (bounds and fitBoundsOptions)', async function(assert) {
+  test('update map layer using leafletProperties (bounds and fitBoundsOptions)', async function (assert) {
     this.set('fitBoundsOptions', null);
     this.set('bounds', [locations.nyc, locations.chicago]);
 
@@ -120,7 +122,7 @@ module('Integration | Component | leaflet map', function(hooks) {
     assert.notEqual(pixelBounds.min.y, pixelBoundsWithOptions.min.y);
   });
 
-  test('map sends actions for events', async function(assert) {
+  test('map sends actions for events', async function (assert) {
     assert.expect(5);
 
     this.set('moveAction', () => {
@@ -154,7 +156,7 @@ module('Integration | Component | leaflet map', function(hooks) {
   // Some kinds of events required us to delay
   // `setView` after binding the observers.
   // This test ensures those kind of events still run
-  test('map sends actions for events load and initial viewreset', async function(assert) {
+  test('map sends actions for events load and initial viewreset', async function (assert) {
     assert.expect(2);
 
     this.set('loadAction', () => {
@@ -203,7 +205,7 @@ module('Integration | Component | leaflet map', function(hooks) {
   });
   */
 
-  test('setting zoom to 0 should not throw', async function(assert) {
+  test('setting zoom to 0 should not throw', async function (assert) {
     await render(hbs`
       <LeafletMap @zoom={{0}} @center={{this.center}}/>
     `);
@@ -211,8 +213,7 @@ module('Integration | Component | leaflet map', function(hooks) {
     assert.equal(map._layer.getZoom(), 0, 'zoom 0 is set');
   });
 
-  test('using bounds from lat-lng-bounds helper works', async function(assert) {
-
+  test('using bounds from lat-lng-bounds helper works', async function (assert) {
     this.set('markerCenter', locations.nyc);
     this.set('bounds', locations.bounds());
 
@@ -226,14 +227,11 @@ module('Integration | Component | leaflet map', function(hooks) {
     assert.boundsContain(map._layer.getBounds(), locations.bounds());
   });
 
-  test('addon components are yielded', async function(assert) {
+  test('addon components are yielded', async function (assert) {
     this.emberLeaflet = this.owner.lookup('service:ember-leaflet');
 
     [1, 2, 3].forEach(ix => {
-      this.owner.register(
-        `component:leaflet-component-${ix}`,
-        LeafletMapComponent.extend({})
-      );
+      this.owner.register(`component:leaflet-component-${ix}`, class extends LeafletMapComponent {});
 
       this.emberLeaflet.registerComponent(`leaflet-component-${ix}`, {
         as: `component-${ix}`
@@ -249,9 +247,7 @@ module('Integration | Component | leaflet map', function(hooks) {
     `);
 
     assert.equal(
-      [...this.element.querySelectorAll('yielded-layer')].filter(
-        l => l.textContent.startsWith('component-')
-      ).length,
+      [...this.element.querySelectorAll('yielded-layer')].filter(l => l.textContent.startsWith('component-')).length,
       3
     );
   });

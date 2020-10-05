@@ -8,24 +8,27 @@ import locations from '../../helpers/locations';
 
 let pointPath;
 
-module('Integration | Component | point path layer', function(hooks) {
+module('Integration | Component | point path layer', function (hooks) {
   setupRenderingTest(hooks);
   setupCustomAssertions(hooks);
 
-  hooks.beforeEach(function() {
-    this.owner.register('component:circle-layer', CircleLayerComponent.extend({
-      init() {
-        this._super(...arguments);
-        pointPath = this;
+  hooks.beforeEach(function () {
+    this.owner.register(
+      'component:circle-layer',
+      class extends CircleLayerComponent {
+        constructor() {
+          super(...arguments);
+          pointPath = this;
+        }
       }
-    }));
+    );
 
     this.set('center', locations.nyc);
     this.set('zoom', 13);
     this.set('radius', 50);
   });
 
-  test('update point path layer using leafletProperties', async function(assert) {
+  test('update point path layer using leafletProperties', async function (assert) {
     this.set('location', locations.chicago);
 
     await render(hbs`
@@ -42,8 +45,7 @@ module('Integration | Component | point path layer', function(hooks) {
     assert.locationsEqual(pointPath._layer.getLatLng(), locations.london);
   });
 
-  test('lat/lng changes propagate to the point path layer', async function(assert) {
-
+  test('lat/lng changes propagate to the point path layer', async function (assert) {
     this.setProperties({
       lat: locations.nyc.lat,
       lng: locations.nyc.lng

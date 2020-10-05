@@ -1,0 +1,21 @@
+{{#if this.popupOpenDidChange}}
+  {{did-update this.popupOpenDidChange @popupOpen}}
+{{/if}}
+
+{{#each this.leafletDescriptorsProps as |prop|}}
+  {{did-update (fn this.updateOption prop) (get this.args prop)}}
+{{/each}}
+
+<@node @didInsertParent={{this.didInsertParent}} @willDestroyParent={{this.willDestroyParent}}>
+  {{#unless this.fastboot.isFastBoot}}
+    {{#if this.shouldRender}}
+      {{#in-element this.destinationElement~}}
+        {{#if this.closePopup}}
+          {{yield this.closePopup}}
+        {{else}}
+          {{yield}}
+        {{/if}}
+      {{~/in-element}}
+    {{/if}}
+  {{/unless}}
+</@node>

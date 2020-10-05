@@ -2,8 +2,8 @@ import { latLngBounds } from 'dummy/helpers/lat-lng-bounds';
 import { module, test } from 'qunit';
 /* global L */
 
-module('Unit | Helper | lat-lng-bounds', function() {
-  test('it works', function(assert) {
+module('Unit | Helper | lat-lng-bounds', function () {
+  test('it works', function (assert) {
     let result = latLngBounds([
       [42.12312412431231, 41.12331213212],
       [44.12312412431231, 43.12331213212],
