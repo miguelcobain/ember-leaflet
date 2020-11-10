@@ -14,16 +14,18 @@
     <nav.item @label="They're just templates!" @route="docs.templates"/>
     <nav.item @label="Addons" @route="docs.addons"/>
 
-    <nav.section @label="Components"/>
-    {{#each this.componentList as |c|}}
-      <nav.item @label={{concat "<" (classify c) "/>"}} @route="docs.component" @model={{c}}/>
-    {{/each}}
+    {{!--
+      <nav.section @label="Components"/>
+      {{#each this.componentList as |c|}}
+        <nav.item @label={{concat "<" (classify c) "/>"}} @route="docs.component" @model={{c}}/>
+      {{/each}}
 
-    <nav.section @label="Helpers"/>
+      <nav.section @label="Helpers"/>
 
-    {{#each this.helperList as |h|}}
-      <nav.item @label={{concat "{{" h "}}"}} @route="docs.helper" @model={{h}}/>
-    {{/each}}
+      {{#each this.helperList as |h|}}
+        <nav.item @label={{concat "{{" h "}}"}} @route="docs.helper" @model={{h}}/>
+      {{/each}}
+    --}}
   </viewer.nav>
 
   <viewer.main>

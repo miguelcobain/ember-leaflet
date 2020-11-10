@@ -1,6 +1,20 @@
 import PointPathLayer from 'ember-leaflet/components/point-path-layer';
 
+/**
+ * A circle of a fixed size with radius specified in pixels.
+ *
+ * @class CircleLayer
+ * @extends PointPathLayer
+ */
 export default class CircleMarkerLayer extends PointPathLayer {
+
+  /**
+   * Radius of the circle marker, in pixels. Defaults to `10`.
+   *
+   * @argument radius
+   * @type {Number}
+   */
+
   leafletOptions = [...this.leafletOptions, 'radius'];
 
   leafletDescriptors = [...this.leafletDescriptors, 'radius'];

@@ -2,73 +2,103 @@ import { action } from '@ember/object';
 import BaseLayer from 'ember-leaflet/components/base-layer';
 
 /**
- * @public
- * An ember-leaflet wrapper for L.geoJson, which renders GeoJson data onto a
- * map as features.
+ * Represents a GeoJSON object or an array of GeoJSON objects. Allows you to render GeoJSON
+ * data and display it on the map.
  *
- * Takes:
- *   - geoJSON: the GeoJSON object to render
- *   - all standard leaflet options for L.geoJson
+ * @class GeojsonLayer
+ * @extends BaseLayer
  */
 export default class GeojsonLayer extends BaseLayer {
-  leafletRequiredOptions = [...this.leafletRequiredOptions, 'geoJSON'];
+
+  leafletRequiredOptions = [
+    ...this.leafletRequiredOptions,
+
+    /**
+     * An object in GeoJSON format to display on the map.
+     *
+     * @argument geoJSON
+     * @type {Object}
+     */
+    'geoJSON'
+  ];
 
   leafletOptions = [
     ...this.leafletOptions,
-    'stroke',
-    'color',
-    'weight',
-    'opacity',
-    'fill',
-    'fillColor',
-    'fillOpacity',
-    'fillRule',
-    'dashArray',
-    'lineCap',
-    'lineJoin',
-    'clickable',
-    'pointerEvents',
-    'className',
+
+    /**
+     * A Function defining how GeoJSON points spawn Leaflet layers. It is internally called when data is added,
+     * passing the GeoJSON point feature and its LatLng.
+     *
+     * @argument pointToLayer
+     * @type {Function}
+     */
     'pointToLayer',
+
+    /**
+     * A Function defining the Path options for styling GeoJSON lines and polygons, called internally when data is added.
+     *
+     * @argument style
+     * @type {Function}
+     */
     'style',
+
+    /**
+     * A Function that will be called once for each created Feature, after it has been created and styled. Useful
+     * for attaching events and popups to features.
+     *
+     * @argument onEachFeature
+     * @type {Function}
+     */
     'onEachFeature',
+
+    /**
+     * A Function that will be used to decide whether to include a feature or not.
+     *
+     * @argument filter
+     * @type {Function}
+     */
     'filter',
-    'coordsToLatLng'
+
+    /**
+     * A Function that will be used for converting GeoJSON coordinates to LatLngs.
+     * The default is the coordsToLatLng static method.
+     *
+     * @argument coordsToLatLng
+     * @type {Function}
+     */
+    'coordsToLatLng',
+
+    /**
+     * Whether default Markers for `Point` type Features inherit from group options.
+     * Defaults to `false`.
+     *
+     * @argument markersInheritOptions
+     * @type {Boolean}
+     */
+    'markersInheritOptions'
   ];
 
   leafletEvents = [
     ...this.leafletEvents,
-    'click',
-    'dblclick',
-    'mousedown',
-    'mouseover',
-    'mouseout',
-    'contextmenu',
-    'add',
-    'remove',
-    'popupopen',
-    'popupclose'
+
+    /**
+     * Fired when a layer is added to this FeatureGroup.
+     *
+     * @argument onLayeradd
+     * @type {Function}
+     */
+    'layeradd',
+
+    /**
+     * Fired when a layer is removed from this FeatureGroup.
+     *
+     * @argument onLayerremove
+     * @type {Function}
+     */
+    'layerremove'
   ];
 
   leafletDescriptors = [...this.leafletDescriptors, 'style'];
-
-  leafletStyleProperties = [
-    ...this.leafletStyleProperties,
-    'stroke',
-    'color',
-    'weight',
-    'opacity',
-    'fill',
-    'fillColor',
-    'fillOpacity',
-    'fillRule',
-    'dashArray',
-    'lineCap',
-    'lineJoin',
-    'clickable',
-    'pointerEvents',
-    'className'
-  ];
 
   @action
   didChangeGeojson(geoJSON) {

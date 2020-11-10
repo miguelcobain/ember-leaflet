@@ -2,10 +2,6 @@
   {{did-update (fn this.updateOption prop) (get this.args prop)}}
 {{/each}}
 
-{{#each this.leafletStyleProperties as |prop|}}
-  {{did-update (fn this.updateStyleProperty prop) (get this.args prop)}}
-{{/each}}
-
 {{did-update this.didChangeGeojson @geoJSON}}
 
 <@node @didInsertParent={{this.didInsertParent}} @willDestroyParent={{this.willDestroyParent}} as |Node|>

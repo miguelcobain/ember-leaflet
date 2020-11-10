@@ -4,6 +4,12 @@ import { inject as service } from '@ember/service';
 import BaseLayer from 'ember-leaflet/components/base-layer';
 import { action } from '@ember/object';
 
+/**
+ * The central class of ember-leaflet — it is used to create a map on a page and manipulate it.
+ *
+ * @class LeafletMap
+ * @extends BaseLayer
+ */
 export default class LeafletMap extends BaseLayer {
   @service emberLeaflet;
 
@@ -96,9 +102,7 @@ export default class LeafletMap extends BaseLayer {
     'overlayadd',
     'overlayremove',
     'locationfound',
-    'locationerror',
-    'popupopen',
-    'popupclose'
+    'locationerror'
   ];
 
   leafletDescriptors = [

@@ -79,28 +79,41 @@ module('Integration | Component | geojson layer', function (hooks) {
   });
 
   test('make sure geojson is still there on attribute update', async function (assert) {
-    this.set('color', 'blue');
+    this.style = () => ({ color: 'blue' });
+
     await render(hbs`
       <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
-        <layers.geojson @geoJSON={{this.sampleGeoJSON}} @color={{this.color}}/>
+        <layers.geojson @geoJSON={{this.sampleGeoJSON}} @style={{this.styleBlue}}/>
       </LeafletMap>
     `);
 
     assert.dom('path').exists({ count: 1 });
 
-    this.set('color', 'red');
+    this.set('style', () => ({ color: 'red' }));
 
     assert.dom('path').exists({ count: 1 });
   });
 
   test('update color on event', async function (assert) {
-    this.set('color', 'green');
+
+    this.onEachFeature = (feature, layer) => {
+      layer.addEventListener('mouseover', () => {
+        layer.setStyle?.({ color: 'red', fillColor: 'red' });
+      });
+
+      layer.addEventListener('mouseout', () => {
+        layer?.setStyle?.({ color: 'blue', fillColor: 'blue' });
+      });
+    };
+
+    this.style = () => ({ color: 'green', fillColor: 'green' });;
 
     await render(hbs`
       <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
-        <layers.geojson @geoJSON={{this.sampleGeoJSON}} @color={{this.color}} @fillColor={{this.color}}
-          @onMouseover={{fn (mut this.color) "red"}}
-          @onMouseout={{fn (mut this.color) "blue"}}/>
+        <layers.geojson
+          @geoJSON={{this.sampleGeoJSON}}
+          @style={{this.style}}
+          @onEachFeature={{this.onEachFeature}}/>
       </LeafletMap>
     `);
 
@@ -108,17 +121,23 @@ module('Integration | Component | geojson layer', function (hooks) {
     assert.dom('path').hasAttribute('stroke', 'green', 'Original stroke set');
     assert.dom('path').hasAttribute('fill', 'green', 'Original fill set');
 
-    run(() => geoJSONLayer._layer.fire('mouseover'));
+    run(() => {
+      for (let [, layer] of Object.entries(geoJSONLayer._layer._layers)) {
+        layer.fire('mouseover');
+      }
+    });
     await settled();
 
-    assert.equal(this.color, 'red', 'action triggered');
     assert.dom('path').hasAttribute('stroke', 'red', 'Mouseover stroke set');
     assert.dom('path').hasAttribute('fill', 'red', 'Mouseover fill set');
 
-    run(() => geoJSONLayer._layer.fire('mouseout'));
+    run(() => {
+      for (let [, layer] of Object.entries(geoJSONLayer._layer._layers)) {
+        layer.fire('mouseout');
+      }
+    });
     await settled();
 
-    assert.equal(this.color, 'blue', 'action triggered');
     assert.dom('path').hasAttribute('stroke', 'blue', 'Mouseleave stroke set');
     assert.dom('path').hasAttribute('fill', 'blue', 'Mouseleave fill set');
   });

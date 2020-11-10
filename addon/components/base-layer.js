@@ -8,25 +8,100 @@ import { classify } from '@ember/string';
 
 const leaf = typeof L === 'undefined' ? {} : L;
 
+/**
+ * The base class for all ember-leaflet layer components. It contains common
+ * abstractions used on all layers, including setting event listeners,
+ * gathering init options, etc.
+ *
+ * It is meant to be subclassed with the `createLayer` method being
+ * mandatory to implement.
+ *
+ * @class BaseLayer
+ * @uses Leaflet
+ */
 export default class BaseLayer extends Component {
   L = leaf;
 
   @service fastboot;
 
-  leafletOptions = ['pane', 'attribution'];
+  leafletOptions = [
+    /**
+     * By default the layer will be added to the map's overlay pane. Overriding this option will
+     * cause the layer to be placed on another pane by default. Defaults to `'overlayPane'`.
+     *
+     * @argument pane
+     * @type {String}
+     */
+    'pane',
 
-  leafletEvents = ['add', 'remove'];
+    /**
+     * String to be shown in the attribution control, e.g. "© OpenStreetMap contributors". It describes the layer
+     * data and is often a legal obligation towards copyright holders and tile providers.
+     *
+     * @argument attribution
+     * @type {String}
+     */
+    'attribution'
+  ];
+
+  leafletEvents = [
+    /**
+     * Fired after the layer is added to a map.
+     *
+     * @argument onAdd
+     * @type {Function}
+     */
+    'add',
+
+    /**
+     * Fired after the layer is removed from a map.
+     *
+     * @argument onRemove
+     * @type {Function}
+     */
+    'remove',
+
+    /**
+     * Fired when a popup bound to this layer is opened.
+     *
+     * @argument onPopupopen
+     * @type {Function}
+     */
+    'popupopen',
+
+    /**
+     * Fired when a popup bound to this layer is closed.
+     *
+     * @argument onPopupclose
+     * @type {Function}
+     */
+    'popupclose',
+
+    /**
+     * Fired when a tooltip bound to this layer is opened.
+     *
+     * @argument onTooltipopen
+     * @type {Function}
+     */
+    'tooltipopen',
+
+    /**
+     * Fired when a tooltip bound to this layer is closed.
+     *
+     * @argument onTooltipclose
+     * @type {Function}
+     */
+    'tooltipclose'
+  ];
 
   leafletRequiredOptions = [];
 
   leafletStyleProperties = [];
 
-  /**
-   * This is an array that describes how a component's arguments
-   * relate to leaflet methods and their parameters.
-   * E.g: Changing the tile layer's `@url` should invoke the layer's `setUrl` method
-   * with the new `@url` value
-   */
+  // This is an array that describes how a component's arguments
+  // relate to leaflet methods and their parameters.
+  // E.g: Changing the tile layer's `@url` should invoke the layer's `setUrl` method
+  // with the new `@url` value
   leafletDescriptors = [];
 
   createLayer() {
