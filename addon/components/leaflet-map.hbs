@@ -6,7 +6,7 @@
   {{/if}}
 {{/each}}
 
-<Root @didInsertParent={{this.didInsertParent}} @willDestroyParent={{this.willDestroyParent}} as |Node|>
+<Root @didInsertParent={{this.didInsertParent}} @willDestroyParent={{this.willDestroyParent}} ...attributes as |Node|>
   {{#let (hash
     tile=(component "tile-layer" parent=this node=Node)
     wms-tile=(component "wms-tile-layer" parent=this node=Node)

@@ -3,7 +3,7 @@
 }
 
 body {
-  font-family: 'Roboto', 'system-ui', 'BlinkMacSystemFont', '-apple-system', 'Segoe UI', 'Oxygen', 'Ubuntu', 'Cantarell',
+  font-family: 'Inter', 'system-ui', 'BlinkMacSystemFont', '-apple-system', 'Segoe UI', 'Oxygen', 'Ubuntu', 'Cantarell',
     'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'sans-serif';
 }
 
@@ -19,13 +19,10 @@ body {
 }
 
 .main-page-map {
-  height: 400px;
+  height: 100%;
 }
 
-.main-page-headline > div {
-  position: absolute;
-  margin-top: -400px;
-  width: 100%;
+.new-hero {
   //background-color: rgba(0,0,0,0.2);
   background-image: linear-gradient(0, transparent 0, rgba(0, 0, 0, 0.5) 100%);
   background-color: transparent !important;
@@ -63,15 +60,4 @@ body {
 
 .ember-modal-dialog {
   z-index: 401;
-}
-
-// brand color no longer works in Ember CLI 3.13
-// see: https://github.com/ember-learn/ember-cli-addon-docs/issues/407
-.docs-bg-brand,
-.hover\:docs-bg-brand:hover {
-  background-color: #1eb300 !important;
-}
-.docs-text-brand,
-.hover\:docs-text-brand:hover {
-  color: #1eb300 !important;
 }
