@@ -64,7 +64,7 @@ module('Integration | Component | array path layer', function (hooks) {
     assert.locationsEqual(layerLatLngs[1], locations.nyc);
     assert.locationsEqual(layerLatLngs[2], locations.sf);
 
-    this.get('locations').pushObject(locations.paris);
+    this.locations.pushObject(locations.paris);
     await settled();
 
     layerLatLngs = arrayPath._layer.getLatLngs();
@@ -87,7 +87,7 @@ module('Integration | Component | array path layer', function (hooks) {
     assert.locationsEqual(layerLatLngs[1], locations.nyc);
     assert.locationsEqual(layerLatLngs[2], locations.sf);
 
-    this.get('locations').popObject();
+    this.locations.popObject();
     await settled();
 
     layerLatLngs = arrayPath._layer.getLatLngs();
@@ -110,7 +110,7 @@ module('Integration | Component | array path layer', function (hooks) {
     assert.locationsEqual(layerLatLngs[1], locations.nyc);
     assert.locationsEqual(layerLatLngs[2], locations.sf);
 
-    this.get('locations').replace(1, 1, [locations.paris]);
+    this.locations.replace(1, 1, [locations.paris]);
     await settled();
 
     layerLatLngs = arrayPath._layer.getLatLngs();

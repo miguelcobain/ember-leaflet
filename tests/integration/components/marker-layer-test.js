@@ -48,7 +48,7 @@ module('Integration | Component | marker layer', function (hooks) {
     assert.locationsEqual(marker._layer.getLatLng(), locations.nyc);
     assert.equal(marker._layer.options.opacity, 0.2);
     assert.equal(marker._layer.options.zIndexOffset, 13);
-    assert.equal(marker._layer.options.icon, this.get('icon'));
+    assert.equal(marker._layer.options.icon, this.icon);
 
     this.set('markerCenter', locations.sf);
     this.set('opacity', 0.8);

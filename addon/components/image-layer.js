@@ -7,7 +7,6 @@ import InteractiveLayer from 'ember-leaflet/components/interactive-layer';
  * @extends InteractiveLayer
  */
 export default class ImageLayer extends InteractiveLayer {
-
   leafletRequiredOptions = [
     ...this.leafletRequiredOptions,
 

@@ -1,7 +1,5 @@
 // BEGIN-SNIPPET marker-cluster.js
 import Controller from '@ember/controller';
-
-// NOTE: this example uses ember decorators and native classes
 export default class MarkerClusterController extends Controller {
   lat = 40.713473;
   lng = -74.007038;

@@ -18,20 +18,24 @@ body {
   }
 }
 
-.main-page-map {
-  height: 100%;
-}
+.main-page-section {
+  height: 400px;
 
-.new-hero {
-  //background-color: rgba(0,0,0,0.2);
-  background-image: linear-gradient(0, transparent 0, rgba(0, 0, 0, 0.5) 100%);
-  background-color: transparent !important;
-  pointer-events: none;
-  z-index: 400;
+  .main-page-map {
+    height: 100%;
+  }
 
-  a,
-  button {
-    pointer-events: auto;
+  .new-hero {
+    //background-color: rgba(0,0,0,0.2);
+    background-image: linear-gradient(0, transparent 0, rgba(0, 0, 0, 0.5) 100%);
+    background-color: transparent !important;
+    pointer-events: none;
+    z-index: 400;
+
+    a,
+    button {
+      pointer-events: auto;
+    }
   }
 }
 

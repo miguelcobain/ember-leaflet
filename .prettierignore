@@ -2,19 +2,20 @@
 /blueprints/*/files/
 /vendor/
 
- # compiled output
+# compiled output
 /dist/
 /tmp/
 
- # dependencies
+# dependencies
 /bower_components/
 /node_modules/
 
- # misc
+# misc
 /coverage/
 !.*
+.eslintcache
 
- # ember-try
+# ember-try
 /.node_modules.ember-try/
 /bower.json.ember-try
 /package.json.ember-try

@@ -16,8 +16,8 @@ module('Integration | Performance | ember-leaflet', function (hooks) {
    *   - production env 1887.1699999999691 ms
    *
    * glimmer
-   *   - test env 1870.520000000397 ms
-   *   - production env 1361.1500000006345 ms
+   *   - test env 1500.119999999697 ms
+   *   - production env 1426.5750000004118 ms
    */
   test('render a large number of polylines', async function (assert) {
     this.lines = lines;
@@ -53,7 +53,8 @@ module('Integration | Performance | ember-leaflet', function (hooks) {
    *   - 33.919999999852735 ms
    *
    * on leaflet 1.7.1 this took:
-   *   - prod 33.12499999810825 ms
+   *   - test env 25.92999999978929 ms
+   *   - prod 29.089999999996508 ms
    */
   test('render a large number of polylines (raw leaflet)', async function (assert) {
     this.lines = lines;

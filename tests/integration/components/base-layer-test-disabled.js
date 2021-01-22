@@ -28,9 +28,9 @@ module('Integration | Component | base layer', function (hooks) {
 
     this.owner.register(
       'component:new-base-layer',
-      BaseLayerComponent.extend({
+      class NewBaseLayer extends BaseLayerComponent {
         createLayer() {}
-      })
+      }
     );
 
     assert.expectAssertion(async () => {

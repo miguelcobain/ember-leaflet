@@ -122,8 +122,6 @@ module('Integration | Component | popup layer', function (hooks) {
       </LeafletMap>
     `);
 
-    await settled();
-
     assert.ok(!!marker._layer._popup._map, 'popup starts open');
     assert.dom(marker._layer._popup._contentNode).hasText('Popup content', 'popup content set');
 
@@ -158,8 +156,6 @@ module('Integration | Component | popup layer', function (hooks) {
         {{/if}}
       </LeafletMap>
     `);
-
-    await settled();
 
     let map = marker._layer._map;
     assert.ok(!!map._popup, 'popup starts open');

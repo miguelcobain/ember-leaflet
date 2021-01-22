@@ -57,8 +57,8 @@ module('Integration | Component | rectangle layer', function (hooks) {
     });
 
     this.set('locations', [
-      [this.get('lat1'), this.get('lng1')],
-      [this.get('lat2'), this.get('lng2')]
+      [this.lat1, this.lng1],
+      [this.lat2, this.lng2]
     ]);
     await settled();
 
@@ -80,8 +80,8 @@ module('Integration | Component | rectangle layer', function (hooks) {
     });
 
     this.set('locations', [
-      [this.get('lat1'), this.get('lng1')],
-      [this.get('lat2'), this.get('lng2')]
+      [this.lat1, this.lng1],
+      [this.lat2, this.lng2]
     ]);
     await settled();
 

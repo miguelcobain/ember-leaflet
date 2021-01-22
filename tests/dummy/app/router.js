@@ -16,14 +16,9 @@ Router.map(function () {
     this.route('actions');
     this.route('templates');
     this.route('addons');
-
-    // COMPONENTS
-    this.route('component', { path: ':component_name' });
-
-    // HELPERS
-    this.route('helper', { path: 'helpers/:helper_name' });
   });
 
+  // eslint-disable-next-line
   this.route('addons');
 
   this.route('not-found', { path: '/*path' });

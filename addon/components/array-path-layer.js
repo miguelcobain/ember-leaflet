@@ -1,6 +1,5 @@
 import PathLayer from 'ember-leaflet/components/path-layer';
 
-
 /**
  * A class that extends `PathLayer` with a `@locations` argument.
  * Layers that require multiple points extend this class.
@@ -9,7 +8,6 @@ import PathLayer from 'ember-leaflet/components/path-layer';
  * @extends PathLayer
  */
 export default class ArrayPathLayer extends PathLayer {
-
   /**
    * An array of geographical points.
    *

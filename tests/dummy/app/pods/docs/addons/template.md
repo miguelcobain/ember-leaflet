@@ -16,12 +16,12 @@ ember install ember-leaflet-marker-cluster
 This addon will register a new `<layers.marker-cluster>` component and you can use it like in the following example:
 
 {{#docs-demo as |demo|}}
-  {{#demo.example name="marker-cluster.hbs"}}
+{{#demo.example name="marker-cluster.hbs"}}
 
     <LeafletMap @lat={{this.lat}} @lng={{this.lng}} @zoom={{this.zoom}} as |layers|>
 
       <layers.tile @url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"/>
-  
+
       <layers.marker-cluster as |cluster|>
         {{#each this.markers as |m|}}
           <cluster.marker @location={{m.location}} as |marker|>
@@ -32,13 +32,13 @@ This addon will register a new `<layers.marker-cluster>` component and you can u
           </cluster.marker>
         {{/each}}
       </layers.marker-cluster>
-  
+
     </LeafletMap>
 
-  {{/demo.example}}
+{{/demo.example}}
 
-  {{demo.snippet "marker-cluster.hbs"}}
-  {{demo.snippet "marker-cluster.js"}}
+{{demo.snippet "marker-cluster.hbs"}}
+{{demo.snippet "marker-cluster.js"}}
 {{/docs-demo}}
 
 ## Creating an addon
@@ -80,9 +80,10 @@ export default {
 ```
 
 The `registerComponent` method accepts two arguments:
+
 - the component name
 - an options object. Only the `as` option is supported at the moment. The `as` option is the name
-under which the component will yielded as from the `<LeafletMap>` component.
+  under which the component will yielded as from the `<LeafletMap>` component.
 
 ### Including the leaflet plugin
 

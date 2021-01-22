@@ -95,7 +95,6 @@ module('Integration | Component | geojson layer', function (hooks) {
   });
 
   test('update color on event', async function (assert) {
-
     this.onEachFeature = (feature, layer) => {
       layer.addEventListener('mouseover', () => {
         layer.setStyle?.({ color: 'red', fillColor: 'red' });
@@ -106,7 +105,7 @@ module('Integration | Component | geojson layer', function (hooks) {
       });
     };
 
-    this.style = () => ({ color: 'green', fillColor: 'green' });;
+    this.style = () => ({ color: 'green', fillColor: 'green' });
 
     await render(hbs`
       <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>

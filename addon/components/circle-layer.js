@@ -9,7 +9,6 @@ import PointPathLayer from 'ember-leaflet/components/point-path-layer';
  * @extends PointPathLayer
  */
 export default class CircleLayer extends PointPathLayer {
-
   leafletRequiredOptions = [
     ...this.leafletRequiredOptions,
 

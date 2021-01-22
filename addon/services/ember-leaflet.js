@@ -2,7 +2,6 @@ import Service from '@ember/service';
 import { assert } from '@ember/debug';
 
 export default class EmberLeafletService extends Service {
-
   components = [];
 
   registerComponent(name, options = {}) {
