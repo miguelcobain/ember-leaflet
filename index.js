@@ -11,10 +11,12 @@ module.exports = {
   treeForVendor() {
     let dist = path.join(this.pathBase('leaflet'), 'dist');
 
-    let leafletJs = fastbootTransform(new Funnel(dist, {
-      files: ['leaflet-src.js'],
-      destDir: 'leaflet'
-    }));
+    let leafletJs = fastbootTransform(
+      new Funnel(dist, {
+        files: ['leaflet-src.js'],
+        destDir: 'leaflet'
+      })
+    );
 
     let leafletFiles = new Funnel(dist, {
       exclude: ['leaflet.js', 'leaflet-src.js', '*.html'],

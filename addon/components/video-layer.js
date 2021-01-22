@@ -1,20 +1,13 @@
 import ImageLayer from 'ember-leaflet/components/image-layer';
 
-export default ImageLayer.extend({
+export default class VideoLayer extends ImageLayer {
+  leafletRequiredOptions = [...this.leafletRequiredOptions, 'video', 'bounds'];
 
-  leafletRequiredOptions: Object.freeze([
-    'video', 'bounds'
-  ]),
+  leafletOptions = [...this.leafletOptions, 'autoplay', 'loop'];
 
-  leafletOptions: Object.freeze([
-    'autoplay', 'loop'
-  ]),
-
-  leafletProperties: Object.freeze([
-    'url', 'opacity', 'bounds'
-  ]),
+  leafletDescriptors = [...this.leafletDescriptors, 'url', 'opacity', 'bounds'];
 
   createLayer() {
-    return this.L.videoOverlay(...this.get('requiredOptions'), this.get('options'));
+    return this.L.videoOverlay(...this.requiredOptions, this.options);
   }
-});
+}

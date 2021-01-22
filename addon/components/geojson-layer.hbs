@@ -1,0 +1,12 @@
+{{#each this.leafletDescriptorsProps as |prop|}}
+  {{did-update (fn this.updateOption prop) (get this.args prop)}}
+{{/each}}
+
+{{did-update this.didChangeGeojson @geoJSON}}
+
+<@node @didInsertParent={{this.didInsertParent}} @willDestroyParent={{this.willDestroyParent}} as |Node|>
+  {{yield (hash
+    popup=(component "popup-layer" parent=this node=Node)
+    tooltip=(component "tooltip-layer" parent=this node=Node)
+  )}}
+</@node>

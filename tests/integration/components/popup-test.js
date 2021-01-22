@@ -17,30 +17,36 @@ L.Icon.Default.imagePath = 'some-path';
 
 let marker, arrayPath;
 
-module('Integration | Component | popup layer', function(hooks) {
+module('Integration | Component | popup layer', function (hooks) {
   setupRenderingTest(hooks);
   setupCustomAssertions(hooks);
 
-  hooks.beforeEach(function() {
-    this.owner.register('component:marker-layer', MarkerLayerComponent.extend({
-      init() {
-        this._super(...arguments);
-        marker = this;
+  hooks.beforeEach(function () {
+    this.owner.register(
+      'component:marker-layer',
+      class extends MarkerLayerComponent {
+        constructor() {
+          super(...arguments);
+          marker = this;
+        }
       }
-    }));
+    );
 
-    this.owner.register('component:polyline-layer', PolylineLayerComponent.extend({
-      init() {
-        this._super(...arguments);
-        arrayPath = this;
+    this.owner.register(
+      'component:polyline-layer',
+      class extends PolylineLayerComponent {
+        constructor() {
+          super(...arguments);
+          arrayPath = this;
+        }
       }
-    }));
+    );
 
     this.set('center', locations.nyc);
     this.set('zoom', 13);
   });
 
-  test('popup works', async function(assert) {
+  test('popup works', async function (assert) {
     this.set('markerCenter', locations.nyc);
 
     await render(hbs`
@@ -65,14 +71,18 @@ module('Integration | Component | popup layer', function(hooks) {
     assert.dom(marker._layer._popup._contentNode).hasText('Popup content', 'popup content set');
   });
 
-  test('popup content isn\'t rendered until it is opened (lazy popups)', async function(assert) {
+  test("popup content isn't rendered until it is opened (lazy popups)", async function (assert) {
     let didRun = false;
 
     this.set('markerCenter', locations.nyc);
-    defineProperty(this, 'computedProperty', computed(function() {
-      didRun = true;
-      return 'text';
-    }));
+    defineProperty(
+      this,
+      'computedProperty',
+      computed(function () {
+        didRun = true;
+        return 'text';
+      })
+    );
 
     await render(hbs`
       <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
@@ -98,8 +108,7 @@ module('Integration | Component | popup layer', function(hooks) {
     assert.ok(didRun, 'computed property did run');
   });
 
-  test('popup opens based on popupOpen', async function(assert) {
-
+  test('popup opens based on popupOpen', async function (assert) {
     this.set('markerCenter', locations.nyc);
     this.set('popupOpen', true);
 
@@ -112,8 +121,6 @@ module('Integration | Component | popup layer', function(hooks) {
         </layers.marker>
       </LeafletMap>
     `);
-
-    await settled();
 
     assert.ok(!!marker._layer._popup._map, 'popup starts open');
     assert.dom(marker._layer._popup._contentNode).hasText('Popup content', 'popup content set');
@@ -134,8 +141,7 @@ module('Integration | Component | popup layer', function(hooks) {
     assert.dom(marker._layer._popup._contentNode).hasText('Popup content', 'popup content set');
   });
 
-  test('popup closes when layer is destroyed', async function(assert) {
-
+  test('popup closes when layer is destroyed', async function (assert) {
     this.set('markerCenter', locations.nyc);
     this.set('isVisible', true);
 
@@ -151,8 +157,6 @@ module('Integration | Component | popup layer', function(hooks) {
       </LeafletMap>
     `);
 
-    await settled();
-
     let map = marker._layer._map;
     assert.ok(!!map._popup, 'popup starts open');
     assert.dom(map._popup._contentNode).hasText('Popup content', 'popup content set');
@@ -162,8 +166,7 @@ module('Integration | Component | popup layer', function(hooks) {
     assert.equal(map._popup, null, 'popup closed');
   });
 
-  test('popup closes with yielded action', async function(assert) {
-
+  test('popup closes with yielded action', async function (assert) {
     await render(hbs`
       <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
         <layers.marker @location={{this.center}} as |marker|>
@@ -188,7 +191,7 @@ module('Integration | Component | popup layer', function(hooks) {
     assert.equal(map._popup, null, 'popup closed');
   });
 
-  test('popup options work', async function(assert) {
+  test('popup options work', async function (assert) {
     this.set('markerCenter', locations.nyc);
     await render(hbs`
       <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
@@ -203,7 +206,7 @@ module('Integration | Component | popup layer', function(hooks) {
     assert.equal(marker._layer._popup.options.className, 'foo', 'popup class set');
   });
 
-  test('popup options within path layers', async function(assert) {
+  test('popup options within path layers', async function (assert) {
     this.set('locations', A([locations.chicago, locations.nyc, locations.sf]));
 
     await render(hbs`
@@ -219,7 +222,7 @@ module('Integration | Component | popup layer', function(hooks) {
     assert.equal(arrayPath._layer._popup.options.className, 'exists', 'popup class set on array-path');
   });
 
-  (isLeaflet07(L) ? skip : test)('popup is compatible with markerClusterLayer', async function(assert) {
+  (isLeaflet07(L) ? skip : test)('popup is compatible with markerClusterLayer', async function (assert) {
     this.set('markerCenter', locations.nyc);
 
     await render(hbs`

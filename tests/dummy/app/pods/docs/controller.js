@@ -2,7 +2,6 @@ import Controller from '@ember/controller';
 /* global requirejs */
 
 export default class DocsController extends Controller {
-
   get componentList() {
     let componentList = [];
 
@@ -26,5 +25,4 @@ export default class DocsController extends Controller {
 
     return helperList;
   }
-
 }

@@ -1,16 +1,29 @@
 import PointPathLayer from 'ember-leaflet/components/point-path-layer';
 
-export default PointPathLayer.extend({
+/**
+ * A class for drawing circle overlays on a map.
+ * It's an approximation and starts to diverge from a real circle closer
+ * to poles (due to projection distortion).
+ *
+ * @class CircleLayer
+ * @extends PointPathLayer
+ */
+export default class CircleLayer extends PointPathLayer {
+  leafletRequiredOptions = [
+    ...this.leafletRequiredOptions,
 
-  leafletRequiredOptions: Object.freeze([
+    /**
+     * Radius of the circle, in meters.
+     *
+     * @argument radius
+     * @type {Number}
+     */
     'radius'
-  ]),
+  ];
 
-  leafletProperties: Object.freeze([
-    'radius'
-  ]),
+  leafletDescriptors = [...this.leafletDescriptors, 'radius'];
 
   createLayer() {
-    return this.L.circle(...this.get('requiredOptions'), this.get('options'));
+    return this.L.circle(...this.requiredOptions, this.options);
   }
-});
+}

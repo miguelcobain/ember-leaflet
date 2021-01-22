@@ -1,13 +1,11 @@
 <div class="ember-view">
-  <DocsHeader as |header|>
+  <DocsHeader class="docs-shadow-lg" as |header|>
     <header.link @route="addons">
       Addons
     </header.link>
   </DocsHeader>
 
-  <div>
-    {{outlet}}
-  </div>
+  {{outlet}}
 
   <DocsKeyboardShortcuts/>
 </div>

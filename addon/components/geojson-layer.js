@@ -1,43 +1,110 @@
+import { action } from '@ember/object';
 import BaseLayer from 'ember-leaflet/components/base-layer';
-import StyleMixin from 'ember-leaflet/mixins/style';
-import DivOverlayableMixin from 'ember-leaflet/mixins/div-overlayable';
 
 /**
- * @public
- * An ember-leaflet wrapper for L.geoJson, which renders GeoJson data onto a
- * map as features.
+ * Represents a GeoJSON object or an array of GeoJSON objects. Allows you to render GeoJSON
+ * data and display it on the map.
  *
- * Takes:
- *   - geoJSON: the GeoJSON object to render
- *   - all standard leaflet options for L.geoJson
+ * @class GeojsonLayer
+ * @extends BaseLayer
  */
-export default BaseLayer.extend(DivOverlayableMixin, StyleMixin, {
-  leafletRequiredOptions: Object.freeze(['geoJSON']),
+export default class GeojsonLayer extends BaseLayer {
+  leafletRequiredOptions = [
+    ...this.leafletRequiredOptions,
 
-  leafletOptions: Object.freeze([
-    'stroke', 'color', 'weight', 'opacity', 'fill', 'fillColor',
-    'fillOpacity', 'fillRule', 'dashArray', 'lineCap', 'lineJoin',
-    'clickable', 'pointerEvents', 'className', 'pointToLayer',
-    'style', 'onEachFeature', 'filter', 'coordsToLatLng'
-  ]),
+    /**
+     * An object in GeoJSON format to display on the map.
+     *
+     * @argument geoJSON
+     * @type {Object}
+     */
+    'geoJSON'
+  ];
 
-  leafletEvents: Object.freeze([
-    'click', 'dblclick', 'mousedown', 'mouseover', 'mouseout',
-    'contextmenu', 'add', 'remove', 'popupopen', 'popupclose'
-  ]),
+  leafletOptions = [
+    ...this.leafletOptions,
 
-  leafletProperties: Object.freeze([
-    'style'
-  ]),
+    /**
+     * A Function defining how GeoJSON points spawn Leaflet layers. It is internally called when data is added,
+     * passing the GeoJSON point feature and its LatLng.
+     *
+     * @argument pointToLayer
+     * @type {Function}
+     */
+    'pointToLayer',
 
-  didUpdateAttrs() {
-    this._super(...arguments);
+    /**
+     * A Function defining the Path options for styling GeoJSON lines and polygons, called internally when data is added.
+     *
+     * @argument style
+     * @type {Function}
+     */
+    'style',
 
-    let geoJSON = this.get('geoJSON');
+    /**
+     * A Function that will be called once for each created Feature, after it has been created and styled. Useful
+     * for attaching events and popups to features.
+     *
+     * @argument onEachFeature
+     * @type {Function}
+     */
+    'onEachFeature',
+
+    /**
+     * A Function that will be used to decide whether to include a feature or not.
+     *
+     * @argument filter
+     * @type {Function}
+     */
+    'filter',
+
+    /**
+     * A Function that will be used for converting GeoJSON coordinates to LatLngs.
+     * The default is the coordsToLatLng static method.
+     *
+     * @argument coordsToLatLng
+     * @type {Function}
+     */
+    'coordsToLatLng',
+
+    /**
+     * Whether default Markers for `Point` type Features inherit from group options.
+     * Defaults to `false`.
+     *
+     * @argument markersInheritOptions
+     * @type {Boolean}
+     */
+    'markersInheritOptions'
+  ];
+
+  leafletEvents = [
+    ...this.leafletEvents,
+
+    /**
+     * Fired when a layer is added to this FeatureGroup.
+     *
+     * @argument onLayeradd
+     * @type {Function}
+     */
+    'layeradd',
+
+    /**
+     * Fired when a layer is removed from this FeatureGroup.
+     *
+     * @argument onLayerremove
+     * @type {Function}
+     */
+    'layerremove'
+  ];
+
+  leafletDescriptors = [...this.leafletDescriptors, 'style'];
+
+  @action
+  didChangeGeojson(geoJSON) {
     if (geoJSON) {
       this.pushDataToLeaflet(geoJSON);
     }
-  },
+  }
 
   pushDataToLeaflet(geoJSON) {
     if (!this._layer) {
@@ -50,16 +117,15 @@ export default BaseLayer.extend(DivOverlayableMixin, StyleMixin, {
 
     // we need to update the group layers options before re-adding geojson
     // otherwise, they wouldn't get the changes that could be happening meanwhile
-    this.notifyPropertyChange('options');
-    this._layer.options = this.get('options');
+    this._layer.options = this.options;
 
     if (geoJSON) {
       // ...then add new data to recreate the child layers in an updated form
       this._layer.addData(geoJSON);
     }
-  },
+  }
 
   createLayer() {
-    return this.L.geoJson(...this.get('requiredOptions'), this.get('options'));
+    return this.L.geoJson(...this.requiredOptions, this.options);
   }
-});
+}

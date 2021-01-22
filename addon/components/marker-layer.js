@@ -1,45 +1,76 @@
-import { observer } from '@ember/object';
 import InteractiveLayer from 'ember-leaflet/components/interactive-layer';
-import DraggabilityMixin from 'ember-leaflet/mixins/draggability';
-import DivOverlayableMixin from 'ember-leaflet/mixins/div-overlayable';
-import toLatLng from 'ember-leaflet/macros/to-lat-lng';
 
-export default InteractiveLayer.extend(DraggabilityMixin, DivOverlayableMixin, {
+export default class MarkerLayer extends InteractiveLayer {
+  leafletRequiredOptions = [...this.leafletRequiredOptions, 'location'];
 
-  leafletRequiredOptions: Object.freeze([
-    'location'
-  ]),
+  leafletOptions = [
+    ...this.leafletOptions,
+    'icon',
+    'clickable',
+    'draggable',
+    'keyboard',
+    'title',
+    'alt',
+    'zIndexOffset',
+    'opacity',
+    'riseOnHover',
+    'riseOffset'
+  ];
 
-  leafletOptions: Object.freeze([
-    'icon', 'clickable', 'draggable', 'keyboard', 'title',
-    'alt', 'zIndexOffset', 'opacity', 'riseOnHover', 'riseOffset'
-  ]),
+  leafletEvents = [
+    ...this.leafletEvents,
+    'dragstart',
+    'drag',
+    'dragend',
+    'move',
+    'moveend',
+    'remove',
+    'add',
+    'popupopen',
+    'popupclose'
+  ];
 
-  leafletEvents: Object.freeze([
-    'dragstart', 'drag', 'dragend', 'move', 'moveend',
-    'remove', 'add', 'popupopen', 'popupclose'
-  ]),
+  leafletDescriptors = [
+    ...this.leafletDescriptors,
+    'zIndexOffset',
+    'opacity',
+    'location:setLatLng',
+    {
+      arg: 'draggable',
+      updateFn(layer, value) {
+        if (value) {
+          layer.dragging.enable();
+        } else {
+          layer.dragging.disable();
+        }
+      }
+    },
+    {
+      arg: 'icon',
+      // there was an old leaflet bug where draggability is lost on icon change
+      updateFn(layer, value) {
+        let enabled = layer.dragging.enabled();
+        layer.setIcon(value);
 
-  leafletProperties: Object.freeze([
-    'zIndexOffset', 'opacity', 'location:setLatLng'
-  ]),
+        if (enabled) {
+          layer.dragging.enable();
+        } else {
+          layer.dragging.disable();
+        }
+      }
+    }
+  ];
 
-  location: toLatLng(),
+  get location() {
+    if (this.args.location) {
+      return this.args.location;
+    } else {
+      let [lat, lng] = [this.args.lat, this.args.lng];
+      return this.L.latLng(lat, lng);
+    }
+  }
 
   createLayer() {
-    return this.L.marker(...this.get('requiredOptions'), this.get('options'));
-  },
-
-  // icon observer separated from generated (leaflet properties) due to a
-  // leaflet bug where draggability is lost on icon change
-  // eslint-disable-next-line ember/no-observers
-  iconDidChange: observer('icon', function() {
-    this._layer.setIcon(this.get('icon'));
-
-    if (this.get('draggable')) {
-      this._layer.dragging?.enable();
-    } else {
-      this._layer.dragging?.disable();
-    }
-  })
-});
+    return this.L.marker(...this.requiredOptions, this.options);
+  }
+}

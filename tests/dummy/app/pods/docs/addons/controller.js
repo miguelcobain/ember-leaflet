@@ -1,7 +1,5 @@
 // BEGIN-SNIPPET marker-cluster.js
 import Controller from '@ember/controller';
-
-// NOTE: this example uses ember decorators and native classes
 export default class MarkerClusterController extends Controller {
   lat = 40.713473;
   lng = -74.007038;
@@ -22,7 +20,7 @@ export default class MarkerClusterController extends Controller {
       title: 'Chase Bank',
       description: '253 Broadway, New York, NY 10007, EUA',
       location: [40.713316, -74.007386]
-    },
+    }
   ];
 }
 // END-SNIPPET

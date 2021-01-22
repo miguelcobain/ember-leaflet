@@ -1,0 +1,18 @@
+{{#each this.leafletDescriptorsProps as |prop|}}
+  {{#if (eq prop "location")}}
+    {{did-update (fn this.updateOption "location") this.location}}
+  {{else}}
+    {{did-update (fn this.updateOption prop) (get this.args prop)}}
+  {{/if}}
+{{/each}}
+
+{{#each this.leafletStyleProperties as |prop|}}
+  {{did-update (fn this.updateStyleProperty prop) (get this.args prop)}}
+{{/each}}
+
+<@node @didInsertParent={{this.didInsertParent}} @willDestroyParent={{this.willDestroyParent}} as |Node|>
+  {{yield (hash
+    popup=(component "popup-layer" parent=this node=Node)
+    tooltip=(component "tooltip-layer" parent=this node=Node)
+  )}}
+</@node>

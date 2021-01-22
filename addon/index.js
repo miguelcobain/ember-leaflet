@@ -24,5 +24,3 @@ export { default as TileLayer } from 'ember-leaflet/components/tile-layer';
 export { default as TooltipLayer } from 'ember-leaflet/components/tooltip-layer';
 
 export { default as WmsTileLayer } from 'ember-leaflet/components/wms-tile-layer';
-
-export { default as toLatLng } from 'ember-leaflet/macros/to-lat-lng';

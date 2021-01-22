@@ -3,11 +3,11 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('Integration | Helper | ember-leaflet-assign-to', function(hooks) {
+module('Integration | Helper | ember-leaflet-assign-to', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('it assigns a value to an existing object', async function(assert) {
-    this.mergeValues = (value) => {
+  test('it assigns a value to an existing object', async function (assert) {
+    this.mergeValues = value => {
       this.merged = value;
     };
 

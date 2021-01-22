@@ -2,17 +2,18 @@
 import Controller from '@ember/controller';
 import { action } from '@ember/object';
 
-// NOTE: this example uses ember decorators and native classes
+import { tracked } from '@glimmer/tracking';
+
 export default class ActionsController extends Controller {
-  lat = 45.519743;
-  lng = -122.680522;
-  zoom = 10;
+  @tracked lat = 45.519743;
+  @tracked lng = -122.680522;
+  @tracked zoom = 10;
 
   @action
   updateCenter(e) {
     let center = e.target.getCenter();
-    this.set('lat', center.lat);
-    this.set('lng', center.lng);
+    this.lat = center.lat;
+    this.lng = center.lng;
   }
 }
 // END-SNIPPET

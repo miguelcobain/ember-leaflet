@@ -9,23 +9,26 @@ import locations from '../../helpers/locations';
 
 let arrayPath;
 
-module('Integration | Component | array path layer', function(hooks) {
+module('Integration | Component | array path layer', function (hooks) {
   setupRenderingTest(hooks);
   setupCustomAssertions(hooks);
 
-  hooks.beforeEach(function() {
-    this.owner.register('component:polyline-layer', PolylineLayerComponent.extend({
-      init() {
-        this._super(...arguments);
-        arrayPath = this;
+  hooks.beforeEach(function () {
+    this.owner.register(
+      'component:polyline-layer',
+      class extends PolylineLayerComponent {
+        constructor() {
+          super(...arguments);
+          arrayPath = this;
+        }
       }
-    }));
+    );
 
     this.set('center', locations.nyc);
     this.set('zoom', 13);
   });
 
-  test('replace locations updates array path layer', async function(assert) {
+  test('replace locations updates array path layer', async function (assert) {
     this.set('locations', [locations.chicago, locations.nyc, locations.sf]);
 
     await render(hbs`
@@ -48,7 +51,7 @@ module('Integration | Component | array path layer', function(hooks) {
     assert.locationsEqual(layerLatLngs[2], locations.newdelhi);
   });
 
-  test('adding to locations updates array path layer', async function(assert) {
+  test('adding to locations updates array path layer', async function (assert) {
     this.set('locations', A([locations.chicago, locations.nyc, locations.sf]));
 
     await render(hbs`
@@ -61,7 +64,7 @@ module('Integration | Component | array path layer', function(hooks) {
     assert.locationsEqual(layerLatLngs[1], locations.nyc);
     assert.locationsEqual(layerLatLngs[2], locations.sf);
 
-    this.get('locations').pushObject(locations.paris);
+    this.locations.pushObject(locations.paris);
     await settled();
 
     layerLatLngs = arrayPath._layer.getLatLngs();
@@ -71,7 +74,7 @@ module('Integration | Component | array path layer', function(hooks) {
     assert.locationsEqual(layerLatLngs[3], locations.paris);
   });
 
-  test('removing from locations updates array path layer', async function(assert) {
+  test('removing from locations updates array path layer', async function (assert) {
     this.set('locations', A([locations.chicago, locations.nyc, locations.sf]));
 
     await render(hbs`
@@ -84,7 +87,7 @@ module('Integration | Component | array path layer', function(hooks) {
     assert.locationsEqual(layerLatLngs[1], locations.nyc);
     assert.locationsEqual(layerLatLngs[2], locations.sf);
 
-    this.get('locations').popObject();
+    this.locations.popObject();
     await settled();
 
     layerLatLngs = arrayPath._layer.getLatLngs();
@@ -93,7 +96,7 @@ module('Integration | Component | array path layer', function(hooks) {
     assert.equal(layerLatLngs.length, 2);
   });
 
-  test('replace item in content moves polyline', async function(assert) {
+  test('replace item in content moves polyline', async function (assert) {
     this.set('locations', A([locations.chicago, locations.nyc, locations.sf]));
 
     await render(hbs`
@@ -107,7 +110,7 @@ module('Integration | Component | array path layer', function(hooks) {
     assert.locationsEqual(layerLatLngs[1], locations.nyc);
     assert.locationsEqual(layerLatLngs[2], locations.sf);
 
-    this.get('locations').replace(1, 1, [locations.paris]);
+    this.locations.replace(1, 1, [locations.paris]);
     await settled();
 
     layerLatLngs = arrayPath._layer.getLatLngs();
@@ -117,8 +120,12 @@ module('Integration | Component | array path layer', function(hooks) {
     assert.equal(layerLatLngs.length, 3);
   });
 
-  test('supports array of arrays as well', async function(assert) {
-    this.set('locations', [[-43.123, 71.123], [-43.123, 71.123], [-43.123, 71.123]]);
+  test('supports array of arrays as well', async function (assert) {
+    this.set('locations', [
+      [-43.123, 71.123],
+      [-43.123, 71.123],
+      [-43.123, 71.123]
+    ]);
 
     await render(hbs`
       <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
@@ -131,12 +138,16 @@ module('Integration | Component | array path layer', function(hooks) {
     assert.ok(layerLatLngs[1].equals([-43.123, 71.123]));
     assert.ok(layerLatLngs[2].equals([-43.123, 71.123]));
 
-    this.set('locations', [[45.528531, -122.681682], [45.530970, -122.661968], [45.522752, -122.657979]]);
+    this.set('locations', [
+      [45.528531, -122.681682],
+      [45.53097, -122.661968],
+      [45.522752, -122.657979]
+    ]);
     await settled();
 
     layerLatLngs = arrayPath._layer.getLatLngs();
     assert.ok(layerLatLngs[0].equals([45.528531, -122.681682]));
-    assert.ok(layerLatLngs[1].equals([45.530970, -122.661968]));
+    assert.ok(layerLatLngs[1].equals([45.53097, -122.661968]));
     assert.ok(layerLatLngs[2].equals([45.522752, -122.657979]));
   });
 });

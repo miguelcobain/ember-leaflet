@@ -1,8 +1,7 @@
 import PolygonLayer from 'ember-leaflet/components/polygon-layer';
 
-export default PolygonLayer.extend({
-
+export default class RectangleLayer extends PolygonLayer {
   createLayer() {
-    return this.L.rectangle(...this.get('requiredOptions'), this.get('options'));
+    return this.L.rectangle(...this.requiredOptions, this.options);
   }
-});
+}

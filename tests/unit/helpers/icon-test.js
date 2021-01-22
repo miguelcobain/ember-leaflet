@@ -2,8 +2,8 @@ import { icon } from 'dummy/helpers/icon';
 import { module, test } from 'qunit';
 /* global L */
 
-module('Unit | Helper | icon', function() {
-  test('it works', function(assert) {
+module('Unit | Helper | icon', function () {
+  test('it works', function (assert) {
     let result = icon([], {
       iconUrl: 'custom-url.png'
     });

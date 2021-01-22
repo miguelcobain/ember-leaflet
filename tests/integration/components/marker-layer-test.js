@@ -13,23 +13,26 @@ L.Icon.Default.imagePath = 'some-path';
 
 let marker;
 
-module('Integration | Component | marker layer', function(hooks) {
+module('Integration | Component | marker layer', function (hooks) {
   setupRenderingTest(hooks);
   setupCustomAssertions(hooks);
 
-  hooks.beforeEach(function() {
-    this.owner.register('component:marker-layer', MarkerLayerComponent.extend({
-      init() {
-        this._super(...arguments);
-        marker = this;
+  hooks.beforeEach(function () {
+    this.owner.register(
+      'component:marker-layer',
+      class extends MarkerLayerComponent {
+        constructor() {
+          super(...arguments);
+          marker = this;
+        }
       }
-    }));
+    );
 
     this.set('center', locations.nyc);
     this.set('zoom', 13);
   });
 
-  test('update marker layer using leafletProperties', async function(assert) {
+  test('update marker layer using leafletProperties', async function (assert) {
     this.set('markerCenter', locations.nyc);
     this.set('opacity', 0.2);
     this.set('zIndexOffset', 13);
@@ -45,7 +48,7 @@ module('Integration | Component | marker layer', function(hooks) {
     assert.locationsEqual(marker._layer.getLatLng(), locations.nyc);
     assert.equal(marker._layer.options.opacity, 0.2);
     assert.equal(marker._layer.options.zIndexOffset, 13);
-    assert.equal(marker._layer.options.icon, this.get('icon'));
+    assert.equal(marker._layer.options.icon, this.icon);
 
     this.set('markerCenter', locations.sf);
     this.set('opacity', 0.8);
@@ -60,7 +63,7 @@ module('Integration | Component | marker layer', function(hooks) {
     assert.equal(marker._layer.options.icon, this.icon);
   });
 
-  test('marker sends actions for events', async function(assert) {
+  test('marker sends actions for events', async function (assert) {
     assert.expect(1);
 
     this.set('moveAction', () => {
@@ -78,8 +81,7 @@ module('Integration | Component | marker layer', function(hooks) {
     this.set('markerCenter', locations.paris);
   });
 
-  test('marker is created with enabled dragging', async function(assert) {
-
+  test('marker is created with enabled dragging', async function (assert) {
     this.set('markerCenter', locations.nyc);
 
     await render(hbs`
@@ -91,8 +93,7 @@ module('Integration | Component | marker layer', function(hooks) {
     assert.ok(marker._layer.dragging.enabled(), 'marker dragging enabled');
   });
 
-  test('marker updates dragging', async function(assert) {
-
+  test('marker updates dragging', async function (assert) {
     this.set('markerCenter', locations.nyc);
     this.set('draggable', true);
 
@@ -112,8 +113,7 @@ module('Integration | Component | marker layer', function(hooks) {
   });
 
   // Leaflet bug. More info: https://github.com/Leaflet/Leaflet/issues/3807
-  test('marker retains draggability options when icon changes', async function(assert) {
-
+  test('marker retains draggability options when icon changes', async function (assert) {
     let icon1 = L.divIcon({ className: 'my-div-icon-1' });
     let icon2 = L.divIcon({ className: 'my-div-icon-2' });
 
@@ -144,8 +144,7 @@ module('Integration | Component | marker layer', function(hooks) {
 
   if (hasEmberVersion(2, 3)) {
     // do stuff in Ember 2.3+
-    test('marker works as contextual component', async function(assert) {
-
+    test('marker works as contextual component', async function (assert) {
       this.set('markerCenter', locations.nyc);
 
       await render(hbs`
@@ -158,8 +157,7 @@ module('Integration | Component | marker layer', function(hooks) {
     });
   }
 
-  test('using icons from icon helper works', async function(assert) {
-
+  test('using icons from icon helper works', async function (assert) {
     this.set('markerCenter', locations.nyc);
     this.set('currentIconUrl', 'custom-url.png');
     this.set('currentSize', 12);
@@ -189,8 +187,7 @@ module('Integration | Component | marker layer', function(hooks) {
     assert.equal(marker._layer.options.icon.options.iconSize.y, 21);
   });
 
-  test('using icons from div-icon helper works', async function(assert) {
-
+  test('using icons from div-icon helper works', async function (assert) {
     this.set('markerCenter', locations.nyc);
     this.set('iconContent', '<h1>First title!</h1>');
     this.set('currentSize', 12);

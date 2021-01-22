@@ -1,28 +1,38 @@
 import BaseLayer from 'ember-leaflet/components/base-layer';
 
-export default BaseLayer.extend({
+export default class TileLayer extends BaseLayer {
+  leafletRequiredOptions = [...this.leafletRequiredOptions, 'url'];
 
-  leafletRequiredOptions: Object.freeze([
-    'url'
-  ]),
-
-  leafletOptions: Object.freeze([
-    'minZoom', 'maxZoom', 'maxNativeZoom', 'tileSize', 'subdomains',
-    'errorTileUrl', 'attribution', 'tms', 'continuousWorld', 'noWrap',
-    'zoomOffset', 'zoomReverse', 'opacity', 'zIndex', 'unloadInvisibleTiles',
-    'updateWhenIdle', 'detectRetina', 'reuseTiles', 'bounds', 'className',
+  leafletOptions = [
+    ...this.leafletOptions,
+    'minZoom',
+    'maxZoom',
+    'maxNativeZoom',
+    'tileSize',
+    'subdomains',
+    'errorTileUrl',
+    'attribution',
+    'tms',
+    'continuousWorld',
+    'noWrap',
+    'zoomOffset',
+    'zoomReverse',
+    'opacity',
+    'zIndex',
+    'unloadInvisibleTiles',
+    'updateWhenIdle',
+    'detectRetina',
+    'reuseTiles',
+    'bounds',
+    'className',
     'crossOrigin'
-  ]),
+  ];
 
-  leafletEvents: Object.freeze([
-    'loading', 'load', 'tileloadstart', 'tileload', 'tileunload'
-  ]),
+  leafletEvents = [...this.leafletEvents, 'loading', 'load', 'tileloadstart', 'tileload', 'tileunload'];
 
-  leafletProperties: Object.freeze([
-    'url:setUrl:noRedraw', 'zIndex', 'opacity'
-  ]),
+  leafletDescriptors = [...this.leafletDescriptors, 'url:setUrl:noRedraw', 'zIndex', 'opacity'];
 
   createLayer() {
-    return this.L.tileLayer(...this.get('requiredOptions'), this.get('options'));
+    return this.L.tileLayer(...this.requiredOptions, this.options);
   }
-});
+}

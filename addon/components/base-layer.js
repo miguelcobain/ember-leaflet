@@ -1,192 +1,277 @@
 import { assert } from '@ember/debug';
-import { computed } from '@ember/object';
-import { and } from '@ember/object/computed';
-import Component from '@ember/component';
-import { getOwner } from '@ember/application';
+import { action } from '@ember/object';
+import { inject as service } from '@ember/service';
+import Component from '@glimmer/component';
 import { scheduleOnce } from '@ember/runloop';
-import { A } from '@ember/array';
 import { classify } from '@ember/string';
-import { ChildMixin } from 'ember-composability-tools';
-import { InvokeActionMixin } from 'ember-invoke-action';
 /* global L */
 
 const leaf = typeof L === 'undefined' ? {} : L;
 
-export default Component.extend(ChildMixin, InvokeActionMixin, {
-  tagName: '',
-  L: leaf,
+/**
+ * The base class for all ember-leaflet layer components. It contains common
+ * abstractions used on all layers, including setting event listeners,
+ * gathering init options, etc.
+ *
+ * It is meant to be subclassed with the `createLayer` method being
+ * mandatory to implement.
+ *
+ * @class BaseLayer
+ * @uses Leaflet
+ */
+export default class BaseLayer extends Component {
+  L = leaf;
 
-  fastboot: computed(function() {
-    let owner = getOwner(this);
-    return owner.lookup('service:fastboot');
-  }),
+  @service fastboot;
 
-  isFastBoot: and('fastboot', 'fastboot.isFastBoot'),
+  leafletOptions = [
+    /**
+     * By default the layer will be added to the map's overlay pane. Overriding this option will
+     * cause the layer to be placed on another pane by default. Defaults to `'overlayPane'`.
+     *
+     * @argument pane
+     * @type {String}
+     */
+    'pane',
 
-  concatenatedProperties: ['leafletOptions', 'leafletRequiredOptions', 'leafletEvents', 'leafletProperties'],
+    /**
+     * String to be shown in the attribution control, e.g. "© OpenStreetMap contributors". It describes the layer
+     * data and is often a legal obligation towards copyright holders and tile providers.
+     *
+     * @argument attribution
+     * @type {String}
+     */
+    'attribution'
+  ];
 
-  leafletOptions: Object.freeze([
-    'pane', 'attribution'
-  ]),
+  leafletEvents = [
+    /**
+     * Fired after the layer is added to a map.
+     *
+     * @argument onAdd
+     * @type {Function}
+     */
+    'add',
 
-  leafletEvents: Object.freeze([
-    'add', 'remove'
-  ]),
+    /**
+     * Fired after the layer is removed from a map.
+     *
+     * @argument onRemove
+     * @type {Function}
+     */
+    'remove',
+
+    /**
+     * Fired when a popup bound to this layer is opened.
+     *
+     * @argument onPopupopen
+     * @type {Function}
+     */
+    'popupopen',
+
+    /**
+     * Fired when a popup bound to this layer is closed.
+     *
+     * @argument onPopupclose
+     * @type {Function}
+     */
+    'popupclose',
+
+    /**
+     * Fired when a tooltip bound to this layer is opened.
+     *
+     * @argument onTooltipopen
+     * @type {Function}
+     */
+    'tooltipopen',
+
+    /**
+     * Fired when a tooltip bound to this layer is closed.
+     *
+     * @argument onTooltipclose
+     * @type {Function}
+     */
+    'tooltipclose'
+  ];
+
+  leafletRequiredOptions = [];
+
+  leafletStyleProperties = [];
+
+  // This is an array that describes how a component's arguments
+  // relate to leaflet methods and their parameters.
+  // E.g: Changing the tile layer's `@url` should invoke the layer's `setUrl` method
+  // with the new `@url` value
+  leafletDescriptors = [];
 
   createLayer() {
-    assert('BaseLayer\'s `createLayer` should be overriden.');
-  },
+    assert("BaseLayer's `createLayer` should be overriden.");
+  }
 
-  didCreateLayer() {},
-  willDestroyLayer() {},
+  didCreateLayer() {}
+  willDestroyLayer() {}
 
   /*
    * Method called by parent when the layer needs to setup
    */
-  didInsertParent() {
+  @action
+  didInsertParent(element) {
     // Check for fastBoot
-    if (this.get('isFastBoot')) {
+    if (this.fastboot?.isFastBoot) {
       return;
     }
 
-    this._layer = this.createLayer();
-    this._addObservers();
+    this._layer = this.createLayer(element);
     this._addEventListeners();
-    if (this.get('parentComponent')) {
+    if (this.args.parent) {
       this.addToContainer();
     }
     this.didCreateLayer();
-  },
+  }
 
   /*
    * Default logic for adding the layer to the container
    */
   addToContainer() {
-    this.get('parentComponent')._layer.addLayer(this._layer);
-  },
+    this.args.parent._layer.addLayer(this._layer);
+  }
 
   /*
    * Method called by parent when the layer needs to teardown
    */
+  @action
   willDestroyParent() {
     // Check for fastBoot
-    if (this.get('isFastBoot')) {
+    if (this.fastboot?.isFastBoot) {
       return;
     }
 
     this.willDestroyLayer();
     this._removeEventListeners();
-    this._removeObservers();
-    if (this.get('parentComponent') && this._layer) {
+    if (this.args.parent && this._layer) {
       this.removeFromContainer();
     }
     delete this._layer;
-  },
+  }
 
   /*
    * Default logic for removing the layer from the container
    */
   removeFromContainer() {
-    this.get('parentComponent')._layer.removeLayer(this._layer);
-  },
+    this.args.parent._layer.removeLayer(this._layer);
+  }
 
-  options: computed(function() {
-    let leafletOptions = this.get('leafletOptions');
+  get options() {
     let options = {};
-    leafletOptions.forEach((optionName) => {
-      if (this.get(optionName) !== undefined) {
-        options[optionName] = this.get(optionName);
+
+    for (let optionName of this.leafletOptions) {
+      if (this.args[optionName] !== undefined) {
+        options[optionName] = this.args[optionName];
       }
-    });
+    }
+
     return options;
-  }),
+  }
 
-  leafletRequiredOptions: A(),
-
-  requiredOptions: computed(function() {
-    let leafletRequiredOptions = this.get('leafletRequiredOptions');
+  get requiredOptions() {
     let options = [];
-    leafletRequiredOptions.forEach((optionName) => {
-      assert(`\`${optionName}\` is a required option but its value was \`${this.get(optionName)}\``, this.get(optionName));
-      options.push(this.get(optionName));
-    });
-    return options;
-  }),
 
-  usedLeafletEvents: computed('leafletEvents', function() {
-    return this.get('leafletEvents').filter((eventName) => {
+    for (let optionName of this.leafletRequiredOptions) {
+      let value = this.args[optionName] || this[optionName];
+      assert(`\`${optionName}\` is a required option but its value was \`${value}\``, value);
+      options.push(value);
+    }
+
+    return options;
+  }
+
+  get usedLeafletEvents() {
+    return this.leafletEvents.filter(eventName => {
       let methodName = `_${eventName}`;
       let actionName = `on${classify(eventName)}`;
-      return this.get(methodName) !== undefined || this.get(actionName) !== undefined;
+      return this[methodName] !== undefined || this.args[actionName] !== undefined;
     });
-  }),
+  }
 
   _addEventListeners() {
     this._eventHandlers = {};
-    this.get('usedLeafletEvents').forEach((eventName) => {
 
+    for (let eventName of this.usedLeafletEvents) {
       let actionName = `on${classify(eventName)}`;
       let methodName = `_${eventName}`;
+
       // create an event handler that runs the function inside an event loop.
-      this._eventHandlers[eventName] = function(e) {
-        this._onActions = () => {
+      this._eventHandlers[eventName] = function (e) {
+        let fn = () => {
           // try to invoke/send an action for this event
-          this.invokeAction(actionName, e);
+          if (typeof this.args[actionName] === 'function') {
+            this.args[actionName](e);
+          }
+
           // allow classes to add custom logic on events as well
           if (typeof this[methodName] === 'function') {
             this[methodName](e);
           }
         };
-        scheduleOnce('actions', this, this._onActions);
+
+        scheduleOnce('actions', this, fn);
       };
 
       this._layer.addEventListener(eventName, this._eventHandlers[eventName], this);
-    });
-  },
-
-  _removeEventListeners() {
-    if (this._eventHandlers) {
-      this.get('usedLeafletEvents').forEach((eventName) => {
-        this._layer.removeEventListener(eventName,
-          this._eventHandlers[eventName], this);
-        delete this._eventHandlers[eventName];
-      });
-    }
-  },
-
-  leafletProperties: A(),
-
-  _addObservers() {
-    this._observers = {};
-    this.get('leafletProperties').forEach((propExp) => {
-
-      let [property, leafletProperty, ...params] = propExp.split(':');
-      if (!leafletProperty) {
-        leafletProperty = `set${classify(property)}`;
-      }
-      let objectProperty = property.replace(/\.\[]/, ''); // allow usage of .[] to observe array changes
-
-      this._observers[property] = function() {
-        let value = this.get(objectProperty);
-        assert(`${this.constructor} must have a ${leafletProperty} function.`, !!this._layer[leafletProperty]);
-        let propertyParams = params.map((p) => this.get(p));
-        this._layer[leafletProperty].call(this._layer, value, ...propertyParams);
-      };
-
-      this.addObserver(property, this, this._observers[property]);
-    });
-  },
-
-  _removeObservers() {
-    if (this._observers) {
-      this.get('leafletProperties').forEach((propExp) => {
-
-        let [property] = propExp.split(':');
-
-        this.removeObserver(property, this, this._observers[property]);
-        delete this._observers[property];
-      });
     }
   }
 
-});
+  _removeEventListeners() {
+    if (this._eventHandlers) {
+      for (let eventName of this.usedLeafletEvents) {
+        this._layer.removeEventListener(eventName, this._eventHandlers[eventName], this);
+        delete this._eventHandlers[eventName];
+      }
+    }
+  }
+
+  get leafletDescriptorsProps() {
+    return this.leafletDescriptors.map(d => {
+      return typeof d === 'string' ? d.split(':')[0] : d.arg;
+    });
+  }
+
+  @action
+  updateOption(arg, [value]) {
+    // find the corresponding leaflet descriptor
+    let descriptor = this.leafletDescriptors.find(d => {
+      let descArg = typeof d === 'string' ? d.split(':')[0] : d.arg;
+      return descArg === arg;
+    });
+
+    if (!descriptor) {
+      return;
+    }
+
+    if (typeof descriptor === 'string') {
+      let [property, method, ...params] = descriptor.split(':');
+
+      if (!method) {
+        method = `set${classify(property)}`;
+      }
+
+      assert(`Leaflet layer must have a ${method} function.`, !!this._layer[method]);
+      let methodParams = params.map(p => this.args[p] || this[p]);
+      this._layer[method].call(this._layer, value, ...methodParams);
+    } else {
+      let { updateFn, params = [] } = descriptor;
+      let methodParams = params.map(p => this.args[p] || this[p]);
+      updateFn(this._layer, value, ...methodParams);
+    }
+
+    let methodName = `${classify(arg)}_did_change`;
+    if (typeof this[methodName] === 'function') {
+      this[methodName](value);
+    }
+  }
+
+  @action
+  updateStyleProperty(arg, [value]) {
+    this._layer.setStyle({ [arg]: value });
+  }
+}
