@@ -1,62 +1,66 @@
 import { run } from '@ember/runloop';
 import Application from '@ember/application';
 import ENV from '../../../config/environment';
-import { initialize } from '../../../initializers/leaflet-assets';
+import { initialize } from 'dummy/initializers/leaflet-assets';
 import { module, test } from 'qunit';
+import Resolver from 'ember-resolver';
 /* global L */
-
-let registry, application;
 
 module('Unit | Initializer | leaflet assets', function (hooks) {
   hooks.beforeEach(function () {
-    run(function () {
-      application = Application.create();
-      registry = application.registry;
-      application.deferReadiness();
+    this.TestApplication = class TestApplication extends Application {};
+    this.TestApplication.initializer({
+      name: 'initializer under test',
+      initialize
     });
+
+    this.application = this.TestApplication.create({ autoboot: false, Resolver });
   });
 
   hooks.afterEach(function () {
     delete ENV.baseURL;
     delete ENV.rootURL;
+    run(this.application, 'destroy');
   });
 
-  test('it sets icon default imagePath to default assets path', function (assert) {
-    initialize(registry, application);
+  test('it sets icon default imagePath to default assets path', async function (assert) {
+    await this.application.boot();
 
     assert.ok(typeof L.Icon.Default.imagePath !== 'undefined', '`L.Icon.Default.imagePath` is not set');
     assert.equal(L.Icon.Default.imagePath, '/assets/images/');
   });
 
-  test('it sets icon default imagePath with baseURL', function (assert) {
+  test('it sets icon default imagePath with baseURL', async function (assert) {
     ENV.baseURL = '/path/to/base/';
-    initialize(registry, application);
+
+    await this.application.boot();
 
     assert.equal(L.Icon.Default.imagePath, '/path/to/base/assets/images/');
   });
 
-  test('it sets icon default imagePath with rootURL', function (assert) {
+  test('it sets icon default imagePath with rootURL', async function (assert) {
     ENV.baseURL = '/path/to/base/';
     ENV.rootURL = '/path/to/root/';
-    initialize(registry, application);
+
+    await this.application.boot();
 
     assert.equal(L.Icon.Default.imagePath, '/path/to/root/assets/images/');
   });
 
-  test('it supports empty rootURL', function (assert) {
+  test('it supports empty rootURL', async function (assert) {
     ENV.rootURL = '';
-    initialize(registry, application);
+    await this.application.boot();
     assert.equal(L.Icon.Default.imagePath, 'assets/images/');
   });
 
-  test("an undefined rootURL should behave the same as '' (as ember-cli does)", function (assert) {
-    initialize(registry, application);
+  test("an undefined rootURL should behave the same as '' (as ember-cli does)", async function (assert) {
+    await this.application.boot();
     assert.equal(L.Icon.Default.imagePath, 'assets/images/');
   });
 
-  test("a null rootURL should behave the same as '' (as ember-cli does)", function (assert) {
+  test("a null rootURL should behave the same as '' (as ember-cli does)", async function (assert) {
     ENV.rootURL = null;
-    initialize(registry, application);
+    await this.application.boot();
     assert.equal(L.Icon.Default.imagePath, 'assets/images/');
   });
 });

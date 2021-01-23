@@ -8,14 +8,17 @@ import PathLayer from 'ember-leaflet/components/path-layer';
  * @extends PathLayer
  */
 export default class ArrayPathLayer extends PathLayer {
-  /**
-   * An array of geographical points.
-   *
-   * @argument locations
-   * @type {LatLng[]}
-   */
+  leafletRequiredOptions = [
+    ...this.leafletRequiredOptions,
 
-  leafletRequiredOptions = [...this.leafletRequiredOptions, 'locations'];
+    /**
+     * An array of geographical points.
+     *
+     * @argument locations
+     * @type {LatLng[]}
+     */
+    'locations'
+  ];
 
   leafletDescriptors = [...this.leafletDescriptors, 'locations:setLatLngs'];
 }

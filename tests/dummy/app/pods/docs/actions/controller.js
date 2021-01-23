@@ -11,9 +11,15 @@ export default class ActionsController extends Controller {
 
   @action
   updateCenter(e) {
-    let center = e.target.getCenter();
-    this.lat = center.lat;
-    this.lng = center.lng;
+    let { lat, lng } = e.target.getCenter();
+
+    if (this.lat !== lat) {
+      this.lat = lat;
+    }
+
+    if (this.lng !== lng) {
+      this.lng = lng;
+    }
   }
 }
 // END-SNIPPET

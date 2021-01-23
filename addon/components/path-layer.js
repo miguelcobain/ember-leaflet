@@ -1,8 +1,7 @@
 import InteractiveLayer from 'ember-leaflet/components/interactive-layer';
 
 /**
- * Represents a GeoJSON object or an array of GeoJSON objects. Allows you to render GeoJSON
- * data and display it on the map.
+ * An abstract class that contains options and constants shared between vector overlays (Polygon, Polyline, Circle). Do not use it directly.
  *
  * @class PathLayer
  * @extends InteractiveLayer
@@ -14,13 +13,13 @@ export default class PathLayer extends InteractiveLayer {
     'color',
     'weight',
     'opacity',
+    'lineCap',
+    'lineJoin',
+    'dashArray',
     'fill',
     'fillColor',
     'fillOpacity',
     'fillRule',
-    'dashArray',
-    'lineCap',
-    'lineJoin',
     'clickable',
     'pointerEvents',
     'className'

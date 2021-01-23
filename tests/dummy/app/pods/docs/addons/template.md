@@ -85,6 +85,15 @@ The `registerComponent` method accepts two arguments:
 - an options object. Only the `as` option is supported at the moment. The `as` option is the name
   under which the component will yielded as from the `<LeafletMap>` component.
 
+### Setting up the a new layer's template
+
+If you're extending from `BaseLayer` (or another layer that extends from it), you might have to set up some boilerplate
+on your template. This is required because in glimmer components and octane we don't have observers. So that means
+that observing values requires the usage of [`ember-render-helpers`](https://github.com/buschtoens/ember-render-helpers), which
+requires the template (better solutions are welcome).
+
+Check the `BaseLayer`'s template on github for more information on what the `BaseLayer` does by default.
+
 ### Including the leaflet plugin
 
 Your addon should be responsible for including the necessary leaflet plugin, either using

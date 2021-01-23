@@ -36,7 +36,7 @@ export default class DivOverlayLayer extends BaseLayer {
     'className',
 
     /**
-     * Map pane where the popup will be added. Defaults to `'popupPane'`.
+     * Map pane where the overlay layer will be added.
      *
      * @argument pane
      * @type {String}

@@ -27,7 +27,7 @@ export default class BaseLayer extends Component {
   leafletOptions = [
     /**
      * By default the layer will be added to the map's overlay pane. Overriding this option will
-     * cause the layer to be placed on another pane by default. Defaults to `'overlayPane'`.
+     * cause the layer to be placed on another pane by default.
      *
      * @argument pane
      * @type {String}

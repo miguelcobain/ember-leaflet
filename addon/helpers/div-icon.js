@@ -3,6 +3,15 @@ import { assign } from '@ember/polyfills';
 const isFastBoot = typeof FastBoot !== 'undefined';
 /* global L */
 
+/**
+ * Represents a lightweight icon for markers that uses a simple `<div>` element instead of an image.
+ * Inherits from Icon but ignores the iconUrl and shadow options.
+ * More information about its possible options [here](https://leafletjs.com/reference-1.7.1.html#divicon-option).
+ *
+ * @function divIcon
+ * @param {Object} options the DivIcon options object
+ * @return {DivIcon}
+ */
 export const divIcon = isFastBoot
   ? function () {}
   : function divIcon(_, hash) {

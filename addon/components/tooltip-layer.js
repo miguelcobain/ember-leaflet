@@ -2,8 +2,63 @@ import { next } from '@ember/runloop';
 
 import DivOverlayLayer from 'ember-leaflet/components/div-overlay-layer';
 
+/**
+ * Used to display small texts on top of map layers.
+ *
+ * @class TooltipLayer
+ * @extends DivOverlayLayer
+ */
 export default class TooltipLayer extends DivOverlayLayer {
-  leafletOptions = [...this.leafletOptions, 'direction', 'permanent', 'sticky', 'interactive', 'opacity'];
+  leafletOptions = [
+    ...this.leafletOptions,
+
+    /**
+     * Direction where to open the tooltip.
+     * Possible values are: right, left, top, bottom, center, auto.
+     * auto will dynamically switch between right and left according to the tooltip position on the map.
+     * Defaults to `'auto'`.
+     *
+     * @argument direction
+     * @type {String}
+     */
+    'direction',
+
+    /**
+     * Whether to open the tooltip permanently or only on mouseover.
+     * Defaults to `false`.
+     *
+     * @argument permanent
+     * @type {Boolean}
+     */
+    'permanent',
+
+    /**
+     * If true, the tooltip will follow the mouse instead of being fixed at the feature center.
+     * Defaults to `false`.
+     *
+     * @argument sticky
+     * @type {Boolean}
+     */
+    'sticky',
+
+    /**
+     * If true, the tooltip will listen to the feature events.
+     * Defaults to `false`.
+     *
+     * @argument interactive
+     * @type {Boolean}
+     */
+    'interactive',
+
+    /**
+     * Tooltip container opacity.
+     * Defaults to `0.9`.
+     *
+     * @argument opacity
+     * @type {Number}
+     */
+    'opacity'
+  ];
 
   constructor() {
     super(...arguments);
