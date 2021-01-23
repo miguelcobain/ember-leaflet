@@ -32,7 +32,7 @@
 #$   - scenario: ember-classic
 #$     allowedToFail: false
 #$ nodeVersion: 10.x
-#$ packageManager: yarn
+#$ packageManager: npm
 #
 
 name: CI
@@ -61,7 +61,7 @@ jobs:
 
     - name: Get package manager's global cache path
       id: global-cache-dir-path
-      run: echo "::set-output name=dir::$(yarn cache dir)"
+      run: echo "::set-output name=dir::$(npm config get cache)"
 
     - name: Cache package manager's global cache and node_modules
       id: cache-dependencies
@@ -71,18 +71,18 @@ jobs:
           ${{ steps.global-cache-dir-path.outputs.dir }}
           node_modules
         key: ${{ runner.os }}-${{ matrix.node-version }}-${{
-          hashFiles('**/yarn.lock'
+          hashFiles('**/package-lock.json'
           ) }}
         restore-keys: |
           ${{ runner.os }}-${{ matrix.node-version }}-
 
     - name: Install Dependencies
-      run: yarn install --frozen-lockfile
+      run: npm ci
       if: |
         steps.cache-dependencies.outputs.cache-hit != 'true'
 
     - name: Lint
-      run: yarn lint
+      run: npm run-script lint
 
 
   test:
@@ -106,7 +106,7 @@ jobs:
 
     - name: Get package manager's global cache path
       id: global-cache-dir-path
-      run: echo "::set-output name=dir::$(yarn cache dir)"
+      run: echo "::set-output name=dir::$(npm config get cache)"
 
     - name: Cache package manager's global cache and node_modules
       id: cache-dependencies
@@ -116,18 +116,18 @@ jobs:
           ${{ steps.global-cache-dir-path.outputs.dir }}
           node_modules
         key: ${{ runner.os }}-${{ matrix.node-version }}-${{
-          hashFiles('**/yarn.lock'
+          hashFiles('**/package-lock.json'
           ) }}
         restore-keys: |
           ${{ runner.os }}-${{ matrix.node-version }}-
 
     - name: Install Dependencies
-      run: yarn install --frozen-lockfile
+      run: npm ci
       if: |
         steps.cache-dependencies.outputs.cache-hit != 'true'
 
     - name: Test
-      run: yarn test:ember --launch ${{ matrix.browser }}
+      run: npm run-script test:ember --launch ${{ matrix.browser }}
 
 
   floating-dependencies:
@@ -151,7 +151,7 @@ jobs:
 
     - name: Get package manager's global cache path
       id: global-cache-dir-path
-      run: echo "::set-output name=dir::$(yarn cache dir)"
+      run: echo "::set-output name=dir::$(npm config get cache)"
 
     - name: Cache package manager's global cache and node_modules
       id: cache-dependencies
@@ -165,10 +165,10 @@ jobs:
           ${{ runner.os }}-${{ matrix.node-version }}-
 
     - name: Install Dependencies
-      run: yarn install --no-lockfile --non-interactive
+      run: npm install --no-package-lock
 
     - name: Test
-      run: yarn test:ember --launch ${{ matrix.browser }}
+      run: npm run-script test:ember --launch ${{ matrix.browser }}
 
 
   try-scenarios:
@@ -205,7 +205,7 @@ jobs:
 
     - name: Get package manager's global cache path
       id: global-cache-dir-path
-      run: echo "::set-output name=dir::$(yarn cache dir)"
+      run: echo "::set-output name=dir::$(npm config get cache)"
 
     - name: Cache package manager's global cache and node_modules
       id: cache-dependencies
@@ -215,13 +215,13 @@ jobs:
           ${{ steps.global-cache-dir-path.outputs.dir }}
           node_modules
         key: ${{ runner.os }}-${{ matrix.node-version }}-${{
-          hashFiles('**/yarn.lock'
+          hashFiles('**/package-lock.json'
           ) }}
         restore-keys: |
           ${{ runner.os }}-${{ matrix.node-version }}-
 
     - name: Install Dependencies
-      run: yarn install --frozen-lockfile
+      run: npm ci
       if: |
         steps.cache-dependencies.outputs.cache-hit != 'true'
 
