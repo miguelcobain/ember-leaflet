@@ -1,20 +1,20 @@
-# ember-leaflet [![Build Status](https://travis-ci.org/miguelcobain/ember-leaflet.svg)](https://travis-ci.org/miguelcobain/ember-leaflet) [![Ember Observer Score](http://emberobserver.com/badges/ember-leaflet.svg)](http://emberobserver.com/addons/ember-leaflet) [![npm version](https://badge.fury.io/js/ember-leaflet.svg)](https://badge.fury.io/js/ember-leaflet)
+# ember-leaflet [![CI](https://github.com/miguelcobain/ember-leaflet/workflows/CI/badge.svg)](https://github.com/miguelcobain/ember-leaflet/actions?query=workflow%3ACI) [![Ember Observer Score](http://emberobserver.com/badges/ember-leaflet.svg)](http://emberobserver.com/addons/ember-leaflet) [![npm version](https://badge.fury.io/js/ember-leaflet.svg)](https://badge.fury.io/js/ember-leaflet)
 
 Ember-Leaflet aims to make working with Leaflet layers in your Ember app as easy, declarative and composable as templates make working with DOM.
 
 ## Installation
 
-Ember Leaflet works in Ember 1.13.9+ with no deprecations.
+Ember Leaflet works in Ember 3.16+ with no deprecations.
 
 To install it run:
+
 ```
 ember install ember-leaflet
 ```
 
 This will also add the `leaflet` package to your project.
-If you're upgrading from a previous version of `ember-leaflet`, you can safely remove the `leaflet` dependency from your `bower.json` and add it to `package.json`.
 
-If you require a legacy support version of leaflet or need a specific version for other reasons, you can just install that version via npm / yarn:
+ember-leaflet is compatible with leaflet 0.7+. If you need to use a legacy version, you can just install it via npm / yarn:
 
 ```
 npm install --save-dev leaflet@0.7
@@ -30,25 +30,26 @@ yarn add -D leaflet@0.7
 Documentation and examples are hosted at [https://miguelcobain.github.io/ember-leaflet/](https://miguelcobain.github.io/ember-leaflet/).
 Please file any issues if you see that something can be improved.
 
-If you're looking for the previous ember-leaflet version, you can use [this repo](https://github.com/gabesmed/ember-leaflet).
-
 #### Production Builds
-In your <code>ember-cli-build.js</code> add the following snippet:
+
+In your `ember-cli-build.js` add the following snippet:
+
 ```js
-  var app = new EmberApp(defaults, {
-    // Add options here
-    fingerprint: {
-      exclude: [
-        'images/layers-2x.png',
-        'images/layers.png',
-        'images/marker-icon-2x.png',
-        'images/marker-icon.png',
-        'images/marker-shadow.png'
-      ]
-    }
-  });
+let app = new EmberApp(defaults, {
+  // Add options here
+  fingerprint: {
+    exclude: [
+      'images/layers-2x.png',
+      'images/layers.png',
+      'images/marker-icon-2x.png',
+      'images/marker-icon.png',
+      'images/marker-shadow.png'
+    ]
+  }
+});
 ```
-Ember-Cli does fingerprinting (appending an md5 checksum to the end of every file) for production builds by default (http://ember-cli.com/user-guide/#fingerprinting-and-cdn-urls). Exclude the assets you need so that your production build produces them correctly.
+
+ember-cli does fingerprinting (appending an md5 checksum to the end of every file) for production builds by default (http://ember-cli.com/user-guide/#fingerprinting-and-cdn-urls). Exclude the leaflet assets so that your production build produces them correctly.
 
 ## Overview
 
@@ -92,29 +93,26 @@ Think of your map as a set of layers inside a container. Your main container wil
 
 ### Linting
 
-* `npm run lint:js`
-* `npm run lint:js -- --fix`
+- `npm run lint:js`
+- `npm run lint:js -- --fix`
 
 ### Running tests
 
-* `ember test` – Runs the test suite on the current Ember version
-* `ember test --server` – Runs the test suite in "watch mode"
-* `ember try:each` – Runs the test suite against multiple Ember versions
+- `ember test` – Runs the test suite on the current Ember version
+- `ember test --server` – Runs the test suite in "watch mode"
+- `ember try:each` – Runs the test suite against multiple Ember versions
 
 ### Running the dummy application
 
-* `ember serve`
-* Visit the dummy application at [http://localhost:4200](http://localhost:4200).
+- `ember serve`
+- Visit the dummy application at [http://localhost:4200](http://localhost:4200).
 
 For more information on using ember-cli, visit [https://ember-cli.com/](https://ember-cli.com/).
 
-Contributing
-------------------------------------------------------------------------------
+## Contributing
 
 See the [Contributing](CONTRIBUTING.md) guide for details.
 
-
-License
-------------------------------------------------------------------------------
+## License
 
 This project is licensed under the [MIT License](LICENSE.md).
