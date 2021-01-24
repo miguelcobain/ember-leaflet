@@ -5,7 +5,7 @@ import PathLayer from 'ember-leaflet/components/path-layer';
  * Layers that require multiple points extend this class.
  *
  * @class ArrayPathLayer
- * @extends PathLayer
+ * @extends ember-leaflet/components/path-layer~PathLayer
  */
 export default class ArrayPathLayer extends PathLayer {
   leafletRequiredOptions = [

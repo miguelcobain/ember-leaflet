@@ -4,7 +4,7 @@ import PathLayer from 'ember-leaflet/components/path-layer';
  * An abstract class that contains options and constants shared between point-based path layers (Circle, CircleMarker). Do not use it directly.
  *
  * @class PointPathLayer
- * @extends PathLayer
+ * @extends ember-leaflet/components/path-layer~PathLayer
  */
 export default class PointPathLayer extends PathLayer {
   /**
