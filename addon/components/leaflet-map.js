@@ -9,6 +9,18 @@ import { action } from '@ember/object';
  *
  * @class LeafletMap
  * @extends BaseLayer
+ *
+ * @yield {TileLayer} tile-layer
+ * @yield {WmsTileLayer} wms-tile-layer
+ * @yield {MarkerLayer} marker-layer
+ * @yield {CircleLayer} circle-layer
+ * @yield {CircleMarkerLayer} circle-marker-layer
+ * @yield {ImageLayer} image-layer
+ * @yield {VideoLayer} video-layer
+ * @yield {PolylineLayer} polyline-layer
+ * @yield {PolygonLayer} polygon-layer
+ * @yield {GeojsonLayer} geojson-layer
+ * @yield {RectangleLayer} rectangle-layer
  */
 export default class LeafletMap extends BaseLayer {
   @service emberLeaflet;
