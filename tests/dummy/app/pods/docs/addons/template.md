@@ -85,14 +85,27 @@ The `registerComponent` method accepts two arguments:
 - an options object. Only the `as` option is supported at the moment. The `as` option is the name
   under which the component will yielded as from the `<LeafletMap>` component.
 
-### Setting up the a new layer's template
+### Yielding additional components from new components
 
-If you're extending from `BaseLayer` (or another layer that extends from it), you might have to set up some boilerplate
-on your template. This is required because in glimmer components and octane we don't have observers. So that means
-that observing values requires the usage of [`ember-render-helpers`](https://github.com/buschtoens/ember-render-helpers), which
-requires the template (better solutions are welcome).
+It is usual for new components to yield additional components in addons. In the example above, there is a
+new `<layers.cluster>` component that yields a `<cluster.marker>` component.
 
-Check the `BaseLayer`'s template on github for more information on what the `BaseLayer` does by default.
+If you're extending from `BaseLayer` (or another layer that extends from it), there is a special property you can
+use called `componentsToYield`. This should be an array of objects that describes which components you
+want to yield. You should use it like:
+
+```js
+// addon/components/market-cluster-layer.js
+componentsToYield = [
+  ...this.componentsToYield,
+  { name: 'marker-layer', as: 'marker' }
+];
+```
+
+- `name` is the name of the component itself
+- `as` is the key that you want to put it under in the yielded hash (the key will default to the `name` value if an empty `as` is provided)
+
+`BaseLayer`'s template will make sure to yield these components correctly for you.
 
 ### Including the leaflet plugin
 
