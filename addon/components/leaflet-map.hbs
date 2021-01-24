@@ -7,35 +7,15 @@
 {{/each}}
 
 <Root @didInsertParent={{this.didInsertParent}} @willDestroyParent={{this.willDestroyParent}} ...attributes as |Node|>
-  {{#let (hash
-    tile=(component "tile-layer" parent=this node=Node)
-    wms-tile=(component "wms-tile-layer" parent=this node=Node)
-    marker=(component "marker-layer" parent=this node=Node)
-    circle=(component "circle-layer" parent=this node=Node)
-    circle-marker=(component "circle-marker-layer" parent=this node=Node)
-    image=(component "image-layer" parent=this node=Node)
-    video=(component "video-layer" parent=this node=Node)
-    polyline=(component "polyline-layer" parent=this node=Node)
-    polygon=(component "polygon-layer" parent=this node=Node)
-    geojson=(component "geojson-layer" parent=this node=Node)
-    rectangle=(component "rectangle-layer" parent=this node=Node)
-  ) as |components|}}
-    {{!--
-      Here we need to create the addon registered contextual components to yield later
-    --}}
-    {{#if this.emberLeaflet.components}}
-      {{#each this.emberLeaflet.components as |c|}}
-        {{ember-leaflet-assign-to
-          components
-          key=c.as
-          value=(component c.name parent=this node=Node)
-          onChange=this.mergeComponents
-        }}
-      {{/each}}
+  {{#let (hash) as |components|}}
+    {{#each this.componentsToYield as |c|}}
+      {{ember-leaflet-assign-to
+        components
+        key=(or c.as c.name)
+        value=(component c.name parent=this node=Node)
+        onChange=this.mergeComponents}}
+    {{/each}}
 
-      {{yield this.mergedComponents}}
-    {{else}}
-      {{yield components}}
-    {{/if}}
+    {{yield this.mergedComponents}}
   {{/let}}
 </Root>

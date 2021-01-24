@@ -99,6 +99,12 @@ export default class GeojsonLayer extends BaseLayer {
 
   leafletDescriptors = [...this.leafletDescriptors, 'style'];
 
+  componentsToYield = [
+    ...this.componentsToYield,
+    { name: 'popup-layer', as: 'popup' },
+    { name: 'tooltip-layer', as: 'tooltip' }
+  ];
+
   @action
   didChangeGeojson(geoJSON) {
     if (geoJSON) {

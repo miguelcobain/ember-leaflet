@@ -683,6 +683,22 @@ export default class LeafletMap extends BaseLayer {
     'maxBounds'
   ];
 
+  componentsToYield = [
+    ...this.componentsToYield,
+    ...this.emberLeaflet.components,
+    { name: 'tile-layer', as: 'tile' },
+    { name: 'wms-tile-layer', as: 'wms-tile' },
+    { name: 'marker-layer', as: 'marker' },
+    { name: 'circle-layer', as: 'circle' },
+    { name: 'circle-marker-layer', as: 'circle-marker' },
+    { name: 'image-layer', as: 'image' },
+    { name: 'video-layer', as: 'video' },
+    { name: 'polyline-layer', as: 'polyline' },
+    { name: 'polygon-layer', as: 'polygon' },
+    { name: 'geojson-layer', as: 'geojson' },
+    { name: 'rectangle-layer', as: 'rectangle' }
+  ];
+
   // required to supress glimmer component error message for acessing bounds property
   bounds = undefined;
 

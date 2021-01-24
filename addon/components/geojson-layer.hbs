@@ -5,8 +5,15 @@
 {{did-update this.didChangeGeojson @geoJSON}}
 
 <@node @didInsertParent={{this.didInsertParent}} @willDestroyParent={{this.willDestroyParent}} as |Node|>
-  {{yield (hash
-    popup=(component "popup-layer" parent=this node=Node)
-    tooltip=(component "tooltip-layer" parent=this node=Node)
-  )}}
+  {{#let (hash) as |components|}}
+    {{#each this.componentsToYield as |c|}}
+      {{ember-leaflet-assign-to
+        components
+        key=(or c.as c.name)
+        value=(component c.name parent=this node=Node)
+        onChange=this.mergeComponents}}
+    {{/each}}
+
+    {{yield this.mergedComponents}}
+  {{/let}}
 </@node>

@@ -1,5 +1,6 @@
 import { assert } from '@ember/debug';
 import { action } from '@ember/object';
+import { assign } from '@ember/polyfills';
 import { inject as service } from '@ember/service';
 import Component from '@glimmer/component';
 import { scheduleOnce } from '@ember/runloop';
@@ -103,6 +104,19 @@ export default class BaseLayer extends Component {
   // E.g: Changing the tile layer's `@url` should invoke the layer's `setUrl` method
   // with the new `@url` value
   leafletDescriptors = [];
+
+  // This array allows subclasses to avoid declaring a template
+  // if the sole purpose is to yield additional components, typical in addons
+  componentsToYield = [];
+
+  @action
+  mergeComponents(obj) {
+    if (!this.mergedComponents) {
+      this.mergedComponents = obj;
+    } else {
+      assign(this.mergedComponents, obj);
+    }
+  }
 
   createLayer() {
     assert("BaseLayer's `createLayer` should be overriden.");

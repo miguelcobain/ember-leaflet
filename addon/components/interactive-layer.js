@@ -92,4 +92,10 @@ export default class InteractiveLayer extends BaseLayer {
      */
     'contextmenu'
   ];
+
+  componentsToYield = [
+    ...this.componentsToYield,
+    { name: 'popup-layer', as: 'popup' },
+    { name: 'tooltip-layer', as: 'tooltip' }
+  ];
 }
