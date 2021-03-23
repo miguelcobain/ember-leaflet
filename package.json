@@ -55,7 +55,7 @@
     "ember-qunit": "^5.1.1",
     "ember-qunit-assert-helpers": "^0.2.2",
     "ember-resolver": "^8.0.2",
-    "ember-source": "~3.24.0",
+    "ember-source": "~3.26.0",
     "ember-source-channel-url": "^3.0.0",
     "ember-template-lint": "^2.17.0",
     "ember-try": "^1.4.0",
