@@ -15,7 +15,7 @@
     {{#each this.componentsToYield as |c|}}
       {{ember-leaflet-assign-to
         components
-        key=(or c.as c.name)
+        key=(ember-leaflet-or c.as c.name)
         value=(component c.name parent=this node=Node)
         onChange=this.mergeComponents}}
     {{/each}}
