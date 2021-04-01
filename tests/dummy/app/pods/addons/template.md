@@ -14,6 +14,10 @@ This concept follows the lead of the great [ember-power-select](http://www.ember
 This addon list is auto generated from npm registry. If you made an addon and want it to show up here checkout
 the instructions {{#docs-link "docs.addons"}}here{{/docs-link}}.
 
+<aside>
+  <strong>Warning!</strong> Many of the following addons might not be updated to latest ember-leaflet 5.x yet.
+</aside>
+
 ### Addons:
 
 <ul>
