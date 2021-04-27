@@ -72,7 +72,7 @@ Think of your map as a set of layers inside a container. Your main container wil
 ```hbs
 <LeafletMap @lat={{this.lat}} @lng={{this.lng}} @zoom={{this.zoom}} as |layers|>
 
-  <layers.tile @url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png">
+  <layers.tile @url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png" />
 
   <layers.marker @location={{this.emberConfLocation}} as |marker|>
     <marker.popup>
