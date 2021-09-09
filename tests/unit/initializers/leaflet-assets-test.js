@@ -8,7 +8,9 @@ import Resolver from 'ember-resolver';
 
 module('Unit | Initializer | leaflet assets', function (hooks) {
   hooks.beforeEach(function () {
-    this.TestApplication = class TestApplication extends Application {};
+    this.TestApplication = class TestApplication extends Application {
+      modulePrefix = ENV.modulePrefix;
+    };
     this.TestApplication.initializer({
       name: 'initializer under test',
       initialize

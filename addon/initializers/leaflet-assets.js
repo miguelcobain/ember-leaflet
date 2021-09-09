@@ -1,9 +1,9 @@
 import { isNone } from '@ember/utils';
-import config from 'ember-get-config';
 /* global L */
 
-export function initialize(/* container, application */) {
+export function initialize(container /*, application */) {
   if (typeof FastBoot === 'undefined' && typeof L !== 'undefined') {
+    let config = container.resolveRegistration('config:environment');
     let prefix = '';
 
     if (!isNone(config.rootURL)) {
