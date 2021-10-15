@@ -28,7 +28,7 @@ module('Unit | Initializer | leaflet assets', function (hooks) {
   test('it sets icon default imagePath to default assets path', async function (assert) {
     await this.application.boot();
 
-    assert.ok(typeof L.Icon.Default.imagePath !== 'undefined', '`L.Icon.Default.imagePath` is not set');
+    assert.notStrictEqual(typeof L.Icon.Default.imagePath, 'undefined', '`L.Icon.Default.imagePath` is not set');
     assert.equal(L.Icon.Default.imagePath, '/assets/images/');
   });
 

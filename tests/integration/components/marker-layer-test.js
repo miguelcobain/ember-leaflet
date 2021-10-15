@@ -109,7 +109,7 @@ module('Integration | Component | marker layer', function (hooks) {
     this.set('draggable', false);
     await settled();
 
-    assert.equal(marker._layer.dragging.enabled(), false, 'marker dragging disabled');
+    assert.false(marker._layer.dragging.enabled(), 'marker dragging disabled');
   });
 
   // Leaflet bug. More info: https://github.com/Leaflet/Leaflet/issues/3807
@@ -129,17 +129,17 @@ module('Integration | Component | marker layer', function (hooks) {
     `);
 
     // pre-conditions
-    assert.equal(marker._layer.dragging.enabled(), true, 'marker dragging enabled');
+    assert.true(marker._layer.dragging.enabled(), 'marker dragging enabled');
 
     this.set('draggable', false);
     await settled();
 
-    assert.equal(marker._layer.dragging.enabled(), false, 'marker dragging disabled');
+    assert.false(marker._layer.dragging.enabled(), 'marker dragging disabled');
 
     this.set('currentIcon', icon2);
     await settled();
 
-    assert.equal(marker._layer.dragging.enabled(), false, 'marker dragging is still disabled');
+    assert.false(marker._layer.dragging.enabled(), 'marker dragging is still disabled');
   });
 
   if (hasEmberVersion(2, 3)) {

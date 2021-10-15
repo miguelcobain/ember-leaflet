@@ -114,7 +114,7 @@ if (!isLeaflet07(L)) {
 
       assert.equal(marker._layer._tooltip._map, null, 'tooltip not added until opened');
 
-      assert.ok(!didRun, 'computed property did not run');
+      assert.notOk(didRun, 'computed property did not run');
 
       run(() => {
         marker._layer.fire('mouseover', { latlng: locations.nyc });

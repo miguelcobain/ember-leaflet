@@ -96,7 +96,7 @@ module('Integration | Component | popup layer', function (hooks) {
 
     assert.equal(marker._layer._popup._map, null, 'popup not added until opened');
 
-    assert.ok(!didRun, 'computed property did not run');
+    assert.notOk(didRun, 'computed property did not run');
 
     run(() => {
       marker._layer.fire('click', { latlng: locations.nyc });

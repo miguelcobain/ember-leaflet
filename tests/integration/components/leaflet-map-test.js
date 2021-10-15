@@ -173,7 +173,7 @@ module('Integration | Component | leaflet map', function (hooks) {
     `);
   });
 
-  test.skip('map throws if bounds, center and zoom are provided', function(assert) {
+  test.skip('map throws if bounds, center and zoom are provided', function (assert) {
     assert.expect(1);
 
     assert.expectAssertion(async () => {
@@ -183,7 +183,7 @@ module('Integration | Component | leaflet map', function (hooks) {
     }, 'You must provide either valid `bounds` or a `center` (or `lat`/`lng`) and a `zoom` value.');
   });
 
-  test.skip('map throws if only center is provided', function(assert) {
+  test.skip('map throws if only center is provided', function (assert) {
     assert.expect(1);
 
     assert.expectAssertion(async () => {
@@ -193,7 +193,7 @@ module('Integration | Component | leaflet map', function (hooks) {
     }, 'You must provide either valid `bounds` or a `center` (or `lat`/`lng`) and a `zoom` value.');
   });
 
-  test.skip('map throws if only zoom is provided', function(assert) {
+  test.skip('map throws if only zoom is provided', function (assert) {
     assert.expect(1);
 
     assert.expectAssertion(async () => {
