@@ -6,7 +6,7 @@ module.exports = function (environment) {
     podModulePrefix: 'dummy/pods',
     environment,
     rootURL: '/',
-    locationType: 'router-scroll',
+    locationType: 'auto',
     historySupportMiddleware: true,
     EmberENV: {
       FEATURES: {
@@ -22,6 +22,9 @@ module.exports = function (environment) {
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
+    },
+    emberKeyboard: {
+      disableInputsInitializer: true
     }
   };
 

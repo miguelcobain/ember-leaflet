@@ -12,7 +12,7 @@ module('Integration | Helper | ember-leaflet-assign-to', function (hooks) {
     };
 
     await render(hbs`
-      {{#with (hash key1="value1") as |obj|}}
+      {{#with (ember-leaflet-hash key1="value1") as |obj|}}
         {{ember-leaflet-assign-to obj key="key2" value="value2" onChange=this.mergeValues}}
       {{/with}}
     `);

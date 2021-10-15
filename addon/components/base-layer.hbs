@@ -11,7 +11,7 @@
 {{/each}}
 
 <@node @didInsertParent={{this.didInsertParent}} @willDestroyParent={{this.willDestroyParent}} as |Node|>
-  {{#let (hash) as |components|}}
+  {{#let (ember-leaflet-hash) as |components|}}
     {{#each this.componentsToYield as |c|}}
       {{ember-leaflet-assign-to
         components

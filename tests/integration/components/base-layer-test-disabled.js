@@ -8,7 +8,7 @@ import BaseLayerComponent from 'ember-leaflet/components/base-layer';
 module('Integration | Component | base layer', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('using any layer without the createLayer implemented throws', function (assert) {
+  test.skip('using any layer without the createLayer implemented throws', function (assert) {
     assert.expect(1);
 
     this.set('center', locations.nyc);
@@ -23,7 +23,7 @@ module('Integration | Component | base layer', function (hooks) {
     }, /Assertion Failed: BaseLayer's `createLayer` should be overriden./);
   });
 
-  test('using any layer outside a content layer throws', function (assert) {
+  test.skip('using any layer outside a content layer throws', function (assert) {
     assert.expect(1);
 
     this.owner.register(
