@@ -7,6 +7,15 @@ module.exports = async function () {
   return {
     scenarios: [
       {
+        name: 'ember-lts-3.20-leaflet-0.7.7',
+        npm: {
+          devDependencies: {
+            'ember-source': '~3.20.5',
+            leaflet: '~0.7.7'
+          }
+        }
+      },
+      {
         name: 'ember-lts-3.20',
         npm: {
           devDependencies: {
