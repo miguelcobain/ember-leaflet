@@ -1,5 +1,6 @@
 module.exports = {
   allowedVersions: {
-    '@ember/render-modifiers': '*'
+    '@ember/render-modifiers': '*',
+    '@embroider/util': '*'
   }
 };

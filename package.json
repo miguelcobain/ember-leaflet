@@ -19,8 +19,7 @@
     "eslint-config-check": "eslint --print-config . | eslint-config-prettier-check",
     "prettier-all": "prettier --write \"**/*.{js,scss,json,yaml,yml}\"",
     "eslint-all": "eslint --fix \"**/*.js\"",
-    "format-all": "npm run prettier-all && npm run eslint-all",
-    "preinstall": "npx npm-force-resolutions || echo 1"
+    "format-all": "npm run prettier-all && npm run eslint-all"
   },
   "homepage": "https://miguelcobain.github.io/ember-leaflet/",
   "engines": {
@@ -82,7 +81,7 @@
     "broccoli-merge-trees": "^4.2.0",
     "ember-cli-babel": "^7.26.6",
     "ember-cli-htmlbars": "^5.7.1",
-    "ember-composability-tools": "^1.0.1",
+    "ember-composability-tools": "^1.0.3",
     "ember-in-element-polyfill": "^1.0.0",
     "ember-render-helpers": "^0.2.0",
     "fastboot-transform": "^0.1.3",
@@ -90,11 +89,6 @@
   },
   "peerDependencies": {
     "leaflet": ">=0.7"
-  },
-  "resolutions": {
-    "socket.io": "4.2.0",
-    "socket.io-client": "4.2.0",
-    "@ember/render-modifiers": "2.0.0"
   },
   "keywords": [
     "ember-addon",
