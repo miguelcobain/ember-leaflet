@@ -1,5 +1,4 @@
 import { assert } from '@ember/debug';
-import { assign } from '@ember/polyfills';
 import { inject as service } from '@ember/service';
 import BaseLayer from 'ember-leaflet/components/base-layer';
 import { action } from '@ember/object';
@@ -30,7 +29,7 @@ export default class LeafletMap extends BaseLayer {
     if (!this.mergedComponents) {
       this.mergedComponents = obj;
     } else {
-      assign(this.mergedComponents, obj);
+      Object.assign(this.mergedComponents, obj);
     }
   }
 
@@ -742,9 +741,9 @@ export default class LeafletMap extends BaseLayer {
         (!this.args.bounds && this.center && this.args.zoom !== undefined)
     );
     if (this.args.bounds) {
-      this._layer.fitBounds(this.args.bounds, assign({ reset: true }, this.args.fitBoundsOptions));
+      this._layer.fitBounds(this.args.bounds, Object.assign({ reset: true }, this.args.fitBoundsOptions));
     } else {
-      this._layer.setView(this.center, this.args.zoom, assign({ reset: true }, this.args.zoomPanOptions));
+      this._layer.setView(this.center, this.args.zoom, Object.assign({ reset: true }, this.args.zoomPanOptions));
     }
   }
 }

@@ -1,6 +1,5 @@
 import { assert } from '@ember/debug';
 import { action } from '@ember/object';
-import { assign } from '@ember/polyfills';
 import { inject as service } from '@ember/service';
 import Component from '@glimmer/component';
 import { scheduleOnce } from '@ember/runloop';
@@ -114,7 +113,7 @@ export default class BaseLayer extends Component {
     if (!this.mergedComponents) {
       this.mergedComponents = obj;
     } else {
-      assign(this.mergedComponents, obj);
+      Object.assign(this.mergedComponents, obj);
     }
   }
 
