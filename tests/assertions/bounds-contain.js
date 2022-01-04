@@ -1,6 +1,6 @@
 /* global L */
 
-export default function boundsContain(context, bounds1, bounds2, msg = "Bounds 1 doesn't contain bounds 2") {
+export default function boundsContain(bounds1, bounds2, msg = "Bounds 1 doesn't contain bounds 2") {
   // use this.push to add the assertion.
   // see: https://api.qunitjs.com/push/ for more information
 

@@ -2,7 +2,6 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import setupCustomAssertions from 'ember-cli-custom-assertions/test-support';
 import LeafletMapComponent from 'ember-leaflet/components/leaflet-map';
 import locations from '../../helpers/locations';
 /* global L */
@@ -11,7 +10,6 @@ let map;
 
 module('Integration | Component | leaflet map', function (hooks) {
   setupRenderingTest(hooks);
-  setupCustomAssertions(hooks);
 
   hooks.beforeEach(function () {
     this.owner.register(

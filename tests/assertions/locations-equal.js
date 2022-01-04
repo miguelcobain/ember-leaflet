@@ -1,4 +1,4 @@
-export default function locationsEqual(context, loc1, loc2) {
+export default function locationsEqual(loc1, loc2) {
   // use this.push to add the assertion.
   // see: https://api.qunitjs.com/push/ for more information
 

@@ -2,7 +2,6 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import setupCustomAssertions from 'ember-cli-custom-assertions/test-support';
 import GeoJSONLayerComponent from 'ember-leaflet/components/geojson-layer';
 import locations from '../../helpers/locations';
 import sampleGeoJSON from '../../helpers/sample-geojson';
@@ -18,7 +17,6 @@ let geoJSONLayer;
 
 module('Integration | Component | geojson layer', function (hooks) {
   setupRenderingTest(hooks);
-  setupCustomAssertions(hooks);
 
   hooks.beforeEach(function () {
     this.owner.register(

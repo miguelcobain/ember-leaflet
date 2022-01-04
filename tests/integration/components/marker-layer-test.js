@@ -2,7 +2,6 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import setupCustomAssertions from 'ember-cli-custom-assertions/test-support';
 import hasEmberVersion from 'ember-test-helpers/has-ember-version';
 import MarkerLayerComponent from 'ember-leaflet/components/marker-layer';
 import locations from '../../helpers/locations';
@@ -15,7 +14,6 @@ let marker;
 
 module('Integration | Component | marker layer', function (hooks) {
   setupRenderingTest(hooks);
-  setupCustomAssertions(hooks);
 
   hooks.beforeEach(function () {
     this.owner.register(

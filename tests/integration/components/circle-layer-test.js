@@ -2,7 +2,6 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import setupCustomAssertions from 'ember-cli-custom-assertions/test-support';
 import CircleLayerComponent from 'ember-leaflet/components/circle-layer';
 import locations from '../../helpers/locations';
 
@@ -10,7 +9,6 @@ let circle;
 
 module('Integration | Component | circle layer', function (hooks) {
   setupRenderingTest(hooks);
-  setupCustomAssertions(hooks);
 
   hooks.beforeEach(function () {
     this.owner.register(
