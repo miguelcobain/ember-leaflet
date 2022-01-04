@@ -69,9 +69,9 @@ module('Integration | Component | marker layer collection', function (hooks) {
     `);
 
     // pre-conditions
-    assert.equal(markersInitCount, 4);
-    assert.equal(createLayersCount, 4);
-    assert.equal(destroyLayersCount, 0);
+    assert.strictEqual(markersInitCount, 4);
+    assert.strictEqual(createLayersCount, 4);
+    assert.strictEqual(destroyLayersCount, 0);
 
     this.set('markers', [
       restaurant1,
@@ -82,9 +82,9 @@ module('Integration | Component | marker layer collection', function (hooks) {
 
     // only one leaflet marker was created
     // great for performance
-    assert.equal(markersInitCount, 5);
-    assert.equal(createLayersCount, 5);
-    assert.equal(destroyLayersCount, 1); // and only one was destroyed
+    assert.strictEqual(markersInitCount, 5);
+    assert.strictEqual(createLayersCount, 5);
+    assert.strictEqual(destroyLayersCount, 1); // and only one was destroyed
   });
 
   test('popup remains open when another layer is destroyed', async function (assert) {
@@ -103,11 +103,11 @@ module('Integration | Component | marker layer collection', function (hooks) {
     `);
 
     // pre-conditions
-    assert.equal(markersInitCount, 4);
-    assert.equal(createLayersCount, 4);
-    assert.equal(destroyLayersCount, 0);
+    assert.strictEqual(markersInitCount, 4);
+    assert.strictEqual(createLayersCount, 4);
+    assert.strictEqual(destroyLayersCount, 0);
 
-    assert.equal(markers[2]._layer._popup._map, null, 'popup not added until opened');
+    assert.strictEqual(markers[2]._layer._popup._map, undefined, 'popup not added until opened');
 
     run(() => {
       markers[2]._layer.fire('click', { latlng: locations.nyc });
@@ -120,9 +120,9 @@ module('Integration | Component | marker layer collection', function (hooks) {
 
     this.set('markers', [restaurant1, restaurant2, restaurant3]);
 
-    assert.equal(markersInitCount, 4);
-    assert.equal(createLayersCount, 4);
-    assert.equal(destroyLayersCount, 1);
+    assert.strictEqual(markersInitCount, 4);
+    assert.strictEqual(createLayersCount, 4);
+    assert.strictEqual(destroyLayersCount, 1);
 
     assert.ok(!!markers[2]._layer._popup._map, 'marker added to map');
     assert.dom(markers[2]._layer._popup._contentNode).hasText('Popup content', 'popup content set');

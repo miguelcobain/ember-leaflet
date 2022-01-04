@@ -15,12 +15,12 @@ module('Unit | Helper | lat-lng-bounds', function () {
 
     let southWest = result.getSouthWest();
     assert.ok(southWest instanceof L.LatLng);
-    assert.equal(southWest.lat, 42.12312412431231);
-    assert.equal(southWest.lng, 41.12331213212);
+    assert.strictEqual(southWest.lat, 42.12312412431231);
+    assert.strictEqual(southWest.lng, 41.12331213212);
 
     let northEast = result.getNorthEast();
     assert.ok(northEast instanceof L.LatLng);
-    assert.equal(northEast.lat, 46.12312412431231);
-    assert.equal(northEast.lng, 45.12331213212);
+    assert.strictEqual(northEast.lat, 46.12312412431231);
+    assert.strictEqual(northEast.lng, 45.12331213212);
   });
 });

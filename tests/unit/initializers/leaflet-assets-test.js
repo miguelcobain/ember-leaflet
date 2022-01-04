@@ -29,7 +29,7 @@ module('Unit | Initializer | leaflet assets', function (hooks) {
     await this.application.boot();
 
     assert.notStrictEqual(typeof L.Icon.Default.imagePath, 'undefined', '`L.Icon.Default.imagePath` is not set');
-    assert.equal(L.Icon.Default.imagePath, '/assets/images/');
+    assert.strictEqual(L.Icon.Default.imagePath, '/assets/images/');
   });
 
   test('it sets icon default imagePath with baseURL', async function (assert) {
@@ -37,7 +37,7 @@ module('Unit | Initializer | leaflet assets', function (hooks) {
 
     await this.application.boot();
 
-    assert.equal(L.Icon.Default.imagePath, '/path/to/base/assets/images/');
+    assert.strictEqual(L.Icon.Default.imagePath, '/path/to/base/assets/images/');
   });
 
   test('it sets icon default imagePath with rootURL', async function (assert) {
@@ -46,23 +46,23 @@ module('Unit | Initializer | leaflet assets', function (hooks) {
 
     await this.application.boot();
 
-    assert.equal(L.Icon.Default.imagePath, '/path/to/root/assets/images/');
+    assert.strictEqual(L.Icon.Default.imagePath, '/path/to/root/assets/images/');
   });
 
   test('it supports empty rootURL', async function (assert) {
     ENV.rootURL = '';
     await this.application.boot();
-    assert.equal(L.Icon.Default.imagePath, 'assets/images/');
+    assert.strictEqual(L.Icon.Default.imagePath, 'assets/images/');
   });
 
   test("an undefined rootURL should behave the same as '' (as ember-cli does)", async function (assert) {
     await this.application.boot();
-    assert.equal(L.Icon.Default.imagePath, 'assets/images/');
+    assert.strictEqual(L.Icon.Default.imagePath, 'assets/images/');
   });
 
   test("a null rootURL should behave the same as '' (as ember-cli does)", async function (assert) {
     ENV.rootURL = null;
     await this.application.boot();
-    assert.equal(L.Icon.Default.imagePath, 'assets/images/');
+    assert.strictEqual(L.Icon.Default.imagePath, 'assets/images/');
   });
 });

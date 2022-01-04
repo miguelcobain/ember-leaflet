@@ -37,9 +37,9 @@ module('Integration | Component | tile layer', function (hooks) {
       </LeafletMap>
     `);
 
-    assert.equal(tile._layer._url, 'http://{s}.tile.osm.org/{z}/{x}/{y}.png');
-    assert.equal(tile._layer.options.opacity, 0.2);
-    assert.equal(tile._layer.options.zIndex, 13);
+    assert.strictEqual(tile._layer._url, 'http://{s}.tile.osm.org/{z}/{x}/{y}.png');
+    assert.strictEqual(tile._layer.options.opacity, 0.2);
+    assert.strictEqual(tile._layer.options.zIndex, 13);
     assert.deepEqual(tile._layer.options.subdomains, ['123']);
 
     this.set('tileUrl', 'http://a.tiles.mapbox.com/v3/examples.map-zr0njcqy/{z}/{x}/{y}.png');
@@ -47,9 +47,9 @@ module('Integration | Component | tile layer', function (hooks) {
     this.set('opacity', 0.8);
     await settled();
 
-    assert.equal(tile._layer._url, 'http://a.tiles.mapbox.com/v3/examples.map-zr0njcqy/{z}/{x}/{y}.png');
-    assert.equal(tile._layer.options.opacity, 0.8);
-    assert.equal(tile._layer.options.zIndex, 2);
+    assert.strictEqual(tile._layer._url, 'http://a.tiles.mapbox.com/v3/examples.map-zr0njcqy/{z}/{x}/{y}.png');
+    assert.strictEqual(tile._layer.options.opacity, 0.8);
+    assert.strictEqual(tile._layer.options.zIndex, 2);
   });
 
   test('tile layer sends actions for events', async function (assert) {

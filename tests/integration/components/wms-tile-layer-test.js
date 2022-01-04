@@ -32,8 +32,8 @@ module('Integration | Component | wms tile layer', function (hooks) {
       </LeafletMap>
     `);
 
-    assert.equal(tile._layer._url, 'an-url');
-    assert.equal(tile._layer.wmsParams.layers, 'layers');
-    assert.equal(tile._layer.wmsParams.styles, 'styles');
+    assert.strictEqual(tile._layer._url, 'an-url');
+    assert.strictEqual(tile._layer.wmsParams.layers, 'layers');
+    assert.strictEqual(tile._layer.wmsParams.styles, 'styles');
   });
 });

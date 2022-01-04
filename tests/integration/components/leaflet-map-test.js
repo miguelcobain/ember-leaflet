@@ -37,14 +37,14 @@ module('Integration | Component | leaflet map', function (hooks) {
     `);
 
     assert.locationsEqual(map._layer.getCenter(), locations.nyc);
-    assert.equal(map._layer.getZoom(), 12);
+    assert.strictEqual(map._layer.getZoom(), 12);
 
     this.set('center', locations.chicago);
     this.set('zoom', 14);
     await settled();
 
     assert.locationsEqual(map._layer.getCenter(), locations.chicago);
-    assert.equal(map._layer.getZoom(), 14);
+    assert.strictEqual(map._layer.getZoom(), 14);
   });
 
   test('lat/lng changes propagate to the map', async function (assert) {
@@ -208,7 +208,7 @@ module('Integration | Component | leaflet map', function (hooks) {
       <LeafletMap @zoom={{0}} @center={{this.center}}/>
     `);
 
-    assert.equal(map._layer.getZoom(), 0, 'zoom 0 is set');
+    assert.strictEqual(map._layer.getZoom(), 0, 'zoom 0 is set');
   });
 
   test('using bounds from lat-lng-bounds helper works', async function (assert) {
@@ -244,7 +244,7 @@ module('Integration | Component | leaflet map', function (hooks) {
       </LeafletMap>
     `);
 
-    assert.equal(
+    assert.strictEqual(
       [...this.element.querySelectorAll('yielded-layer')].filter(l => l.textContent.startsWith('component-')).length,
       3
     );

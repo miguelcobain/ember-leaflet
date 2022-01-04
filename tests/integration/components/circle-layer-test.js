@@ -38,14 +38,14 @@ module('Integration | Component | circle layer', function (hooks) {
     `);
 
     assert.locationsEqual(circle._layer.getLatLng(), locations.nyc);
-    assert.equal(circle._layer.getRadius(), 25);
+    assert.strictEqual(circle._layer.getRadius(), 25);
 
     this.set('circleCenter', locations.london);
     this.set('radius', 14);
     await settled();
 
     assert.locationsEqual(circle._layer.getLatLng(), locations.london);
-    assert.equal(circle._layer.getRadius(), 14);
+    assert.strictEqual(circle._layer.getRadius(), 14);
   });
 
   test('lat/lng changes propagate to the circle layer', async function (assert) {

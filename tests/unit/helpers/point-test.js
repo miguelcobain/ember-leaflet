@@ -8,7 +8,7 @@ module('Unit | Helper | point', function () {
 
     assert.ok(result);
     assert.ok(result instanceof L.Point);
-    assert.equal(result.x, 42);
-    assert.equal(result.y, 41);
+    assert.strictEqual(result.x, 42);
+    assert.strictEqual(result.y, 41);
   });
 });

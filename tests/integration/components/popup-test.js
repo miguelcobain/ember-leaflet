@@ -59,7 +59,7 @@ module('Integration | Component | popup layer', function (hooks) {
       </LeafletMap>
     `);
 
-    assert.equal(marker._layer._popup._map, null, 'popup not added until opened');
+    assert.strictEqual(marker._layer._popup._map, undefined, 'popup not added until opened');
 
     run(() => {
       marker._layer.fire('click', { latlng: locations.nyc });
@@ -94,7 +94,7 @@ module('Integration | Component | popup layer', function (hooks) {
       </LeafletMap>
     `);
 
-    assert.equal(marker._layer._popup._map, null, 'popup not added until opened');
+    assert.strictEqual(marker._layer._popup._map, undefined, 'popup not added until opened');
 
     assert.notOk(didRun, 'computed property did not run');
 
@@ -129,7 +129,7 @@ module('Integration | Component | popup layer', function (hooks) {
       this.set('popupOpen', false);
     });
 
-    assert.equal(marker._layer._popup._map, null, 'popup closed');
+    assert.strictEqual(marker._layer._popup._map, null, 'popup closed');
 
     run(() => {
       this.set('popupOpen', true);
@@ -163,7 +163,7 @@ module('Integration | Component | popup layer', function (hooks) {
 
     this.set('isVisible', false);
 
-    assert.equal(map._popup, null, 'popup closed');
+    assert.strictEqual(map._popup, null, 'popup closed');
   });
 
   test('popup closes with yielded action', async function (assert) {
@@ -188,7 +188,7 @@ module('Integration | Component | popup layer', function (hooks) {
     await click('#closeEl');
 
     let map = marker._layer._map;
-    assert.equal(map._popup, null, 'popup closed');
+    assert.strictEqual(map._popup, null, 'popup closed');
   });
 
   test('popup options work', async function (assert) {
@@ -203,7 +203,7 @@ module('Integration | Component | popup layer', function (hooks) {
       </LeafletMap>
     `);
 
-    assert.equal(marker._layer._popup.options.className, 'foo', 'popup class set');
+    assert.strictEqual(marker._layer._popup.options.className, 'foo', 'popup class set');
   });
 
   test('popup options within path layers', async function (assert) {
@@ -219,7 +219,7 @@ module('Integration | Component | popup layer', function (hooks) {
       </LeafletMap>
     `);
 
-    assert.equal(arrayPath._layer._popup.options.className, 'exists', 'popup class set on array-path');
+    assert.strictEqual(arrayPath._layer._popup.options.className, 'exists', 'popup class set on array-path');
   });
 
   (isLeaflet07(L) ? skip : test)('popup is compatible with markerClusterLayer', async function (assert) {

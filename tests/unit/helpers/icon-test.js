@@ -10,6 +10,6 @@ module('Unit | Helper | icon', function () {
 
     assert.ok(result);
     assert.ok(result instanceof L.Icon);
-    assert.equal(result.options.iconUrl, 'custom-url.png');
+    assert.strictEqual(result.options.iconUrl, 'custom-url.png');
   });
 });

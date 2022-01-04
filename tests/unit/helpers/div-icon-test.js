@@ -10,6 +10,6 @@ module('Unit | Helper | div-icon', function () {
 
     assert.ok(result);
     assert.ok(result instanceof L.DivIcon);
-    assert.equal(result.options.html, "<h1>what's up?</h1>");
+    assert.strictEqual(result.options.html, "<h1>what's up?</h1>");
   });
 });

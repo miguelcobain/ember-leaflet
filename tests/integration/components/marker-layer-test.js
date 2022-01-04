@@ -46,9 +46,9 @@ module('Integration | Component | marker layer', function (hooks) {
 
     // pre-conditions
     assert.locationsEqual(marker._layer.getLatLng(), locations.nyc);
-    assert.equal(marker._layer.options.opacity, 0.2);
-    assert.equal(marker._layer.options.zIndexOffset, 13);
-    assert.equal(marker._layer.options.icon, this.icon);
+    assert.strictEqual(marker._layer.options.opacity, 0.2);
+    assert.strictEqual(marker._layer.options.zIndexOffset, 13);
+    assert.strictEqual(marker._layer.options.icon, this.icon);
 
     this.set('markerCenter', locations.sf);
     this.set('opacity', 0.8);
@@ -58,9 +58,9 @@ module('Integration | Component | marker layer', function (hooks) {
     await settled();
 
     assert.locationsEqual(marker._layer.getLatLng(), locations.sf);
-    assert.equal(marker._layer.options.opacity, 0.8);
-    assert.equal(marker._layer.options.zIndexOffset, 2);
-    assert.equal(marker._layer.options.icon, this.icon);
+    assert.strictEqual(marker._layer.options.opacity, 0.8);
+    assert.strictEqual(marker._layer.options.zIndexOffset, 2);
+    assert.strictEqual(marker._layer.options.icon, this.icon);
   });
 
   test('marker sends actions for events', async function (assert) {
@@ -173,18 +173,18 @@ module('Integration | Component | marker layer', function (hooks) {
       </LeafletMap>
     `);
 
-    assert.equal(marker._layer.options.icon.options.iconUrl, 'custom-url.png');
-    assert.equal(marker._layer.options.icon.options.iconSize.x, 12);
-    assert.equal(marker._layer.options.icon.options.iconSize.y, 12);
+    assert.strictEqual(marker._layer.options.icon.options.iconUrl, 'custom-url.png');
+    assert.strictEqual(marker._layer.options.icon.options.iconSize.x, 12);
+    assert.strictEqual(marker._layer.options.icon.options.iconSize.y, 12);
 
     // Let's make sure an icon recomputes with a bound param changes
     this.set('currentIconUrl', 'another-custom-url.png');
     this.set('currentSize', 21);
     await settled();
 
-    assert.equal(marker._layer.options.icon.options.iconUrl, 'another-custom-url.png');
-    assert.equal(marker._layer.options.icon.options.iconSize.x, 21);
-    assert.equal(marker._layer.options.icon.options.iconSize.y, 21);
+    assert.strictEqual(marker._layer.options.icon.options.iconUrl, 'another-custom-url.png');
+    assert.strictEqual(marker._layer.options.icon.options.iconSize.x, 21);
+    assert.strictEqual(marker._layer.options.icon.options.iconSize.y, 21);
   });
 
   test('using icons from div-icon helper works', async function (assert) {
@@ -203,17 +203,17 @@ module('Integration | Component | marker layer', function (hooks) {
       </LeafletMap>
     `);
 
-    assert.equal(marker._layer.options.icon.options.html, '<h1>First title!</h1>');
-    assert.equal(marker._layer.options.icon.options.iconSize.x, 12);
-    assert.equal(marker._layer.options.icon.options.iconSize.y, 12);
+    assert.strictEqual(marker._layer.options.icon.options.html, '<h1>First title!</h1>');
+    assert.strictEqual(marker._layer.options.icon.options.iconSize.x, 12);
+    assert.strictEqual(marker._layer.options.icon.options.iconSize.y, 12);
 
     // Let's make sure an icon recomputes with a bound param changes
     this.set('iconContent', '<h1>Second title!</h1>');
     this.set('currentSize', 21);
     await settled();
 
-    assert.equal(marker._layer.options.icon.options.html, '<h1>Second title!</h1>');
-    assert.equal(marker._layer.options.icon.options.iconSize.x, 21);
-    assert.equal(marker._layer.options.icon.options.iconSize.y, 21);
+    assert.strictEqual(marker._layer.options.icon.options.html, '<h1>Second title!</h1>');
+    assert.strictEqual(marker._layer.options.icon.options.iconSize.x, 21);
+    assert.strictEqual(marker._layer.options.icon.options.iconSize.y, 21);
   });
 });

@@ -60,7 +60,7 @@ if (!isLeaflet07(L)) {
         </LeafletMap>
       `);
 
-      assert.equal(marker._layer._tooltip._map, null, 'tooltip not added until opened');
+      assert.strictEqual(marker._layer._tooltip._map, undefined, 'tooltip not added until opened');
 
       run(() => {
         marker._layer.fire('mouseover', { latlng: locations.nyc });
@@ -112,7 +112,7 @@ if (!isLeaflet07(L)) {
         </LeafletMap>
       `);
 
-      assert.equal(marker._layer._tooltip._map, null, 'tooltip not added until opened');
+      assert.strictEqual(marker._layer._tooltip._map, undefined, 'tooltip not added until opened');
 
       assert.notOk(didRun, 'computed property did not run');
 
@@ -154,7 +154,7 @@ if (!isLeaflet07(L)) {
 
       this.set('isVisible', false);
 
-      assert.equal(tooltip._map, null, 'tooltip closed');
+      assert.strictEqual(tooltip._map, null, 'tooltip closed');
     });
 
     test('tooltip options work', async function (assert) {
@@ -169,7 +169,7 @@ if (!isLeaflet07(L)) {
         </LeafletMap>
       `);
 
-      assert.equal(marker._layer._tooltip.options.className, 'foo', 'tooltip class set');
+      assert.strictEqual(marker._layer._tooltip.options.className, 'foo', 'tooltip class set');
     });
 
     test('tooltip options within path layers', async function (assert) {
@@ -185,7 +185,7 @@ if (!isLeaflet07(L)) {
         </LeafletMap>
       `);
 
-      assert.equal(arrayPath._layer._tooltip.options.className, 'exists', 'tooltip class set on array-path');
+      assert.strictEqual(arrayPath._layer._tooltip.options.className, 'exists', 'tooltip class set on array-path');
     });
   });
 }

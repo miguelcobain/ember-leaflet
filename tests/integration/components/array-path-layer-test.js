@@ -93,7 +93,7 @@ module('Integration | Component | array path layer', function (hooks) {
     layerLatLngs = arrayPath._layer.getLatLngs();
     assert.locationsEqual(layerLatLngs[0], locations.chicago);
     assert.locationsEqual(layerLatLngs[1], locations.nyc);
-    assert.equal(layerLatLngs.length, 2);
+    assert.strictEqual(layerLatLngs.length, 2);
   });
 
   test('replace item in content moves polyline', async function (assert) {
@@ -117,7 +117,7 @@ module('Integration | Component | array path layer', function (hooks) {
     assert.locationsEqual(layerLatLngs[0], locations.chicago);
     assert.locationsEqual(layerLatLngs[1], locations.paris);
     assert.locationsEqual(layerLatLngs[2], locations.sf);
-    assert.equal(layerLatLngs.length, 3);
+    assert.strictEqual(layerLatLngs.length, 3);
   });
 
   test('supports array of arrays as well', async function (assert) {
