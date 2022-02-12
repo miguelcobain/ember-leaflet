@@ -6,16 +6,16 @@ where your tiles, vectors and markers will be added to. Let's see how it looks:
 
 **This example looks "broken", but that is intended. Please keep reading.**
 
-{{#docs-demo as |demo|}}
-  {{#demo.example name="container.hbs"}}
+<DocsDemo as |demo|>
+  <demo.example @name="container.hbs">
     <LeafletMap @lat={{this.lat}} @lng={{this.lng}} @zoom={{this.zoom}}>
       {{!-- Specify child layer components here --}}
     </LeafletMap>
-  {{/demo.example}}
+  </demo.example>
 
-  {{demo.snippet "container.hbs"}}
-  {{demo.snippet "container.js"}}
-{{/docs-demo}}
+  <demo.snippet @name="container.hbs"/>
+  <demo.snippet @name="container.js"/>
+</DocsDemo>
 
 Notice that we specified the center of the map and its zoom level passing regular
 properties to the component, bound to the controller. You can check what arguments each component supports

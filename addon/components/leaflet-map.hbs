@@ -1,6 +1,6 @@
 {{#each this.leafletDescriptorsProps as |prop|}}
-  {{#if (ember-leaflet-eq prop 'center')}}
-    {{did-update (fn this.updateOption 'center') this.center}}
+  {{#if (ember-leaflet-eq prop "center")}}
+    {{did-update (fn this.updateOption "center") this.center}}
   {{else}}
     {{did-update (fn this.updateOption prop) (get this.args prop)}}
   {{/if}}

@@ -1,5 +1,6 @@
 // BEGIN-SNIPPET adding-layers.js
 import Controller from '@ember/controller';
+
 export default class AddingLayersController extends Controller {
   lat = 45.528298;
   lng = -122.662986;

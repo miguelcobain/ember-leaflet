@@ -199,7 +199,7 @@ export default class BaseLayer extends Component {
   }
 
   get usedLeafletEvents() {
-    return this.leafletEvents.filter(eventName => {
+    return this.leafletEvents.filter((eventName) => {
       let methodName = `_${eventName}`;
       let actionName = `on${classify(eventName)}`;
       return this[methodName] !== undefined || this.args[actionName] !== undefined;
@@ -244,7 +244,7 @@ export default class BaseLayer extends Component {
   }
 
   get leafletDescriptorsProps() {
-    return this.leafletDescriptors.map(d => {
+    return this.leafletDescriptors.map((d) => {
       return typeof d === 'string' ? d.split(':')[0] : d.arg;
     });
   }
@@ -252,7 +252,7 @@ export default class BaseLayer extends Component {
   @action
   updateOption(arg, [value]) {
     // find the corresponding leaflet descriptor
-    let descriptor = this.leafletDescriptors.find(d => {
+    let descriptor = this.leafletDescriptors.find((d) => {
       let descArg = typeof d === 'string' ? d.split(':')[0] : d.arg;
       return descArg === arg;
     });
@@ -269,11 +269,11 @@ export default class BaseLayer extends Component {
       }
 
       assert(`Leaflet layer must have a ${method} function.`, !!this._layer[method]);
-      let methodParams = params.map(p => this.args[p] || this[p]);
+      let methodParams = params.map((p) => this.args[p] || this[p]);
       this._layer[method].call(this._layer, value, ...methodParams);
     } else {
       let { updateFn, params = [] } = descriptor;
-      let methodParams = params.map(p => this.args[p] || this[p]);
+      let methodParams = params.map((p) => this.args[p] || this[p]);
       updateFn(this._layer, value, ...methodParams);
     }
 

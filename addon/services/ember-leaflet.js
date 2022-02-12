@@ -9,7 +9,7 @@ export default class EmberLeafletService extends Service {
 
     assert(
       `Tried to register component \`${name}\` as \`${as}\`, but it was already registered. Try to register a different component or register it under a different name.`,
-      this.components.find(c => c.name === name || c.as === as) === undefined
+      this.components.find((c) => c.name === name || c.as === as) === undefined
     );
 
     this.components.push({ name, as });

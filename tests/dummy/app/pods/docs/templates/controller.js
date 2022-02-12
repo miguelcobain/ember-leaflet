@@ -45,7 +45,7 @@ export default class TemplatesController extends Controller {
   ];
 
   get dangerZone() {
-    return this.restaurants.map(r => ({ lat: r.lat, lng: r.lng }));
+    return this.restaurants.map((r) => ({ lat: r.lat, lng: r.lng }));
   }
 
   @action

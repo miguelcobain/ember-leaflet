@@ -11,22 +11,22 @@ that provides them for you.
 Here are some free tile layer servers you can use.</a> Let's use some cool tiles
 from CartoDB and see how it looks.
 
-{{#docs-demo as |demo|}}
-  {{#demo.example name="adding-layers-tile.hbs"}}
+<DocsDemo as |demo|>
+  <demo.example @name="adding-layers-tile.hbs">
     <LeafletMap @lat={{this.lat}} @lng={{this.lng}} @zoom={{this.zoom}} as |layers|>
       <layers.tile @url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"/>
     </LeafletMap>
-  {{/demo.example}}
+  </demo.example>
 
-  {{demo.snippet "adding-layers-tile.hbs"}}
-  {{demo.snippet "container.js"}}
-{{/docs-demo}}
+  <demo.snippet @name="adding-layers-tile.hbs"/>
+  <demo.snippet @name="container.js"/>
+</DocsDemo>
 
 Neat. We have tiles, can move the map around and have the default leaflet controls.
 Not bad for three lines of code. Let's now try to add some markers in it.
 
-{{#docs-demo as |demo|}}
-  {{#demo.example name="adding-layers-markers.hbs"}}
+<DocsDemo as |demo|>
+  <demo.example @name="adding-layers-markers.hbs">
     <LeafletMap @lat={{this.lat}} @lng={{this.lng}} @zoom={{this.zoom}} as |layers|>
 
       <layers.tile @url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"/>
@@ -46,11 +46,11 @@ Not bad for three lines of code. Let's now try to add some markers in it.
       </layers.marker>
       
     </LeafletMap>
-  {{/demo.example}}
+  </demo.example>
 
-  {{demo.snippet "adding-layers-markers.hbs"}}
-  {{demo.snippet "adding-layers.js"}}
-{{/docs-demo}}
+  <demo.snippet @name="adding-layers-markers.hbs"/>
+  <demo.snippet @name="adding-layers.js"/>
+</DocsDemo>
 
 So, there are two important things to notice here:
 

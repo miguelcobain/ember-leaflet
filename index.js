@@ -63,11 +63,21 @@ module.exports = {
     // Import leaflet images
     if (!options.excludeImages) {
       let imagesDestDir = '/assets/images';
-      app.import('vendor/leaflet/images/layers-2x.png', { destDir: imagesDestDir });
-      app.import('vendor/leaflet/images/layers.png', { destDir: imagesDestDir });
-      app.import('vendor/leaflet/images/marker-icon-2x.png', { destDir: imagesDestDir });
-      app.import('vendor/leaflet/images/marker-icon.png', { destDir: imagesDestDir });
-      app.import('vendor/leaflet/images/marker-shadow.png', { destDir: imagesDestDir });
+      app.import('vendor/leaflet/images/layers-2x.png', {
+        destDir: imagesDestDir
+      });
+      app.import('vendor/leaflet/images/layers.png', {
+        destDir: imagesDestDir
+      });
+      app.import('vendor/leaflet/images/marker-icon-2x.png', {
+        destDir: imagesDestDir
+      });
+      app.import('vendor/leaflet/images/marker-icon.png', {
+        destDir: imagesDestDir
+      });
+      app.import('vendor/leaflet/images/marker-shadow.png', {
+        destDir: imagesDestDir
+      });
     }
   },
 

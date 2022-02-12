@@ -226,7 +226,7 @@ module('Integration | Component | leaflet map', function (hooks) {
   test('addon components are yielded', async function (assert) {
     this.emberLeaflet = this.owner.lookup('service:ember-leaflet');
 
-    [1, 2, 3].forEach(ix => {
+    [1, 2, 3].forEach((ix) => {
       this.owner.register(`component:leaflet-component-${ix}`, class extends LeafletMapComponent {});
 
       this.emberLeaflet.registerComponent(`leaflet-component-${ix}`, {
@@ -243,7 +243,7 @@ module('Integration | Component | leaflet map', function (hooks) {
     `);
 
     assert.strictEqual(
-      [...this.element.querySelectorAll('yielded-layer')].filter(l => l.textContent.startsWith('component-')).length,
+      [...this.element.querySelectorAll('yielded-layer')].filter((l) => l.textContent.startsWith('component-')).length,
       3
     );
   });

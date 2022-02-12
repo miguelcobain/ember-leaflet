@@ -70,7 +70,13 @@ module('Integration | Performance | ember-leaflet', function (hooks) {
     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png').addTo(map);
 
     for (let line of this.lines) {
-      L.polyline(line.location.coordinates, { color: 'blue', weight: 4, opacity: 0.8 }).bindPopup(line.code).addTo(map);
+      L.polyline(line.location.coordinates, {
+        color: 'blue',
+        weight: 4,
+        opacity: 0.8
+      })
+        .bindPopup(line.code)
+        .addTo(map);
     }
 
     let endTime = performance.now();

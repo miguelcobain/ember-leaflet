@@ -10,8 +10,8 @@ to ember-leaflet components. However, when a certain state is changed by a compo
 (say, the map's center coordinates), ember-leaflet won't update your data. Instead
 you can use an action to update the data yourself. Maximum flexibility.
 
-{{#docs-demo as |demo|}}
-{{#demo.example name="actions.hbs"}}
+<DocsDemo as |demo|>
+  <demo.example @name="actions.hbs">
 
     <p>Latitude: <Input @value={{this.lat}}/> / Longitude: <Input @value={{this.lng}}/></p>
 
@@ -19,11 +19,11 @@ you can use an action to update the data yourself. Maximum flexibility.
       <layers.tile @url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"/>
     </LeafletMap>
 
-{{/demo.example}}
+  </demo.example>
 
-{{demo.snippet "actions.hbs"}}
-{{demo.snippet "actions.js"}}
-{{/docs-demo}}
+  <demo.snippet @name="actions.hbs"/>
+  <demo.snippet @name="actions.js"/>
+</DocsDemo>
 
 Here we used the action `@onMoveend` that triggers when the map stops to move.
 In this action we update our controller variables which are bound the the inputs. Notice how

@@ -16,7 +16,10 @@ module('Unit | Initializer | leaflet assets', function (hooks) {
       initialize
     });
 
-    this.application = this.TestApplication.create({ autoboot: false, Resolver });
+    this.application = this.TestApplication.create({
+      autoboot: false,
+      Resolver
+    });
   });
 
   hooks.afterEach(function () {

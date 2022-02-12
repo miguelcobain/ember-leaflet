@@ -199,7 +199,7 @@ export default class PopupLayer extends DivOverlayLayer {
     // render the template *before* the popup is opened.
     // This way, the popup will set its dimensions according to the rendered DOM.
     let oldOnAdd = this._layer.onAdd;
-    this._layer.onAdd = map => {
+    this._layer.onAdd = (map) => {
       // we need to user `layerremove` event becase it's the only one that fires
       // *after* the popup was completely removed from the map
       map.addEventListener('layerremove', this._onLayerRemove, this);

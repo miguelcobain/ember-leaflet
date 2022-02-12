@@ -3,7 +3,7 @@
 Leaflet has many plugins and they provide very useful features for your maps.
 To use them in ember-leaflet, the community created ember addons that extend ember-leaflet
 functionality, usually using some of those Leaflet plugins under the hood. A list of those addons can be found
-in the {{#docs-link "addons"}}addons page{{/docs-link}}.
+in the <DocsLink @route="addons">addons page</DocsLink>.
 
 ## Using an addon
 
@@ -15,8 +15,8 @@ ember install ember-leaflet-marker-cluster
 
 This addon will register a new `<layers.marker-cluster>` component and you can use it like in the following example:
 
-{{#docs-demo as |demo|}}
-{{#demo.example name="marker-cluster.hbs"}}
+<DocsDemo as |demo|>
+  <demo.example @name="marker-cluster.hbs">
 
     <LeafletMap @lat={{this.lat}} @lng={{this.lng}} @zoom={{this.zoom}} as |layers|>
 
@@ -35,17 +35,17 @@ This addon will register a new `<layers.marker-cluster>` component and you can u
 
     </LeafletMap>
 
-{{/demo.example}}
+  </demo.example>
 
-{{demo.snippet "marker-cluster.hbs"}}
-{{demo.snippet "marker-cluster.js"}}
-{{/docs-demo}}
+  <demo.snippet @name="marker-cluster.hbs"/>
+  <demo.snippet @name="marker-cluster.js"/>
+</DocsDemo>
 
 ## Creating an addon
 
 ### Showing up on ember-leaflet addons page
 
-The ember-leaflet {{#docs-link "addons"}}addons page{{/docs-link}} automatically fetches npm packages that meet
+The ember-leaflet <DocsLink @route="addons">addons page</DocsLink> automatically fetches npm packages that meet
 these criteria:
 
 1. the package name must start with `ember-leaflet-`

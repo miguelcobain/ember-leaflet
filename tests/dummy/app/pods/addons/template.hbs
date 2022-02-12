@@ -1,0 +1,39 @@
+<section class="docs-container docs-pt-8 docs-md">
+
+  <h1 class="docs-md__h1">Addons</h1>
+
+  <p>Why addons for an addon?</p>
+
+  <p>
+    There is a lot of room for customization and new functionality in ember-leaflet. However, that functionality may not
+    be desirable to be included in every ember-leaflet project, or it may just be too specific for a certain scenario.
+    Leaflet plugins are good candidates for ember-leaflet addons.
+  </p>
+
+  <p>
+    This concept follows the lead of the great [ember-power-select](http://www.ember-power-select.com) and
+    [ember-cli-deploy](http://ember-cli.github.io/ember-cli-deploy/).
+  </p>
+
+  <p>
+    This addon list is auto generated from npm registry. If you made an addon and want it to show up here checkout the
+    instructions
+    <DocsLink @route="docs.addons">here</DocsLink>.
+  </p>
+
+  <aside>
+    <strong>Warning!</strong>
+    Many of the following addons might not be updated to latest ember-leaflet 5.x yet.
+  </aside>
+
+  <h3 class="docs-md__h3">Addons:</h3>
+
+  <ul>
+    {{#each this.model as |addon|}}
+      <li><a href={{addon.repo}} class="docs-md__a">{{addon.name}}</a>
+        -
+        {{addon.description}}</li>
+    {{/each}}
+  </ul>
+
+</section>

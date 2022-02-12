@@ -7,10 +7,10 @@ export default class AddonRoute extends Route {
     let data = await response.json();
 
     return data.objects
-      .filter(item => {
+      .filter((item) => {
         return item.package.name.startsWith('ember-leaflet-');
       })
-      .map(item => {
+      .map((item) => {
         return {
           name: item.package.name,
           description: item.package.description,
