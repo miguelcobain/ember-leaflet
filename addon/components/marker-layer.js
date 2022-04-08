@@ -268,10 +268,12 @@ export default class MarkerLayer extends InteractiveLayer {
   get location() {
     if (this.args.location) {
       return this.args.location;
-    } else {
+    } else if (!this.fastboot?.isFastBoot) {
       let [lat, lng] = [this.args.lat, this.args.lng];
       return this.L.latLng(lat, lng);
     }
+
+    return null;
   }
 
   createLayer() {

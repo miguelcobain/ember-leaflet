@@ -704,10 +704,12 @@ export default class LeafletMap extends BaseLayer {
   get center() {
     if (this.args.center) {
       return this.args.center;
-    } else {
+    } else if (!this.fastboot?.isFastBoot) {
       let [lat, lng] = [this.args.lat, this.args.lng];
       return this.L.latLng(lat, lng);
     }
+
+    return null;
   }
 
   // By default all layers try to register in a container layer.
