@@ -1,5 +1,9 @@
 # ember-leaflet changelog
 
+### 5.0.1
+
+- fix rendering on fastboot (fixes [#676](https://github.com/miguelcobain/ember-leaflet/issues/676))
+
 ### 5.0.0
 
 - Upgrade to glimmer components
