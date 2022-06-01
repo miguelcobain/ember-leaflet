@@ -76,6 +76,7 @@
     "webpack": "^5.68.0"
   },
   "dependencies": {
+    "@embroider/addon-shim": "1.6.0",
     "@glimmer/component": "^1.0.4",
     "@glimmer/tracking": "^1.0.4",
     "broccoli-funnel": "^3.0.8",
