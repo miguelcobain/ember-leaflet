@@ -1,0 +1,138 @@
+{
+  "name": "ember-leaflet",
+  "version": "5.1.0",
+  "description": "Easy and declarative mapping for ember.",
+  "scripts": {
+    "build": "rollup --config",
+    "lint": "npm-run-all --aggregate-output --continue-on-error --parallel \"lint:!(fix)\"",
+    "lint:fix": "npm-run-all --aggregate-output --continue-on-error --parallel lint:*:fix",
+    "lint:hbs": "ember-template-lint .",
+    "lint:hbs:fix": "ember-template-lint . --fix",
+    "lint:js": "eslint . --cache",
+    "lint:js:fix": "eslint . --fix",
+    "lint:deps": "ember dependency-lint",
+    "start": "rollup --config --watch",
+    "test": "echo 'Addon does not have tests; run tests in test-app'",
+    "prepare": "yarn build"
+  },
+  "homepage": "https://miguelcobain.github.io/ember-leaflet/",
+  "engines": {
+    "node": "12.* || 14.* || >= 16"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.18.2",
+    "@babel/plugin-proposal-class-properties": "^7.17.12",
+    "@babel/plugin-proposal-decorators": "^7.18.2",
+    "@ember/optional-features": "^2.0.0",
+    "@embroider/addon-dev": "1.6.0",
+    "@rollup/plugin-babel": "^5.3.1",
+    "babel-eslint": "^10.1.0",
+    "ember-leaflet-marker-cluster": "^1.0.1",
+    "ember-template-lint": "^4.0.0",
+    "ember-template-lint-plugin-prettier": "^4.0.0",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-ember": "^10.5.8",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-qunit": "^7.2.0",
+    "npm-run-all": "^4.1.5",
+    "rollup": "^2.75.5"
+  },
+  "dependencies": {
+    "@embroider/addon-shim": "1.6.0",
+    "@glimmer/component": "^1.0.4",
+    "@glimmer/tracking": "^1.0.4",
+    "ember-cli-htmlbars": "^6.0.1",
+    "ember-composability-tools": "^1.1.0",
+    "ember-in-element-polyfill": "^1.0.0",
+    "ember-render-helpers": "^0.2.0",
+    "fastboot-transform": "^0.1.3",
+    "leaflet": "^1.7.1",
+    "resolve": "^1.21.0"
+  },
+  "peerDependencies": {
+    "leaflet": ">=0.7"
+  },
+  "keywords": [
+    "ember-addon",
+    "leaflet",
+    "ember",
+    "ember-leaflet",
+    "mapping",
+    "maps"
+  ],
+  "repository": "https://github.com/miguelcobain/ember-leaflet",
+  "license": "MIT",
+  "author": "Miguel Andrade <jmandrade0@gmail.com>",
+  "directories": {
+    "doc": "doc",
+    "test": "tests"
+  },
+  "ember": {
+    "edition": "octane"
+  },
+  "ember-addon": {
+    "version": 2,
+    "type": "addon",
+    "main": "addon-main.js",
+    "app-js": {
+      "./components/array-path-layer.js": "./dist/_app_/components/array-path-layer.js",
+      "./components/base-layer.js": "./dist/_app_/components/base-layer.js",
+      "./components/circle-layer.js": "./dist/_app_/components/circle-layer.js",
+      "./components/circle-marker-layer.js": "./dist/_app_/components/circle-marker-layer.js",
+      "./components/div-overlay-layer.js": "./dist/_app_/components/div-overlay-layer.js",
+      "./components/geojson-layer.js": "./dist/_app_/components/geojson-layer.js",
+      "./components/image-layer.js": "./dist/_app_/components/image-layer.js",
+      "./components/interactive-layer.js": "./dist/_app_/components/interactive-layer.js",
+      "./components/leaflet-map.js": "./dist/_app_/components/leaflet-map.js",
+      "./components/marker-layer.js": "./dist/_app_/components/marker-layer.js",
+      "./components/path-layer.js": "./dist/_app_/components/path-layer.js",
+      "./components/point-path-layer.js": "./dist/_app_/components/point-path-layer.js",
+      "./components/polygon-layer.js": "./dist/_app_/components/polygon-layer.js",
+      "./components/polyline-layer.js": "./dist/_app_/components/polyline-layer.js",
+      "./components/popup-layer.js": "./dist/_app_/components/popup-layer.js",
+      "./components/rectangle-layer.js": "./dist/_app_/components/rectangle-layer.js",
+      "./components/tile-layer.js": "./dist/_app_/components/tile-layer.js",
+      "./components/tooltip-layer.js": "./dist/_app_/components/tooltip-layer.js",
+      "./components/video-layer.js": "./dist/_app_/components/video-layer.js",
+      "./components/wms-tile-layer.js": "./dist/_app_/components/wms-tile-layer.js",
+      "./helpers/div-icon.js": "./dist/_app_/helpers/div-icon.js",
+      "./helpers/ember-leaflet-assign-to.js": "./dist/_app_/helpers/ember-leaflet-assign-to.js",
+      "./helpers/ember-leaflet-eq.js": "./dist/_app_/helpers/ember-leaflet-eq.js",
+      "./helpers/ember-leaflet-hash.js": "./dist/_app_/helpers/ember-leaflet-hash.js",
+      "./helpers/ember-leaflet-or.js": "./dist/_app_/helpers/ember-leaflet-or.js",
+      "./helpers/icon.js": "./dist/_app_/helpers/icon.js",
+      "./helpers/lat-lng-bounds.js": "./dist/_app_/helpers/lat-lng-bounds.js",
+      "./helpers/point.js": "./dist/_app_/helpers/point.js",
+      "./initializers/leaflet-assets.js": "./dist/_app_/initializers/leaflet-assets.js",
+      "./services/ember-leaflet.js": "./dist/_app_/services/ember-leaflet.js"
+    }
+  },
+  "files": [
+    "addon-main.js",
+    "dist"
+  ],
+  "exports": {
+    "./*": "./dist/*",
+    "./addon-main.js": "./addon-main.js"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,scss,json,yaml,yml,md}": [
+      "prettier --write",
+      "git add"
+    ],
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "volta": {
+    "extends": "../../package.json"
+  }
+}

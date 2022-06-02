@@ -1,0 +1,118 @@
+Arguments: 
+  /Users/moacir/.volta/tools/image/node/16.15.0/bin/node /Users/moacir/.volta/tools/image/yarn/1.22.18/bin/yarn.js add -D @embroider/addon-dev rollup @babel/core @rollup/plugin-babel @babel/plugin-proposal-decorators @babel/plugin-proposal-class-properties
+
+PATH: 
+  /Users/moacir/.volta/tools/image/yarn/1.22.18/bin:/Users/moacir/.volta/tools/image/node/16.15.0/bin:/Users/moacir/.rvm/gems/ruby-2.6.5/bin:/Users/moacir/.rvm/gems/ruby-2.6.5@global/bin:/Users/moacir/.rvm/rubies/ruby-2.6.5/bin:/usr/local/bin:/Users/moacir/.volta/bin:/Users/moacir/.cargo/bin:/Users/moacir/opt/anaconda3/bin:/Users/moacir/opt/anaconda3/condabin:/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin:/Applications/Postgres.app/Contents/Versions/latest/bin:/Users/moacir/d-preparation/scripts:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/Users/moacir/bin:/Library/TeX/texbin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Applications/Visual Studio Code - Insiders.app/Contents/Resources/app/bin:/Users/moacir/.rvm/bin
+
+Yarn version: 
+  1.22.18
+
+Node version: 
+  16.15.0
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: EEXIST: file already exists, mkdir '/Users/moacir/Projects/ember-/leaflet/node_modules/ember-qunit/node_modules/@webassemblyjs'
+
+npm manifest: 
+  {
+    "name": "ember-leaflet",
+    "version": "5.1.0",
+    "description": "Easy and declarative mapping for ember.",
+    "scripts": {
+      "build": "ember build --environment=production",
+      "deploy": "ember deploy production",
+      "lint": "npm-run-all --aggregate-output --continue-on-error --parallel \"lint:!(fix)\"",
+      "lint:fix": "npm-run-all --aggregate-output --continue-on-error --parallel lint:*:fix",
+      "lint:hbs": "ember-template-lint .",
+      "lint:hbs:fix": "ember-template-lint . --fix",
+      "lint:js": "eslint . --cache",
+      "lint:js:fix": "eslint . --fix",
+      "lint:deps": "ember dependency-lint",
+      "start": "ember serve",
+      "test": "npm-run-all lint test:*",
+      "test:ember": "ember test",
+      "test:ember-compatibility": "ember try:each",
+      "eslint-config-check": "eslint --print-config . | eslint-config-prettier-check",
+      "prettier-all": "prettier --write \"**/*.{js,scss,json,yaml,yml}\"",
+      "eslint-all": "eslint --fix \"**/*.js\"",
+      "format-all": "npm run prettier-all && npm run eslint-all"
+    },
+    "homepage": "https://miguelcobain.github.io/ember-leaflet/",
+    "engines": {
+      "node": "12.* || 14.* || >= 16"
+    },
+    "devDependencies": {
+      "@ember/optional-features": "^2.0.0",
+      "babel-eslint": "^10.1.0",
+      "ember-leaflet-marker-cluster": "^1.0.1",
+      "ember-template-lint": "^4.0.0",
+      "ember-template-lint-plugin-prettier": "^4.0.0",
+      "eslint": "^7.32.0",
+      "eslint-config-prettier": "^8.3.0",
+      "eslint-plugin-ember": "^10.5.8",
+      "eslint-plugin-node": "^11.1.0",
+      "eslint-plugin-prettier": "^4.0.0",
+      "eslint-plugin-qunit": "^7.2.0",
+      "leaflet": "^1.7.1",
+      "npm-run-all": "^4.1.5"
+    },
+    "dependencies": {
+      "@embroider/addon-shim": "1.6.0",
+      "@glimmer/component": "^1.0.4",
+      "@glimmer/tracking": "^1.0.4",
+      "ember-composability-tools": "^1.1.0",
+      "ember-in-element-polyfill": "^1.0.0",
+      "ember-render-helpers": "^0.2.0",
+      "fastboot-transform": "^0.1.3",
+      "resolve": "^1.21.0"
+    },
+    "peerDependencies": {
+      "leaflet": ">=0.7"
+    },
+    "keywords": [
+      "ember-addon",
+      "leaflet",
+      "ember",
+      "ember-leaflet",
+      "mapping",
+      "maps"
+    ],
+    "repository": "https://github.com/miguelcobain/ember-leaflet",
+    "license": "MIT",
+    "author": "Miguel Andrade <jmandrade0@gmail.com>",
+    "directories": {
+      "doc": "doc",
+      "test": "tests"
+    },
+    "ember": {
+      "edition": "octane"
+    },
+    "ember-addon": {
+      "configPath": "tests/dummy/config",
+      "demoURL": "https://miguelcobain.github.io/ember-leaflet/"
+    },
+    "husky": {
+      "hooks": {
+        "pre-commit": "lint-staged"
+      }
+    },
+    "lint-staged": {
+      "*.{js,scss,json,yaml,yml,md}": [
+        "prettier --write",
+        "git add"
+      ],
+      "*.js": [
+        "eslint --fix",
+        "git add"
+      ]
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
