@@ -4,7 +4,7 @@ import { inject as service } from '@ember/service';
 import Component from '@glimmer/component';
 import { scheduleOnce } from '@ember/runloop';
 import { classify } from '@ember/string';
-/* global L */
+import L from 'leaflet';
 
 const leaf = typeof L === 'undefined' ? {} : L;
 
