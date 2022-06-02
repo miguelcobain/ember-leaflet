@@ -11,7 +11,7 @@ export default {
   plugins: [
     addon.publicEntrypoints(['components/**/*.js', 'services/**/*.js', 'helpers/**/*.js', 'initializers/**/*.js']),
     addon.appReexports(['components/**/*.js', 'services/**/*.js', 'helpers/**/*.js', 'initializers/**/*.js']),
-    babel({ babelHelpers: 'bundled' }),
+    babel.babel({ babelHelpers: 'bundled' }),
     addon.hbs(),
     addon.keepAssets(['**/*.css']),
     addon.clean()
