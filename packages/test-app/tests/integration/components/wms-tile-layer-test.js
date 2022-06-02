@@ -1,8 +1,8 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
-import hbs from 'htmlbars-inline-precompile';
-import WmsTileLayerComponent from 'ember-leaflet/components/wms-tile-layer';
+import { hbs } from 'ember-cli-htmlbars';
+import WmsTileLayerComponent from 'test-app/components/wms-tile-layer';
 import locations from '../../helpers/locations';
 
 let tile;

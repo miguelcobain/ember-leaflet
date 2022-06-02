@@ -2,7 +2,7 @@ import { A } from '@ember/array';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, settled } from '@ember/test-helpers';
-import hbs from 'htmlbars-inline-precompile';
+import { hbs } from 'ember-cli-htmlbars';
 import PolylineLayerComponent from 'ember-leaflet/components/polyline-layer';
 import locations from '../../helpers/locations';
 
