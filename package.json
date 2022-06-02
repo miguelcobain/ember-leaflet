@@ -1,0 +1,38 @@
+{
+  "version": "5.1.0",
+  "private": true,
+  "scripts": {
+    "prepare": "yarn workspace ember-leaflet run prepare",
+    "start": "npm-run-all --parallel start:*",
+    "start:addon": "yarn workspace ember-leaflet run start",
+    "start:test-app": "yarn workspace test-app run start",
+    "lint": "npm-run-all --aggregate-output --continue-on-error --parallel lint:*",
+    "lint:addon": "yarn workspace ember-leaflet run lint",
+    "lint:test-app": "yarn workspace test-app run lint",
+    "lint:fix": "npm-run-all --aggregate-output --continue-on-error --parallel lint:*:fix",
+    "lint:fix:addon": "yarn workspace ember-leaflet run lint:fix",
+    "lint:fix:test-app": "yarn workspace test-app run lint:fix",
+    "test": "npm-run-all --aggregate-output --continue-on-error --parallel test:*",
+    "test:addon": "yarn workspace ember-leaflet run test",
+    "test:test-app": "yarn workspace test-app run test"
+  },
+  "homepage": "https://miguelcobain.github.io/ember-leaflet/",
+  "devDependencies": {
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.5.1"
+  },
+  "dependencies": {
+    "leaflet": "^1.7.1"
+  },
+  "repository": "https://github.com/miguelcobain/ember-leaflet",
+  "license": "MIT",
+  "author": "Miguel Andrade <jmandrade0@gmail.com>",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "workspaces": [
+    "packages/*"
+  ]
+}

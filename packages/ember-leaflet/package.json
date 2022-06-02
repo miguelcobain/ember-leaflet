@@ -3,8 +3,7 @@
   "version": "5.1.0",
   "description": "Easy and declarative mapping for ember.",
   "scripts": {
-    "build": "ember build --environment=production",
-    "deploy": "ember deploy production",
+    "build": "rollup --config",
     "lint": "npm-run-all --aggregate-output --continue-on-error --parallel \"lint:!(fix)\"",
     "lint:fix": "npm-run-all --aggregate-output --continue-on-error --parallel lint:*:fix",
     "lint:hbs": "ember-template-lint .",
@@ -12,14 +11,9 @@
     "lint:js": "eslint . --cache",
     "lint:js:fix": "eslint . --fix",
     "lint:deps": "ember dependency-lint",
-    "start": "ember serve",
-    "test": "npm-run-all lint test:*",
-    "test:ember": "ember test",
-    "test:ember-compatibility": "ember try:each",
-    "eslint-config-check": "eslint --print-config . | eslint-config-prettier-check",
-    "prettier-all": "prettier --write \"**/*.{js,scss,json,yaml,yml}\"",
-    "eslint-all": "eslint --fix \"**/*.js\"",
-    "format-all": "npm run prettier-all && npm run eslint-all"
+    "start": "rollup --config --watch",
+    "test": "echo 'Addon does not have tests; run tests in test-app'",
+    "prepare": "yarn build"
   },
   "homepage": "https://miguelcobain.github.io/ember-leaflet/",
   "engines": {
@@ -72,8 +66,17 @@
     "edition": "octane"
   },
   "ember-addon": {
-    "configPath": "tests/dummy/config",
-    "demoURL": "https://miguelcobain.github.io/ember-leaflet/"
+    "version": 2,
+    "type": "addon",
+    "main": "addon-main.js"
+  },
+  "files": [
+    "addon-main.js",
+    "dist"
+  ],
+  "exports": {
+    "./*": "./dist/*",
+    "./addon-main.js": "./addon-main.js"
   },
   "husky": {
     "hooks": {
