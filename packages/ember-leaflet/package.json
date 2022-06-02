@@ -130,5 +130,8 @@
       "eslint --fix",
       "git add"
     ]
+  },
+  "volta": {
+    "extends": "../../package.json"
   }
 }
