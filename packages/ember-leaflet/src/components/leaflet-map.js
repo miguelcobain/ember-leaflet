@@ -1,6 +1,6 @@
 import { assert } from '@ember/debug';
 import { inject as service } from '@ember/service';
-import BaseLayer from 'ember-leaflet/components/base-layer';
+import BaseLayer from './base-layer';
 import { action } from '@ember/object';
 
 /**

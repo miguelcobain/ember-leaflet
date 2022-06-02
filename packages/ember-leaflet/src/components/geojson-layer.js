@@ -1,5 +1,5 @@
 import { action } from '@ember/object';
-import BaseLayer from 'ember-leaflet/components/base-layer';
+import BaseLayer from './base-layer';
 
 /**
  * Represents a GeoJSON object or an array of GeoJSON objects. Allows you to render GeoJSON

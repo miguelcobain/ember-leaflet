@@ -1,4 +1,4 @@
-import PathLayer from 'ember-leaflet/components/path-layer';
+import PathLayer from './path-layer';
 
 /**
  * An abstract class that contains options and constants shared between point-based path layers (Circle, CircleMarker). Do not use it directly.

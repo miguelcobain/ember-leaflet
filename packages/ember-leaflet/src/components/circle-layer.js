@@ -1,4 +1,4 @@
-import PointPathLayer from 'ember-leaflet/components/point-path-layer';
+import PointPathLayer from './point-path-layer';
 
 /**
  * A class for drawing circle overlays on a map.

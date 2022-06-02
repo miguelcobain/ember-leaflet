@@ -1,4 +1,4 @@
-import BaseLayer from 'ember-leaflet/components/base-layer';
+import BaseLayer from './base-layer';
 
 /**
  * Used to load and display tile layers on the map. Note that most tile servers require attribution.

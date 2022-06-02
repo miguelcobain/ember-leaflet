@@ -1,4 +1,4 @@
-import BaseLayer from 'ember-leaflet/components/base-layer';
+import BaseLayer from './base-layer';
 
 /**
  * Some Layers can be made interactive - when the user interacts with such a layer,

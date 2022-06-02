@@ -1,4 +1,4 @@
-import PathLayer from 'ember-leaflet/components/path-layer';
+import PathLayer from './path-layer';
 
 /**
  * A class that extends `PathLayer` with a `@locations` argument.

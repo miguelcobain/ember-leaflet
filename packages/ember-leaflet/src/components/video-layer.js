@@ -1,4 +1,4 @@
-import ImageLayer from 'ember-leaflet/components/image-layer';
+import ImageLayer from './image-layer';
 
 /**
  * Used to load and display a video player over specific bounds of the map.

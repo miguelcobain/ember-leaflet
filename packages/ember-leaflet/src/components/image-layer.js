@@ -1,4 +1,4 @@
-import InteractiveLayer from 'ember-leaflet/components/interactive-layer';
+import InteractiveLayer from './interactive-layer';
 
 /**
  * Used to load and display a single image over specific bounds of the map.

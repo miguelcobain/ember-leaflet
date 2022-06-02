@@ -1,4 +1,4 @@
-import InteractiveLayer from 'ember-leaflet/components/interactive-layer';
+import InteractiveLayer from './interactive-layer';
 
 /**
  * An abstract class that contains options and constants shared between vector overlays (Polygon, Polyline, Circle). Do not use it directly.

@@ -1,4 +1,4 @@
-import PolylineLayer from 'ember-leaflet/components/polyline-layer';
+import PolylineLayer from './polyline-layer';
 
 /**
  * A class for drawing polygon overlays on a map. Extends Polyline.

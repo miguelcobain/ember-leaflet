@@ -1,4 +1,4 @@
-import PointPathLayer from 'ember-leaflet/components/point-path-layer';
+import PointPathLayer from './point-path-layer';
 
 /**
  * A circle of a fixed size with radius specified in pixels.

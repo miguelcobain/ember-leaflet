@@ -1,4 +1,4 @@
-import TileLayer from 'ember-leaflet/components/tile-layer';
+import TileLayer from './tile-layer';
 
 /**
  * Used to display WMS services as tile layers on the map.

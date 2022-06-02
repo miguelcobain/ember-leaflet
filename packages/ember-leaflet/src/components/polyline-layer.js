@@ -1,4 +1,4 @@
-import ArrayPathLayer from 'ember-leaflet/components/array-path-layer';
+import ArrayPathLayer from './array-path-layer';
 
 /**
  * A class for drawing polyline overlays on a map.

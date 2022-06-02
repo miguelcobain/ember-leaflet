@@ -1,4 +1,4 @@
-import InteractiveLayer from 'ember-leaflet/components/interactive-layer';
+import InteractiveLayer from './interactive-layer';
 
 /**
  * Marker is used to display clickable/draggable icons on the map. Extends InteractiveLayer.

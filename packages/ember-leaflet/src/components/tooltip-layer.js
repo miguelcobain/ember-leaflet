@@ -1,6 +1,6 @@
 import { next } from '@ember/runloop';
 
-import DivOverlayLayer from 'ember-leaflet/components/div-overlay-layer';
+import DivOverlayLayer from './div-overlay-layer';
 
 /**
  * Used to display small texts on top of map layers.

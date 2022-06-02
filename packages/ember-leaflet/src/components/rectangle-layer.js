@@ -1,4 +1,4 @@
-import PolygonLayer from 'ember-leaflet/components/polygon-layer';
+import PolygonLayer from './polygon-layer';
 
 /**
  * A class for drawing rectangle overlays on a map.

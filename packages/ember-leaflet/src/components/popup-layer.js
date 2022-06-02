@@ -1,7 +1,7 @@
 import { action } from '@ember/object';
 import { later, cancel, next } from '@ember/runloop';
 
-import DivOverlayLayer from 'ember-leaflet/components/div-overlay-layer';
+import DivOverlayLayer from './div-overlay-layer';
 
 /**
  * Used to open popups in certain places of the map.
