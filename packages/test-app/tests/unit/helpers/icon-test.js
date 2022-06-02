@@ -1,4 +1,4 @@
-import { icon } from 'dummy/helpers/icon';
+import { icon } from 'ember-leaflet/helpers/icon';
 import { module, test } from 'qunit';
 /* global L */
 

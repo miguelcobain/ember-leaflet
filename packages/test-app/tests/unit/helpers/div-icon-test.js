@@ -1,4 +1,4 @@
-import { divIcon } from 'dummy/helpers/div-icon';
+import { divIcon } from 'ember-leaflet/helpers/div-icon';
 import { module, test } from 'qunit';
 /* global L */
 

@@ -1,4 +1,4 @@
-import { latLngBounds } from 'dummy/helpers/lat-lng-bounds';
+import { latLngBounds } from 'ember-leaflet/helpers/lat-lng-bounds';
 import { module, test } from 'qunit';
 /* global L */
 

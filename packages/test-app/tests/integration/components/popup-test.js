@@ -57,7 +57,11 @@ module('Integration | Component | popup layer', function (hooks) {
       </LeafletMap>
     `);
 
-    assert.strictEqual(marker._layer._popup._map, undefined, 'popup not added until opened');
+    assert.strictEqual(
+      marker._layer._popup._map,
+      undefined,
+      'popup not added until opened'
+    );
 
     run(() => {
       marker._layer.fire('click', { latlng: locations.nyc });
@@ -66,7 +70,9 @@ module('Integration | Component | popup layer', function (hooks) {
     await settled();
 
     assert.ok(!!marker._layer._popup._map, 'popup opened');
-    assert.dom(marker._layer._popup._contentNode).hasText('Popup content', 'popup content set');
+    assert
+      .dom(marker._layer._popup._contentNode)
+      .hasText('Popup content', 'popup content set');
   });
 
   test("popup content isn't rendered until it is opened (lazy popups)", async function (assert) {
@@ -92,7 +98,11 @@ module('Integration | Component | popup layer', function (hooks) {
       </LeafletMap>
     `);
 
-    assert.strictEqual(marker._layer._popup._map, undefined, 'popup not added until opened');
+    assert.strictEqual(
+      marker._layer._popup._map,
+      undefined,
+      'popup not added until opened'
+    );
 
     assert.notOk(didRun, 'computed property did not run');
 
@@ -121,7 +131,9 @@ module('Integration | Component | popup layer', function (hooks) {
     `);
 
     assert.ok(!!marker._layer._popup._map, 'popup starts open');
-    assert.dom(marker._layer._popup._contentNode).hasText('Popup content', 'popup content set');
+    assert
+      .dom(marker._layer._popup._contentNode)
+      .hasText('Popup content', 'popup content set');
 
     run(() => {
       this.set('popupOpen', false);
@@ -136,7 +148,9 @@ module('Integration | Component | popup layer', function (hooks) {
     await settled();
 
     assert.ok(!!marker._layer._popup._map, 'popup opens again');
-    assert.dom(marker._layer._popup._contentNode).hasText('Popup content', 'popup content set');
+    assert
+      .dom(marker._layer._popup._contentNode)
+      .hasText('Popup content', 'popup content set');
   });
 
   test('popup closes when layer is destroyed', async function (assert) {
@@ -157,7 +171,9 @@ module('Integration | Component | popup layer', function (hooks) {
 
     let map = marker._layer._map;
     assert.ok(!!map._popup, 'popup starts open');
-    assert.dom(map._popup._contentNode).hasText('Popup content', 'popup content set');
+    assert
+      .dom(map._popup._contentNode)
+      .hasText('Popup content', 'popup content set');
 
     this.set('isVisible', false);
 
@@ -201,7 +217,11 @@ module('Integration | Component | popup layer', function (hooks) {
       </LeafletMap>
     `);
 
-    assert.strictEqual(marker._layer._popup.options.className, 'foo', 'popup class set');
+    assert.strictEqual(
+      marker._layer._popup.options.className,
+      'foo',
+      'popup class set'
+    );
   });
 
   test('popup options within path layers', async function (assert) {
@@ -217,10 +237,16 @@ module('Integration | Component | popup layer', function (hooks) {
       </LeafletMap>
     `);
 
-    assert.strictEqual(arrayPath._layer._popup.options.className, 'exists', 'popup class set on array-path');
+    assert.strictEqual(
+      arrayPath._layer._popup.options.className,
+      'exists',
+      'popup class set on array-path'
+    );
   });
 
-  (isLeaflet07(L) ? skip : test)('popup is compatible with markerClusterLayer', async function (assert) {
+  (isLeaflet07(L)
+    ? skip
+    : test)('popup is compatible with markerClusterLayer', async function (assert) {
     this.set('markerCenter', locations.nyc);
 
     await render(hbs`

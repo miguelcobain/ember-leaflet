@@ -40,7 +40,11 @@ module('Integration | Component | array path layer', function (hooks) {
     assert.locationsEqual(layerLatLngs[1], locations.nyc);
     assert.locationsEqual(layerLatLngs[2], locations.sf);
 
-    this.set('locations', [locations.paris, locations.london, locations.newdelhi]);
+    this.set('locations', [
+      locations.paris,
+      locations.london,
+      locations.newdelhi
+    ]);
     await settled();
 
     layerLatLngs = arrayPath._layer.getLatLngs();

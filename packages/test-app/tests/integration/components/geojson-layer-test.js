@@ -50,7 +50,9 @@ module('Integration | Component | geojson layer', function (hooks) {
     assert.dom('path').hasAttribute('d');
 
     // renders point as marker:
-    let markers = geoJSONLayer._layer.getLayers().filter((layer) => layer instanceof L.Marker);
+    let markers = geoJSONLayer._layer
+      .getLayers()
+      .filter((layer) => layer instanceof L.Marker);
 
     assert.strictEqual(markers.length, 1);
     assert.locationsEqual(markers[0].getLatLng(), locations.chicago);
@@ -72,7 +74,9 @@ module('Integration | Component | geojson layer', function (hooks) {
 
     assert.dom('path').doesNotExist();
 
-    let markers = geoJSONLayer._layer.getLayers().filter((layer) => layer instanceof L.Marker);
+    let markers = geoJSONLayer._layer
+      .getLayers()
+      .filter((layer) => layer instanceof L.Marker);
     assert.strictEqual(markers.length, 0);
   });
 

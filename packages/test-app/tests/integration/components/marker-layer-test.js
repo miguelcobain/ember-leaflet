@@ -137,7 +137,10 @@ module('Integration | Component | marker layer', function (hooks) {
     this.set('currentIcon', icon2);
     await settled();
 
-    assert.false(marker._layer.dragging.enabled(), 'marker dragging is still disabled');
+    assert.false(
+      marker._layer.dragging.enabled(),
+      'marker dragging is still disabled'
+    );
   });
 
   if (hasEmberVersion(2, 3)) {
@@ -171,7 +174,10 @@ module('Integration | Component | marker layer', function (hooks) {
       </LeafletMap>
     `);
 
-    assert.strictEqual(marker._layer.options.icon.options.iconUrl, 'custom-url.png');
+    assert.strictEqual(
+      marker._layer.options.icon.options.iconUrl,
+      'custom-url.png'
+    );
     assert.strictEqual(marker._layer.options.icon.options.iconSize.x, 12);
     assert.strictEqual(marker._layer.options.icon.options.iconSize.y, 12);
 
@@ -180,7 +186,10 @@ module('Integration | Component | marker layer', function (hooks) {
     this.set('currentSize', 21);
     await settled();
 
-    assert.strictEqual(marker._layer.options.icon.options.iconUrl, 'another-custom-url.png');
+    assert.strictEqual(
+      marker._layer.options.icon.options.iconUrl,
+      'another-custom-url.png'
+    );
     assert.strictEqual(marker._layer.options.icon.options.iconSize.x, 21);
     assert.strictEqual(marker._layer.options.icon.options.iconSize.y, 21);
   });
@@ -201,7 +210,10 @@ module('Integration | Component | marker layer', function (hooks) {
       </LeafletMap>
     `);
 
-    assert.strictEqual(marker._layer.options.icon.options.html, '<h1>First title!</h1>');
+    assert.strictEqual(
+      marker._layer.options.icon.options.html,
+      '<h1>First title!</h1>'
+    );
     assert.strictEqual(marker._layer.options.icon.options.iconSize.x, 12);
     assert.strictEqual(marker._layer.options.icon.options.iconSize.y, 12);
 
@@ -210,7 +222,10 @@ module('Integration | Component | marker layer', function (hooks) {
     this.set('currentSize', 21);
     await settled();
 
-    assert.strictEqual(marker._layer.options.icon.options.html, '<h1>Second title!</h1>');
+    assert.strictEqual(
+      marker._layer.options.icon.options.html,
+      '<h1>Second title!</h1>'
+    );
     assert.strictEqual(marker._layer.options.icon.options.iconSize.x, 21);
     assert.strictEqual(marker._layer.options.icon.options.iconSize.y, 21);
   });

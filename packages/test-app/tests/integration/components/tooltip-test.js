@@ -58,7 +58,11 @@ if (!isLeaflet07(L)) {
         </LeafletMap>
       `);
 
-      assert.strictEqual(marker._layer._tooltip._map, undefined, 'tooltip not added until opened');
+      assert.strictEqual(
+        marker._layer._tooltip._map,
+        undefined,
+        'tooltip not added until opened'
+      );
 
       run(() => {
         marker._layer.fire('mouseover', { latlng: locations.nyc });
@@ -67,7 +71,9 @@ if (!isLeaflet07(L)) {
       await settled();
 
       assert.ok(!!marker._layer._tooltip._map, 'tooltip opened');
-      assert.dom(marker._layer._tooltip._contentNode).hasText('Tooltip content', 'tooltip content set');
+      assert
+        .dom(marker._layer._tooltip._contentNode)
+        .hasText('Tooltip content', 'tooltip content set');
     });
 
     test('tooltip works with permanent=true', async function (assert) {
@@ -84,7 +90,9 @@ if (!isLeaflet07(L)) {
       `);
 
       assert.ok(!!marker._layer._tooltip._map, 'tooltip opened');
-      assert.dom(marker._layer._tooltip._contentNode).hasText('Tooltip content', 'tooltip content set');
+      assert
+        .dom(marker._layer._tooltip._contentNode)
+        .hasText('Tooltip content', 'tooltip content set');
     });
 
     test("tooltip content isn't rendered until it is opened (lazy tooltips)", async function (assert) {
@@ -110,7 +118,11 @@ if (!isLeaflet07(L)) {
         </LeafletMap>
       `);
 
-      assert.strictEqual(marker._layer._tooltip._map, undefined, 'tooltip not added until opened');
+      assert.strictEqual(
+        marker._layer._tooltip._map,
+        undefined,
+        'tooltip not added until opened'
+      );
 
       assert.notOk(didRun, 'computed property did not run');
 
@@ -148,7 +160,9 @@ if (!isLeaflet07(L)) {
 
       let tooltip = marker._layer._tooltip;
       assert.ok(!!tooltip._map, 'tooltip opened');
-      assert.dom(tooltip._contentNode).hasText('Tooltip content', 'tooltip content set');
+      assert
+        .dom(tooltip._contentNode)
+        .hasText('Tooltip content', 'tooltip content set');
 
       this.set('isVisible', false);
 
@@ -167,11 +181,18 @@ if (!isLeaflet07(L)) {
         </LeafletMap>
       `);
 
-      assert.strictEqual(marker._layer._tooltip.options.className, 'foo', 'tooltip class set');
+      assert.strictEqual(
+        marker._layer._tooltip.options.className,
+        'foo',
+        'tooltip class set'
+      );
     });
 
     test('tooltip options within path layers', async function (assert) {
-      this.set('locations', A([locations.chicago, locations.nyc, locations.sf]));
+      this.set(
+        'locations',
+        A([locations.chicago, locations.nyc, locations.sf])
+      );
 
       await render(hbs`
         <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
@@ -183,7 +204,11 @@ if (!isLeaflet07(L)) {
         </LeafletMap>
       `);
 
-      assert.strictEqual(arrayPath._layer._tooltip.options.className, 'exists', 'tooltip class set on array-path');
+      assert.strictEqual(
+        arrayPath._layer._tooltip.options.className,
+        'exists',
+        'tooltip class set on array-path'
+      );
     });
   });
 }

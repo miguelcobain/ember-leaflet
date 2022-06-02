@@ -67,7 +67,9 @@ module('Integration | Performance | ember-leaflet', function (hooks) {
 
     let map = L.map(this.element).fitBounds(this.bounds);
 
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png').addTo(map);
+    L.tileLayer(
+      'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png'
+    ).addTo(map);
 
     for (let line of this.lines) {
       L.polyline(line.location.coordinates, {

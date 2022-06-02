@@ -7,6 +7,13 @@ export default {
   london: L.latLng(51.511214, -0.119824),
   newdelhi: L.latLng(28.635308, 77.22496),
   bounds() {
-    return [this.nyc, this.sf, this.chicago, this.paris, this.london, this.newdelhi];
+    return [
+      this.nyc,
+      this.sf,
+      this.chicago,
+      this.paris,
+      this.london,
+      this.newdelhi
+    ];
   }
 };

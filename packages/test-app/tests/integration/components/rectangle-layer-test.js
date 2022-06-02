@@ -35,15 +35,24 @@ module('Integration | Component | rectangle layer', function (hooks) {
     `);
 
     let layerLatLngs = rectangle._layer.getLatLngs(); //returns four corners
-    assert.locationsEqual(layerLatLngs[0][1] || layerLatLngs[1], locations.chicago); //top left
+    assert.locationsEqual(
+      layerLatLngs[0][1] || layerLatLngs[1],
+      locations.chicago
+    ); //top left
     assert.locationsEqual(layerLatLngs[0][3] || layerLatLngs[3], locations.nyc); //bottom right
 
     this.set('locations', [locations.paris, locations.london]);
     await settled();
 
     layerLatLngs = rectangle._layer.getLatLngs(); //returns two corners
-    assert.locationsEqual(layerLatLngs[0][0] || layerLatLngs[0], locations.paris); //top left
-    assert.locationsEqual(layerLatLngs[0][1] || layerLatLngs[1], locations.london); //bottom right
+    assert.locationsEqual(
+      layerLatLngs[0][0] || layerLatLngs[0],
+      locations.paris
+    ); //top left
+    assert.locationsEqual(
+      layerLatLngs[0][1] || layerLatLngs[1],
+      locations.london
+    ); //bottom right
   });
 
   test('lat/lng changes propagate to the rectangle layer', async function (assert) {
@@ -68,7 +77,10 @@ module('Integration | Component | rectangle layer', function (hooks) {
 
     let layerLatLngs = rectangle._layer.getLatLngs(); //returns 4 corners
     assert.locationsEqual(layerLatLngs[0][3] || layerLatLngs[3], locations.nyc); //bottom right
-    assert.locationsEqual(layerLatLngs[0][1] || layerLatLngs[1], locations.chicago); //top left
+    assert.locationsEqual(
+      layerLatLngs[0][1] || layerLatLngs[1],
+      locations.chicago
+    ); //top left
 
     this.setProperties({
       lat1: locations.paris.lat,
@@ -84,7 +96,13 @@ module('Integration | Component | rectangle layer', function (hooks) {
     await settled();
 
     layerLatLngs = rectangle._layer.getLatLngs(); //returns only two corners
-    assert.locationsEqual(layerLatLngs[0][0] || layerLatLngs[0], locations.paris); //top left
-    assert.locationsEqual(layerLatLngs[0][1] || layerLatLngs[1], locations.london); //bottom right
+    assert.locationsEqual(
+      layerLatLngs[0][0] || layerLatLngs[0],
+      locations.paris
+    ); //top left
+    assert.locationsEqual(
+      layerLatLngs[0][1] || layerLatLngs[1],
+      locations.london
+    ); //bottom right
   });
 });

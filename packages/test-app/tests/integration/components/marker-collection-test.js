@@ -105,7 +105,11 @@ module('Integration | Component | marker layer collection', function (hooks) {
     assert.strictEqual(createLayersCount, 4);
     assert.strictEqual(destroyLayersCount, 0);
 
-    assert.strictEqual(markers[2]._layer._popup._map, undefined, 'popup not added until opened');
+    assert.strictEqual(
+      markers[2]._layer._popup._map,
+      undefined,
+      'popup not added until opened'
+    );
 
     run(() => {
       markers[2]._layer.fire('click', { latlng: locations.nyc });
@@ -114,7 +118,9 @@ module('Integration | Component | marker layer collection', function (hooks) {
     await settled();
 
     assert.ok(!!markers[2]._layer._popup._map, 'marker added to map');
-    assert.dom(markers[2]._layer._popup._contentNode).hasText('Popup content', 'popup content set');
+    assert
+      .dom(markers[2]._layer._popup._contentNode)
+      .hasText('Popup content', 'popup content set');
 
     this.set('markers', [restaurant1, restaurant2, restaurant3]);
 
@@ -123,6 +129,8 @@ module('Integration | Component | marker layer collection', function (hooks) {
     assert.strictEqual(destroyLayersCount, 1);
 
     assert.ok(!!markers[2]._layer._popup._map, 'marker added to map');
-    assert.dom(markers[2]._layer._popup._contentNode).hasText('Popup content', 'popup content set');
+    assert
+      .dom(markers[2]._layer._popup._contentNode)
+      .hasText('Popup content', 'popup content set');
   });
 });

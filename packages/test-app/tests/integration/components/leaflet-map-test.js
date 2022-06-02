@@ -76,7 +76,10 @@ module('Integration | Component | leaflet map', function (hooks) {
       <LeafletMap @bounds={{this.bounds}} @fitBoundsOptions={{this.fitBoundsOptions}}/>
     `);
 
-    assert.boundsContain(map._layer.getBounds(), [locations.nyc, locations.chicago]);
+    assert.boundsContain(map._layer.getBounds(), [
+      locations.nyc,
+      locations.chicago
+    ]);
 
     this.set('bounds', [locations.nyc, locations.sf]);
     await settled();
@@ -227,7 +230,10 @@ module('Integration | Component | leaflet map', function (hooks) {
     this.emberLeaflet = this.owner.lookup('service:ember-leaflet');
 
     [1, 2, 3].forEach((ix) => {
-      this.owner.register(`component:leaflet-component-${ix}`, class extends LeafletMapComponent {});
+      this.owner.register(
+        `component:leaflet-component-${ix}`,
+        class extends LeafletMapComponent {}
+      );
 
       this.emberLeaflet.registerComponent(`leaflet-component-${ix}`, {
         as: `component-${ix}`
@@ -243,7 +249,9 @@ module('Integration | Component | leaflet map', function (hooks) {
     `);
 
     assert.strictEqual(
-      [...this.element.querySelectorAll('yielded-layer')].filter((l) => l.textContent.startsWith('component-')).length,
+      [...this.element.querySelectorAll('yielded-layer')].filter((l) =>
+        l.textContent.startsWith('component-')
+      ).length,
       3
     );
   });
