@@ -133,7 +133,7 @@ export default class MarkerLayer extends InteractiveLayer {
     'shadowPane',
 
     /**
-     * When true, a mouse event on this marker will trigger the same event
+     * When `true`, a mouse event on this marker will trigger the same event
      * on the map (unless L.DomEvent.stopPropagation is used).
      * Defaults to `false`.
      *
@@ -141,6 +141,17 @@ export default class MarkerLayer extends InteractiveLayer {
      * @type {Boolean}
      */
     'bubblingMouseEvents',
+
+    /**
+     * When `true`, the map will pan whenever the marker is focused
+     * (via e.g. pressing `tab` on the keyboard) to ensure the marker
+     * is visible within the map's bounds.
+     * Defaults to `true`.
+     *
+     * @argument autoPanOnFocus
+     * @type {Boolean}
+     */
+    'autoPanOnFocus',
 
     // Draggable marker options
 

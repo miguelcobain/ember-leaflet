@@ -43,11 +43,11 @@ module('Integration | Component | geojson layer', function (hooks) {
     `);
 
     // renders polygon as SVG:
-    assert.dom('path').exists({ count: 1 });
+    assert.dom('path.leaflet-interactive').exists({ count: 1 });
 
     // this property should have *something* in it if we've done our job, leave it
     // to Leaflet to test that the GeoJSONLayer populates it correctly
-    assert.dom('path').hasAttribute('d');
+    assert.dom('path.leaflet-interactive').hasAttribute('d');
 
     // renders point as marker:
     let markers = geoJSONLayer._layer.getLayers().filter((layer) => layer instanceof L.Marker);
@@ -70,7 +70,7 @@ module('Integration | Component | geojson layer', function (hooks) {
     // entirely.
     this.set('sampleGeoJSON', emptyGeoJSON);
 
-    assert.dom('path').doesNotExist();
+    assert.dom('path.leaflet-interactive').doesNotExist();
 
     let markers = geoJSONLayer._layer.getLayers().filter((layer) => layer instanceof L.Marker);
     assert.strictEqual(markers.length, 0);
@@ -85,11 +85,11 @@ module('Integration | Component | geojson layer', function (hooks) {
       </LeafletMap>
     `);
 
-    assert.dom('path').exists({ count: 1 });
+    assert.dom('path.leaflet-interactive').exists({ count: 1 });
 
     this.set('style', () => ({ color: 'red' }));
 
-    assert.dom('path').exists({ count: 1 });
+    assert.dom('path.leaflet-interactive').exists({ count: 1 });
   });
 
   test('update color on event', async function (assert) {
@@ -114,9 +114,9 @@ module('Integration | Component | geojson layer', function (hooks) {
       </LeafletMap>
     `);
 
-    assert.dom('path').exists({ count: 1 });
-    assert.dom('path').hasAttribute('stroke', 'green', 'Original stroke set');
-    assert.dom('path').hasAttribute('fill', 'green', 'Original fill set');
+    assert.dom('path.leaflet-interactive').exists({ count: 1 });
+    assert.dom('path.leaflet-interactive').hasAttribute('stroke', 'green', 'Original stroke set');
+    assert.dom('path.leaflet-interactive').hasAttribute('fill', 'green', 'Original fill set');
 
     run(() => {
       for (let [, layer] of Object.entries(geoJSONLayer._layer._layers)) {
@@ -125,8 +125,8 @@ module('Integration | Component | geojson layer', function (hooks) {
     });
     await settled();
 
-    assert.dom('path').hasAttribute('stroke', 'red', 'Mouseover stroke set');
-    assert.dom('path').hasAttribute('fill', 'red', 'Mouseover fill set');
+    assert.dom('path.leaflet-interactive').hasAttribute('stroke', 'red', 'Mouseover stroke set');
+    assert.dom('path.leaflet-interactive').hasAttribute('fill', 'red', 'Mouseover fill set');
 
     run(() => {
       for (let [, layer] of Object.entries(geoJSONLayer._layer._layers)) {
@@ -135,8 +135,8 @@ module('Integration | Component | geojson layer', function (hooks) {
     });
     await settled();
 
-    assert.dom('path').hasAttribute('stroke', 'blue', 'Mouseleave stroke set');
-    assert.dom('path').hasAttribute('fill', 'blue', 'Mouseleave fill set');
+    assert.dom('path.leaflet-interactive').hasAttribute('stroke', 'blue', 'Mouseleave stroke set');
+    assert.dom('path.leaflet-interactive').hasAttribute('fill', 'blue', 'Mouseleave fill set');
   });
 
   test('update color on style function change', async function (assert) {
@@ -150,22 +150,22 @@ module('Integration | Component | geojson layer', function (hooks) {
       </LeafletMap>
     `);
 
-    assert.dom('path').exists({ count: 1 });
-    assert.dom('path').hasAttribute('stroke', 'green', 'Original stroke set');
-    assert.dom('path').hasAttribute('fill', 'green', 'Original fill set');
+    assert.dom('path.leaflet-interactive').exists({ count: 1 });
+    assert.dom('path.leaflet-interactive').hasAttribute('stroke', 'green', 'Original stroke set');
+    assert.dom('path.leaflet-interactive').hasAttribute('fill', 'green', 'Original fill set');
 
     this.set('style', function () {
       return { color: 'red', fillColor: 'red' };
     });
 
-    assert.dom('path').hasAttribute('stroke', 'red', 'Mouseover stroke set');
-    assert.dom('path').hasAttribute('fill', 'red', 'Mouseover fill set');
+    assert.dom('path.leaflet-interactive').hasAttribute('stroke', 'red', 'Mouseover stroke set');
+    assert.dom('path.leaflet-interactive').hasAttribute('fill', 'red', 'Mouseover fill set');
 
     this.set('style', function () {
       return { color: 'blue', fillColor: 'blue' };
     });
 
-    assert.dom('path').hasAttribute('stroke', 'blue', 'Mouseleave stroke set');
-    assert.dom('path').hasAttribute('fill', 'blue', 'Mouseleave fill set');
+    assert.dom('path.leaflet-interactive').hasAttribute('stroke', 'blue', 'Mouseleave stroke set');
+    assert.dom('path.leaflet-interactive').hasAttribute('fill', 'blue', 'Mouseleave fill set');
   });
 });

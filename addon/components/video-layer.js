@@ -69,6 +69,15 @@ export default class VideoLayer extends ImageLayer {
     'muted',
 
     /**
+     * Mobile browsers will play the video right where it is instead of open it up in fullscreen mode.
+     * Defaults to `true`.
+     *
+     * @argument playsInline
+     * @type {Boolean}
+     */
+    'playsInline',
+
+    /**
      * When true, a mouse event on this layer will trigger the same event on the map.
      * Defaults to `true`.
      *

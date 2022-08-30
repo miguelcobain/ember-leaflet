@@ -161,7 +161,7 @@ module('Integration | Component | popup layer', function (hooks) {
 
     this.set('isVisible', false);
 
-    assert.strictEqual(map._popup, null, 'popup closed');
+    assert.false(map._popup.isOpen(), 'popup closed');
   });
 
   test('popup closes with yielded action', async function (assert) {
@@ -186,7 +186,7 @@ module('Integration | Component | popup layer', function (hooks) {
     await click('#closeEl');
 
     let map = marker._layer._map;
-    assert.strictEqual(map._popup, null, 'popup closed');
+    assert.false(map._popup.isOpen(), 'popup closed');
   });
 
   test('popup options work', async function (assert) {

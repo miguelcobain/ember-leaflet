@@ -98,6 +98,20 @@ export default class TileLayer extends BaseLayer {
      */
     'crossOrigin',
 
+    /**
+     * Whether the referrerPolicy attribute will be added to the tiles.
+     * If a String is provided, all tiles will have their referrerPolicy attribute set
+     * to the String provided. This may be needed if your map's rendering context has a strict
+     * default but your tile provider expects a valid referrer (e.g. to validate an API token).
+     * Refer to [HTMLImageElement.referrerPolicy](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/referrerPolicy)
+     * for valid String values.
+     * Defaults to `false`.
+     *
+     * @argument referrerPolicy
+     * @type {Boolean|String}
+     */
+    'referrerPolicy',
+
     // GridLayer options
 
     /**
@@ -252,6 +266,14 @@ export default class TileLayer extends BaseLayer {
      * @type {Function}
      */
     'tileload',
+
+    /**
+     * Fired when a tile was loading but is now not wanted.
+     *
+     * @argument onTileabort
+     * @type {Function}
+     */
+    'tileabort',
 
     /**
      * Fired when the grid layer loaded all visible tiles.
