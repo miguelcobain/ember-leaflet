@@ -16,6 +16,18 @@ L.Icon.Default.imagePath = 'some-path';
 
 let marker, arrayPath;
 
+/**
+ * Test if popup is open or not, in a way that is compatible with
+ * multiple leaflet versions.
+ */
+function isPopupOpen(popup) {
+  if (popup === null) {
+    return false;
+  }
+
+  return popup.isOpen ? popup.isOpen() : popup._isOpen;
+}
+
 module('Integration | Component | popup layer', function (hooks) {
   setupRenderingTest(hooks);
 
@@ -161,7 +173,7 @@ module('Integration | Component | popup layer', function (hooks) {
 
     this.set('isVisible', false);
 
-    assert.false(map._popup.isOpen ? map._popup.isOpen() : map._popup._isOpen, 'popup closed');
+    assert.false(isPopupOpen(map._popup), 'popup closed');
   });
 
   test('popup closes with yielded action', async function (assert) {
@@ -186,7 +198,7 @@ module('Integration | Component | popup layer', function (hooks) {
     await click('#closeEl');
 
     let map = marker._layer._map;
-    assert.false(map._popup.isOpen ? map._popup.isOpen() : map._popup._isOpen, 'popup closed');
+    assert.false(isPopupOpen(map._popup), 'popup closed');
   });
 
   test('popup options work', async function (assert) {
