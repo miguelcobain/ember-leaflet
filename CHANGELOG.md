@@ -1,5 +1,9 @@
 # ember-leaflet changelog
 
+### 5.0.2
+
+- fix incorrect `_close()` call on leaflet 1.8.0. Update project for leaflet 1.8.0 compatibility. ([6ab9646](https://github.com/miguelcobain/ember-leaflet/commit/6ab9646a07765db7ef98313929a07538a215cc3f))
+
 ### 5.0.1
 
 - fix rendering on fastboot (fixes [#676](https://github.com/miguelcobain/ember-leaflet/issues/676))
