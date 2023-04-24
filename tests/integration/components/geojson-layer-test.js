@@ -33,11 +33,9 @@ module('Integration | Component | geojson layer', function (hooks) {
   });
 
   test('render geoJSON as SVG and Markers', async function (assert) {
-    await render(hbs`
-      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
-        <layers.geojson @geoJSON={{this.sampleGeoJSON}}/>
-      </LeafletMap>
-    `);
+    await render(hbs`<LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+  <layers.geojson @geoJSON={{this.sampleGeoJSON}} />
+</LeafletMap>`);
 
     // renders polygon as SVG:
     assert.dom('.leaflet-overlay-pane path').exists({ count: 1 });
@@ -55,11 +53,9 @@ module('Integration | Component | geojson layer', function (hooks) {
 
   test('re-render SVG and markers after geoJSON changes', async function (assert) {
     // we know this works, as per the above test...
-    await render(hbs`
-      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
-        <layers.geojson @geoJSON={{this.sampleGeoJSON}}/>
-      </LeafletMap>
-    `);
+    await render(hbs`<LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+  <layers.geojson @geoJSON={{this.sampleGeoJSON}} />
+</LeafletMap>`);
 
     // ...now let's force a re-render, clearing all the geoJSON from the map
 
@@ -76,11 +72,9 @@ module('Integration | Component | geojson layer', function (hooks) {
   test('make sure geojson is still there on attribute update', async function (assert) {
     this.style = () => ({ color: 'blue' });
 
-    await render(hbs`
-      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
-        <layers.geojson @geoJSON={{this.sampleGeoJSON}} @style={{this.styleBlue}}/>
-      </LeafletMap>
-    `);
+    await render(hbs`<LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+  <layers.geojson @geoJSON={{this.sampleGeoJSON}} @style={{this.styleBlue}} />
+</LeafletMap>`);
 
     assert.dom('.leaflet-overlay-pane path').exists({ count: 1 });
 
@@ -102,14 +96,9 @@ module('Integration | Component | geojson layer', function (hooks) {
 
     this.style = () => ({ color: 'green', fillColor: 'green' });
 
-    await render(hbs`
-      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
-        <layers.geojson
-          @geoJSON={{this.sampleGeoJSON}}
-          @style={{this.style}}
-          @onEachFeature={{this.onEachFeature}}/>
-      </LeafletMap>
-    `);
+    await render(hbs`<LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+  <layers.geojson @geoJSON={{this.sampleGeoJSON}} @style={{this.style}} @onEachFeature={{this.onEachFeature}} />
+</LeafletMap>`);
 
     assert.dom('.leaflet-overlay-pane path').exists({ count: 1 });
     assert.dom('.leaflet-overlay-pane path').hasAttribute('stroke', 'green', 'Original stroke set');
@@ -141,11 +130,9 @@ module('Integration | Component | geojson layer', function (hooks) {
       return { color: 'green', fillColor: 'green' };
     };
 
-    await render(hbs`
-      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
-        <layers.geojson @geoJSON={{this.sampleGeoJSON}} @style={{this.style}}/>
-      </LeafletMap>
-    `);
+    await render(hbs`<LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+  <layers.geojson @geoJSON={{this.sampleGeoJSON}} @style={{this.style}} />
+</LeafletMap>`);
 
     assert.dom('.leaflet-overlay-pane path').exists({ count: 1 });
     assert.dom('.leaflet-overlay-pane path').hasAttribute('stroke', 'green', 'Original stroke set');

@@ -26,11 +26,9 @@ module('Integration | Component | point path layer', function (hooks) {
   test('update point path layer using leafletProperties', async function (assert) {
     this.set('location', locations.chicago);
 
-    await render(hbs`
-      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
-        <layers.circle @location={{this.location}} @radius={{this.radius}}/>
-      </LeafletMap>
-    `);
+    await render(hbs`<LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+  <layers.circle @location={{this.location}} @radius={{this.radius}} />
+</LeafletMap>`);
 
     assert.locationsEqual(pointPath._layer.getLatLng(), locations.chicago);
 
@@ -46,11 +44,9 @@ module('Integration | Component | point path layer', function (hooks) {
       lng: locations.nyc.lng
     });
 
-    await render(hbs`
-      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
-        <layers.circle @lat={{this.lat}} @lng={{this.lng}} @radius={{this.radius}}/>
-      </LeafletMap>
-    `);
+    await render(hbs`<LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+  <layers.circle @lat={{this.lat}} @lng={{this.lng}} @radius={{this.radius}} />
+</LeafletMap>`);
 
     assert.locationsEqual(pointPath._layer.getLatLng(), locations.nyc);
 

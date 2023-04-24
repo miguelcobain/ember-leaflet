@@ -49,13 +49,11 @@ module('Integration | Component | marker layer collection', function (hooks) {
   test('layers works within each', async function (assert) {
     this.set('markers', [restaurant1, restaurant2, restaurant3, restaurant4]);
 
-    await render(hbs`
-      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
-        {{#each this.markers as |m|}}
-          <layers.marker @location={{m.location}}/>
-        {{/each}}
-      </LeafletMap>
-    `);
+    await render(hbs`<LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+  {{#each this.markers as |m|}}
+    <layers.marker @location={{m.location}} />
+  {{/each}}
+</LeafletMap>`);
 
     // pre-conditions
     assert.strictEqual(createLayersCount, 4);
@@ -77,17 +75,15 @@ module('Integration | Component | marker layer collection', function (hooks) {
   test('popup remains open when another layer is destroyed', async function (assert) {
     this.set('markers', [restaurant1, restaurant2, restaurant3, restaurant4]);
 
-    await render(hbs`
-      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
-        {{#each this.markers as |m|}}
-          <layers.marker @location={{m.location}} as |marker|>
-            <marker.popup>
-              Popup content
-            </marker.popup>
-          </layers.marker>
-        {{/each}}
-      </LeafletMap>
-    `);
+    await render(hbs`<LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+  {{#each this.markers as |m|}}
+    <layers.marker @location={{m.location}} as |marker|>
+      <marker.popup>
+        Popup content
+      </marker.popup>
+    </layers.marker>
+  {{/each}}
+</LeafletMap>`);
 
     // pre-conditions
     assert.strictEqual(createLayersCount, 4);

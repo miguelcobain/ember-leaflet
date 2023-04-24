@@ -28,11 +28,14 @@ module('Integration | Component | tile layer', function (hooks) {
     this.set('opacity', 0.2);
     this.set('subdomains', ['123']);
 
-    await render(hbs`
-      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
-        <layers.tile @url={{this.tileUrl}} @opacity={{this.opacity}} @zIndex={{this.zIndex}} @subdomains={{this.subdomains}}/>
-      </LeafletMap>
-    `);
+    await render(hbs`<LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+  <layers.tile
+    @url={{this.tileUrl}}
+    @opacity={{this.opacity}}
+    @zIndex={{this.zIndex}}
+    @subdomains={{this.subdomains}}
+  />
+</LeafletMap>`);
 
     assert.strictEqual(tile._layer._url, 'http://{s}.tile.osm.org/{z}/{x}/{y}.png');
     assert.strictEqual(tile._layer.options.opacity, 0.2);
@@ -56,10 +59,8 @@ module('Integration | Component | tile layer', function (hooks) {
       assert.ok(true, 'loading fired');
     });
 
-    await render(hbs`
-      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
-        <layers.tile @url="http://{s}.tile.osm.org/{z}/{x}/{y}.png" @onLoading={{this.loadingAction}}/>
-      </LeafletMap>
-    `);
+    await render(hbs`<LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+  <layers.tile @url='http://{s}.tile.osm.org/{z}/{x}/{y}.png' @onLoading={{this.loadingAction}} />
+</LeafletMap>`);
   });
 });

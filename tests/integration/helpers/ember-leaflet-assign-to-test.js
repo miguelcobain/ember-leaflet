@@ -11,11 +11,9 @@ module('Integration | Helper | ember-leaflet-assign-to', function (hooks) {
       this.merged = value;
     };
 
-    await render(hbs`
-      {{#let (ember-leaflet-hash key1="value1") as |obj|}}
-        {{ember-leaflet-assign-to obj key="key2" value="value2" onChange=this.mergeValues}}
-      {{/let}}
-    `);
+    await render(hbs`{{#let (ember-leaflet-hash key1='value1') as |obj|}}
+  {{ember-leaflet-assign-to obj key='key2' value='value2' onChange=this.mergeValues}}
+{{/let}}`);
 
     assert.deepEqual(this.merged, { key1: 'value1', key2: 'value2' });
   });

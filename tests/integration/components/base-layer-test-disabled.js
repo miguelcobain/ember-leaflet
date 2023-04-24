@@ -15,11 +15,9 @@ module('Integration | Component | base layer', function (hooks) {
     this.set('zoom', 13);
 
     assert.expectAssertion(async () => {
-      await render(hbs`
-        <LeafletMap @zoom={{this.zoom}} @center={{this.center}}>
-          <BaseLayer/>
-        </LeafletMap>
-      `);
+      await render(hbs`<LeafletMap @zoom={{this.zoom}} @center={{this.center}}>
+  <BaseLayer />
+</LeafletMap>`);
     }, /Assertion Failed: BaseLayer's `createLayer` should be overriden./);
   });
 

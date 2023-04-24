@@ -27,9 +27,9 @@ module('Integration | Component | leaflet map', function (hooks) {
     this.set('zoomPanOptions', {
       animate: false
     });
-    await render(hbs`
-      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} @zoomPanOptions={{this.zoomPanOptions}}/>
-    `);
+    await render(
+      hbs`<LeafletMap @zoom={{this.zoom}} @center={{this.center}} @zoomPanOptions={{this.zoomPanOptions}} />`
+    );
 
     assert.locationsEqual(map._layer.getCenter(), locations.nyc);
     assert.strictEqual(map._layer.getZoom(), 12);
@@ -48,9 +48,7 @@ module('Integration | Component | leaflet map', function (hooks) {
       lng: locations.nyc.lng
     });
 
-    await render(hbs`
-      <LeafletMap @zoom={{this.zoom}} @lat={{this.lat}} @lng={{this.lng}}/>
-    `);
+    await render(hbs`<LeafletMap @zoom={{this.zoom}} @lat={{this.lat}} @lng={{this.lng}} />`);
 
     assert.locationsEqual(map._layer.getCenter(), locations.nyc);
 
@@ -69,9 +67,7 @@ module('Integration | Component | leaflet map', function (hooks) {
     });
     this.set('bounds', [locations.nyc, locations.chicago]);
 
-    await render(hbs`
-      <LeafletMap @bounds={{this.bounds}} @fitBoundsOptions={{this.fitBoundsOptions}}/>
-    `);
+    await render(hbs`<LeafletMap @bounds={{this.bounds}} @fitBoundsOptions={{this.fitBoundsOptions}} />`);
 
     assert.boundsContain(map._layer.getBounds(), [locations.nyc, locations.chicago]);
 
@@ -84,9 +80,7 @@ module('Integration | Component | leaflet map', function (hooks) {
   test('update map layer using leafletProperties (bounds and then center)', async function (assert) {
     this.set('bounds2', [locations.nyc, locations.sf]);
 
-    await render(hbs`
-      <LeafletMap @center={{this.center2}} @bounds={{this.bounds2}} @zoom={{this.zoom2}}/>
-    `);
+    await render(hbs`<LeafletMap @center={{this.center2}} @bounds={{this.bounds2}} @zoom={{this.zoom2}} />`);
 
     assert.boundsContain(map._layer.getBounds(), [locations.nyc, locations.sf]);
 
@@ -101,9 +95,7 @@ module('Integration | Component | leaflet map', function (hooks) {
     this.set('fitBoundsOptions', null);
     this.set('bounds', [locations.nyc, locations.chicago]);
 
-    await render(hbs`
-      <LeafletMap @bounds={{this.bounds}} @fitBoundsOptions={{this.fitBoundsOptions}}/>
-    `);
+    await render(hbs`<LeafletMap @bounds={{this.bounds}} @fitBoundsOptions={{this.fitBoundsOptions}} />`);
 
     let pixelBounds = map._layer.getPixelBounds();
 
@@ -130,10 +122,13 @@ module('Integration | Component | leaflet map', function (hooks) {
 
     // enabling zoom animation leads to an error, probably because the
     // animation end event occurs after the component is destroyed?
-    await render(hbs`
-      <LeafletMap @zoom={{this.zoom}} @center={{this.center}}
-        @zoomAnimation={{false}} @onMovestart={{this.moveAction}} @onZoomstart={{this.zoomAction}}/>
-    `);
+    await render(hbs`<LeafletMap
+  @zoom={{this.zoom}}
+  @center={{this.center}}
+  @zoomAnimation={{false}}
+  @onMovestart={{this.moveAction}}
+  @onZoomstart={{this.zoomAction}}
+/>`);
 
     // This runs 5 actions because:
     // 1. initial movestart
@@ -162,19 +157,19 @@ module('Integration | Component | leaflet map', function (hooks) {
       assert.ok(true, 'onViewreset fired');
     });
 
-    await render(hbs`
-      <LeafletMap @zoom={{this.zoom}} @center={{this.center}}
-        @onLoad={{this.loadAction}} @onViewreset={{this.viewResetAction}}/>
-    `);
+    await render(hbs`<LeafletMap
+  @zoom={{this.zoom}}
+  @center={{this.center}}
+  @onLoad={{this.loadAction}}
+  @onViewreset={{this.viewResetAction}}
+/>`);
   });
 
   test.skip('map throws if bounds, center and zoom are provided', function (assert) {
     assert.expect(1);
 
     assert.expectAssertion(async () => {
-      await render(hbs`
-        <LeafletMap @zoom={{this.zoom}} @center={{this.center}} @bounds={{2}}/>
-      `);
+      await render(hbs`<LeafletMap @zoom={{this.zoom}} @center={{this.center}} @bounds={{2}} />`);
     }, 'You must provide either valid `bounds` or a `center` (or `lat`/`lng`) and a `zoom` value.');
   });
 
@@ -182,9 +177,7 @@ module('Integration | Component | leaflet map', function (hooks) {
     assert.expect(1);
 
     assert.expectAssertion(async () => {
-      await render(hbs`
-        <LeafletMap @center={{this.center}}/>
-      `);
+      await render(hbs`<LeafletMap @center={{this.center}} />`);
     }, 'You must provide either valid `bounds` or a `center` (or `lat`/`lng`) and a `zoom` value.');
   });
 
@@ -192,16 +185,12 @@ module('Integration | Component | leaflet map', function (hooks) {
     assert.expect(1);
 
     assert.expectAssertion(async () => {
-      await render(hbs`
-        <LeafletMap @zoom={{this.zoom}}/>
-      `);
+      await render(hbs`<LeafletMap @zoom={{this.zoom}} />`);
     }, 'You must provide either valid `bounds` or a `center` (or `lat`/`lng`) and a `zoom` value.');
   });
 
   test('setting zoom to 0 should not throw', async function (assert) {
-    await render(hbs`
-      <LeafletMap @zoom={{0}} @center={{this.center}}/>
-    `);
+    await render(hbs`<LeafletMap @zoom={{0}} @center={{this.center}} />`);
 
     assert.strictEqual(map._layer.getZoom(), 0, 'zoom 0 is set');
   });
@@ -210,11 +199,9 @@ module('Integration | Component | leaflet map', function (hooks) {
     this.set('markerCenter', locations.nyc);
     this.set('bounds', locations.bounds());
 
-    await render(hbs`
-      <LeafletMap @bounds={{lat-lng-bounds this.bounds}} as |layers|>
-        <layers.marker @location={{this.markerCenter}}/>
-      </LeafletMap>
-    `);
+    await render(hbs`<LeafletMap @bounds={{lat-lng-bounds this.bounds}} as |layers|>
+  <layers.marker @location={{this.markerCenter}} />
+</LeafletMap>`);
 
     assert.ok(map._layer.getBounds() instanceof L.LatLngBounds);
     assert.boundsContain(map._layer.getBounds(), locations.bounds());
@@ -231,13 +218,11 @@ module('Integration | Component | leaflet map', function (hooks) {
       });
     });
 
-    await render(hbs`
-      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
-        {{#each-in layers as |k|}}
-          <yielded-layer>{{k}}</yielded-layer>
-        {{/each-in}}
-      </LeafletMap>
-    `);
+    await render(hbs`<LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+  {{#each-in layers as |k|}}
+    <yielded-layer>{{k}}</yielded-layer>
+  {{/each-in}}
+</LeafletMap>`);
 
     assert.strictEqual(
       [...this.element.querySelectorAll('yielded-layer')].filter((l) => l.textContent.startsWith('component-')).length,

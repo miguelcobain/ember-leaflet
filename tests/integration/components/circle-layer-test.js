@@ -26,11 +26,9 @@ module('Integration | Component | circle layer', function (hooks) {
     this.set('circleCenter', locations.nyc);
     this.set('radius', 25);
 
-    await render(hbs`
-      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
-        <layers.circle @location={{this.circleCenter}} @radius={{this.radius}}/>
-      </LeafletMap>
-    `);
+    await render(hbs`<LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+  <layers.circle @location={{this.circleCenter}} @radius={{this.radius}} />
+</LeafletMap>`);
 
     assert.locationsEqual(circle._layer.getLatLng(), locations.nyc);
     assert.strictEqual(circle._layer.getRadius(), 25);
@@ -50,11 +48,9 @@ module('Integration | Component | circle layer', function (hooks) {
       radius: 25
     });
 
-    await render(hbs`
-      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
-        <layers.circle @lat={{this.lat}} @lng={{this.lng}} @radius={{this.radius}}/>
-      </LeafletMap>
-    `);
+    await render(hbs`<LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+  <layers.circle @lat={{this.lat}} @lng={{this.lng}} @radius={{this.radius}} />
+</LeafletMap>`);
 
     assert.locationsEqual(circle._layer.getLatLng(), locations.nyc);
 

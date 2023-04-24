@@ -33,11 +33,14 @@ module('Integration | Component | marker layer', function (hooks) {
     this.set('zIndexOffset', 13);
     this.set('icon', L.divIcon({ className: 'my-div-icon' }));
 
-    await render(hbs`
-      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
-        <layers.marker @location={{this.markerCenter}} @opacity={{this.opacity}} @zIndexOffset={{this.zIndexOffset}} @icon={{this.icon}}/>
-      </LeafletMap>
-    `);
+    await render(hbs`<LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+  <layers.marker
+    @location={{this.markerCenter}}
+    @opacity={{this.opacity}}
+    @zIndexOffset={{this.zIndexOffset}}
+    @icon={{this.icon}}
+  />
+</LeafletMap>`);
 
     // pre-conditions
     assert.locationsEqual(marker._layer.getLatLng(), locations.nyc);
@@ -67,11 +70,9 @@ module('Integration | Component | marker layer', function (hooks) {
 
     this.set('markerCenter', locations.nyc);
 
-    await render(hbs`
-      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
-        <layers.marker @location={{this.markerCenter}} @onMove={{this.moveAction}}/>
-      </LeafletMap>
-    `);
+    await render(hbs`<LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+  <layers.marker @location={{this.markerCenter}} @onMove={{this.moveAction}} />
+</LeafletMap>`);
 
     this.set('markerCenter', locations.paris);
   });
@@ -79,11 +80,9 @@ module('Integration | Component | marker layer', function (hooks) {
   test('marker is created with enabled dragging', async function (assert) {
     this.set('markerCenter', locations.nyc);
 
-    await render(hbs`
-      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
-        <layers.marker @location={{this.markerCenter}} @draggable={{true}}/>
-      </LeafletMap>
-    `);
+    await render(hbs`<LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+  <layers.marker @location={{this.markerCenter}} @draggable={{true}} />
+</LeafletMap>`);
 
     assert.ok(marker._layer.dragging.enabled(), 'marker dragging enabled');
   });
@@ -92,11 +91,9 @@ module('Integration | Component | marker layer', function (hooks) {
     this.set('markerCenter', locations.nyc);
     this.set('draggable', true);
 
-    await render(hbs`
-      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
-        <layers.marker @location={{this.markerCenter}} @draggable={{this.draggable}}/>
-      </LeafletMap>
-    `);
+    await render(hbs`<LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+  <layers.marker @location={{this.markerCenter}} @draggable={{this.draggable}} />
+</LeafletMap>`);
 
     // pre-conditions
     assert.ok(marker._layer.dragging.enabled(), 'marker dragging enabled');
@@ -117,11 +114,9 @@ module('Integration | Component | marker layer', function (hooks) {
     this.set('currentIcon', icon1);
     await settled();
 
-    await render(hbs`
-      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
-        <layers.marker @location={{this.markerCenter}} @draggable={{this.draggable}} @icon={{this.currentIcon}}/>
-      </LeafletMap>
-    `);
+    await render(hbs`<LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+  <layers.marker @location={{this.markerCenter}} @draggable={{this.draggable}} @icon={{this.currentIcon}} />
+</LeafletMap>`);
 
     // pre-conditions
     assert.true(marker._layer.dragging.enabled(), 'marker dragging enabled');
@@ -142,11 +137,9 @@ module('Integration | Component | marker layer', function (hooks) {
     test('marker works as contextual component', async function (assert) {
       this.set('markerCenter', locations.nyc);
 
-      await render(hbs`
-        <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
-          <layers.marker @location={{this.markerCenter}}/>
-        </LeafletMap>
-      `);
+      await render(hbs`<LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+  <layers.marker @location={{this.markerCenter}} />
+</LeafletMap>`);
 
       assert.ok(marker._layer, 'marker was created');
     });
@@ -157,16 +150,12 @@ module('Integration | Component | marker layer', function (hooks) {
     this.set('currentIconUrl', 'custom-url.png');
     this.set('currentSize', 12);
 
-    await render(hbs`
-      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
-        <layers.marker
-          @location={{this.markerCenter}}
-          @icon={{icon
-            iconUrl=this.currentIconUrl
-            iconSize=(point this.currentSize this.currentSize)
-          }}/>
-      </LeafletMap>
-    `);
+    await render(hbs`<LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+  <layers.marker
+    @location={{this.markerCenter}}
+    @icon={{icon iconUrl=this.currentIconUrl iconSize=(point this.currentSize this.currentSize)}}
+  />
+</LeafletMap>`);
 
     assert.strictEqual(marker._layer.options.icon.options.iconUrl, 'custom-url.png');
     assert.strictEqual(marker._layer.options.icon.options.iconSize.x, 12);
@@ -187,16 +176,12 @@ module('Integration | Component | marker layer', function (hooks) {
     this.set('iconContent', '<h1>First title!</h1>');
     this.set('currentSize', 12);
 
-    await render(hbs`
-      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
-        <layers.marker
-          @location={{this.markerCenter}}
-          @icon={{div-icon
-            html=this.iconContent
-            iconSize=(point this.currentSize this.currentSize)
-          }}/>
-      </LeafletMap>
-    `);
+    await render(hbs`<LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+  <layers.marker
+    @location={{this.markerCenter}}
+    @icon={{div-icon html=this.iconContent iconSize=(point this.currentSize this.currentSize)}}
+  />
+</LeafletMap>`);
 
     assert.strictEqual(marker._layer.options.icon.options.html, '<h1>First title!</h1>');
     assert.strictEqual(marker._layer.options.icon.options.iconSize.x, 12);

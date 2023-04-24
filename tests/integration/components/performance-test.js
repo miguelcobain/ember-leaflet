@@ -28,19 +28,23 @@ module('Integration | Performance | ember-leaflet', function (hooks) {
 
     let startTime = performance.now();
 
-    await render(hbs`
-      <LeafletMap @bounds={{this.bounds}} as |layers|>
-        <layers.tile @url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"/>
+    await render(hbs`<LeafletMap @bounds={{this.bounds}} as |layers|>
+  <layers.tile @url='https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png' />
 
-        {{#each this.lines as |line|}}
-          <layers.polyline @locations={{line.location.coordinates}} @color="blue" @weight={{4}} @opacity={{0.8}} as |polyline|>
-            <polyline.popup>
-              {{line.code}}
-            </polyline.popup>
-          </layers.polyline>
-        {{/each}}
-      </LeafletMap>
-    `);
+  {{#each this.lines as |line|}}
+    <layers.polyline
+      @locations={{line.location.coordinates}}
+      @color='blue'
+      @weight={{4}}
+      @opacity={{0.8}}
+      as |polyline|
+    >
+      <polyline.popup>
+        {{line.code}}
+      </polyline.popup>
+    </layers.polyline>
+  {{/each}}
+</LeafletMap>`);
 
     let endTime = performance.now();
     let totalTime = endTime - startTime;

@@ -35,11 +35,9 @@ module('Integration | Component | rectangle layer', function (hooks) {
   test('update rectangle layer using leafletProperties', async function (assert) {
     this.set('locations', [locations.chicago, locations.nyc]);
 
-    await render(hbs`
-      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
-        <layers.rectangle @locations={{this.locations}}/>
-      </LeafletMap>
-    `);
+    await render(hbs`<LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+  <layers.rectangle @locations={{this.locations}} />
+</LeafletMap>`);
 
     let layerLatLngs = rectangle._layer.getLatLngs(); //returns four corners
     assert.locationsEqual(layerLatLngs[0][1] || layerLatLngs[1], locations.chicago); //top left
@@ -67,11 +65,9 @@ module('Integration | Component | rectangle layer', function (hooks) {
     ]);
     await settled();
 
-    await render(hbs`
-      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
-        <layers.rectangle @locations={{this.locations}}/>
-      </LeafletMap>
-    `);
+    await render(hbs`<LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+  <layers.rectangle @locations={{this.locations}} />
+</LeafletMap>`);
 
     let layerLatLngs = rectangle._layer.getLatLngs(); //returns 4 corners
     assert.locationsEqual(layerLatLngs[0][3] || layerLatLngs[3], locations.nyc); //bottom right

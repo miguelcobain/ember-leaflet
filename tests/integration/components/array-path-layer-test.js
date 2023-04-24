@@ -26,11 +26,9 @@ module('Integration | Component | array path layer', function (hooks) {
   test('replace locations updates array path layer', async function (assert) {
     this.set('locations', [locations.chicago, locations.nyc, locations.sf]);
 
-    await render(hbs`
-      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
-        <layers.polyline @locations={{this.locations}}/>
-      </LeafletMap>
-    `);
+    await render(hbs`<LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+  <layers.polyline @locations={{this.locations}} />
+</LeafletMap>`);
 
     let layerLatLngs = arrayPath._layer.getLatLngs();
     assert.locationsEqual(layerLatLngs[0], locations.chicago);
@@ -49,11 +47,9 @@ module('Integration | Component | array path layer', function (hooks) {
   test('adding to locations updates array path layer', async function (assert) {
     this.set('locations', A([locations.chicago, locations.nyc, locations.sf]));
 
-    await render(hbs`
-      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
-        <layers.polyline @locations={{this.locations}}/>
-      </LeafletMap>
-    `);
+    await render(hbs`<LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+  <layers.polyline @locations={{this.locations}} />
+</LeafletMap>`);
     let layerLatLngs = arrayPath._layer.getLatLngs();
     assert.locationsEqual(layerLatLngs[0], locations.chicago);
     assert.locationsEqual(layerLatLngs[1], locations.nyc);
@@ -72,11 +68,9 @@ module('Integration | Component | array path layer', function (hooks) {
   test('removing from locations updates array path layer', async function (assert) {
     this.set('locations', A([locations.chicago, locations.nyc, locations.sf]));
 
-    await render(hbs`
-      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
-        <layers.polyline @locations={{this.locations}}/>
-      </LeafletMap>
-    `);
+    await render(hbs`<LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+  <layers.polyline @locations={{this.locations}} />
+</LeafletMap>`);
     let layerLatLngs = arrayPath._layer.getLatLngs();
     assert.locationsEqual(layerLatLngs[0], locations.chicago);
     assert.locationsEqual(layerLatLngs[1], locations.nyc);
@@ -94,11 +88,9 @@ module('Integration | Component | array path layer', function (hooks) {
   test('replace item in content moves polyline', async function (assert) {
     this.set('locations', A([locations.chicago, locations.nyc, locations.sf]));
 
-    await render(hbs`
-      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
-        <layers.polyline @locations={{this.locations}}/>
-      </LeafletMap>
-    `);
+    await render(hbs`<LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+  <layers.polyline @locations={{this.locations}} />
+</LeafletMap>`);
 
     let layerLatLngs = arrayPath._layer.getLatLngs();
     assert.locationsEqual(layerLatLngs[0], locations.chicago);
@@ -122,11 +114,9 @@ module('Integration | Component | array path layer', function (hooks) {
       [-43.123, 71.123]
     ]);
 
-    await render(hbs`
-      <LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
-        <layers.polyline @locations={{this.locations}}/>
-      </LeafletMap>
-    `);
+    await render(hbs`<LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
+  <layers.polyline @locations={{this.locations}} />
+</LeafletMap>`);
 
     let layerLatLngs = arrayPath._layer.getLatLngs();
     assert.ok(layerLatLngs[0].equals([-43.123, 71.123]));
