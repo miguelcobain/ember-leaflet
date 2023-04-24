@@ -24,15 +24,14 @@ module('Integration | Component | base layer', function (hooks) {
   test.skip('using any layer outside a content layer throws', function (assert) {
     assert.expect(1);
 
-    this.owner.register(
-      'component:new-base-layer',
-      class NewBaseLayer extends BaseLayerComponent {
-        createLayer() {}
-      }
-    );
+    class NewBaseLayer extends BaseLayerComponent {
+      createLayer() {}
+    }
+
+    this.newBaseLayer = NewBaseLayer;
 
     assert.expectAssertion(async () => {
-      await render(hbs`<NewBaseLayer/>`);
+      await render(hbs`<this.newBaseLayer/>`);
     }, /Assertion Failed: Tried to use .* outside the context of a parent component\./);
   });
 });
