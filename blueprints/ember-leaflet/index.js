@@ -8,6 +8,6 @@ module.exports = {
   },
 
   afterInstall: function () {
-    return this.addPackageToProject('leaflet', '^1.8.0');
+    return this.addPackageToProject('leaflet', '^1.9.3');
   }
 };
