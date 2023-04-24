@@ -12,6 +12,6 @@ export default class EmberLeafletService extends Service {
       this.components.find((c) => c.name === name || c.as === as) === undefined
     );
 
-    this.components.push({ name, as });
+    this.components.push({ ...options, name, as });
   }
 }
