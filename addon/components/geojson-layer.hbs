@@ -10,7 +10,7 @@
       {{ember-leaflet-assign-to
         components
         key=(ember-leaflet-or c.as c.name)
-        value=(component (ensure-safe-component c.name) parent=this node=Node)
+        value=(component (ensure-safe-component (ember-leaflet-or c.component c.name)) parent=this node=Node)
         onChange=this.mergeComponents
       }}
     {{/each}}

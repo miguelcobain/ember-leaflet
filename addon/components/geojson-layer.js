@@ -1,5 +1,7 @@
 import { action } from '@ember/object';
-import BaseLayer from 'ember-leaflet/components/base-layer';
+import BaseLayer from './base-layer';
+import PopupLayer from './popup-layer';
+import TooltipLayer from './tooltip-layer';
 
 /**
  * Represents a GeoJSON object or an array of GeoJSON objects. Allows you to render GeoJSON
@@ -101,8 +103,8 @@ export default class GeojsonLayer extends BaseLayer {
 
   componentsToYield = [
     ...this.componentsToYield,
-    { name: 'popup-layer', as: 'popup' },
-    { name: 'tooltip-layer', as: 'tooltip' }
+    { name: 'popup-layer', as: 'popup', component: PopupLayer },
+    { name: 'tooltip-layer', as: 'tooltip', component: TooltipLayer }
   ];
 
   @action

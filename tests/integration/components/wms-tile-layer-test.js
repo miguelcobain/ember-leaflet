@@ -7,20 +7,17 @@ import locations from '../../helpers/locations';
 
 let tile;
 
+// monkey patch `didCreateLayer` method to get a reference to the instance
+let oldDidCreateLayer = WmsTileLayerComponent.prototype.didCreateLayer;
+WmsTileLayerComponent.prototype.didCreateLayer = function () {
+  tile = this;
+  return oldDidCreateLayer.apply(this, arguments);
+};
+
 module('Integration | Component | wms tile layer', function (hooks) {
   setupRenderingTest(hooks);
 
   hooks.beforeEach(function () {
-    this.owner.register(
-      'component:wms-tile-layer',
-      class extends WmsTileLayerComponent {
-        constructor() {
-          super(...arguments);
-          tile = this;
-        }
-      }
-    );
-
     this.set('center', locations.nyc);
     this.set('zoom', 13);
   });

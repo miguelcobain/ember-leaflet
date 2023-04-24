@@ -3,6 +3,18 @@ import { inject as service } from '@ember/service';
 import BaseLayer from 'ember-leaflet/components/base-layer';
 import { action } from '@ember/object';
 
+import TileLayer from './tile-layer';
+import WmsTileLayer from './wms-tile-layer';
+import MarkerLayer from './marker-layer';
+import CircleLayer from './circle-layer';
+import CircleMarkerLayer from './circle-marker-layer';
+import ImageLayer from './image-layer';
+import VideoLayer from './video-layer';
+import PolylineLayer from './polyline-layer';
+import PolygonLayer from './polygon-layer';
+import GeojsonLayer from './geojson-layer';
+import RectangleLayer from './rectangle-layer';
+
 /**
  * The central class of ember-leaflet — it is used to create a map on a page and manipulate it.
  *
@@ -685,17 +697,17 @@ export default class LeafletMap extends BaseLayer {
   componentsToYield = [
     ...this.componentsToYield,
     ...this.emberLeaflet.components,
-    { name: 'tile-layer', as: 'tile' },
-    { name: 'wms-tile-layer', as: 'wms-tile' },
-    { name: 'marker-layer', as: 'marker' },
-    { name: 'circle-layer', as: 'circle' },
-    { name: 'circle-marker-layer', as: 'circle-marker' },
-    { name: 'image-layer', as: 'image' },
-    { name: 'video-layer', as: 'video' },
-    { name: 'polyline-layer', as: 'polyline' },
-    { name: 'polygon-layer', as: 'polygon' },
-    { name: 'geojson-layer', as: 'geojson' },
-    { name: 'rectangle-layer', as: 'rectangle' }
+    { name: 'tile-layer', as: 'tile', component: TileLayer },
+    { name: 'wms-tile-layer', as: 'wms-tile', component: WmsTileLayer },
+    { name: 'marker-layer', as: 'marker', component: MarkerLayer },
+    { name: 'circle-layer', as: 'circle', component: CircleLayer },
+    { name: 'circle-marker-layer', as: 'circle-marker', component: CircleMarkerLayer },
+    { name: 'image-layer', as: 'image', component: ImageLayer },
+    { name: 'video-layer', as: 'video', component: VideoLayer },
+    { name: 'polyline-layer', as: 'polyline', component: PolylineLayer },
+    { name: 'polygon-layer', as: 'polygon', component: PolygonLayer },
+    { name: 'geojson-layer', as: 'geojson', component: GeojsonLayer },
+    { name: 'rectangle-layer', as: 'rectangle', component: RectangleLayer }
   ];
 
   // required to supress glimmer component error message for acessing bounds property

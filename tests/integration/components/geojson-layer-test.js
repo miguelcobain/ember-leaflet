@@ -15,20 +15,17 @@ const emptyGeoJSON = {
 
 let geoJSONLayer;
 
+// monkey patch `didCreateLayer` method to get a reference to the instance
+let oldDidCreateLayer = GeoJSONLayerComponent.prototype.didCreateLayer;
+GeoJSONLayerComponent.prototype.didCreateLayer = function () {
+  geoJSONLayer = this;
+  return oldDidCreateLayer.apply(this, arguments);
+};
+
 module('Integration | Component | geojson layer', function (hooks) {
   setupRenderingTest(hooks);
 
   hooks.beforeEach(function () {
-    this.owner.register(
-      'component:geojson-layer',
-      class extends GeoJSONLayerComponent {
-        constructor() {
-          super(...arguments);
-          geoJSONLayer = this;
-        }
-      }
-    );
-
     this.set('center', locations.chicago);
     this.set('zoom', 14);
 

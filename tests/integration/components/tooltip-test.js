@@ -16,31 +16,24 @@ L.Icon.Default.imagePath = 'some-path';
 
 let marker, arrayPath;
 
+// monkey patch `didCreateLayer` method to get a reference to the instance
+let markerOldDidCreateLayer = MarkerLayerComponent.prototype.didCreateLayer;
+MarkerLayerComponent.prototype.didCreateLayer = function () {
+  marker = this;
+  return markerOldDidCreateLayer.apply(this, arguments);
+};
+
+let polylineOldDidCreateLayer = PolylineLayerComponent.prototype.didCreateLayer;
+PolylineLayerComponent.prototype.didCreateLayer = function () {
+  arrayPath = this;
+  return polylineOldDidCreateLayer.apply(this, arguments);
+};
+
 if (!isLeaflet07(L)) {
   module('Integration | Component | tooltip layer', function (hooks) {
     setupRenderingTest(hooks);
 
     hooks.beforeEach(function () {
-      this.owner.register(
-        'component:marker-layer',
-        class extends MarkerLayerComponent {
-          constructor() {
-            super(...arguments);
-            marker = this;
-          }
-        }
-      );
-
-      this.owner.register(
-        'component:polyline-layer',
-        class extends PolylineLayerComponent {
-          constructor() {
-            super(...arguments);
-            arrayPath = this;
-          }
-        }
-      );
-
       this.set('center', locations.nyc);
       this.set('zoom', 13);
     });

@@ -1,4 +1,6 @@
-import BaseLayer from 'ember-leaflet/components/base-layer';
+import BaseLayer from './base-layer';
+import PopupLayer from './popup-layer';
+import TooltipLayer from './tooltip-layer';
 
 /**
  * Some Layers can be made interactive - when the user interacts with such a layer,
@@ -95,7 +97,7 @@ export default class InteractiveLayer extends BaseLayer {
 
   componentsToYield = [
     ...this.componentsToYield,
-    { name: 'popup-layer', as: 'popup' },
-    { name: 'tooltip-layer', as: 'tooltip' }
+    { name: 'popup-layer', as: 'popup', component: PopupLayer },
+    { name: 'tooltip-layer', as: 'tooltip', component: TooltipLayer }
   ];
 }

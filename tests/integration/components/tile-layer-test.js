@@ -7,20 +7,17 @@ import locations from '../../helpers/locations';
 
 let tile;
 
+// monkey patch `didCreateLayer` method to get a reference to the instance
+let oldDidCreateLayer = TileLayerComponent.prototype.didCreateLayer;
+TileLayerComponent.prototype.didCreateLayer = function () {
+  tile = this;
+  return oldDidCreateLayer.apply(this, arguments);
+};
+
 module('Integration | Component | tile layer', function (hooks) {
   setupRenderingTest(hooks);
 
   hooks.beforeEach(function () {
-    this.owner.register(
-      'component:tile-layer',
-      class extends TileLayerComponent {
-        constructor() {
-          super(...arguments);
-          tile = this;
-        }
-      }
-    );
-
     this.set('center', locations.nyc);
     this.set('zoom', 13);
   });

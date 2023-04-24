@@ -7,6 +7,13 @@ import locations from '../../helpers/locations';
 
 let rectangle;
 
+// monkey patch `didCreateLayer` method to get a reference to the instance
+let oldDidCreateLayer = RectangleLayerComponent.prototype.didCreateLayer;
+RectangleLayerComponent.prototype.didCreateLayer = function () {
+  rectangle = this;
+  return oldDidCreateLayer.apply(this, arguments);
+};
+
 module('Integration | Component | rectangle layer', function (hooks) {
   setupRenderingTest(hooks);
 

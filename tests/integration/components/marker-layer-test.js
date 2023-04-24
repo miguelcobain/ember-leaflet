@@ -12,20 +12,17 @@ L.Icon.Default.imagePath = 'some-path';
 
 let marker;
 
+// monkey patch `createLayer` method to get a reference to the instance
+let oldCreateLayer = MarkerLayerComponent.prototype.createLayer;
+MarkerLayerComponent.prototype.createLayer = function () {
+  marker = this;
+  return oldCreateLayer.apply(this, arguments);
+};
+
 module('Integration | Component | marker layer', function (hooks) {
   setupRenderingTest(hooks);
 
   hooks.beforeEach(function () {
-    this.owner.register(
-      'component:marker-layer',
-      class extends MarkerLayerComponent {
-        constructor() {
-          super(...arguments);
-          marker = this;
-        }
-      }
-    );
-
     this.set('center', locations.nyc);
     this.set('zoom', 13);
   });

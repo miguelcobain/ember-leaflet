@@ -8,20 +8,17 @@ import locations from '../../helpers/locations';
 
 let arrayPath;
 
+// monkey patch `didCreateLayer` method to get a reference to the instance
+let oldDidCreateLayer = PolylineLayerComponent.prototype.didCreateLayer;
+PolylineLayerComponent.prototype.didCreateLayer = function () {
+  arrayPath = this;
+  return oldDidCreateLayer.apply(this, arguments);
+};
+
 module('Integration | Component | array path layer', function (hooks) {
   setupRenderingTest(hooks);
 
   hooks.beforeEach(function () {
-    this.owner.register(
-      'component:polyline-layer',
-      class extends PolylineLayerComponent {
-        constructor() {
-          super(...arguments);
-          arrayPath = this;
-        }
-      }
-    );
-
     this.set('center', locations.nyc);
     this.set('zoom', 13);
   });

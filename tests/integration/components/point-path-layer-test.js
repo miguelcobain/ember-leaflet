@@ -7,20 +7,17 @@ import locations from '../../helpers/locations';
 
 let pointPath;
 
+// monkey patch `didCreateLayer` method to get a reference to the instance
+let oldDidCreateLayer = CircleLayerComponent.prototype.didCreateLayer;
+CircleLayerComponent.prototype.didCreateLayer = function () {
+  pointPath = this;
+  return oldDidCreateLayer.apply(this, arguments);
+};
+
 module('Integration | Component | point path layer', function (hooks) {
   setupRenderingTest(hooks);
 
   hooks.beforeEach(function () {
-    this.owner.register(
-      'component:circle-layer',
-      class extends CircleLayerComponent {
-        constructor() {
-          super(...arguments);
-          pointPath = this;
-        }
-      }
-    );
-
     this.set('center', locations.nyc);
     this.set('zoom', 13);
     this.set('radius', 50);

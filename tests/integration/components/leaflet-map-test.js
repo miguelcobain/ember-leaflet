@@ -8,20 +8,17 @@ import locations from '../../helpers/locations';
 
 let map;
 
+// monkey patch `didCreateLayer` method to get a reference to the instance
+let oldDidCreateLayer = LeafletMapComponent.prototype.didCreateLayer;
+LeafletMapComponent.prototype.didCreateLayer = function () {
+  map = this;
+  return oldDidCreateLayer.apply(this, arguments);
+};
+
 module('Integration | Component | leaflet map', function (hooks) {
   setupRenderingTest(hooks);
 
   hooks.beforeEach(function () {
-    this.owner.register(
-      'component:leaflet-map',
-      class extends LeafletMapComponent {
-        constructor() {
-          super(...arguments);
-          map = this;
-        }
-      }
-    );
-
     this.set('center', locations.nyc);
     this.set('zoom', 12);
   });

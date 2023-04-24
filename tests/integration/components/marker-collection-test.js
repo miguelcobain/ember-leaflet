@@ -1,5 +1,4 @@
 import { run } from '@ember/runloop';
-import { action } from '@ember/object';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, settled } from '@ember/test-helpers';
@@ -11,36 +10,28 @@ import locations from '../../helpers/locations';
 // Needed to silence leaflet autodetection error
 L.Icon.Default.imagePath = 'some-path';
 
-let markersInitCount, createLayersCount, destroyLayersCount, markers;
+let createLayersCount,
+  destroyLayersCount,
+  markers = [];
+
+// monkey patch `didCreateLayer` and `willDestroyParent` methods to keep references updated
+let oldDidCreateLayer = MarkerLayerComponent.prototype.didCreateLayer;
+MarkerLayerComponent.prototype.didCreateLayer = function () {
+  createLayersCount++;
+  markers.push(this);
+  return oldDidCreateLayer.apply(this, arguments);
+};
+
+let oldWillDestroyLayer = MarkerLayerComponent.prototype.willDestroyLayer;
+MarkerLayerComponent.prototype.willDestroyLayer = function () {
+  destroyLayersCount++;
+  return oldWillDestroyLayer.apply(this, arguments);
+};
 
 module('Integration | Component | marker layer collection', function (hooks) {
   setupRenderingTest(hooks);
 
   hooks.beforeEach(function () {
-    this.owner.register(
-      'component:marker-layer',
-      class extends MarkerLayerComponent {
-        constructor() {
-          super(...arguments);
-          markersInitCount++;
-          markers.push(this);
-        }
-
-        @action
-        didInsertParent() {
-          super.didInsertParent(...arguments);
-          createLayersCount++;
-        }
-
-        @action
-        willDestroyParent() {
-          super.willDestroyParent(...arguments);
-          destroyLayersCount++;
-        }
-      }
-    );
-
-    markersInitCount = 0;
     createLayersCount = 0;
     destroyLayersCount = 0;
     markers = [];
@@ -67,7 +58,6 @@ module('Integration | Component | marker layer collection', function (hooks) {
     `);
 
     // pre-conditions
-    assert.strictEqual(markersInitCount, 4);
     assert.strictEqual(createLayersCount, 4);
     assert.strictEqual(destroyLayersCount, 0);
 
@@ -80,7 +70,6 @@ module('Integration | Component | marker layer collection', function (hooks) {
 
     // only one leaflet marker was created
     // great for performance
-    assert.strictEqual(markersInitCount, 5);
     assert.strictEqual(createLayersCount, 5);
     assert.strictEqual(destroyLayersCount, 1); // and only one was destroyed
   });
@@ -101,7 +90,6 @@ module('Integration | Component | marker layer collection', function (hooks) {
     `);
 
     // pre-conditions
-    assert.strictEqual(markersInitCount, 4);
     assert.strictEqual(createLayersCount, 4);
     assert.strictEqual(destroyLayersCount, 0);
 
@@ -118,7 +106,6 @@ module('Integration | Component | marker layer collection', function (hooks) {
 
     this.set('markers', [restaurant1, restaurant2, restaurant3]);
 
-    assert.strictEqual(markersInitCount, 4);
     assert.strictEqual(createLayersCount, 4);
     assert.strictEqual(destroyLayersCount, 1);
 
