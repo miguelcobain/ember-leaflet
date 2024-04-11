@@ -9,6 +9,8 @@ import TooltipLayer from './tooltip-layer';
  *
  * @class InteractiveLayer
  * @extends BaseLayer
+ * @yield {PopupLayer} popup
+ * @yield {TooltipLayer} tooltip
  */
 export default class InteractiveLayer extends BaseLayer {
   leafletOptions = [
