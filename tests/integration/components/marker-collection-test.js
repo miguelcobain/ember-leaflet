@@ -50,10 +50,10 @@ module('Integration | Component | marker layer collection', function (hooks) {
     this.set('markers', [restaurant1, restaurant2, restaurant3, restaurant4]);
 
     await render(hbs`<LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
-      {{#each this.markers as |m|}}
-        <layers.marker @location={{m.location}} />
-      {{/each}}
-    </LeafletMap>`);
+  {{#each this.markers as |m|}}
+    <layers.marker @location={{m.location}} />
+  {{/each}}
+</LeafletMap>`);
 
     // pre-conditions
     assert.strictEqual(createLayersCount, 4);
