@@ -124,6 +124,14 @@ export default class PopupLayer extends DivOverlayLayer {
     'closeOnClick'
   ];
 
+  /**
+   * Changing this argument will open or close the popup.
+   * This is only required if you need a way to externally control the popup.
+   *
+   * @argument popupOpen
+   * @type {Boolean}
+   */
+
   isOpen() {
     // leaflet 1 added an `isOpen` method
     return this._layer.isOpen ? this._layer.isOpen() : this._layer._isOpen;
