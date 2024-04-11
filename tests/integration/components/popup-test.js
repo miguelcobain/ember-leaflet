@@ -158,6 +158,8 @@ module('Integration | Component | popup layer', function (hooks) {
 
     this.set('isVisible', false);
 
+    await settled();
+
     assert.false(isPopupOpen(map._popup), 'popup closed');
   });
 

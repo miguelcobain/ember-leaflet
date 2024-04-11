@@ -14,7 +14,7 @@ let createLayersCount,
   destroyLayersCount,
   markers = [];
 
-// monkey patch `didCreateLayer` and `willDestroyParent` methods to keep references updated
+// monkey patch `didCreateLayer` and `willDestroyLayer` methods to keep references updated
 let oldDidCreateLayer = MarkerLayerComponent.prototype.didCreateLayer;
 MarkerLayerComponent.prototype.didCreateLayer = function () {
   createLayersCount++;
@@ -50,10 +50,10 @@ module('Integration | Component | marker layer collection', function (hooks) {
     this.set('markers', [restaurant1, restaurant2, restaurant3, restaurant4]);
 
     await render(hbs`<LeafletMap @zoom={{this.zoom}} @center={{this.center}} as |layers|>
-  {{#each this.markers as |m|}}
-    <layers.marker @location={{m.location}} />
-  {{/each}}
-</LeafletMap>`);
+      {{#each this.markers as |m|}}
+        <layers.marker @location={{m.location}} />
+      {{/each}}
+    </LeafletMap>`);
 
     // pre-conditions
     assert.strictEqual(createLayersCount, 4);
@@ -65,6 +65,8 @@ module('Integration | Component | marker layer collection', function (hooks) {
       restaurant3,
       restaurant4
     ]);
+
+    await settled();
 
     // only one leaflet marker was created
     // great for performance
@@ -101,6 +103,8 @@ module('Integration | Component | marker layer collection', function (hooks) {
     assert.dom(markers[2]._layer._popup._contentNode).hasText('Popup content', 'popup content set');
 
     this.set('markers', [restaurant1, restaurant2, restaurant3]);
+
+    await settled();
 
     assert.strictEqual(createLayersCount, 4);
     assert.strictEqual(destroyLayersCount, 1);

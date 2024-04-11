@@ -137,6 +137,8 @@ if (!isLeaflet07(L)) {
 
       this.set('isVisible', false);
 
+      await settled();
+
       assert.strictEqual(tooltip._map, null, 'tooltip closed');
     });
 

@@ -7,7 +7,7 @@ to forget it is a layer like any other.
 Ember-leaflet provides the `<layers.tile>` component that enables you
 to create tile layers. This is raster data, so you'll need a tile layer server
 that provides them for you.
-<a class="docs-md__a" href="http://wiki.openstreetmap.org/wiki/Tiles#Servers" target="_blank" rel="noopener">
+<a class="docs-md__a" href="https://alexurquhart.github.io/free-tiles/" target="_blank" rel="noopener">
 Here are some free tile layer servers you can use.</a> Let's use some cool tiles
 from CartoDB and see how it looks.
 
