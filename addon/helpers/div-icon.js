@@ -2,6 +2,14 @@ import { helper } from '@ember/component/helper';
 const isFastBoot = typeof FastBoot !== 'undefined';
 /* global L */
 
+export const divIcon = isFastBoot
+  ? function () {}
+  : function divIcon(_, hash) {
+      // https://github.com/emberjs/ember.js/issues/14668
+      let options = Object.assign({}, hash);
+      return L.divIcon(options);
+    };
+
 /**
  * Represents a lightweight icon for markers that uses a simple `<div>` element instead of an image.
  * Inherits from Icon but ignores the iconUrl and shadow options.
@@ -11,12 +19,4 @@ const isFastBoot = typeof FastBoot !== 'undefined';
  * @param {Object} options the DivIcon options object
  * @return {DivIcon}
  */
-export const divIcon = isFastBoot
-  ? function () {}
-  : function divIcon(_, hash) {
-      // https://github.com/emberjs/ember.js/issues/14668
-      let options = Object.assign({}, hash);
-      return L.divIcon(options);
-    };
-
 export default helper(divIcon);
